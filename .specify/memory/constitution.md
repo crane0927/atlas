@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report:
-Version: 0.2.1 → 0.2.2
+Version: 0.2.3 → 0.2.4
 创建日期: 2025-01-27
 最后修订: 2025-01-27
 修改的原则: 
-  - 原则 10: 模块化设计 - 将 atlas-common 子模块拆分为 atlas-common-infra 和 atlas-common-feature
+  - 原则 10: 模块化设计 - 移除 atlas-admin 模块
 新增章节: 无
 移除章节: 无
 模板更新状态:
@@ -18,7 +18,7 @@ Version: 0.2.1 → 0.2.2
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.2.2  
+**版本**: 0.2.4  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2025-01-27
 
@@ -237,21 +237,23 @@ Version: 0.2.1 → 0.2.2
 **标准结构**:
 ```
 atlas/
-├── atlas-admin/          # 管理后台服务
 ├── atlas-gateway/        # API 网关
 ├── atlas-auth/           # 认证授权服务
 ├── atlas-common/         # 公共模块
 │   ├── atlas-common-infra/     # 基础设施模块
-│   │   └── atlas-common-log/   # 日志相关
+│   │   ├── atlas-common-infra-web/      # Web 相关工具
+│   │   ├── atlas-common-infra-redis/    # Redis 相关工具
+│   │   ├── atlas-common-infra-db/       # 数据库相关工具
+│   │   └── atlas-common-infra-logging/  # 日志相关
 │   └── atlas-common-feature/   # 功能特性模块
-│       ├── atlas-common-core/      # 核心工具类
-│       └── atlas-common-security/  # 安全相关
+│       ├── atlas-common-feature-core/      # 核心工具类
+│       └── atlas-common-feature-security/   # 安全相关
 ├── atlas-service/        # 服务模块
 │   ├── atlas-system/     # 系统管理服务
-│   ├── ... 
-├── atlas-service-api/        # API 接口定义
-│   ├── atlas-system-api/     # 系统管理服务 API
-│   ├── ...
+│   └── ... 
+└── atlas-service-api/        # API 接口定义
+    ├── atlas-system-api/     # 系统管理服务 API
+    └── ...
 ```
 
 **理由**: 模块化设计便于代码组织、团队协作和功能扩展，符合微服务架构的最佳实践。
@@ -322,11 +324,15 @@ atlas/
 
 | 版本 | 日期 | 修订内容 | 修订人 |
 |------|------|----------|--------|
+| 版本 | 日期 | 修订内容 | 修订人 |
+|------|------|----------|--------|
 | 0.1.0 | 2025-01-27 | 初始版本创建 | 系统 |
 | 0.1.1 | 2025-01-27 | 更新项目标准结构，调整模块组织方式 | 系统 |
 | 0.2.0 | 2025-01-27 | 新增数据库技术选型、组件优先使用 Spring Cloud 生态、设计模式应用原则 | 系统 |
 | 0.2.1 | 2025-01-27 | 修改数据库连接配置为仅使用 MyBatis-Plus，删除数据源配置要求 | 系统 |
 | 0.2.2 | 2025-01-27 | 将 atlas-common 子模块拆分为 atlas-common-infra 和 atlas-common-feature | 系统 |
+| 0.2.3 | 2025-01-27 | 优化项目结构，修复缩进和注释，修正模块名称拼写错误 | 系统 |
+| 0.2.4 | 2025-01-27 | 移除 atlas-admin 模块 | 系统 |
 
 ---
 
