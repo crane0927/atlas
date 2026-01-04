@@ -1,50 +1,331 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version: 0.2.0 → 0.2.1
+创建日期: 2025-01-27
+最后修订: 2025-01-27
+修改的原则: 
+  - 原则 4: 数据库技术选型 - 修改为仅使用 MyBatis-Plus，删除数据源配置要求
+  - 原则 10: 模块化设计 - 删除 RuoYi 框架引用
+新增章节: 无
+移除章节: 无
+模板更新状态:
+  - .specify/templates/plan-template.md: ✅ 已同步
+  - .specify/templates/spec-template.md: ✅ 已同步
+  - .specify/templates/tasks-template.md: ✅ 已同步
+  - .specify/templates/commands/*.md: ✅ 已同步
+后续待办: 无
+-->
 
-## Core Principles
+# 项目宪法
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+**项目名称**: Atlas  
+**版本**: 0.2.1  
+**批准日期**: 2025-01-27  
+**最后修订日期**: 2025-01-27
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+## 概述
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+本宪法定义了 Atlas 项目的核心原则、技术标准和治理规则。Atlas 是一个基于 Spring Boot 和 Spring Cloud 的企业级快速开发框架，旨在提供高效、规范、可维护的微服务开发解决方案。
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+## 技术栈原则
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### 原则 1: Java 版本要求
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**规则**: 项目必须使用 JDK 21 作为最低和唯一支持的 Java 版本。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**理由**: JDK 21 是长期支持（LTS）版本，提供了现代 Java 特性（如虚拟线程、模式匹配、记录类等），能够提升开发效率和运行时性能。所有代码必须兼容 JDK 21，不得使用已废弃的 API 或特性。
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**验证**: 
+- `pom.xml` 或 `build.gradle` 中必须明确指定 Java 版本为 21
+- CI/CD 流水线必须使用 JDK 21 进行构建和测试
+- 代码审查时检查是否使用了 JDK 21 不支持的特性
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### 原则 2: Spring Boot 版本锁定
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+**规则**: 项目必须使用 Spring Boot 4.0.1 版本，不得随意升级或降级。
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+**理由**: Spring Boot 4.0.1 与 JDK 21 完全兼容，提供了最新的框架特性和安全补丁。版本锁定确保团队使用统一的技术栈，避免因版本差异导致的兼容性问题。
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**验证**:
+- `pom.xml` 中的 `spring-boot-starter-parent` 版本必须为 4.0.1
+- 所有 Spring Boot 相关依赖的版本必须由父 POM 管理，不得显式指定版本号
+
+### 原则 3: Spring Cloud 生态版本
+
+**规则**: 项目必须使用 Spring Cloud 2025.1.0 和 Spring Cloud Alibaba 2025.1.0 版本。
+
+**理由**: 这两个版本与 Spring Boot 4.0.1 完全兼容，提供了完整的微服务解决方案，包括服务注册与发现、配置管理、网关、熔断降级等功能。版本统一确保微服务组件之间的兼容性。
+
+**验证**:
+- `pom.xml` 的 `dependencyManagement` 中必须包含这两个 BOM
+- 所有 Spring Cloud 和 Spring Cloud Alibaba 组件的版本必须由 BOM 管理
+
+### 原则 4: 数据库技术选型
+
+**规则**: 项目必须使用 PostgreSQL 作为主要关系型数据库。
+
+**理由**: PostgreSQL 是功能强大的开源关系型数据库，具有优秀的性能、可靠性和扩展性。支持 ACID 事务、复杂查询、JSON 数据类型、全文搜索等高级特性，适合企业级应用场景。
+
+**具体要求**:
+- 所有持久化数据必须存储在 PostgreSQL 数据库中
+- 数据库连接配置必须使用 MyBatis-Plus
+- 数据库迁移使用 Flyway 或 Liquibase 进行版本管理
+- 禁止使用其他关系型数据库（如 MySQL、Oracle）作为主数据库
+- 如需使用其他数据库（如 Redis、MongoDB），仅作为缓存或特定场景的辅助存储
+- 不需要数据库连接的模块（如网关、配置中心等）无需配置数据源
+
+**验证**:
+- 需要数据库连接的模块必须使用 MyBatis-Plus 进行数据访问
+- 数据库迁移脚本必须使用 Flyway 或 Liquibase 管理
+- 代码审查时检查是否有直接使用其他关系型数据库的情况
+- 代码审查时检查是否使用了 Spring Data JPA 或其他 ORM 框架
+
+### 原则 5: 组件优先使用 Spring Cloud 生态
+
+**规则**: 所有功能组件必须优先使用 Spring Cloud 和 Spring Cloud Alibaba 提供的官方组件，避免引入第三方替代方案。
+
+**具体要求**:
+- **服务注册与发现**: 优先使用 Nacos（Spring Cloud Alibaba），避免使用 Eureka、Consul 等
+- **配置管理**: 优先使用 Nacos Config，避免使用 Spring Cloud Config Server
+- **API 网关**: 优先使用 Spring Cloud Gateway，避免使用 Zuul、Kong 等
+- **服务调用**: 优先使用 OpenFeign，避免使用 RestTemplate、OkHttp 等原生 HTTP 客户端
+- **熔断降级**: 优先使用 Sentinel（Spring Cloud Alibaba），避免使用 Hystrix
+- **分布式事务**: 优先使用 Seata（Spring Cloud Alibaba），避免使用其他分布式事务方案
+- **消息队列**: 优先使用 RocketMQ（Spring Cloud Alibaba），避免使用 RabbitMQ、Kafka 等
+- **链路追踪**: 优先使用 SkyWalking（Spring Cloud Alibaba），避免使用 Zipkin、Jaeger 等
+- **限流**: 优先使用 Sentinel，避免使用 Guava RateLimiter 等
+- **负载均衡**: 使用 Spring Cloud LoadBalancer（Spring Cloud 官方组件）
+
+**理由**: 
+- Spring Cloud 和 Spring Cloud Alibaba 组件与 Spring Boot 深度集成，配置简单，维护成本低
+- 官方组件经过充分测试，稳定性和兼容性有保障
+- 统一的组件生态降低学习成本，便于团队协作
+- 避免组件冲突和版本兼容性问题
+
+**例外情况**:
+- 如果 Spring Cloud 生态中没有对应组件，可以引入第三方组件，但必须在代码注释和文档中说明原因
+- 特殊业务场景需要特定组件时，需要团队评审批准
+
+**验证**:
+- 代码审查时检查依赖引入，确认优先使用 Spring Cloud 生态组件
+- `pom.xml` 中不应包含已被 Spring Cloud 生态替代的第三方组件（如 Hystrix、Eureka）
+- 引入非 Spring Cloud 生态组件时，必须提供充分的理由说明
+
+## 架构与设计原则
+
+### 原则 6: RESTful API 设计
+
+**规则**: 所有 HTTP 接口必须严格遵循 RESTful 设计风格。
+
+**具体要求**:
+- 使用标准 HTTP 方法（GET、POST、PUT、DELETE、PATCH）
+- URL 路径使用名词复数形式，避免动词（如 `/api/users` 而非 `/api/getUsers`）
+- 使用 HTTP 状态码表示操作结果（200、201、204、400、401、403、404、500 等）
+- 响应体使用 JSON 格式，统一使用 `Result<T>` 或 `ResponseEntity<T>` 包装
+- 分页查询使用 `page` 和 `size` 参数，排序使用 `sort` 参数
+- 版本控制通过 URL 路径实现（如 `/api/v1/users`）
+
+**理由**: RESTful 风格是业界标准，提供了一致的 API 设计规范，便于前端调用和第三方集成，降低学习成本。
+
+**验证**:
+- 代码审查时检查 Controller 层的 URL 设计和 HTTP 方法使用
+- API 文档必须明确标注每个接口的 HTTP 方法和状态码
+- 禁止在 URL 中使用动词（如 `/createUser`、`/deleteUser`）
+
+### 原则 7: 代码注释规范
+
+**规则**: 代码注释优先使用中文，类、方法、复杂逻辑必须添加中文注释。
+
+**具体要求**:
+- 所有公共类必须使用 Javadoc 格式的中文注释，包含类描述、作者、创建时间
+- 所有公共方法必须使用 Javadoc 格式的中文注释，包含方法描述、参数说明、返回值说明、异常说明
+- 复杂业务逻辑必须添加行内中文注释，解释实现思路和关键步骤
+- 配置类、工具类、常量类必须详细注释每个字段和方法的用途
+- 接口（Interface）必须注释其设计意图和使用场景
+
+**理由**: 中文注释便于国内开发团队理解和维护代码，降低沟通成本，提高代码可读性。中文注释有助于新成员快速理解业务逻辑。
+
+**验证**:
+- 代码审查时检查关键类和方法是否有中文注释
+- 使用代码质量工具（如 SonarQube）检查注释覆盖率
+- 禁止使用无意义的英文注释（如 `// TODO`、`// FIXME` 应改为中文说明）
+
+### 原则 8: 代码复用与公共方法提取
+
+**规则**: 重复代码必须提取为公共方法或工具类，遵循 DRY（Don't Repeat Yourself）原则。
+
+**具体要求**:
+- 相同或相似的业务逻辑必须提取到 Service 层的公共方法
+- 通用的工具方法必须放在 `utils` 包下的工具类中，方法声明为 `public static`
+- 重复的验证逻辑必须提取为公共验证方法或使用注解
+- 重复的异常处理逻辑必须使用统一异常处理器（`@ControllerAdvice`）
+- 重复的数据转换逻辑必须使用 MapStruct 或自定义转换器
+- 公共方法必须添加完整的中文注释，说明使用场景和注意事项
+
+**理由**: 代码复用减少维护成本，提高代码质量，确保业务逻辑的一致性。公共方法便于单元测试和功能扩展。
+
+**验证**:
+- 代码审查时识别重复代码模式，要求重构
+- 使用代码分析工具（如 PMD、Checkstyle）检测重复代码
+- 新增功能时优先检查是否有可复用的公共方法
+
+### 原则 9: 设计模式应用
+
+**规则**: 在适当场景下使用经典设计模式，提高代码的可维护性、可扩展性和可测试性。
+
+**推荐使用的设计模式**:
+
+1. **策略模式（Strategy Pattern）**
+   - 适用于：多种算法或业务规则需要动态切换的场景
+   - 示例：支付方式选择、数据验证规则、排序策略等
+
+2. **工厂模式（Factory Pattern）**
+   - 适用于：对象创建逻辑复杂，需要统一管理的场景
+   - 示例：数据源工厂、消息处理器工厂、转换器工厂等
+
+3. **建造者模式（Builder Pattern）**
+   - 适用于：创建复杂对象，需要灵活配置的场景
+   - 示例：复杂查询条件构建、配置对象构建等
+
+4. **模板方法模式（Template Method Pattern）**
+   - 适用于：多个类有相似的算法骨架，但具体步骤不同的场景
+   - 示例：数据处理流程、审批流程、报表生成等
+
+5. **观察者模式（Observer Pattern）**
+   - 适用于：对象间一对多依赖关系，一个对象状态改变需要通知多个对象的场景
+   - 示例：事件发布订阅、消息通知、状态变更监听等
+
+6. **适配器模式（Adapter Pattern）**
+   - 适用于：需要适配不同接口或第三方组件的场景
+   - 示例：第三方 API 适配、数据格式转换等
+
+7. **单例模式（Singleton Pattern）**
+   - 适用于：确保类只有一个实例的场景（谨慎使用，优先使用 Spring 的 Bean 管理）
+   - 注意：在 Spring 环境中，通常使用 `@Component` 或 `@Service` 注解即可
+
+8. **责任链模式（Chain of Responsibility Pattern）**
+   - 适用于：多个对象可以处理同一请求，但处理优先级不同的场景
+   - 示例：权限验证链、数据校验链、审批流程等
+
+**使用原则**:
+- **适度使用**: 不要为了使用设计模式而使用，应根据实际业务需求选择
+- **保持简单**: 优先使用简单直接的实现方式，只有在复杂度确实需要时才引入设计模式
+- **文档说明**: 使用设计模式时，必须在代码注释中说明使用的模式和设计意图
+- **团队共识**: 复杂的设计模式使用前应经过团队评审，确保团队成员理解
+
+**避免过度设计**:
+- 不要在不必要的地方使用复杂的设计模式
+- 不要为了展示技术能力而引入不必要的抽象层
+- 优先使用 Spring 框架提供的特性（如依赖注入、AOP）来实现解耦
+
+**理由**: 
+- 设计模式是经过验证的解决方案，能够解决常见的软件设计问题
+- 适当使用设计模式可以提高代码的可维护性和可扩展性
+- 统一的模式使用有助于团队理解和维护代码
+- 避免过度设计，保持代码简洁易懂
+
+**验证**:
+- 代码审查时检查复杂业务逻辑是否可以使用设计模式优化
+- 检查设计模式的使用是否合理，避免过度设计
+- 确保设计模式的使用有充分的文档说明
+
+## 项目结构原则
+
+### 原则 10: 模块化设计
+
+**规则**: 项目必须采用模块化设计，遵循分层架构原则。
+
+**标准结构**:
+```
+atlas/
+├── atlas-admin/          # 管理后台服务
+├── atlas-gateway/        # API 网关
+├── atlas-auth/           # 认证授权服务
+├── atlas-common/         # 公共模块
+│   ├── atlas-common-core/      # 核心工具类
+│   ├── atlas-common-security/  # 安全相关
+│   └── atlas-common-log/       # 日志相关
+├── atlas-service/        # 服务模块
+│   ├── atlas-system/     # 系统管理服务
+│   ├── ... 
+├── atlas-service-api/        # API 接口定义
+│   ├── atlas-system-api/     # 系统管理服务 API
+│   ├── ...
+```
+
+**理由**: 模块化设计便于代码组织、团队协作和功能扩展，符合微服务架构的最佳实践。
+
+## 质量保证原则
+
+### 原则 11: 单元测试要求
+
+**规则**: 核心业务逻辑和公共方法必须编写单元测试，测试覆盖率不低于 70%。
+
+**理由**: 单元测试确保代码质量，减少回归问题，提高重构信心。
+
+### 原则 12: 代码规范检查
+
+**规则**: 代码必须通过 Checkstyle、PMD、SpotBugs 等静态代码分析工具检查。
+
+**理由**: 统一的代码风格和规范提高代码可读性和可维护性。
+
+## 治理规则
+
+### 版本管理
+
+**版本号规则**: 遵循语义化版本（SemVer）规范：`MAJOR.MINOR.PATCH`
+
+- **MAJOR**: 不兼容的 API 修改或重大架构变更
+- **MINOR**: 向后兼容的功能新增
+- **PATCH**: 向后兼容的问题修复
+
+**宪法版本更新规则**:
+- **MAJOR**: 移除或重新定义原则，导致向后不兼容的治理变更
+- **MINOR**: 新增原则或章节，或显著扩展现有原则的指导内容
+- **PATCH**: 澄清说明、措辞修正、非语义性改进
+
+### 修订程序
+
+1. **提案**: 任何团队成员可以提出宪法修订提案，说明修订理由和影响范围
+2. **讨论**: 在团队会议或代码审查中讨论提案，评估对现有代码和流程的影响
+3. **批准**: 需要至少 2 名核心成员批准，重大修订需要团队一致同意
+4. **更新**: 更新宪法文件，更新版本号和最后修订日期
+5. **传播**: 更新相关模板文件（plan-template.md、spec-template.md、tasks-template.md 等），确保一致性
+6. **通知**: 通知所有团队成员，更新项目文档
+
+### 合规审查
+
+- **代码审查**: 每次 Pull Request 必须检查是否符合宪法原则
+- **定期审查**: 每季度进行一次宪法合规性审查，识别违反原则的代码和技术债务
+- **工具检查**: 使用自动化工具（CI/CD）检查技术栈版本、代码规范、测试覆盖率等
+- **文档更新**: 宪法修订后，相关技术文档和开发指南必须同步更新
+
+### 例外处理
+
+在特殊情况下（如紧急修复、技术限制），可以申请临时例外，但必须：
+1. 在代码注释中明确说明例外原因和预期解决时间
+2. 在项目 Issue 中记录例外情况
+3. 在下次合规审查中评估是否可以将例外情况标准化或消除
+
+## 附录
+
+### 参考资源
+
+- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
+- [Spring Cloud 官方文档](https://spring.io/projects/spring-cloud)
+- [MyBatis-Plus 官方文档](https://baomidou.com/)
+- [RESTful API 设计指南](https://restfulapi.net/)
+- [语义化版本规范](https://semver.org/lang/zh-CN/)
+
+### 变更历史
+
+| 版本 | 日期 | 修订内容 | 修订人 |
+|------|------|----------|--------|
+| 0.1.0 | 2025-01-27 | 初始版本创建 | 系统 |
+| 0.1.1 | 2025-01-27 | 更新项目标准结构，调整模块组织方式 | 系统 |
+| 0.2.0 | 2025-01-27 | 新增数据库技术选型、组件优先使用 Spring Cloud 生态、设计模式应用原则 | 系统 |
+| 0.2.1 | 2025-01-27 | 修改数据库连接配置为仅使用 MyBatis-Plus，删除数据源配置要求 | 系统 |
+
+---
+
+**注意**: 本宪法是项目的根本性指导文档，所有开发活动必须遵循本宪法的规定。如有疑问或建议，请通过修订程序提出。
