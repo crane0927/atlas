@@ -1,11 +1,10 @@
 <!--
 Sync Impact Report:
-Version: 0.2.0 → 0.2.1
+Version: 0.2.1 → 0.2.2
 创建日期: 2025-01-27
 最后修订: 2025-01-27
 修改的原则: 
-  - 原则 4: 数据库技术选型 - 修改为仅使用 MyBatis-Plus，删除数据源配置要求
-  - 原则 10: 模块化设计 - 删除 RuoYi 框架引用
+  - 原则 10: 模块化设计 - 将 atlas-common 子模块拆分为 atlas-common-infra 和 atlas-common-feature
 新增章节: 无
 移除章节: 无
 模板更新状态:
@@ -19,7 +18,7 @@ Version: 0.2.0 → 0.2.1
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.2.1  
+**版本**: 0.2.2  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2025-01-27
 
@@ -242,9 +241,11 @@ atlas/
 ├── atlas-gateway/        # API 网关
 ├── atlas-auth/           # 认证授权服务
 ├── atlas-common/         # 公共模块
-│   ├── atlas-common-core/      # 核心工具类
-│   ├── atlas-common-security/  # 安全相关
-│   └── atlas-common-log/       # 日志相关
+│   ├── atlas-common-infra/     # 基础设施模块
+│   │   └── atlas-common-log/   # 日志相关
+│   └── atlas-common-feature/   # 功能特性模块
+│       ├── atlas-common-core/      # 核心工具类
+│       └── atlas-common-security/  # 安全相关
 ├── atlas-service/        # 服务模块
 │   ├── atlas-system/     # 系统管理服务
 │   ├── ... 
@@ -325,6 +326,7 @@ atlas/
 | 0.1.1 | 2025-01-27 | 更新项目标准结构，调整模块组织方式 | 系统 |
 | 0.2.0 | 2025-01-27 | 新增数据库技术选型、组件优先使用 Spring Cloud 生态、设计模式应用原则 | 系统 |
 | 0.2.1 | 2025-01-27 | 修改数据库连接配置为仅使用 MyBatis-Plus，删除数据源配置要求 | 系统 |
+| 0.2.2 | 2025-01-27 | 将 atlas-common 子模块拆分为 atlas-common-infra 和 atlas-common-feature | 系统 |
 
 ---
 
