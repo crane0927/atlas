@@ -91,7 +91,7 @@ Version: 0.3.4 → 0.3.5
 - **熔断降级**: 优先使用 Sentinel（Spring Cloud Alibaba），避免使用 Hystrix
 - **分布式事务**: 优先使用 Seata（Spring Cloud Alibaba），避免使用其他分布式事务方案
 - **消息队列**: 优先使用 RocketMQ（Spring Cloud Alibaba），避免使用 RabbitMQ、Kafka 等
-- **链路追踪**: 优先使用 SkyWalking（Spring Cloud Alibaba），避免使用 Zipkin、Jaeger 等
+- **链路追踪**: 优先使用 SkyWalking（企业常用方案，推荐）或 Spring 官方 Micrometer Tracing 生态；避免 Zipkin/Jaeger 等非统一方案
 - **限流**: 优先使用 Sentinel，避免使用 Guava RateLimiter 等
 - **负载均衡**: 使用 Spring Cloud LoadBalancer（Spring Cloud 官方组件）
 
@@ -120,7 +120,7 @@ Version: 0.3.4 → 0.3.5
 - 使用标准 HTTP 方法（GET、POST、PUT、DELETE、PATCH）
 - URL 路径使用名词复数形式，避免动词（如 `/api/users` 而非 `/api/getUsers`）
 - 使用 HTTP 状态码表示操作结果（200、201、204、400、401、403、404、500 等）
-- 响应体使用 JSON 格式，统一使用 `Result<T>` 或 `ResponseEntity<T>` 包装
+- 响应体使用 JSON 格式，统一使用 `Result<T>` 包装
 - 分页查询使用 `page` 和 `size` 参数，排序使用 `sort` 参数
 - 版本控制通过 URL 路径实现（如 `/api/v1/users`）
 
@@ -452,8 +452,6 @@ atlas/
 
 ### 变更历史
 
-| 版本 | 日期 | 修订内容 | 修订人 |
-|------|------|----------|--------|
 | 版本 | 日期 | 修订内容 | 修订人 |
 |------|------|----------|--------|
 | 0.1.0 | 2025-01-27 | 初始版本创建 | 系统 |
