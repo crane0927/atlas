@@ -11,7 +11,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>Atlas</name>
+    <name>atlas</name>
     <description>Atlas 企业级快速开发框架 - 基于 Spring Boot 和 Spring Cloud 的微服务开发解决方案</description>
 
     <!-- 继承 Spring Boot Parent -->
