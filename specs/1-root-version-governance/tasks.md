@@ -59,30 +59,30 @@
 
 ### FR1: 父 POM 统一管理
 
-- [ ] T007 [FR1] 创建根 POM 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T008 [FR1] 配置项目基本信息（groupId、artifactId、version、packaging）在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T009 [FR1] 配置 Java 版本为 21 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T010 [FR1] 配置字符编码为 UTF-8 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T011 [FR1] 配置 Maven 编译版本和源代码版本为 21 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T007 [FR1] 创建根 POM 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T008 [FR1] 配置项目基本信息（groupId、artifactId、version、packaging）在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T009 [FR1] 配置 Java 版本为 21 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T010 [FR1] 配置字符编码为 UTF-8 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T011 [FR1] 配置 Maven 编译版本和源代码版本为 21 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
 
 ### FR2: 依赖版本管理
 
-- [ ] T012 [FR2] 配置 Spring Boot Parent (4.0.1) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T013 [FR2] 配置 Spring Cloud BOM (2025.1.0) 在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T014 [FR2] 配置 Spring Cloud Alibaba BOM (2025.1.0) 在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T015 [FR2] 配置 MyBatis-Plus 版本管理在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T016 [FR2] 配置 PostgreSQL 驱动版本管理在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T017 [FR2] 配置其他常用依赖版本管理（如 Lombok、MapStruct 等）在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T012 [FR2] 配置 Spring Boot Parent (4.0.1) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T013 [FR2] 配置 Spring Cloud BOM (2025.1.0) 在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T014 [FR2] 配置 Spring Cloud Alibaba BOM (2025.1.0) 在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`（注意：版本可能尚未发布，已添加注释说明）
+- [x] T015 [FR2] 配置 MyBatis-Plus 版本管理在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T016 [FR2] 配置 PostgreSQL 驱动版本管理在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T017 [FR2] 配置其他常用依赖版本管理（如 Lombok、MapStruct 等）在 dependencyManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
 
 ### FR3: 插件管理
 
-- [ ] T018 [FR3] 配置 Maven Compiler Plugin（Java 21）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T019 [FR3] 配置 Maven Enforcer Plugin（强制 Java 版本和依赖版本一致性）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T020 [FR3] 配置 Maven Surefire Plugin（单元测试执行）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T021 [FR3] 配置 Maven Failsafe Plugin（集成测试执行）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T022 [FR3] 配置 Spotless Maven Plugin（代码格式化，使用 Google Java Format）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T023 [FR3] 配置统一属性（编码、版本号等）在 properties 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
-- [ ] T024 [FR3] 验证父 POM 构建成功 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T018 [FR3] 配置 Maven Compiler Plugin（Java 21）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T019 [FR3] 配置 Maven Enforcer Plugin（强制 Java 版本和依赖版本一致性）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T020 [FR3] 配置 Maven Surefire Plugin（单元测试执行）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T021 [FR3] 配置 Maven Failsafe Plugin（集成测试执行）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T022 [FR3] 配置 Spotless Maven Plugin（代码格式化，使用 Google Java Format）在 pluginManagement 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T023 [FR3] 配置统一属性（编码、版本号等）在 properties 中 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [ ] T024 [FR3] 验证父 POM 构建成功 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`（待 Spring Cloud Alibaba 2025.1.0 版本发布后验证）
 
 ## Phase 3: 工程规范文档
 
