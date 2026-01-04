@@ -44,12 +44,12 @@
 
 **独立测试标准**: 项目目录结构创建完成，可以开始创建父 POM
 
-- [ ] T001 创建项目根目录结构 `/Users/liuhuan/workspace/project/java/backend/atlas`
-- [ ] T002 创建文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs`
-- [ ] T003 创建工程规范文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards`
-- [ ] T004 创建治理文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/governance`
-- [ ] T005 创建 Maven Wrapper 配置目录 `/Users/liuhuan/workspace/project/java/backend/atlas/.mvn/wrapper`
-- [ ] T006 创建项目 README 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/README.md`
+- [x] T001 创建项目根目录结构 `/Users/liuhuan/workspace/project/java/backend/atlas`
+- [x] T002 创建文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs`
+- [x] T003 创建工程规范文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards`
+- [x] T004 创建治理文档目录 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/governance`
+- [x] T005 创建 Maven Wrapper 配置目录 `/Users/liuhuan/workspace/project/java/backend/atlas/.mvn/wrapper`
+- [x] T006 创建项目 README 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/README.md`
 
 ## Phase 2: 父 POM 创建
 
