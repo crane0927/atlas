@@ -92,35 +92,35 @@
 
 ### FR4: 包名规范
 
-- [ ] T025 [P] [FR4] 创建包名规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
-- [ ] T026 [FR4] 定义根包名规范（com.atlas）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
-- [ ] T027 [FR4] 定义业务模块包名结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
-- [ ] T028 [FR4] 定义公共模块包名结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
-- [ ] T029 [FR4] 添加包名规范示例代码在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
+- [x] T025 [P] [FR4] 创建包名规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
+- [x] T026 [FR4] 定义根包名规范（com.atlas）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
+- [x] T027 [FR4] 定义业务模块包名结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
+- [x] T028 [FR4] 定义公共模块包名结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
+- [x] T029 [FR4] 添加包名规范示例代码在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/package-naming.md`
 
 ### FR5: 日志格式规范
 
-- [ ] T030 [P] [FR5] 创建日志格式规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
-- [ ] T031 [FR5] 定义日志格式模板（包含时间、级别、线程、类名、消息、TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
-- [ ] T032 [FR5] 定义日志级别配置规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
-- [ ] T033 [FR5] 定义 TraceId 输出规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
-- [ ] T034 [FR5] 添加日志配置示例（logback-spring.xml）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
+- [x] T030 [P] [FR5] 创建日志格式规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
+- [x] T031 [FR5] 定义日志格式模板（包含时间、级别、线程、类名、消息、TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
+- [x] T032 [FR5] 定义日志级别配置规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
+- [x] T033 [FR5] 定义 TraceId 输出规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
+- [x] T034 [FR5] 添加日志配置示例（logback-spring.xml）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/logging-format.md`
 
 ### FR6: 错误码段位分配
 
-- [ ] T035 [P] [FR6] 创建错误码规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
-- [ ] T036 [FR6] 定义错误码格式规范（6位数字：MMTTSS）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
-- [ ] T037 [FR6] 创建错误码段位分配表（模块码、类型码）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
-- [ ] T038 [FR6] 定义错误码常量类结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
-- [ ] T039 [FR6] 添加错误码使用示例代码在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
+- [x] T035 [P] [FR6] 创建错误码规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
+- [x] T036 [FR6] 定义错误码格式规范（6位数字：MMTTSS）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
+- [x] T037 [FR6] 创建错误码段位分配表（模块码、类型码）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
+- [x] T038 [FR6] 定义错误码常量类结构规范在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
+- [x] T039 [FR6] 添加错误码使用示例代码在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/error-code.md`
 
 ### FR7: 配置命名规范
 
-- [ ] T040 [P] [FR7] 创建配置命名规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
-- [ ] T041 [FR7] 定义 DataId 命名规则（{application-name}-{profile}.{extension}）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
-- [ ] T042 [FR7] 定义 Group 命名规则（按环境分组）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
-- [ ] T043 [FR7] 定义配置项 Key 命名规则（{module}.{category}.{key}）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
-- [ ] T044 [FR7] 添加配置命名示例在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
+- [x] T040 [P] [FR7] 创建配置命名规范文档 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
+- [x] T041 [FR7] 定义 DataId 命名规则（{application-name}-{profile}.{extension}）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
+- [x] T042 [FR7] 定义 Group 命名规则（按环境分组）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
+- [x] T043 [FR7] 定义配置项 Key 命名规则（{module}.{category}.{key}）在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
+- [x] T044 [FR7] 添加配置命名示例在 `/Users/liuhuan/workspace/project/java/backend/atlas/docs/engineering-standards/config-naming.md`
 
 ## Phase 4: 验证与测试
 
