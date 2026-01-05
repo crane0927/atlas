@@ -1,0 +1,9 @@
+# Spring Boot 应用配置
+spring:
+  application:
+    name: atlas-test-module
+
+# 服务器配置
+server:
+  port: 8081
+
