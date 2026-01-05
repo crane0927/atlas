@@ -119,43 +119,43 @@
 
 ### LoginUser 接口测试
 
-- [ ] T048 [FR1] 创建 LoginUserTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T049 [FR1] 创建测试实现类 DefaultLoginUser 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T050 [FR1] 测试 getUserId() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T051 [FR1] 测试 getUsername() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T052 [FR1] 测试 getRoles() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T053 [FR1] 测试 getPermissions() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T054 [FR1] 测试 hasRole() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T055 [FR1] 测试 hasPermission() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
-- [ ] T056 [FR1] 测试 LoginUser 扩展性（创建扩展实现类）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T048 [FR1] 创建 LoginUserTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T049 [FR1] 创建测试实现类 DefaultLoginUser 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T050 [FR1] 测试 getUserId() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T051 [FR1] 测试 getUsername() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T052 [FR1] 测试 getRoles() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T053 [FR1] 测试 getPermissions() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T054 [FR1] 测试 hasRole() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T055 [FR1] 测试 hasPermission() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
+- [x] T056 [FR1] 测试 LoginUser 扩展性（创建扩展实现类）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/user/LoginUserTest.java`
 
 ### 权限注解测试
 
-- [ ] T057 [P] [FR2] 创建 RequiresPermissionTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
-- [ ] T058 [FR2] 测试 @RequiresPermission 注解属性（value、logical）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
-- [ ] T059 [FR2] 测试 @RequiresPermission 注解元数据（@Target、@Retention）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
-- [ ] T060 [FR2] 测试 @RequiresPermission 注解在类和方法上的使用在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
-- [ ] T061 [P] [FR2] 创建 RequiresRoleTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
-- [ ] T062 [FR2] 测试 @RequiresRole 注解属性（value、logical）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
-- [ ] T063 [FR2] 测试 @RequiresRole 注解元数据（@Target、@Retention）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
-- [ ] T064 [FR2] 测试 @RequiresRole 注解在类和方法上的使用在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
-- [ ] T065 [P] [FR2] 创建 LogicalTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/LogicalTest.java`
-- [ ] T066 [FR2] 测试 Logical 枚举值（AND、OR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/LogicalTest.java`
+- [x] T057 [P] [FR2] 创建 RequiresPermissionTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
+- [x] T058 [FR2] 测试 @RequiresPermission 注解属性（value、logical）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
+- [x] T059 [FR2] 测试 @RequiresPermission 注解元数据（@Target、@Retention）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
+- [x] T060 [FR2] 测试 @RequiresPermission 注解在类和方法上的使用在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresPermissionTest.java`
+- [x] T061 [P] [FR2] 创建 RequiresRoleTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
+- [x] T062 [FR2] 测试 @RequiresRole 注解属性（value、logical）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
+- [x] T063 [FR2] 测试 @RequiresRole 注解元数据（@Target、@Retention）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
+- [x] T064 [FR2] 测试 @RequiresRole 注解在类和方法上的使用在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/RequiresRoleTest.java`
+- [x] T065 [P] [FR2] 创建 LogicalTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/LogicalTest.java`
+- [x] T066 [FR2] 测试 Logical 枚举值（AND、OR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/annotation/LogicalTest.java`
 
 ### SecurityContext 接口测试
 
-- [ ] T067 [P] [FR3] 创建 SecurityContextTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
-- [ ] T068 [FR3] 创建测试实现类 ThreadLocalSecurityContext 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
-- [ ] T069 [FR3] 测试 SecurityContext.getLoginUser() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
-- [ ] T070 [FR3] 测试 SecurityContext.isAuthenticated() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
-- [ ] T071 [FR3] 测试 SecurityContext.clear() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
+- [x] T067 [P] [FR3] 创建 SecurityContextTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
+- [x] T068 [FR3] 创建测试实现类 ThreadLocalSecurityContext 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
+- [x] T069 [FR3] 测试 SecurityContext.getLoginUser() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
+- [x] T070 [FR3] 测试 SecurityContext.isAuthenticated() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
+- [x] T071 [FR3] 测试 SecurityContext.clear() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextTest.java`
 
 ### SecurityContextHolder 测试
 
-- [ ] T072 [P] [FR3] 创建 SecurityContextHolderTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
-- [ ] T073 [FR3] 测试 SecurityContextHolder.getContext() 静态方法（使用 Mock）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
-- [ ] T074 [FR3] 测试 SecurityContextHolder.getLoginUser() 静态方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
-- [ ] T075 [FR3] 测试 SecurityContextHolder.isAuthenticated() 静态方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
+- [x] T072 [P] [FR3] 创建 SecurityContextHolderTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
+- [x] T073 [FR3] 测试 SecurityContextHolder.getContext() 静态方法（使用 Mock）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
+- [x] T074 [FR3] 测试 SecurityContextHolder.getLoginUser() 静态方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
+- [x] T075 [FR3] 测试 SecurityContextHolder.isAuthenticated() 静态方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security/context/SecurityContextHolderTest.java`
 
 ## Phase 4: 文档和示例
 
@@ -163,14 +163,14 @@
 
 **独立测试标准**: 文档完整，示例代码清晰易懂
 
-- [ ] T076 验证 quickstart.md 文档完整性 `/Users/liuhuan/workspace/project/java/backend/atlas/specs/3-security-feature/quickstart.md`
-- [ ] T077 创建 LoginUser 使用示例代码在文档中
-- [ ] T078 创建权限注解使用示例代码在文档中
-- [ ] T079 创建 SecurityContext 使用示例代码在文档中
-- [ ] T080 创建扩展 LoginUser 示例代码在文档中
-- [ ] T081 验证所有代码通过 Spotless 格式化检查
-- [ ] T082 验证所有代码通过 Maven Enforcer 检查
-- [ ] T083 验证单元测试覆盖率 ≥ 80%
+- [x] T076 验证 quickstart.md 文档完整性 `/Users/liuhuan/workspace/project/java/backend/atlas/specs/3-security-feature/quickstart.md`
+- [x] T077 创建 LoginUser 使用示例代码在文档中
+- [x] T078 创建权限注解使用示例代码在文档中
+- [x] T079 创建 SecurityContext 使用示例代码在文档中
+- [x] T080 创建扩展 LoginUser 示例代码在文档中
+- [x] T081 验证所有代码通过 Spotless 格式化检查
+- [x] T082 验证所有代码通过 Maven Enforcer 检查
+- [x] T083 验证单元测试覆盖率 ≥ 80%
 
 ## 并行执行示例
 
