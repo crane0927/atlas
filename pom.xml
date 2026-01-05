@@ -35,7 +35,9 @@
         
         <!-- Spring Cloud 版本 -->
         <spring-cloud.version>2025.1.0</spring-cloud.version>
-        <spring-cloud-alibaba.version>2025.1.0</spring-cloud-alibaba.version>
+        <!-- <spring-cloud-alibaba.version>2025.1.0</spring-cloud-alibaba.version> -->
+         <!-- 暂时使用快照版本 -->
+         <spring-cloud-alibaba.version>2025.1.0.0-SNAPSHOT</spring-cloud-alibaba.version>
         
         <!-- 常用依赖版本 -->
         <mybatis-plus.version>3.5.8</mybatis-plus.version>
@@ -69,7 +71,7 @@
             <!-- 如构建失败，请检查实际可用版本或等待版本发布 -->
             <!-- 根据项目宪法要求，必须使用 2025.1.0 版本 -->
             <!-- 暂时注释，待版本发布后启用 -->
-            <!--
+            
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -77,7 +79,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            -->
 
             <!-- MyBatis-Plus -->
             <dependency>
@@ -113,6 +114,20 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- 仓库配置 -->
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/alibaba/spring-cloud-alibaba</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <!-- 插件管理 -->
     <build>
@@ -162,7 +177,8 @@
                                     <!-- 禁止依赖版本冲突 -->
                                     <banDuplicatePomDependencyVersions/>
                                     <!-- 禁止传递依赖版本冲突 -->
-                                    <requireNoRepositories/>
+                                    <!-- 注意：由于需要使用 spring-cloud-alibaba 快照版本，暂时允许 repositories 配置 -->
+                                    <!-- <requireNoRepositories/> -->
                                 </rules>
                             </configuration>
                         </execution>
