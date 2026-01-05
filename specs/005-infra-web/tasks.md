@@ -88,17 +88,17 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: 模块可以成功编译，依赖配置正确
 
-- [ ] T001 Create module directory structure `atlas-common/atlas-common-infra/atlas-common-infra-web/`
-- [ ] T002 Create `pom.xml` with dependencies in `atlas-common/atlas-common-infra/atlas-common-infra-web/pom.xml`
-- [ ] T003 Create package structure `com/atlas/common/infra/web/exception/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
-- [ ] T004 Create package structure `com/atlas/common/infra/web/config/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
-- [ ] T005 Create package structure `com/atlas/common/infra/web/filter/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
-- [ ] T006 Create package structure `com/atlas/common/infra/web/serializer/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
-- [ ] T007 Create test package structure `com/atlas/common/infra/web/exception/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
-- [ ] T008 Create test package structure `com/atlas/common/infra/web/config/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
-- [ ] T009 Create test package structure `com/atlas/common/infra/web/filter/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
-- [ ] T010 Create test package structure `com/atlas/common/infra/web/serializer/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
-- [ ] T011 Create `README.md` template in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T001 Create module directory structure `atlas-common/atlas-common-infra/atlas-common-infra-web/`
+- [x] T002 Create `pom.xml` with dependencies in `atlas-common/atlas-common-infra/atlas-common-infra-web/pom.xml`
+- [x] T003 Create package structure `com/atlas/common/infra/web/exception/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
+- [x] T004 Create package structure `com/atlas/common/infra/web/config/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
+- [x] T005 Create package structure `com/atlas/common/infra/web/filter/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
+- [x] T006 Create package structure `com/atlas/common/infra/web/serializer/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/`
+- [x] T007 Create test package structure `com/atlas/common/infra/web/exception/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
+- [x] T008 Create test package structure `com/atlas/common/infra/web/config/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
+- [x] T009 Create test package structure `com/atlas/common/infra/web/filter/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
+- [x] T010 Create test package structure `com/atlas/common/infra/web/serializer/` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/`
+- [x] T011 Create `README.md` template in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
 
 ### Phase 2: 基础组件实现
 

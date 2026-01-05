@@ -240,6 +240,7 @@
         <module>atlas-common/atlas-common-feature/atlas-common-feature-core</module>
         <module>atlas-common/atlas-common-feature/atlas-common-feature-security</module>
         <module>atlas-common/atlas-common-infra/atlas-common-infra-logging</module>
+        <module>atlas-common/atlas-common-infra/atlas-common-infra-web</module>
     </modules>
 
 </project>
