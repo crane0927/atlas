@@ -65,63 +65,63 @@
 
 ### FR1: Result<T> 响应包装类
 
-- [ ] T010 [FR1] 创建 Result 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T011 [FR1] 定义 Result 类泛型声明和字段（code、message、data、timestamp）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T012 [FR1] 添加 Lombok 注解（@Data、@Builder）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T013 [FR1] 添加 Jackson 序列化注解（@JsonInclude）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T014 [FR1] 实现静态工厂方法 success(T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T015 [FR1] 实现静态工厂方法 success(String message, T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T016 [FR1] 实现静态工厂方法 error(String code, String message) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T017 [FR1] 实现静态工厂方法 error(String code, String message, T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T018 [FR1] 实现 isSuccess() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
-- [ ] T019 [FR1] 添加完整的中文注释（类、方法、字段）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T010 [FR1] 创建 Result 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T011 [FR1] 定义 Result 类泛型声明和字段（code、message、data、timestamp）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T012 [FR1] 添加 Lombok 注解（@Data、@Builder）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T013 [FR1] 添加 Jackson 序列化注解（@JsonInclude）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T014 [FR1] 实现静态工厂方法 success(T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T015 [FR1] 实现静态工厂方法 success(String message, T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T016 [FR1] 实现静态工厂方法 error(String code, String message) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T017 [FR1] 实现静态工厂方法 error(String code, String message, T data) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T018 [FR1] 实现 isSuccess() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
+- [x] T019 [FR1] 添加完整的中文注释（类、方法、字段）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/result/Result.java`
 
 ### FR2: 错误码常量类
 
-- [ ] T020 [P] [FR2] 创建 CommonErrorCode 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T021 [FR2] 定义系统错误码常量（050000-050999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T022 [FR2] 定义参数错误码常量（051000-051999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T023 [FR2] 定义业务错误码常量（052000-052999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T024 [FR2] 定义权限错误码常量（053000-053999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T025 [FR2] 定义数据错误码常量（054000-054999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T026 [FR2] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
-- [ ] T027 [FR2] 添加完整的中文注释（类、常量）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T020 [P] [FR2] 创建 CommonErrorCode 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T021 [FR2] 定义系统错误码常量（050000-050999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T022 [FR2] 定义参数错误码常量（051000-051999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T023 [FR2] 定义业务错误码常量（052000-052999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T024 [FR2] 定义权限错误码常量（053000-053999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T025 [FR2] 定义数据错误码常量（054000-054999）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T026 [FR2] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
+- [x] T027 [FR2] 添加完整的中文注释（类、常量）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonErrorCode.java`
 
 ### FR3: 异常体系
 
-- [ ] T028 [P] [FR3] 创建 BusinessException 基类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
-- [ ] T029 [FR3] 定义 BusinessException 类字段（errorCode、message、cause）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
-- [ ] T030 [FR3] 实现 BusinessException 构造函数（errorCode, message）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
-- [ ] T031 [FR3] 实现 BusinessException 构造函数（errorCode, message, cause）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
-- [ ] T032 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
-- [ ] T033 [P] [FR3] 创建 ParameterException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/ParameterException.java`
-- [ ] T034 [FR3] 实现 ParameterException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/ParameterException.java`
-- [ ] T035 [P] [FR3] 创建 PermissionException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/PermissionException.java`
-- [ ] T036 [FR3] 实现 PermissionException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/PermissionException.java`
-- [ ] T037 [P] [FR3] 创建 DataException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/DataException.java`
-- [ ] T038 [FR3] 实现 DataException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/DataException.java`
-- [ ] T039 [FR3] 为所有异常类添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/`
+- [x] T028 [P] [FR3] 创建 BusinessException 基类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
+- [x] T029 [FR3] 定义 BusinessException 类字段（errorCode、message、cause）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
+- [x] T030 [FR3] 实现 BusinessException 构造函数（errorCode, message）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
+- [x] T031 [FR3] 实现 BusinessException 构造函数（errorCode, message, cause）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
+- [x] T032 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/BusinessException.java`
+- [x] T033 [P] [FR3] 创建 ParameterException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/ParameterException.java`
+- [x] T034 [FR3] 实现 ParameterException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/ParameterException.java`
+- [x] T035 [P] [FR3] 创建 PermissionException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/PermissionException.java`
+- [x] T036 [FR3] 实现 PermissionException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/PermissionException.java`
+- [x] T037 [P] [FR3] 创建 DataException 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/DataException.java`
+- [x] T038 [FR3] 实现 DataException 类继承 BusinessException 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/DataException.java`
+- [x] T039 [FR3] 为所有异常类添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/exception/`
 
 ### FR4: 分页对象
 
-- [ ] T040 [P] [FR4] 创建 PageResult 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T041 [FR4] 定义 PageResult 类泛型声明和字段（list、total、page、size、pages）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T042 [FR4] 添加 Lombok 注解（@Data、@Builder）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T043 [FR4] 实现静态工厂方法 of(List<T> list, Long total, Integer page, Integer size) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T044 [FR4] 实现静态工厂方法 of(List<T> list, Long total) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T045 [FR4] 实现分页计算逻辑（pages、hasPrevious、hasNext、isFirst、isLast）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
-- [ ] T046 [FR4] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T040 [P] [FR4] 创建 PageResult 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T041 [FR4] 定义 PageResult 类泛型声明和字段（list、total、page、size、pages）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T042 [FR4] 添加 Lombok 注解（@Data、@Builder）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T043 [FR4] 实现静态工厂方法 of(List<T> list, Long total, Integer page, Integer size) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T044 [FR4] 实现静态工厂方法 of(List<T> list, Long total) 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T045 [FR4] 实现分页计算逻辑（pages、hasPrevious、hasNext、isFirst、isLast）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
+- [x] T046 [FR4] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/page/PageResult.java`
 
 ### FR5: 基础常量类
 
-- [ ] T047 [P] [FR5] 创建 HttpStatus 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
-- [ ] T048 [FR5] 定义 HTTP 状态码常量（OK、CREATED、BAD_REQUEST、UNAUTHORIZED、FORBIDDEN、NOT_FOUND、INTERNAL_SERVER_ERROR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
-- [ ] T049 [FR5] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
-- [ ] T050 [FR5] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
-- [ ] T051 [P] [FR5] 创建 CommonConstants 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
-- [ ] T052 [FR5] 定义通用常量（EMPTY_STRING、DEFAULT_PAGE、DEFAULT_SIZE、MAX_PAGE_SIZE、SUCCESS_CODE、SUCCESS_MESSAGE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
-- [ ] T053 [FR5] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
-- [ ] T054 [FR5] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
+- [x] T047 [P] [FR5] 创建 HttpStatus 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
+- [x] T048 [FR5] 定义 HTTP 状态码常量（OK、CREATED、BAD_REQUEST、UNAUTHORIZED、FORBIDDEN、NOT_FOUND、INTERNAL_SERVER_ERROR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
+- [x] T049 [FR5] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
+- [x] T050 [FR5] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/HttpStatus.java`
+- [x] T051 [P] [FR5] 创建 CommonConstants 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
+- [x] T052 [FR5] 定义通用常量（EMPTY_STRING、DEFAULT_PAGE、DEFAULT_SIZE、MAX_PAGE_SIZE、SUCCESS_CODE、SUCCESS_MESSAGE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
+- [x] T053 [FR5] 添加私有构造函数防止实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
+- [x] T054 [FR5] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/main/java/com/atlas/common/feature/core/constant/CommonConstants.java`
 
 ## Phase 3: 单元测试
 
