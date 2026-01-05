@@ -198,18 +198,18 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T053 [P] [US3] 创建 `TraceIdGatewayFilter` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/TraceIdGatewayFilter.java`
-- [ ] T054 [US3] 在 `TraceIdGatewayFilter` 中实现 `GlobalFilter` 接口
-- [ ] T055 [US3] 在 `TraceIdGatewayFilter` 中实现 `Ordered` 接口，设置执行顺序为 `Ordered.HIGHEST_PRECEDENCE`
-- [ ] T056 [US3] 在 `filter()` 方法中从请求头 `X-Trace-Id` 获取 TraceId
-- [ ] T057 [US3] 如果请求头中没有 TraceId，调用 `TraceIdUtil.generate()` 生成
-- [ ] T058 [US3] 调用 `TraceIdUtil.setTraceId()` 设置 TraceId（设置到 ThreadLocal 和 MDC）
-- [ ] T059 [US3] 将 TraceId 添加到转发请求的请求头
-- [ ] T060 [US3] 将 TraceId 添加到响应头
-- [ ] T061 [US3] 在请求结束后清理 TraceId（在 `filter()` 方法的 finally 块中调用 `TraceIdUtil.clear()`）
-- [ ] T062 [US3] 在 `TraceIdGatewayFilter` 中添加完整的中文注释（类注释、方法注释）
-- [ ] T063 [US3] 创建 `TraceIdGatewayFilterTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/filter/TraceIdGatewayFilterTest.java`
-- [ ] T064 [US3] 创建 TraceId 传递集成测试，验证 TraceId 可以在请求和响应中正确传递
+- [X] T053 [P] [US3] 创建 `TraceIdGatewayFilter` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/TraceIdGatewayFilter.java`
+- [X] T054 [US3] 在 `TraceIdGatewayFilter` 中实现 `GlobalFilter` 接口
+- [X] T055 [US3] 在 `TraceIdGatewayFilter` 中实现 `Ordered` 接口，设置执行顺序为 `Ordered.HIGHEST_PRECEDENCE`
+- [X] T056 [US3] 在 `filter()` 方法中从请求头 `X-Trace-Id` 获取 TraceId
+- [X] T057 [US3] 如果请求头中没有 TraceId，调用 `TraceIdUtil.generate()` 生成
+- [X] T058 [US3] 调用 `TraceIdUtil.setTraceId()` 设置 TraceId（设置到 ThreadLocal 和 MDC）
+- [X] T059 [US3] 将 TraceId 添加到转发请求的请求头
+- [X] T060 [US3] 将 TraceId 添加到响应头
+- [X] T061 [US3] 在请求结束后清理 TraceId（在 `filter()` 方法的 finally 块中调用 `TraceIdUtil.clear()`）
+- [X] T062 [US3] 在 `TraceIdGatewayFilter` 中添加完整的中文注释（类注释、方法注释）
+- [X] T063 [US3] 创建 `TraceIdGatewayFilterTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/filter/TraceIdGatewayFilterTest.java`
+- [X] T064 [US3] 创建 TraceId 传递集成测试，验证 TraceId 可以在请求和响应中正确传递
 
 ### Phase 6: 统一错误返回实现 [US4]
 
