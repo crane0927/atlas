@@ -184,11 +184,11 @@ public class BusinessLoginUser implements LoginUser {
 
 ## 相关文档
 
-- [快速开始指南](../../../../specs/3-security-feature/quickstart.md) - 详细的使用指南和示例代码
-- [功能规格说明](../../../../specs/3-security-feature/spec.md) - 完整的功能需求说明
-- [实施计划](../../../../specs/3-security-feature/plan.md) - 技术实现方案
-- [数据模型](../../../../specs/3-security-feature/data-model.md) - 数据模型定义
-- [技术调研](../../../../specs/3-security-feature/research.md) - 技术决策和设计依据
+- [快速开始指南](../../../specs/3-security-feature/quickstart.md) - 详细的使用指南和示例代码
+- [功能规格说明](../../../specs/3-security-feature/spec.md) - 完整的功能需求说明
+- [实施计划](../../../specs/3-security-feature/plan.md) - 技术实现方案
+- [数据模型](../../../specs/3-security-feature/data-model.md) - 数据模型定义
+- [技术调研](../../../specs/3-security-feature/research.md) - 技术决策和设计依据
 
 ## 技术栈
 

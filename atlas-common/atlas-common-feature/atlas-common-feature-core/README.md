@@ -116,11 +116,11 @@ public class UserController {
 
 ## 相关文档
 
-- [快速开始指南](../../../../specs/2-common-feature-core/quickstart.md) - 详细的使用指南和示例代码
-- [功能规格说明](../../../../specs/2-common-feature-core/spec.md) - 完整的功能需求说明
-- [实施计划](../../../../specs/2-common-feature-core/plan.md) - 技术实现方案
-- [数据模型](../../../../specs/2-common-feature-core/data-model.md) - 数据模型定义
-- [API 合约](../../../../specs/2-common-feature-core/contracts/README.md) - API 接口合约说明
+- [快速开始指南](../../../specs/2-common-feature-core/quickstart.md) - 详细的使用指南和示例代码
+- [功能规格说明](../../../specs/2-common-feature-core/spec.md) - 完整的功能需求说明
+- [实施计划](../../../specs/2-common-feature-core/plan.md) - 技术实现方案
+- [数据模型](../../../specs/2-common-feature-core/data-model.md) - 数据模型定义
+- [API 合约](../../../specs/2-common-feature-core/contracts/README.md) - API 接口合约说明
 
 ## 技术栈
 

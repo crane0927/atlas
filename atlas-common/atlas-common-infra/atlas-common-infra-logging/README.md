@@ -131,11 +131,11 @@ public void asyncTask() {
 
 ## 相关文档
 
-- [快速开始指南](../../../../specs/4-infra-logging/quickstart.md) - 详细的使用指南和示例代码
-- [功能规格说明](../../../../specs/4-infra-logging/spec.md) - 完整的功能需求说明
-- [实施计划](../../../../specs/4-infra-logging/plan.md) - 技术实现方案
-- [数据模型](../../../../specs/4-infra-logging/data-model.md) - 数据模型定义
-- [日志格式规范](../../../../docs/engineering-standards/logging-format.md) - 项目日志格式规范
+- [快速开始指南](../../../specs/4-infra-logging/quickstart.md) - 详细的使用指南和示例代码
+- [功能规格说明](../../../specs/4-infra-logging/spec.md) - 完整的功能需求说明
+- [实施计划](../../../specs/4-infra-logging/plan.md) - 技术实现方案
+- [数据模型](../../../specs/4-infra-logging/data-model.md) - 数据模型定义
+- [日志格式规范](../../../docs/engineering-standards/logging-format.md) - 项目日志格式规范
 
 ## 技术栈
 

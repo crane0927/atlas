@@ -114,9 +114,9 @@ server:
 
 ## 相关文档
 
-- [项目宪法](../../.specify/memory/constitution.md) - 项目核心原则和规范
-- [根工程版本治理](../../specs/1-root-version-governance/quickstart.md) - 父 POM 配置说明
-- [工程规范文档](../../docs/engineering-standards/) - 包名、日志、错误码等规范
+- [项目宪法](../.specify/memory/constitution.md) - 项目核心原则和规范
+- [根工程版本治理](../specs/1-root-version-governance/quickstart.md) - 父 POM 配置说明
+- [工程规范文档](../docs/engineering-standards/) - 包名、日志、错误码等规范
 
 ## 技术栈
 
