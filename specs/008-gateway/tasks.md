@@ -156,17 +156,17 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T029 [P] [US1] 创建 `GatewayConfig` 配置类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/GatewayConfig.java`
-- [ ] T030 [US1] 在 `GatewayConfig` 中添加 `@Configuration` 注解
-- [ ] T031 [US1] 在 `GatewayConfig` 中添加 `@EnableConfigurationProperties(GatewayProperties.class)` 注解
-- [ ] T032 [US1] 在 `GatewayConfig` 中注入 `GatewayProperties`
-- [ ] T033 [US1] 在 `GatewayConfig` 中创建 `RouteLocator` Bean，配置路由规则
-- [ ] T034 [US1] 实现从 `GatewayProperties` 读取路由配置并转换为 `RouteDefinition`
-- [ ] T035 [US1] 实现路由规则动态更新功能（监听 Nacos Config 配置变更）
-- [ ] T036 [US1] 在 `GatewayConfig` 中添加完整的中文注释（类注释、方法注释）
-- [ ] T037 [US1] 创建临时的 health/mock 接口用于验收测试（在测试模块或后端服务中）
-- [ ] T038 [US1] 创建 `GatewayConfigTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/GatewayConfigTest.java`
-- [ ] T039 [US1] 创建路由转发集成测试，验证路由规则可以正确转发请求
+- [X] T029 [P] [US1] 创建 `GatewayConfig` 配置类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/GatewayConfig.java`
+- [X] T030 [US1] 在 `GatewayConfig` 中添加 `@Configuration` 注解
+- [X] T031 [US1] 在 `GatewayConfig` 中添加 `@EnableConfigurationProperties(GatewayProperties.class)` 注解
+- [X] T032 [US1] 在 `GatewayConfig` 中注入 `GatewayProperties`
+- [X] T033 [US1] 在 `GatewayConfig` 中创建 `RouteLocator` Bean，配置路由规则
+- [X] T034 [US1] 实现从 `GatewayProperties` 读取路由配置并转换为 `RouteDefinition`
+- [X] T035 [US1] 实现路由规则动态更新功能（监听 Nacos Config 配置变更）
+- [X] T036 [US1] 在 `GatewayConfig` 中添加完整的中文注释（类注释、方法注释）
+- [X] T037 [US1] 创建临时的 health/mock 接口用于验收测试（在测试模块或后端服务中）
+- [X] T038 [US1] 创建 `GatewayConfigTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/GatewayConfigTest.java`
+- [X] T039 [US1] 创建路由转发集成测试，验证路由规则可以正确转发请求
 
 ### Phase 4: CORS 跨域支持实现 [US2]
 

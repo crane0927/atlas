@@ -2,6 +2,21 @@ spring:
   application:
     name: atlas-gateway
   cloud:
+    gateway:
+      # Gateway 路由配置（也可以通过 Nacos Config 配置）
+      routes:
+        - id: health-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/health/**
+          filters:
+            - StripPrefix=1
+        - id: mock-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/mock/**
+          filters:
+            - StripPrefix=1
     # Nacos Config 配置
     nacos:
       config:
@@ -16,9 +31,25 @@ spring:
             group: DEFAULT_GROUP
             refresh: true
 
+# Atlas Gateway 配置
+atlas:
+  gateway:
+    routes:
+      - id: health-route
+        uri: http://localhost:8080
+        predicates:
+          - Path=/health/**
+        filters:
+          - StripPrefix=1
+      - id: mock-route
+        uri: http://localhost:8080
+        predicates:
+          - Path=/mock/**
+        filters:
+          - StripPrefix=1
+
 # 日志配置
 logging:
   level:
     root: INFO
     com.atlas.gateway: DEBUG
-
