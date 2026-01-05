@@ -33,31 +33,34 @@
 
 **模块结构**:
 ```
-atlas-common-feature-core/
-├── pom.xml                    # 模块 POM
-├── src/
-│   ├── main/java/
-│   │   └── com/atlas/common/feature/core/
-│   │       ├── result/        # Result 响应包装类
-│   │       │   └── Result.java
-│   │       ├── exception/     # 异常体系
-│   │       │   ├── BusinessException.java
-│   │       │   ├── ParameterException.java
-│   │       │   ├── PermissionException.java
-│   │       │   └── DataException.java
-│   │       ├── page/          # 分页对象
-│   │       │   └── PageResult.java
-│   │       ├── constant/      # 常量类
-│   │       │   ├── CommonErrorCode.java
-│   │       │   ├── HttpStatus.java
-│   │       │   └── CommonConstants.java
-│   │       └── util/          # 工具类（如有需要）
-│   └── test/java/             # 测试代码
-│       └── com/atlas/common/feature/core/
-│           ├── result/
-│           ├── exception/
-│           ├── page/
-│           └── constant/
+atlas/
+└── atlas-common/              # 公共模块
+    └── atlas-common-feature/  # 功能特性模块
+        └── atlas-common-feature-core/  # 核心功能特性模块
+            ├── pom.xml                    # 模块 POM
+            ├── src/
+            │   ├── main/java/
+            │   │   └── com/atlas/common/feature/core/
+            │   │       ├── result/        # Result 响应包装类
+            │   │       │   └── Result.java
+            │   │       ├── exception/     # 异常体系
+            │   │       │   ├── BusinessException.java
+            │   │       │   ├── ParameterException.java
+            │   │       │   ├── PermissionException.java
+            │   │       │   └── DataException.java
+            │   │       ├── page/          # 分页对象
+            │   │       │   └── PageResult.java
+            │   │       ├── constant/      # 常量类
+            │   │       │   ├── CommonErrorCode.java
+            │   │       │   ├── HttpStatus.java
+            │   │       │   └── CommonConstants.java
+            │   │       └── util/          # 工具类（如有需要）
+            │   └── test/java/             # 测试代码
+            │       └── com/atlas/common/feature/core/
+            │           ├── result/
+            │           ├── exception/
+            │           ├── page/
+            │           └── constant/
 ```
 
 **核心组件**:

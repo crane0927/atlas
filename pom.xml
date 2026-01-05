@@ -237,6 +237,7 @@
     <!-- 模块列表 -->
     <modules>
         <module>atlas-test-module</module>
+        <module>atlas-common/atlas-common-feature/atlas-common-feature-core</module>
     </modules>
 
 </project>
