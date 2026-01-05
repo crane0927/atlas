@@ -242,23 +242,23 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T079 [P] [US5] 创建 `TokenValidator` 接口在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/TokenValidator.java`
-- [ ] T080 [US5] 在 `TokenValidator` 接口中定义 `validate(ServerHttpRequest request)` 方法
-- [ ] T081 [US5] 创建 `DefaultTokenValidator` 实现类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/DefaultTokenValidator.java`
-- [ ] T082 [US5] 在 `DefaultTokenValidator` 中实现占位逻辑（默认返回 `true`，放行所有请求）
-- [ ] T083 [P] [US5] 创建 `AuthGatewayFilter` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/AuthGatewayFilter.java`
-- [ ] T084 [US5] 在 `AuthGatewayFilter` 中实现 `GlobalFilter` 接口
-- [ ] T085 [US5] 在 `AuthGatewayFilter` 中实现 `Ordered` 接口，设置执行顺序为 `Ordered.HIGHEST_PRECEDENCE + 1`
-- [ ] T086 [US5] 在 `AuthGatewayFilter` 中注入 `GatewayProperties` 和 `TokenValidator`
-- [ ] T087 [US5] 在 `filter()` 方法中实现白名单路径匹配功能（使用 Ant 风格路径匹配器）
-- [ ] T088 [US5] 如果请求路径匹配白名单，直接放行
-- [ ] T089 [US5] 如果请求路径不匹配白名单，调用 `TokenValidator.validate()` 进行 Token 校验
-- [ ] T090 [US5] 如果 Token 校验失败，返回统一错误格式（错误码：013001）
-- [ ] T091 [US5] 实现从 `GatewayProperties` 读取白名单配置
-- [ ] T092 [US5] 实现白名单配置动态更新功能（监听 Nacos Config 配置变更）
-- [ ] T093 [US5] 在 `AuthGatewayFilter` 中添加完整的中文注释（类注释、方法注释）
-- [ ] T094 [US5] 创建 `AuthGatewayFilterTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/filter/AuthGatewayFilterTest.java`
-- [ ] T095 [US5] 创建鉴权控制集成测试，验证白名单功能和 Token 校验扩展点
+- [X] T079 [P] [US5] 创建 `TokenValidator` 接口在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/TokenValidator.java`
+- [X] T080 [US5] 在 `TokenValidator` 接口中定义 `validate(ServerHttpRequest request)` 方法
+- [X] T081 [US5] 创建 `DefaultTokenValidator` 实现类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/DefaultTokenValidator.java`
+- [X] T082 [US5] 在 `DefaultTokenValidator` 中实现占位逻辑（默认返回 `true`，放行所有请求）
+- [X] T083 [P] [US5] 创建 `AuthGatewayFilter` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/filter/AuthGatewayFilter.java`
+- [X] T084 [US5] 在 `AuthGatewayFilter` 中实现 `GlobalFilter` 接口
+- [X] T085 [US5] 在 `AuthGatewayFilter` 中实现 `Ordered` 接口，设置执行顺序为 `Ordered.HIGHEST_PRECEDENCE + 1`
+- [X] T086 [US5] 在 `AuthGatewayFilter` 中注入 `GatewayProperties` 和 `TokenValidator`
+- [X] T087 [US5] 在 `filter()` 方法中实现白名单路径匹配功能（使用 Ant 风格路径匹配器）
+- [X] T088 [US5] 如果请求路径匹配白名单，直接放行
+- [X] T089 [US5] 如果请求路径不匹配白名单，调用 `TokenValidator.validate()` 进行 Token 校验
+- [X] T090 [US5] 如果 Token 校验失败，返回统一错误格式（错误码：013001）
+- [X] T091 [US5] 实现从 `GatewayProperties` 读取白名单配置
+- [X] T092 [US5] 实现白名单配置动态更新功能（监听 Nacos Config 配置变更）
+- [X] T093 [US5] 在 `AuthGatewayFilter` 中添加完整的中文注释（类注释、方法注释）
+- [X] T094 [US5] 创建 `AuthGatewayFilterTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/filter/AuthGatewayFilterTest.java`
+- [X] T095 [US5] 创建鉴权控制集成测试，验证白名单功能和 Token 校验扩展点
 
 ### Phase 8: Nacos Config 配置管理完善 [US6]
 

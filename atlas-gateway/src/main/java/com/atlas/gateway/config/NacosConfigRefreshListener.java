@@ -82,6 +82,13 @@ public class NacosConfigRefreshListener implements ApplicationListener<Environme
           log.error("CORS 配置刷新失败", e);
         }
       }
+
+      // 检查是否有白名单配置变更
+      boolean hasWhitelistConfigChange =
+          event.getKeys().stream().anyMatch(key -> key.startsWith("atlas.gateway.whitelist"));
+      if (hasWhitelistConfigChange) {
+        log.info("检测到白名单配置变更，白名单配置已自动刷新（通过 GatewayProperties 自动绑定）");
+      }
     }
   }
 }
