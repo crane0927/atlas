@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report:
-Version: 0.3.6 → 0.3.7
+Version: 0.3.8 → 0.3.9
 创建日期: 2025-01-27
 最后修订: 2026-01-05
 修改的原则: 
-  - 原则 11: 模块化设计 - 新增模块文档要求（每个模块下需要有 README.md）
+  - 原则 12: 包结构组织规范 - 将 atlas-gateway 从业务模块调整为技术模块
 新增章节: 无
 移除章节: 无
 模板更新状态:
@@ -18,7 +18,7 @@ Version: 0.3.6 → 0.3.7
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.3.7  
+**版本**: 0.3.9  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2026-01-05
 
@@ -304,7 +304,68 @@ atlas/
 - CI/CD 流水线可以添加检查，确保所有模块都有 README.md
 - 定期审查模块文档的完整性和准确性
 
-### 原则 12: 模块职责边界
+### 原则 12: 包结构组织规范
+
+**规则**: 包结构组织方式必须根据模块类型采用不同的组织策略。
+
+**具体要求**:
+
+1. **业务相关模块**（如 `atlas-system`、`atlas-auth`、`atlas-order` 等业务服务模块）:
+   - **组织方式**: 按业务模块再按技术分层
+   - **包结构**: `com.atlas.{module-name}.{business-module}.{layer}`
+   - **示例**:
+     ```java
+     package com.atlas.system.user.controller;
+     package com.atlas.system.user.service;
+     package com.atlas.system.user.mapper;
+     package com.atlas.system.order.controller;
+     package com.atlas.system.order.service;
+     ```
+   - **理由**: 业务模块优先组织，同一业务模块的所有代码（controller、service、mapper）聚合在一起，便于业务功能开发和维护，符合领域驱动设计（DDD）理念
+
+2. **技术相关模块**（如 `atlas-gateway`、`atlas-common-infra-*`、`atlas-common-feature-*` 等基础设施和功能特性模块）:
+   - **组织方式**: 按技术分层再按业务模块
+   - **包结构**: 
+     - 独立技术模块: `com.atlas.{module-name}.{layer}`
+     - 公共技术模块: `com.atlas.common.{category}.{module-name}.{layer}`
+   - **示例**:
+     ```java
+     // 独立技术模块（如 gateway）
+     package com.atlas.gateway.config;
+     package com.atlas.gateway.filter;
+     package com.atlas.gateway.exception;
+     
+     // 公共技术模块（如 common-infra-web）
+     package com.atlas.common.infra.web.config;
+     package com.atlas.common.infra.web.filter;
+     package com.atlas.common.infra.web.exception;
+     package com.atlas.common.infra.redis.config;
+     package com.atlas.common.infra.redis.util;
+     ```
+   - **理由**: 技术模块以技术层为主，相同技术层的代码集中在一起，便于统一管理和规范，便于技术层优化和学习
+
+**模块类型判断**:
+
+- **业务相关模块**: 包含业务逻辑、处理业务数据、提供业务服务的模块
+  - 示例: `atlas-system`、`atlas-auth`、`atlas-order` 等
+  - **判断标准**: 模块包含具体的业务领域逻辑，处理业务实体和业务规则
+- **技术相关模块**: 提供基础设施能力、通用工具类、技术组件的模块
+  - 示例: `atlas-gateway`（API 网关）、`atlas-common-infra-web`、`atlas-common-infra-redis`、`atlas-common-infra-db`、`atlas-common-feature-core` 等
+  - **判断标准**: 模块提供技术基础设施能力，不包含具体业务逻辑，主要处理技术层面的功能（如路由转发、配置管理、工具类等）
+
+**验证**:
+- 代码审查时检查包结构是否符合模块类型的组织方式
+- 业务模块的包结构必须按业务模块再按技术分层组织
+- 技术模块的包结构必须按技术分层再按业务模块组织
+- 新创建的类必须放在符合规范的包路径下
+
+**理由**: 
+- 不同的组织方式适用于不同类型的模块，提高代码可维护性和开发效率
+- 业务模块按业务组织，便于业务功能开发和模块拆分
+- 技术模块按技术组织，便于技术层统一管理和优化
+- 统一的包结构规范提高代码可读性和团队协作效率
+
+### 原则 13: 模块职责边界
 
 **规则**: 每个模块必须有明确的职责边界，禁止跨边界直接访问，必须通过定义好的接口进行交互。
 
@@ -436,13 +497,13 @@ atlas/
 
 ## 质量保证原则
 
-### 原则 13: 单元测试要求
+### 原则 14: 单元测试要求
 
 **规则**: 核心业务逻辑和公共方法必须编写单元测试，测试覆盖率不低于 70%。
 
 **理由**: 单元测试确保代码质量，减少回归问题，提高重构信心。
 
-### 原则 14: 代码规范检查
+### 原则 15: 代码规范检查
 
 **规则**: 代码必须通过 Checkstyle、PMD、SpotBugs 等静态代码分析工具检查。
 
@@ -515,6 +576,8 @@ atlas/
 | 0.3.5 | 2025-01-27 | 新增模块依赖矩阵表格，便于快速查阅和验证依赖关系 | 系统 |
 | 0.3.6 | 2026-01-05 | 新增配置文件格式规范（resource 中配置文件使用 yaml 格式） | 系统 |
 | 0.3.7 | 2026-01-05 | 新增模块文档要求（每个模块下需要有 README.md） | 系统 |
+| 0.3.8 | 2026-01-05 | 新增包结构组织规范（业务模块按业务再按技术分层，技术模块按技术再按业务分层） | 系统 |
+| 0.3.9 | 2026-01-05 | 将 atlas-gateway 从业务模块调整为技术模块 | 系统 |
 
 ---
 
