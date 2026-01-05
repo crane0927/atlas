@@ -102,15 +102,15 @@ MVP 提供核心的 Redis 序列化配置和 Key 命名规范功能，满足最�
 
 **独立测试标准**: Key 命名符合统一规范格式，Key 前缀可以统一配置，Key 生成方法使用简单，支持链式调用，Key 可以设置过期时间
 
-- [ ] T019 [US2] Create `RedisKeyBuilder` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T020 [US2] Implement Builder pattern with chain methods in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T021 [US2] Implement `module(String module)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T022 [US2] Implement `business(String business)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T023 [US2] Implement `id(String id)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T024 [US2] Implement `build()` method to generate complete Key string in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T025 [US2] Implement Key prefix configuration support in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T026 [US2] Implement `withTtl(int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
-- [ ] T027 [P] [US2] Write unit tests for `RedisKeyBuilder` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/key/RedisKeyBuilderTest.java`
+- [x] T019 [US2] Create `RedisKeyBuilder` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T020 [US2] Implement Builder pattern with chain methods in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T021 [US2] Implement `module(String module)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T022 [US2] Implement `business(String business)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T023 [US2] Implement `id(String id)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T024 [US2] Implement `build()` method to generate complete Key string in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T025 [US2] Implement Key prefix configuration support in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T026 [US2] Implement `withTtl(int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/key/RedisKeyBuilder.java`
+- [x] T027 [P] [US2] Write unit tests for `RedisKeyBuilder` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/key/RedisKeyBuilderTest.java`
 
 ### Phase 4: US3 - 基础缓存工具
 

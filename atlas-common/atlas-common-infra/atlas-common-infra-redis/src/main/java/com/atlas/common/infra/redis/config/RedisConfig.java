@@ -3,6 +3,8 @@
  */
 package com.atlas.common.infra.redis.config;
 
+import com.atlas.common.infra.redis.key.RedisKeyBuilder;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
+
+  private final RedisProperties redisProperties;
+
+  public RedisConfig(RedisProperties redisProperties) {
+    this.redisProperties = redisProperties;
+  }
 
   /**
    * 配置 RedisTemplate Bean
@@ -64,6 +72,16 @@ public class RedisConfig {
     template.afterPropertiesSet();
 
     return template;
+  }
+
+  /**
+   * 初始化 RedisKeyBuilder 的 Key 前缀配置
+   *
+   * <p>在 Spring 容器初始化完成后，将配置的 Key 前缀设置到 RedisKeyBuilder 中。
+   */
+  @PostConstruct
+  public void initRedisKeyBuilder() {
+    RedisKeyBuilder.init(redisProperties);
   }
 }
 
