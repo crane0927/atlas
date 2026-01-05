@@ -311,6 +311,51 @@ curl http://localhost:8080/gateway/api/user/info
 - 确认配置刷新机制是否正确配置
 - 检查日志中是否有配置更新记录
 
+## 最佳实践
+
+### 1. 路由配置最佳实践
+
+- **使用 Nacos Config 配置路由**: 推荐使用 Nacos Config 配置路由规则，支持动态更新
+- **路由 ID 命名规范**: 使用有意义的路由 ID，如 `user-service-route`、`order-service-route`
+- **路径匹配策略**: 使用 Ant 风格路径匹配，如 `/api/user/**`、`/api/order/**`
+- **负载均衡**: 如果后端有多个实例，使用服务发现（如 Nacos Discovery）进行负载均衡
+
+### 2. CORS 配置最佳实践
+
+- **生产环境限制源**: 生产环境不要使用 `*` 作为允许的源，应该指定具体的域名
+- **最小权限原则**: 只允许必要的 HTTP 方法和请求头
+- **预检请求缓存**: 合理设置 `max-age`，减少预检请求次数
+
+### 3. 白名单配置最佳实践
+
+- **最小化白名单**: 只将必要的公开接口加入白名单
+- **路径规范**: 使用统一的路径前缀，如 `/api/public/**`、`/api/open/**`
+- **定期审查**: 定期审查白名单配置，移除不再需要的路径
+
+### 4. TraceId 使用最佳实践
+
+- **客户端传递 TraceId**: 客户端应该从响应头中获取 TraceId，并在后续请求中传递
+- **日志记录**: 确保所有关键日志都包含 TraceId，便于问题排查
+- **监控集成**: 将 TraceId 集成到监控系统，实现分布式追踪
+
+### 5. 错误处理最佳实践
+
+- **统一错误格式**: 所有错误响应都使用统一的 `Result` 格式
+- **错误码规范**: 错误码符合项目规范（6位数字，01 开头）
+- **错误日志**: 记录详细的错误日志，包含 TraceId 和错误堆栈
+
+### 6. 性能优化最佳实践
+
+- **连接池配置**: 合理配置 HTTP 连接池大小
+- **超时配置**: 设置合理的请求超时时间
+- **限流配置**: 在生产环境启用限流功能，防止服务过载
+
+### 7. 安全最佳实践
+
+- **Token 校验**: 实现具体的 Token 校验逻辑，不要使用占位实现
+- **HTTPS**: 生产环境使用 HTTPS 协议
+- **敏感信息**: 不要在日志中记录敏感信息（如 Token、密码）
+
 ## 参考资源
 
 - [Spring Cloud Gateway 官方文档](https://spring.io/projects/spring-cloud-gateway)
@@ -318,4 +363,5 @@ curl http://localhost:8080/gateway/api/user/info
 - [项目配置命名规范](../../docs/engineering-standards/config-naming.md)
 - [项目错误码规范](../../docs/engineering-standards/error-code.md)
 - [快速开始指南](../../specs/008-gateway/quickstart.md)
+- [验收测试文档](../../specs/008-gateway/acceptance-tests.md)
 
