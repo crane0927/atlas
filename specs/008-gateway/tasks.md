@@ -176,19 +176,19 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T040 [P] [US2] 创建 `CorsConfig` 配置类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/CorsConfig.java`
-- [ ] T041 [US2] 在 `CorsConfig` 中添加 `@Configuration` 注解
-- [ ] T042 [US2] 在 `CorsConfig` 中创建 `CorsWebFilter` Bean
-- [ ] T043 [US2] 配置 CORS 允许的源（allowedOrigins）
-- [ ] T044 [US2] 配置 CORS 允许的 HTTP 方法（allowedMethods）
-- [ ] T045 [US2] 配置 CORS 允许的请求头（allowedHeaders）
-- [ ] T046 [US2] 配置 CORS 是否允许携带凭证（allowCredentials）
-- [ ] T047 [US2] 配置 CORS 预检请求缓存时间（maxAge）
-- [ ] T048 [US2] 实现从 `GatewayProperties` 读取 CORS 配置
-- [ ] T049 [US2] 实现 CORS 配置动态更新功能（监听 Nacos Config 配置变更）
-- [ ] T050 [US2] 在 `CorsConfig` 中添加完整的中文注释（类注释、方法注释）
-- [ ] T051 [US2] 创建 `CorsConfigTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/CorsConfigTest.java`
-- [ ] T052 [US2] 创建 CORS 跨域集成测试，验证预检请求和跨域请求可以正确处理
+- [X] T040 [P] [US2] 创建 `CorsConfig` 配置类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/CorsConfig.java`
+- [X] T041 [US2] 在 `CorsConfig` 中添加 `@Configuration` 注解
+- [X] T042 [US2] 在 `CorsConfig` 中创建 `CorsWebFilter` Bean
+- [X] T043 [US2] 配置 CORS 允许的源（allowedOrigins）
+- [X] T044 [US2] 配置 CORS 允许的 HTTP 方法（allowedMethods）
+- [X] T045 [US2] 配置 CORS 允许的请求头（allowedHeaders）
+- [X] T046 [US2] 配置 CORS 是否允许携带凭证（allowCredentials）
+- [X] T047 [US2] 配置 CORS 预检请求缓存时间（maxAge）
+- [X] T048 [US2] 实现从 `GatewayProperties` 读取 CORS 配置
+- [X] T049 [US2] 实现 CORS 配置动态更新功能（监听 Nacos Config 配置变更）
+- [X] T050 [US2] 在 `CorsConfig` 中添加完整的中文注释（类注释、方法注释）
+- [X] T051 [US2] 创建 `CorsConfigTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/CorsConfigTest.java`
+- [X] T052 [US2] 创建 CORS 跨域集成测试，验证预检请求和跨域请求可以正确处理
 
 ### Phase 5: TraceId 链路追踪实现 [US3]
 
