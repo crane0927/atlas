@@ -86,15 +86,15 @@ MVP 提供核心的 Redis 序列化配置和 Key 命名规范功能，满足最�
 
 **独立测试标准**: RedisTemplate Bean 可以正确创建，Key 和 Value 可以使用不同的序列化方式，序列化后的数据在 Redis 中可读（JSON 格式）
 
-- [ ] T010 [P] [US1] Create `RedisProperties` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisProperties.java`
-- [ ] T011 [US1] Create `RedisConfig` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T012 [US1] Configure `RedisTemplate` Bean in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T013 [US1] Configure Key serializer (StringRedisSerializer) in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T014 [US1] Configure Value serializer (GenericJackson2JsonRedisSerializer) in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T015 [US1] Configure Hash Key and Hash Value serializers in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T016 [US1] Implement configuration property binding in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
-- [ ] T017 [P] [US1] Write unit tests for `RedisProperties` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/config/RedisPropertiesTest.java`
-- [ ] T018 [US1] Write unit tests for `RedisConfig` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/config/RedisConfigTest.java`
+- [x] T010 [P] [US1] Create `RedisProperties` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisProperties.java`
+- [x] T011 [US1] Create `RedisConfig` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T012 [US1] Configure `RedisTemplate` Bean in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T013 [US1] Configure Key serializer (StringRedisSerializer) in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T014 [US1] Configure Value serializer (GenericJackson2JsonRedisSerializer) in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T015 [US1] Configure Hash Key and Hash Value serializers in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T016 [US1] Implement configuration property binding in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/config/RedisConfig.java`
+- [x] T017 [P] [US1] Write unit tests for `RedisProperties` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/config/RedisPropertiesTest.java`
+- [x] T018 [US1] Write unit tests for `RedisConfig` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/config/RedisConfigTest.java`
 
 ### Phase 3: US2 - Key 命名规范
 
