@@ -149,17 +149,17 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: 日期时间可以统一格式化，空值可以统一处理，JSON 序列化特性符合项目规范，自定义序列化器可以正常工作
 
-- [ ] T034 [P] [US3] Create `LongToStringSerializer` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/serializer/LongToStringSerializer.java`
-- [ ] T035 [P] [US3] Create `JacksonConfig` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T036 [US3] Configure `ObjectMapper` Bean in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T037 [US3] Configure date format (ISO-8601) in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T038 [US3] Configure null value handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T039 [US3] Configure serialization features in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T040 [US3] Configure deserialization features in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T041 [US3] Configure timezone handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T042 [US3] Register `LongToStringSerializer` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
-- [ ] T043 [P] [US3] Write unit tests for `LongToStringSerializer` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/serializer/LongToStringSerializerTest.java`
-- [ ] T044 [US3] Write unit tests for `JacksonConfig` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/config/JacksonConfigTest.java`
+- [x] T034 [P] [US3] Create `LongToStringSerializer` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/serializer/LongToStringSerializer.java`
+- [x] T035 [P] [US3] Create `JacksonConfig` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T036 [US3] Configure `ObjectMapper` Bean in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T037 [US3] Configure date format (ISO-8601) in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T038 [US3] Configure null value handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T039 [US3] Configure serialization features in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T040 [US3] Configure deserialization features in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T041 [US3] Configure timezone handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T042 [US3] Register `LongToStringSerializer` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/JacksonConfig.java`
+- [x] T043 [P] [US3] Write unit tests for `LongToStringSerializer` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/serializer/LongToStringSerializerTest.java`
+- [x] T044 [US3] Write unit tests for `JacksonConfig` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/config/JacksonConfigTest.java`
 
 ### Phase 6: US4 - TraceId Filter
 
