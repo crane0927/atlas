@@ -167,16 +167,16 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: HTTP 请求可以自动获取或生成 TraceId，TraceId 可以正确设置到 `TraceIdUtil`，TraceId 可以正确输出到日志中，Filter 执行顺序正确
 
-- [ ] T045 [P] [US4] Create `TraceIdFilter` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T046 [US4] Implement `doFilter` method to get TraceId from request header in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T047 [US4] Implement TraceId generation logic if not present in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T048 [US4] Implement TraceId setting to `TraceIdUtil` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T049 [US4] Implement optional TraceId response header addition in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T050 [US4] Implement TraceId cleanup in finally block in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
-- [ ] T051 [US4] Create `FilterRegistrationBean` configuration in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
-- [ ] T052 [US4] Configure Filter execution order in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
-- [ ] T053 [US4] Configure URL pattern matching in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
-- [ ] T054 [P] [US4] Write unit tests for `TraceIdFilter` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/filter/TraceIdFilterTest.java`
+- [x] T045 [P] [US4] Create `TraceIdFilter` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T046 [US4] Implement `doFilter` method to get TraceId from request header in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T047 [US4] Implement TraceId generation logic if not present in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T048 [US4] Implement TraceId setting to `TraceIdUtil` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T049 [US4] Implement optional TraceId response header addition in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T050 [US4] Implement TraceId cleanup in finally block in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/filter/TraceIdFilter.java`
+- [x] T051 [US4] Create `FilterRegistrationBean` configuration in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
+- [x] T052 [US4] Configure Filter execution order in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
+- [x] T053 [US4] Configure URL pattern matching in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebConfig.java`
+- [x] T054 [P] [US4] Write unit tests for `TraceIdFilter` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/filter/TraceIdFilterTest.java`
 
 ### Phase 7: 文档和测试完善
 
