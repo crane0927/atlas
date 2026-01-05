@@ -157,49 +157,49 @@
 
 ### TraceId 工具类测试
 
-- [ ] T070 [P] [FR2] 创建 TraceIdGeneratorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
-- [ ] T071 [FR2] 测试 generateUUID() 方法（生成32位UUID，去除连字符）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
-- [ ] T072 [FR2] 测试 generateSnowflake() 方法（生成雪花算法ID）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
-- [ ] T073 [P] [FR2] 创建 TraceIdUtilTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
-- [ ] T074 [FR2] 测试 setTraceId() 方法（设置 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
-- [ ] T075 [FR2] 测试 getTraceId() 方法（优先从 ThreadLocal 获取）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
-- [ ] T076 [FR2] 测试 clear() 方法（清理 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
-- [ ] T077 [FR2] 测试 generate() 方法（生成新的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
-- [ ] T078 [FR2] 测试线程隔离性（不同线程的 TraceId 互不影响）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T070 [P] [FR2] 创建 TraceIdGeneratorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
+- [x] T071 [FR2] 测试 generateUUID() 方法（生成32位UUID，去除连字符）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
+- [x] T072 [FR2] 测试 generateSnowflake() 方法（生成雪花算法ID）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdGeneratorTest.java`
+- [x] T073 [P] [FR2] 创建 TraceIdUtilTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T074 [FR2] 测试 setTraceId() 方法（设置 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T075 [FR2] 测试 getTraceId() 方法（优先从 ThreadLocal 获取）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T076 [FR2] 测试 clear() 方法（清理 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T077 [FR2] 测试 generate() 方法（生成新的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
+- [x] T078 [FR2] 测试线程隔离性（不同线程的 TraceId 互不影响）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdUtilTest.java`
 
 ### TraceId 拦截器测试
 
-- [ ] T079 [P] [FR2] 创建 TraceIdInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
-- [ ] T080 [FR2] 测试 preHandle() 方法（从请求头获取 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
-- [ ] T081 [FR2] 测试 preHandle() 方法（请求头无 TraceId 时自动生成）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
-- [ ] T082 [FR2] 测试 afterCompletion() 方法（清理 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
-- [ ] T083 [P] [FR2] 创建 TraceIdFeignInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptorTest.java`
-- [ ] T084 [FR2] 测试 apply() 方法（将 TraceId 添加到 Feign 请求头）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptorTest.java`
-- [ ] T085 [P] [FR2] 创建 TraceIdTaskDecoratorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/async/TraceIdTaskDecoratorTest.java`
-- [ ] T086 [FR2] 测试 decorate() 方法（异步任务继承父线程的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/async/TraceIdTaskDecoratorTest.java`
+- [x] T079 [P] [FR2] 创建 TraceIdInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
+- [x] T080 [FR2] 测试 preHandle() 方法（从请求头获取 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
+- [x] T081 [FR2] 测试 preHandle() 方法（请求头无 TraceId 时自动生成）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
+- [x] T082 [FR2] 测试 afterCompletion() 方法（清理 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdInterceptorTest.java`
+- [x] T083 [P] [FR2] 创建 TraceIdFeignInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptorTest.java`
+- [x] T084 [FR2] 测试 apply() 方法（将 TraceId 添加到 Feign 请求头）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptorTest.java`
+- [x] T085 [P] [FR2] 创建 TraceIdTaskDecoratorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/async/TraceIdTaskDecoratorTest.java`
+- [x] T086 [FR2] 测试 decorate() 方法（异步任务继承父线程的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/async/TraceIdTaskDecoratorTest.java`
 
 ### 脱敏工具测试
 
-- [ ] T087 [P] [FR3] 创建 DesensitizeUtilTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T088 [FR3] 测试 maskPhone() 方法（手机号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T089 [FR3] 测试 maskIdCard() 方法（身份证号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T090 [FR3] 测试 maskBankCard() 方法（银行卡号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T091 [FR3] 测试 maskEmail() 方法（邮箱脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T092 [FR3] 测试 maskPassword() 方法（密码脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T093 [FR3] 测试 mask() 方法（自定义脱敏规则）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T094 [FR3] 测试边界情况（null、空字符串、长度不足）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
-- [ ] T095 [P] [FR3] 创建 DesensitizeRuleTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeRuleTest.java`
-- [ ] T096 [FR3] 测试 DesensitizeRule 构建和验证在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeRuleTest.java`
-- [ ] T097 [P] [FR3] 创建 DesensitizeInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
-- [ ] T098 [FR3] 测试日志消息自动脱敏在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
-- [ ] T099 [FR3] 测试对象字段自动脱敏（通过 @Sensitive 注解）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
+- [x] T087 [P] [FR3] 创建 DesensitizeUtilTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T088 [FR3] 测试 maskPhone() 方法（手机号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T089 [FR3] 测试 maskIdCard() 方法（身份证号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T090 [FR3] 测试 maskBankCard() 方法（银行卡号脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T091 [FR3] 测试 maskEmail() 方法（邮箱脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T092 [FR3] 测试 maskPassword() 方法（密码脱敏）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T093 [FR3] 测试 mask() 方法（自定义脱敏规则）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T094 [FR3] 测试边界情况（null、空字符串、长度不足）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeUtilTest.java`
+- [x] T095 [P] [FR3] 创建 DesensitizeRuleTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeRuleTest.java`
+- [x] T096 [FR3] 测试 DesensitizeRule 构建和验证在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeRuleTest.java`
+- [x] T097 [P] [FR3] 创建 DesensitizeInterceptorTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
+- [x] T098 [FR3] 测试日志消息自动脱敏在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
+- [x] T099 [FR3] 测试对象字段自动脱敏（通过 @Sensitive 注解）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/desensitize/DesensitizeInterceptorTest.java`
 
 ### 日志配置测试
 
-- [ ] T100 [P] [FR1] 创建日志配置测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
-- [ ] T101 [FR1] 测试日志格式输出（包含 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
-- [ ] T102 [FR1] 测试日志文件轮转在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
-- [ ] T103 [FR1] 测试环境特定配置（dev、test、prod）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
+- [x] T100 [P] [FR1] 创建日志配置测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
+- [x] T101 [FR1] 测试日志格式输出（包含 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
+- [x] T102 [FR1] 测试日志文件轮转在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
+- [x] T103 [FR1] 测试环境特定配置（dev、test、prod）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/test/java/com/atlas/common/infra/logging/config/LogbackConfigTest.java`
 
 ## Phase 6: 文档和示例
 
