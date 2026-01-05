@@ -58,9 +58,12 @@ public class UserController {
     "id": 1,
     "username": "admin"
   },
-  "timestamp": 1704067200000
+  "timestamp": 1704067200000,
+  "traceId": "abc123def456"
 }
 ```
+
+**注意**: `traceId` 会自动从 MDC（Mapped Diagnostic Context）中获取。如果 MDC 中没有设置 traceId，则该字段为 null（使用 `@JsonInclude(NON_NULL)` 时不会序列化）。
 
 **失败响应示例**:
 
@@ -103,6 +106,9 @@ public class UserServiceImpl implements UserService {
 package com.atlas.system.exception;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.exception.ParameterException;
+import com.atlas.common.feature.core.exception.PermissionException;
+import com.atlas.common.feature.core.exception.DataException;
 import com.atlas.common.feature.core.result.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -112,6 +118,21 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(BusinessException.class)
     public Result<Void> handleBusinessException(BusinessException e) {
+        return Result.error(e.getErrorCode(), e.getMessage());
+    }
+    
+    @ExceptionHandler(ParameterException.class)
+    public Result<Void> handleParameterException(ParameterException e) {
+        return Result.error(e.getErrorCode(), e.getMessage());
+    }
+    
+    @ExceptionHandler(PermissionException.class)
+    public Result<Void> handlePermissionException(PermissionException e) {
+        return Result.error(e.getErrorCode(), e.getMessage());
+    }
+    
+    @ExceptionHandler(DataException.class)
+    public Result<Void> handleDataException(DataException e) {
         return Result.error(e.getErrorCode(), e.getMessage());
     }
 }
@@ -159,11 +180,15 @@ public class UserController {
     "total": 100,
     "page": 1,
     "size": 10,
-    "pages": 10
+    "pages": 10,
+    "traceId": "abc123def456"
   },
-  "timestamp": 1704067200000
+  "timestamp": 1704067200000,
+  "traceId": "abc123def456"
 }
 ```
+
+**注意**: `PageResult` 和 `Result` 都会自动从 MDC 中获取 traceId，用于分布式追踪。
 
 ### 4. 使用错误码常量
 
@@ -171,9 +196,10 @@ public class UserController {
 
 ```java
 import com.atlas.common.feature.core.constant.CommonErrorCode;
+import com.atlas.common.feature.core.exception.BusinessException;
 
 // 使用错误码
-throw new BusinessException(CommonErrorCode.USER_NOT_FOUND, "用户不存在");
+throw new BusinessException(CommonErrorCode.DATA_NOT_FOUND, "用户不存在");
 ```
 
 ### 5. 使用基础常量
@@ -249,6 +275,29 @@ boolean hasPrevious = pageResult.hasPrevious();
 boolean isFirst = pageResult.isFirst();
 boolean isLast = pageResult.isLast();
 ```
+
+### Q6: traceId 是如何工作的？
+
+**A**: `Result` 和 `PageResult` 会自动从 MDC（Mapped Diagnostic Context）中获取 traceId：
+
+```java
+import org.slf4j.MDC;
+
+// 在拦截器或过滤器中设置 traceId
+MDC.put("traceId", "abc123def456");
+
+// Result 和 PageResult 会自动包含 traceId
+Result<User> result = Result.success(user);
+// result.getTraceId() 返回 "abc123def456"
+
+// 清理 MDC（通常在请求结束时）
+MDC.clear();
+```
+
+**最佳实践**:
+- 在网关或拦截器中统一设置 traceId
+- 使用 UUID 或雪花算法生成 traceId
+- 确保 traceId 在整个请求生命周期中传递
 
 ## 下一步
 

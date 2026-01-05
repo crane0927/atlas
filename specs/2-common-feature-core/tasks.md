@@ -174,13 +174,13 @@
 
 **独立测试标准**: 文档完整，示例代码可以运行
 
-- [ ] T079 验证 quickstart.md 文档完整性 `/Users/liuhuan/workspace/project/java/backend/atlas/specs/2-common-feature-core/quickstart.md`
-- [ ] T080 创建 Result 使用示例代码在文档中
-- [ ] T081 创建异常使用示例代码在文档中
-- [ ] T082 创建分页对象使用示例代码在文档中
-- [ ] T083 验证所有代码通过 Spotless 格式化检查
-- [ ] T084 验证所有代码通过 Maven Enforcer 检查
-- [ ] T085 验证单元测试覆盖率 ≥ 80%
+- [x] T079 验证 quickstart.md 文档完整性 `/Users/liuhuan/workspace/project/java/backend/atlas/specs/2-common-feature-core/quickstart.md`
+- [x] T080 创建 Result 使用示例代码在文档中
+- [x] T081 创建异常使用示例代码在文档中
+- [x] T082 创建分页对象使用示例代码在文档中
+- [x] T083 验证所有代码通过 Spotless 格式化检查
+- [x] T084 验证所有代码通过 Maven Enforcer 检查
+- [x] T085 验证单元测试覆盖率 ≥ 80%
 
 ## 并行执行示例
 
