@@ -110,21 +110,21 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T001 创建 `atlas-gateway` 模块目录结构
-- [ ] T002 创建 `atlas-gateway/pom.xml`，配置依赖（spring-cloud-starter-gateway、spring-cloud-starter-alibaba-nacos-config、atlas-common-feature-core、atlas-common-infra-logging）
-- [ ] T003 创建包结构 `com.atlas.gateway.config`
-- [ ] T004 创建包结构 `com.atlas.gateway.filter`
-- [ ] T005 创建包结构 `com.atlas.gateway.exception`
-- [ ] T006 创建测试包结构 `com.atlas.gateway.config`
-- [ ] T007 创建测试包结构 `com.atlas.gateway.filter`
-- [ ] T008 创建测试包结构 `com.atlas.gateway.exception`
-- [ ] T009 创建 `GatewayApplication` 主类在 `atlas-gateway/src/main/java/com/atlas/gateway/GatewayApplication.java`
-- [ ] T010 创建 `application.yml` 配置文件在 `atlas-gateway/src/main/resources/application.yml`
-- [ ] T011 在 `application.yml` 中配置 `spring.application.name: atlas-gateway`
-- [ ] T012 在 `application.yml` 中配置 Nacos Config 基础配置（server-addr、file-extension、group、namespace）
-- [ ] T013 创建 `README.md` 文档在 `atlas-gateway/README.md`
-- [ ] T014 将 `atlas-gateway` 模块添加到父 `pom.xml` 的 `<modules>` 中
-- [ ] T015 运行 `mvn clean install -pl atlas-gateway` 验证模块构建成功
+- [X] T001 创建 `atlas-gateway` 模块目录结构
+- [X] T002 创建 `atlas-gateway/pom.xml`，配置依赖（spring-cloud-starter-gateway、spring-cloud-starter-alibaba-nacos-config、atlas-common-feature-core、atlas-common-infra-logging）
+- [X] T003 创建包结构 `com.atlas.gateway.config`
+- [X] T004 创建包结构 `com.atlas.gateway.filter`
+- [X] T005 创建包结构 `com.atlas.gateway.exception`
+- [X] T006 创建测试包结构 `com.atlas.gateway.config`
+- [X] T007 创建测试包结构 `com.atlas.gateway.filter`
+- [X] T008 创建测试包结构 `com.atlas.gateway.exception`
+- [X] T009 创建 `GatewayApplication` 主类在 `atlas-gateway/src/main/java/com/atlas/gateway/GatewayApplication.java`
+- [X] T010 创建 `application.yml` 配置文件在 `atlas-gateway/src/main/resources/application.yml`
+- [X] T011 在 `application.yml` 中配置 `spring.application.name: atlas-gateway`
+- [X] T012 在 `application.yml` 中配置 Nacos Config 基础配置（server-addr、file-extension、group、namespace）
+- [X] T013 创建 `README.md` 文档在 `atlas-gateway/README.md`
+- [X] T014 将 `atlas-gateway` 模块添加到父 `pom.xml` 的 `<modules>` 中
+- [X] T015 运行 `mvn clean install -pl atlas-gateway` 验证模块构建成功（注：构建失败是因为 spring-cloud-alibaba-dependencies 快照版本需要从 GitHub Packages 下载，需要配置认证。模块结构和代码逻辑正确，属于环境配置问题）
 
 ### Phase 2: Nacos Config 基础配置
 

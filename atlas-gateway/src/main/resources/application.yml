@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: atlas-gateway
+  cloud:
+    # Nacos Config 配置
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+        namespace: dev
+        data-id: ${spring.application.name}-${spring.profiles.active:dev}.yaml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: atlas-gateway-${spring.profiles.active:dev}.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.atlas.gateway: DEBUG
+

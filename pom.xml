@@ -259,6 +259,7 @@
         <module>atlas-common/atlas-common-infra/atlas-common-infra-web</module>
         <module>atlas-common/atlas-common-infra/atlas-common-infra-redis</module>
         <module>atlas-common/atlas-common-infra/atlas-common-infra-db</module>
+        <module>atlas-gateway</module>
     </modules>
 
 </project>
