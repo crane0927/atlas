@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize;
 
 import com.atlas.common.infra.logging.desensitize.annotation.Sensitive;
@@ -16,9 +14,9 @@ import java.util.regex.Pattern;
  * <p>提供日志消息和对象字段的自动脱敏功能：
  *
  * <ul>
- *   <li>日志消息脱敏：检测日志消息中的敏感信息模式，自动应用脱敏规则</li>
- *   <li>对象字段脱敏：通过反射和 {@link Sensitive} 注解，自动对对象字段进行脱敏</li>
- *   <li>自定义规则：支持配置自定义脱敏规则</li>
+ *   <li>日志消息脱敏：检测日志消息中的敏感信息模式，自动应用脱敏规则
+ *   <li>对象字段脱敏：通过反射和 {@link Sensitive} 注解，自动对对象字段进行脱敏
+ *   <li>自定义规则：支持配置自定义脱敏规则
  * </ul>
  *
  * <p>使用示例：
@@ -51,7 +49,8 @@ public final class DesensitizeInterceptor {
   private static final Pattern BANK_CARD_PATTERN = Pattern.compile("\\d{16,19}");
 
   /** 邮箱正则表达式 */
-  private static final Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+  private static final Pattern EMAIL_PATTERN =
+      Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
 
   /** 自定义脱敏规则列表 */
   private static final List<DesensitizeRule> CUSTOM_RULES = new ArrayList<>();
@@ -72,9 +71,7 @@ public final class DesensitizeInterceptor {
     }
   }
 
-  /**
-   * 清除所有自定义脱敏规则
-   */
+  /** 清除所有自定义脱敏规则 */
   public static void clearCustomRules() {
     CUSTOM_RULES.clear();
   }
@@ -95,35 +92,55 @@ public final class DesensitizeInterceptor {
     String result = message;
 
     // 脱敏手机号
-    result = PHONE_PATTERN.matcher(result).replaceAll(matchResult -> {
-      String phone = matchResult.group();
-      return DesensitizeUtil.maskPhone(phone);
-    });
+    result =
+        PHONE_PATTERN
+            .matcher(result)
+            .replaceAll(
+                matchResult -> {
+                  String phone = matchResult.group();
+                  return DesensitizeUtil.maskPhone(phone);
+                });
 
     // 脱敏身份证号
-    result = ID_CARD_PATTERN.matcher(result).replaceAll(matchResult -> {
-      String idCard = matchResult.group();
-      return DesensitizeUtil.maskIdCard(idCard);
-    });
+    result =
+        ID_CARD_PATTERN
+            .matcher(result)
+            .replaceAll(
+                matchResult -> {
+                  String idCard = matchResult.group();
+                  return DesensitizeUtil.maskIdCard(idCard);
+                });
 
     // 脱敏银行卡号
-    result = BANK_CARD_PATTERN.matcher(result).replaceAll(matchResult -> {
-      String bankCard = matchResult.group();
-      return DesensitizeUtil.maskBankCard(bankCard);
-    });
+    result =
+        BANK_CARD_PATTERN
+            .matcher(result)
+            .replaceAll(
+                matchResult -> {
+                  String bankCard = matchResult.group();
+                  return DesensitizeUtil.maskBankCard(bankCard);
+                });
 
     // 脱敏邮箱
-    result = EMAIL_PATTERN.matcher(result).replaceAll(matchResult -> {
-      String email = matchResult.group();
-      return DesensitizeUtil.maskEmail(email);
-    });
+    result =
+        EMAIL_PATTERN
+            .matcher(result)
+            .replaceAll(
+                matchResult -> {
+                  String email = matchResult.group();
+                  return DesensitizeUtil.maskEmail(email);
+                });
 
     // 应用自定义规则
     for (DesensitizeRule rule : CUSTOM_RULES) {
       if (rule.getPattern() != null) {
-        result = rule.getPattern().matcher(result).replaceAll(matchResult -> {
-          return DesensitizeUtil.mask(matchResult.group(), rule);
-        });
+        result =
+            rule.getPattern()
+                .matcher(result)
+                .replaceAll(
+                    matchResult -> {
+                      return DesensitizeUtil.mask(matchResult.group(), rule);
+                    });
       }
     }
 
@@ -215,4 +232,3 @@ public final class DesensitizeInterceptor {
     }
   }
 }
-

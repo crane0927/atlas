@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.async;
 
 import com.atlas.common.infra.logging.trace.TraceIdUtil;
@@ -14,9 +12,9 @@ import org.springframework.core.task.TaskDecorator;
  * <p>工作流程：
  *
  * <ol>
- *   <li>异步任务执行前，从父线程获取 TraceId</li>
- *   <li>在新线程中设置 TraceId 到 ThreadLocal 和 MDC</li>
- *   <li>异步任务执行完成后，清理 TraceId（由任务执行器负责）</li>
+ *   <li>异步任务执行前，从父线程获取 TraceId
+ *   <li>在新线程中设置 TraceId 到 ThreadLocal 和 MDC
+ *   <li>异步任务执行完成后，清理 TraceId（由任务执行器负责）
  * </ol>
  *
  * <p>配置示例：
@@ -70,4 +68,3 @@ public class TraceIdTaskDecorator implements TaskDecorator {
     };
   }
 }
-

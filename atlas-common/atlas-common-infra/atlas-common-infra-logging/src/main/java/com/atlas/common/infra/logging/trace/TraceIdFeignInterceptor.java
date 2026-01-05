@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.trace;
 
 import feign.RequestInterceptor;
@@ -15,9 +13,9 @@ import org.springframework.lang.NonNull;
  * <p>工作流程：
  *
  * <ol>
- *   <li>Feign 调用前，从 TraceIdUtil 获取当前线程的 TraceId</li>
- *   <li>将 TraceId 添加到请求头 {@code X-Trace-Id}</li>
- *   <li>下游服务可以通过 TraceIdInterceptor 获取 TraceId，实现链路追踪</li>
+ *   <li>Feign 调用前，从 TraceIdUtil 获取当前线程的 TraceId
+ *   <li>将 TraceId 添加到请求头 {@code X-Trace-Id}
+ *   <li>下游服务可以通过 TraceIdInterceptor 获取 TraceId，实现链路追踪
  * </ol>
  *
  * <p>配置示例：
@@ -58,4 +56,3 @@ public class TraceIdFeignInterceptor implements RequestInterceptor {
     }
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.trace;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -133,4 +131,3 @@ class TraceIdUtilTest {
     assertEquals(traceId1, TraceIdUtil.getTraceId());
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.async;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,4 +110,3 @@ class TraceIdTaskDecoratorTest {
     assertNull(afterExecutionTraceId.get());
   }
 }
-

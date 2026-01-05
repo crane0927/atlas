@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.trace;
 
 import org.slf4j.MDC;
@@ -11,8 +9,8 @@ import org.slf4j.MDC;
  * <p>提供 TraceId 的设置、获取和清理方法，使用 ThreadLocal + MDC 双重存储：
  *
  * <ul>
- *   <li>ThreadLocal：用于业务代码访问，线程隔离，性能好</li>
- *   <li>MDC：用于日志自动输出，与 Logback 深度集成</li>
+ *   <li>ThreadLocal：用于业务代码访问，线程隔离，性能好
+ *   <li>MDC：用于日志自动输出，与 Logback 深度集成
  * </ul>
  *
  * <p>使用示例：
@@ -107,4 +105,3 @@ public final class TraceIdUtil {
     return TraceIdGenerator.generateUUID();
   }
 }
-

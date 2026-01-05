@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize;
 
 import java.util.regex.Pattern;
@@ -46,4 +44,3 @@ public class DesensitizeRule {
   /** 替换字符串 */
   @Builder.Default private String replacement = "****";
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.trace;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,9 +14,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * <p>工作流程：
  *
  * <ol>
- *   <li>请求到达时（preHandle）：从请求头 {@code X-Trace-Id} 获取 TraceId，如果不存在则自动生成</li>
- *   <li>TraceId 设置到 ThreadLocal 和 MDC，供业务代码和日志使用</li>
- *   <li>请求结束后（afterCompletion）：清理 TraceId，避免内存泄漏</li>
+ *   <li>请求到达时（preHandle）：从请求头 {@code X-Trace-Id} 获取 TraceId，如果不存在则自动生成
+ *   <li>TraceId 设置到 ThreadLocal 和 MDC，供业务代码和日志使用
+ *   <li>请求结束后（afterCompletion）：清理 TraceId，避免内存泄漏
  * </ol>
  *
  * <p>配置示例：
@@ -91,4 +89,3 @@ public class TraceIdInterceptor implements HandlerInterceptor {
     TraceIdUtil.clear();
   }
 }
-

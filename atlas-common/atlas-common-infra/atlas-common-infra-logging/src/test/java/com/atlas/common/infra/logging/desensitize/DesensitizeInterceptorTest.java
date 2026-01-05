@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -267,10 +265,7 @@ class DesensitizeInterceptorTest {
   void testClearCustomRules() {
     // Given
     DesensitizeRule rule =
-        DesensitizeRule.builder()
-            .fieldType("custom")
-            .pattern(Pattern.compile("\\d+"))
-            .build();
+        DesensitizeRule.builder().fieldType("custom").pattern(Pattern.compile("\\d+")).build();
     DesensitizeInterceptor.addCustomRule(rule);
 
     // When
@@ -282,4 +277,3 @@ class DesensitizeInterceptorTest {
     assertEquals(message, masked);
   }
 }
-

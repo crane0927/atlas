@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize.annotation;
 
 import java.lang.annotation.ElementType;
@@ -60,4 +58,3 @@ public @interface Sensitive {
    */
   int suffixLength() default 0;
 }
-

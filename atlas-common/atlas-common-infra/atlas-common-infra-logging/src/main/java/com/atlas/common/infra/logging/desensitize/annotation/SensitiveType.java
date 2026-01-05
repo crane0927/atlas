@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize.annotation;
 
 /**
@@ -30,4 +28,3 @@ public enum SensitiveType {
   /** 自定义类型 */
   CUSTOM
 }
-

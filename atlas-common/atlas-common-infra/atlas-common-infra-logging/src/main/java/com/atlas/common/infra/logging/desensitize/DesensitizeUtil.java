@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.logging.desensitize;
 
 import java.util.regex.Matcher;
@@ -196,4 +194,3 @@ public final class DesensitizeUtil {
     return masked.toString();
   }
 }
-
