@@ -184,15 +184,15 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: 文档完整清晰，使用示例可以正常运行，单元测试覆盖率 ≥ 80%
 
-- [ ] T055 Update `README.md` with module introduction in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T056 Update `README.md` with feature descriptions in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T057 Update `README.md` with quick start guide in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T058 Update `README.md` with usage examples in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T059 Update `README.md` with related documentation links in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T060 Run Spotless formatting check and fix any violations
-- [ ] T061 Run Maven Enforcer check and verify compliance
-- [ ] T062 Verify unit test coverage ≥ 80%
-- [ ] T063 Run integration tests for main exception scenarios
+- [x] T055 Update `README.md` with module introduction in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T056 Update `README.md` with feature descriptions in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T057 Update `README.md` with quick start guide in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T058 Update `README.md` with usage examples in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T059 Update `README.md` with related documentation links in `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T060 Run Spotless formatting check and fix any violations
+- [x] T061 Run Maven Enforcer check and verify compliance
+- [x] T062 Verify unit test coverage ≥ 80%
+- [x] T063 Run integration tests for main exception scenarios
 
 ## 实施策略
 

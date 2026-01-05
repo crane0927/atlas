@@ -45,4 +45,3 @@ public class FieldError {
    */
   private String message;
 }
-

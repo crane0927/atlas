@@ -130,7 +130,9 @@ class JacksonConfigTest {
   void testWriteDatesAsTimestamps() {
     // When
     boolean writeDatesAsTimestamps =
-        objectMapper.getSerializationConfig().isEnabled(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper
+            .getSerializationConfig()
+            .isEnabled(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     // Then
     // 应该禁用时间戳格式，使用字符串格式
@@ -177,4 +179,3 @@ class JacksonConfigTest {
     }
   }
 }
-

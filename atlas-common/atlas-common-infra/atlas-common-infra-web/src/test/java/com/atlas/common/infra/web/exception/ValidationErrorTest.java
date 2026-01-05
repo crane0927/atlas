@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.FieldError as SpringFieldError;
+import org.springframework.validation.FieldError;
 
 /**
  * ValidationError 单元测试
@@ -80,9 +79,9 @@ class ValidationErrorTest {
   @Test
   void testFromSpringFieldErrors() {
     // Given
-    List<SpringFieldError> springFieldErrors = new ArrayList<>();
-    springFieldErrors.add(new SpringFieldError("user", "username", "用户名不能为空"));
-    springFieldErrors.add(new SpringFieldError("user", "email", "邮箱格式不正确"));
+    List<FieldError> springFieldErrors = new ArrayList<>();
+    springFieldErrors.add(new FieldError("user", "username", "用户名不能为空"));
+    springFieldErrors.add(new FieldError("user", "email", "邮箱格式不正确"));
 
     // When
     ValidationError validationError = ValidationError.from(springFieldErrors);
@@ -111,7 +110,7 @@ class ValidationErrorTest {
   @Test
   void testFromSpringFieldErrorsWithEmptyList() {
     // Given
-    List<SpringFieldError> springFieldErrors = new ArrayList<>();
+    List<FieldError> springFieldErrors = new ArrayList<>();
 
     // When
     ValidationError validationError = ValidationError.from(springFieldErrors);
@@ -226,4 +225,3 @@ class ValidationErrorTest {
     }
   }
 }
-

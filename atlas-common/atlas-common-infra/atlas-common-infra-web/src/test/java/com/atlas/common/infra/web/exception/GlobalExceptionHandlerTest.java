@@ -18,7 +18,6 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError as SpringFieldError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,7 +36,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -59,9 +57,7 @@ class GlobalExceptionHandlerTest {
     objectMapper = new ObjectMapper();
     validator = Validation.buildDefaultValidatorFactory().getValidator();
     mockMvc =
-        MockMvcBuilders.standaloneSetup(new TestController())
-            .setControllerAdvice(handler)
-            .build();
+        MockMvcBuilders.standaloneSetup(new TestController()).setControllerAdvice(handler).build();
     MDC.clear();
   }
 
@@ -99,8 +95,7 @@ class GlobalExceptionHandlerTest {
   @Test
   void testHandlePermissionException() {
     // Given
-    PermissionException e =
-        new PermissionException(CommonErrorCode.PERMISSION_DENIED, "权限不足");
+    PermissionException e = new PermissionException(CommonErrorCode.PERMISSION_DENIED, "权限不足");
 
     // When
     Result<Void> result = handler.handlePermissionException(e);
@@ -136,8 +131,8 @@ class GlobalExceptionHandlerTest {
 
     org.springframework.validation.BindingResult bindingResult =
         new org.springframework.validation.BeanPropertyBindingResult(dto, "testDTO");
-    bindingResult.addError(new SpringFieldError("testDTO", "username", "用户名不能为空"));
-    bindingResult.addError(new SpringFieldError("testDTO", "email", "邮箱不能为空"));
+    bindingResult.addError(new FieldError("testDTO", "username", "用户名不能为空"));
+    bindingResult.addError(new FieldError("testDTO", "email", "邮箱不能为空"));
 
     MethodArgumentNotValidException e = new MethodArgumentNotValidException(null, bindingResult);
 
@@ -183,7 +178,7 @@ class GlobalExceptionHandlerTest {
     TestDTO dto = new TestDTO();
     org.springframework.validation.BindingResult bindingResult =
         new org.springframework.validation.BeanPropertyBindingResult(dto, "testDTO");
-    bindingResult.addError(new SpringFieldError("testDTO", "username", "用户名不能为空"));
+    bindingResult.addError(new FieldError("testDTO", "username", "用户名不能为空"));
     BindException e = new BindException(bindingResult);
 
     // When
@@ -373,4 +368,3 @@ class GlobalExceptionHandlerTest {
     }
   }
 }
-

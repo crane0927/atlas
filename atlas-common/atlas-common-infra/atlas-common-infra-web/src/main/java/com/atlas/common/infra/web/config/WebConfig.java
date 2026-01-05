@@ -58,4 +58,3 @@ public class WebConfig {
     return registration;
   }
 }
-

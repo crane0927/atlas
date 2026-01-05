@@ -97,4 +97,3 @@ class FieldErrorTest {
     assertEquals("{}", json);
   }
 }
-

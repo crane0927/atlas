@@ -30,8 +30,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * <ul>
  *   <li>业务异常：{@link BusinessException}、{@link ParameterException}、{@link
  *       PermissionException}、{@link DataException}
- *   <li>参数校验异常：{@link MethodArgumentNotValidException}、{@link
- *       ConstraintViolationException}
+ *   <li>参数校验异常：{@link MethodArgumentNotValidException}、{@link ConstraintViolationException}
  *   <li>Spring MVC 异常：{@link HttpRequestMethodNotSupportedException}、{@link
  *       HttpMediaTypeNotSupportedException}、{@link MissingServletRequestParameterException}
  *   <li>系统异常：{@link Exception}、{@link RuntimeException}
@@ -123,7 +122,8 @@ public class GlobalExceptionHandler {
         e.getBindingResult().getFieldErrors();
     ValidationError validationError = ValidationError.from(fieldErrors);
     log.info(
-        "参数校验异常: fieldErrors={}", fieldErrors.stream().map(org.springframework.validation.FieldError::getField).toList());
+        "参数校验异常: fieldErrors={}",
+        fieldErrors.stream().map(org.springframework.validation.FieldError::getField).toList());
     return Result.error(CommonErrorCode.PARAM_ERROR, "参数校验失败", validationError);
   }
 
@@ -138,8 +138,7 @@ public class GlobalExceptionHandler {
   public Result<ValidationError> handleConstraintViolationException(
       ConstraintViolationException e) {
     ValidationError validationError =
-        ValidationError.fromConstraintViolations(
-            e.getConstraintViolations().stream().toList());
+        ValidationError.fromConstraintViolations(e.getConstraintViolations().stream().toList());
     log.info("约束校验异常: violations={}", e.getConstraintViolations().size());
     return Result.error(CommonErrorCode.PARAM_ERROR, "参数校验失败", validationError);
   }
@@ -153,10 +152,12 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(BindException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Result<ValidationError> handleBindException(BindException e) {
-    List<org.springframework.validation.FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+    List<org.springframework.validation.FieldError> fieldErrors =
+        e.getBindingResult().getFieldErrors();
     ValidationError validationError = ValidationError.from(fieldErrors);
     log.info(
-        "绑定异常: fieldErrors={}", fieldErrors.stream().map(org.springframework.validation.FieldError::getField).toList());
+        "绑定异常: fieldErrors={}",
+        fieldErrors.stream().map(org.springframework.validation.FieldError::getField).toList());
     return Result.error(CommonErrorCode.PARAM_ERROR, "参数绑定失败", validationError);
   }
 
@@ -190,8 +191,7 @@ public class GlobalExceptionHandler {
       HttpMediaTypeNotSupportedException e) {
     String message =
         String.format(
-            "HTTP 媒体类型 '%s' 不支持，支持的媒体类型: %s",
-            e.getContentType(), e.getSupportedMediaTypes());
+            "HTTP 媒体类型 '%s' 不支持，支持的媒体类型: %s", e.getContentType(), e.getSupportedMediaTypes());
     log.warn(
         "HTTP 媒体类型不支持: contentType={}, supportedMediaTypes={}",
         e.getContentType(),
@@ -209,8 +209,10 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Result<Void> handleMissingServletRequestParameterException(
       MissingServletRequestParameterException e) {
-    String message = String.format("缺少必需的请求参数: %s (类型: %s)", e.getParameterName(), e.getParameterType());
-    log.warn("缺少请求参数: parameterName={}, parameterType={}", e.getParameterName(), e.getParameterType());
+    String message =
+        String.format("缺少必需的请求参数: %s (类型: %s)", e.getParameterName(), e.getParameterType());
+    log.warn(
+        "缺少请求参数: parameterName={}, parameterType={}", e.getParameterName(), e.getParameterType());
     return Result.error(CommonErrorCode.PARAM_REQUIRED, message);
   }
 
@@ -231,4 +233,3 @@ public class GlobalExceptionHandler {
     return Result.error(CommonErrorCode.SYSTEM_ERROR, "系统错误，请联系管理员");
   }
 }
-

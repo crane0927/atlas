@@ -11,8 +11,8 @@ import java.io.IOException;
  *
  * <p>将 Long 类型序列化为 String，避免前端 JavaScript 精度丢失。
  *
- * <p>JavaScript 的 Number 类型只能安全表示 2^53 以内的整数（即 -9007199254740991 到
- * 9007199254740991），超过此范围的 Long 值会丢失精度。通过将 Long 序列化为 String，前端可以安全处理大整数。
+ * <p>JavaScript 的 Number 类型只能安全表示 2^53 以内的整数（即 -9007199254740991 到 9007199254740991），超过此范围的 Long
+ * 值会丢失精度。通过将 Long 序列化为 String，前端可以安全处理大整数。
  *
  * <p>使用示例：
  *
@@ -58,4 +58,3 @@ public class LongToStringSerializer extends JsonSerializer<Long> {
     }
   }
 }
-

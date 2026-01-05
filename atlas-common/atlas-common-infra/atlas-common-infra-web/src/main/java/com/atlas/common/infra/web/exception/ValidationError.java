@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.FieldError as SpringFieldError;
 
 /**
  * 参数校验错误信息封装类
@@ -54,13 +53,14 @@ public class ValidationError {
    * @param springFieldErrors Spring Validation 的 FieldError 列表
    * @return ValidationError 对象
    */
-  public static ValidationError from(List<SpringFieldError> springFieldErrors) {
+  public static ValidationError from(
+      List<org.springframework.validation.FieldError> springFieldErrors) {
     if (springFieldErrors == null || springFieldErrors.isEmpty()) {
       return ValidationError.builder().errors(new ArrayList<>()).build();
     }
 
     List<FieldError> errors = new ArrayList<>();
-    for (SpringFieldError springFieldError : springFieldErrors) {
+    for (org.springframework.validation.FieldError springFieldError : springFieldErrors) {
       errors.add(
           FieldError.builder()
               .field(springFieldError.getField())
@@ -88,14 +88,10 @@ public class ValidationError {
     List<FieldError> errors = new ArrayList<>();
     for (jakarta.validation.ConstraintViolation<?> violation : violations) {
       String fieldName =
-          violation.getPropertyPath() != null
-              ? violation.getPropertyPath().toString()
-              : "unknown";
-      errors.add(
-          FieldError.builder().field(fieldName).message(violation.getMessage()).build());
+          violation.getPropertyPath() != null ? violation.getPropertyPath().toString() : "unknown";
+      errors.add(FieldError.builder().field(fieldName).message(violation.getMessage()).build());
     }
 
     return ValidationError.builder().errors(errors).build();
   }
 }
-
