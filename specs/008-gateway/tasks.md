@@ -219,20 +219,20 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T065 [P] [US4] 创建 `GatewayExceptionHandler` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/exception/GatewayExceptionHandler.java`
-- [ ] T066 [US4] 在 `GatewayExceptionHandler` 中实现 `ErrorWebExceptionHandler` 接口
-- [ ] T067 [US4] 在 `GatewayExceptionHandler` 中添加 `@Order(-1)` 注解，确保优先执行
-- [ ] T068 [US4] 在 `handle()` 方法中捕获路由失败异常（NotFoundException），返回错误码 `010404`
-- [ ] T069 [US4] 在 `handle()` 方法中捕获服务不可用异常（ServiceUnavailableException），返回错误码 `010503`
-- [ ] T070 [US4] 在 `handle()` 方法中捕获请求超时异常（TimeoutException），返回错误码 `010002`
-- [ ] T071 [US4] 在 `handle()` 方法中捕获其他 Gateway 异常，返回错误码 `010000`
-- [ ] T072 [US4] 使用 `Result.error()` 方法构建错误响应
-- [ ] T073 [US4] 从 `TraceIdUtil` 获取 TraceId 并注入到错误响应中
-- [ ] T074 [US4] 设置响应状态码为 `HttpStatus.OK`（统一错误格式使用 200 状态码）
-- [ ] T075 [US4] 设置响应 Content-Type 为 `MediaType.APPLICATION_JSON`
-- [ ] T076 [US4] 在 `GatewayExceptionHandler` 中添加完整的中文注释（类注释、方法注释）
-- [ ] T077 [US4] 创建 `GatewayExceptionHandlerTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/exception/GatewayExceptionHandlerTest.java`
-- [ ] T078 [US4] 创建统一错误返回集成测试，验证各种异常场景都能返回统一格式的错误响应
+- [X] T065 [P] [US4] 创建 `GatewayExceptionHandler` 类在 `atlas-gateway/src/main/java/com/atlas/gateway/exception/GatewayExceptionHandler.java`
+- [X] T066 [US4] 在 `GatewayExceptionHandler` 中实现 `ErrorWebExceptionHandler` 接口
+- [X] T067 [US4] 在 `GatewayExceptionHandler` 中添加 `@Order(-1)` 注解，确保优先执行
+- [X] T068 [US4] 在 `handle()` 方法中捕获路由失败异常（NotFoundException），返回错误码 `010404`
+- [X] T069 [US4] 在 `handle()` 方法中捕获服务不可用异常（ServiceUnavailableException），返回错误码 `010503`
+- [X] T070 [US4] 在 `handle()` 方法中捕获请求超时异常（TimeoutException），返回错误码 `010002`
+- [X] T071 [US4] 在 `handle()` 方法中捕获其他 Gateway 异常，返回错误码 `010000`
+- [X] T072 [US4] 使用 `Result.error()` 方法构建错误响应
+- [X] T073 [US4] 从 `TraceIdUtil` 获取 TraceId 并注入到错误响应中
+- [X] T074 [US4] 设置响应状态码为 `HttpStatus.OK`（统一错误格式使用 200 状态码）
+- [X] T075 [US4] 设置响应 Content-Type 为 `MediaType.APPLICATION_JSON`
+- [X] T076 [US4] 在 `GatewayExceptionHandler` 中添加完整的中文注释（类注释、方法注释）
+- [X] T077 [US4] 创建 `GatewayExceptionHandlerTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/exception/GatewayExceptionHandlerTest.java`
+- [X] T078 [US4] 创建统一错误返回集成测试，验证各种异常场景都能返回统一格式的错误响应
 
 ### Phase 7: 鉴权控制实现（白名单 + Token 校验占位） [US5]
 
