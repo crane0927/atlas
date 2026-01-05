@@ -117,19 +117,19 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: 所有异常类型都可以正确处理，异常响应格式符合 `Result` 规范，异常响应包含 TraceId
 
-- [ ] T016 [US1] Create `GlobalExceptionHandler` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T017 [US1] Implement `handleBusinessException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T018 [US1] Implement `handleParameterException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T019 [US1] Implement `handlePermissionException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T020 [US1] Implement `handleDataException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T021 [US1] Implement `handleHttpRequestMethodNotSupportedException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T022 [US1] Implement `handleHttpMediaTypeNotSupportedException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T023 [US1] Implement `handleMissingServletRequestParameterException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T024 [US1] Implement `handleException` method for system exceptions in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T025 [US1] Implement exception logging functionality in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T026 [US1] Write unit tests for business exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
-- [ ] T027 [US1] Write unit tests for Spring MVC exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
-- [ ] T028 [US1] Write unit tests for system exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
+- [x] T016 [US1] Create `GlobalExceptionHandler` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T017 [US1] Implement `handleBusinessException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T018 [US1] Implement `handleParameterException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T019 [US1] Implement `handlePermissionException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T020 [US1] Implement `handleDataException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T021 [US1] Implement `handleHttpRequestMethodNotSupportedException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T022 [US1] Implement `handleHttpMediaTypeNotSupportedException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T023 [US1] Implement `handleMissingServletRequestParameterException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T024 [US1] Implement `handleException` method for system exceptions in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T025 [US1] Implement exception logging functionality in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T026 [US1] Write unit tests for business exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
+- [x] T027 [US1] Write unit tests for Spring MVC exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
+- [x] T028 [US1] Write unit tests for system exception handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
 
 ### Phase 4: US2 - 参数校验返回
 
@@ -137,11 +137,11 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: `@Valid` 和 `@Validated` 注解的校验错误可以统一处理，校验错误响应格式符合 `Result` 规范，校验错误响应包含字段错误列表和 TraceId
 
-- [ ] T029 [US2] Implement `handleMethodArgumentNotValidException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T030 [US2] Implement `handleConstraintViolationException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T031 [US2] Implement field error extraction logic in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
-- [ ] T032 [US2] Write unit tests for `MethodArgumentNotValidException` handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
-- [ ] T033 [US2] Write unit tests for `ConstraintViolationException` handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
+- [x] T029 [US2] Implement `handleMethodArgumentNotValidException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T030 [US2] Implement `handleConstraintViolationException` method in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T031 [US2] Implement field error extraction logic in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`
+- [x] T032 [US2] Write unit tests for `MethodArgumentNotValidException` handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
+- [x] T033 [US2] Write unit tests for `ConstraintViolationException` handling in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/GlobalExceptionHandlerTest.java`
 
 ### Phase 5: US3 - Jackson 配置
 
