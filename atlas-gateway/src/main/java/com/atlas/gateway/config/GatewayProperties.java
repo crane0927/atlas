@@ -13,6 +13,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * <p>用于读取配置文件中的 Gateway 相关配置，支持通过 application.yml 或 Nacos Config 配置路由规则、白名单、CORS 等参数。
  *
+ * <p>配置特性：
+ *
+ * <ul>
+ *   <li>支持从 Nacos Config 读取配置
+ *   <li>支持配置动态更新（通过 {@code @ConfigurationProperties} 自动绑定）
+ *   <li>配置项符合项目的配置命名规范（{@code atlas.gateway.*}）
+ *   <li>所有配置项都支持动态更新，无需重启服务
+ * </ul>
+ *
  * <p>配置示例：
  *
  * <pre>{@code
@@ -37,6 +46,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *       allow-credentials: true
  *       max-age: 3600
  * }</pre>
+ *
+ * <p>配置命名规范：
+ *
+ * <ul>
+ *   <li>所有配置项使用 {@code atlas.gateway.*} 前缀
+ *   <li>路由配置：{@code atlas.gateway.routes.*}
+ *   <li>白名单配置：{@code atlas.gateway.whitelist.*}
+ *   <li>CORS 配置：{@code atlas.gateway.cors.*}
+ * </ul>
  *
  * @author Atlas Team
  * @since 1.0.0

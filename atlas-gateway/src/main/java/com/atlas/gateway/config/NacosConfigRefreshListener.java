@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Nacos Config 配置变更监听器
  *
- * <p>监听 Nacos Config 配置变更事件，当 Gateway 配置变更时自动刷新路由规则和 CORS 配置。
+ * <p>监听 Nacos Config 配置变更事件，当 Gateway 配置变更时自动刷新路由规则、CORS 配置和白名单配置。
  *
  * <p>功能特性：
  *
@@ -20,7 +20,17 @@ import org.springframework.stereotype.Component;
  *   <li>监听 Spring Cloud 的 EnvironmentChangeEvent 事件（Nacos Config 配置变更时会触发）
  *   <li>配置变更后自动调用 {@link GatewayConfig#refreshRoutes()} 刷新路由规则
  *   <li>配置变更后自动调用 {@link CorsConfig#refreshCorsConfig()} 刷新 CORS 配置
- *   <li>支持路由规则和 CORS 配置动态更新，无需重启服务
+ *   <li>白名单配置通过 {@link GatewayProperties} 自动绑定，无需手动刷新
+ *   <li>支持所有配置项动态更新，无需重启服务
+ * </ul>
+ *
+ * <p>配置命名规范：
+ *
+ * <ul>
+ *   <li>所有配置项使用 {@code atlas.gateway.*} 前缀
+ *   <li>路由配置：{@code atlas.gateway.routes.*}
+ *   <li>白名单配置：{@code atlas.gateway.whitelist.*}
+ *   <li>CORS 配置：{@code atlas.gateway.cors.*}
  * </ul>
  *
  * <p>注意：此监听器依赖于 Spring Cloud 的配置刷新机制。当 Nacos Config 配置变更时，
