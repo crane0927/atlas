@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父 POM -->
+    <parent>
+        <groupId>com.atlas</groupId>
+        <artifactId>atlas</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../../pom.xml</relativePath>
+    </parent>
+
+    <!-- 模块信息 -->
+    <artifactId>atlas-common-infra-logging</artifactId>
+    <packaging>jar</packaging>
+
+    <name>atlas-common-infra-logging</name>
+    <description>日志基础设施模块 - 提供 Logback 日志配置规范、TraceId 自动注入和管理、敏感信息脱敏工具等功能</description>
+
+    <!-- 依赖 -->
+    <dependencies>
+        <!-- Spring Boot Web（用于 HTTP 拦截器） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud OpenFeign（可选，用于 Feign 拦截器） -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Spring Boot Starter Test（仅用于测试） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 构建配置 -->
+    <build>
+        <plugins>
+            <!-- Maven Enforcer Plugin - 启用版本检查 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Spotless Maven Plugin - 启用代码格式化 -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>spotless-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
