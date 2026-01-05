@@ -137,15 +137,15 @@ MVP 提供核心的 Redis 序列化配置和 Key 命名规范功能，满足最�
 
 **独立测试标准**: 文档完整清晰，使用示例可以正常运行，单元测试覆盖率 ≥ 80%
 
-- [ ] T040 Update `README.md` with module introduction in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
-- [ ] T041 Update `README.md` with feature descriptions in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
-- [ ] T042 Update `README.md` with quick start guide in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
-- [ ] T043 Update `README.md` with usage examples in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
-- [ ] T044 Update `README.md` with related documentation links in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
-- [ ] T045 Run Spotless formatting check and fix any violations
-- [ ] T046 Run Maven Enforcer check and verify compliance
-- [ ] T047 Verify unit test coverage ≥ 80%
-- [ ] T048 Run integration tests for Redis connection and basic operations
+- [x] T040 Update `README.md` with module introduction in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
+- [x] T041 Update `README.md` with feature descriptions in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
+- [x] T042 Update `README.md` with quick start guide in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
+- [x] T043 Update `README.md` with usage examples in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
+- [x] T044 Update `README.md` with related documentation links in `atlas-common/atlas-common-infra/atlas-common-infra-redis/README.md`
+- [x] T045 Run Spotless formatting check and fix any violations
+- [x] T046 Run Maven Enforcer check and verify compliance
+- [x] T047 Verify unit test coverage ≥ 80%
+- [x] T048 Run integration tests for Redis connection and basic operations
 
 ## 实施策略
 

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.key;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,12 +31,7 @@ class RedisKeyBuilderTest {
 
   @Test
   void testBuildKeyWithDefaultPrefix() {
-    String key =
-        RedisKeyBuilder.builder()
-            .module("user")
-            .business("info")
-            .id("123")
-            .build();
+    String key = RedisKeyBuilder.builder().module("user").business("info").id("123").build();
 
     assertEquals("atlas:user:info:123", key);
   }
@@ -50,12 +43,7 @@ class RedisKeyBuilderTest {
     properties.setKeyPrefix("custom");
     RedisKeyBuilder.init(properties);
 
-    String key =
-        RedisKeyBuilder.builder()
-            .module("user")
-            .business("info")
-            .id("123")
-            .build();
+    String key = RedisKeyBuilder.builder().module("user").business("info").id("123").build();
 
     assertEquals("custom:user:info:123", key);
   }
@@ -81,11 +69,7 @@ class RedisKeyBuilderTest {
   @Test
   void testWithTtlMethod() {
     RedisKeyBuilder builder =
-        RedisKeyBuilder.builder()
-            .module("user")
-            .business("info")
-            .id("123")
-            .withTtl(3600);
+        RedisKeyBuilder.builder().module("user").business("info").id("123").withTtl(3600);
 
     assertNotNull(builder);
     assertEquals(3600, builder.getTtl());
@@ -94,12 +78,7 @@ class RedisKeyBuilderTest {
   @Test
   void testChainMethods() {
     String key =
-        RedisKeyBuilder.builder()
-            .module("user")
-            .business("info")
-            .id("123")
-            .withTtl(3600)
-            .build();
+        RedisKeyBuilder.builder().module("user").business("info").id("123").withTtl(3600).build();
 
     assertEquals("atlas:user:info:123", key);
   }
@@ -169,8 +148,7 @@ class RedisKeyBuilderTest {
 
   @Test
   void testGetTtlWhenNotSet() {
-    RedisKeyBuilder builder =
-        RedisKeyBuilder.builder().module("user").business("info").id("123");
+    RedisKeyBuilder builder = RedisKeyBuilder.builder().module("user").business("info").id("123");
 
     assertNull(builder.getTtl());
   }
@@ -187,4 +165,3 @@ class RedisKeyBuilderTest {
     assertEquals("atlas:order:payment:order-12345-payment-67890", key);
   }
 }
-

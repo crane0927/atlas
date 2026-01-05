@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -303,4 +301,3 @@ class CacheUtilTest {
     verify(redisTemplate).getExpire("test:key");
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.config;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -68,4 +66,3 @@ class RedisConfigTest {
     assertNotNull(redisTemplate.getConnectionFactory());
   }
 }
-

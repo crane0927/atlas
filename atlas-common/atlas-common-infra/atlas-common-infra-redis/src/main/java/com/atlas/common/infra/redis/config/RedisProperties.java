@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.config;
 
 import lombok.Data;
@@ -20,4 +18,3 @@ public class RedisProperties {
   /** Key 前缀，默认值为 "atlas" */
   private String keyPrefix = "atlas";
 }
-

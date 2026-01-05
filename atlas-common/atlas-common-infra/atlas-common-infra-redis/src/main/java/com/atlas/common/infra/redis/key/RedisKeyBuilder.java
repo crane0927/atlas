@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.key;
 
 import com.atlas.common.infra.redis.config.RedisProperties;
@@ -152,4 +150,3 @@ public class RedisKeyBuilder {
     }
   }
 }
-

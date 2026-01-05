@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.config;
 
 import com.atlas.common.infra.redis.key.RedisKeyBuilder;
@@ -18,10 +16,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * Redis 序列化配置类
  *
  * <p>提供统一的 Redis 序列化配置，确保所有模块使用一致的序列化方式：
+ *
  * <ul>
- *   <li>Key 使用 String 序列化（StringRedisSerializer）</li>
- *   <li>Value 使用 JSON 序列化（GenericJackson2JsonRedisSerializer）</li>
- *   <li>Hash Key 和 Hash Value 使用相同的序列化方式</li>
+ *   <li>Key 使用 String 序列化（StringRedisSerializer）
+ *   <li>Value 使用 JSON 序列化（GenericJackson2JsonRedisSerializer）
+ *   <li>Hash Key 和 Hash Value 使用相同的序列化方式
  * </ul>
  *
  * @author Atlas
@@ -40,11 +39,12 @@ public class RedisConfig {
    * 配置 RedisTemplate Bean
    *
    * <p>设置统一的序列化方式：
+   *
    * <ul>
-   *   <li>Key 序列化器：StringRedisSerializer</li>
-   *   <li>Value 序列化器：GenericJackson2JsonRedisSerializer</li>
-   *   <li>Hash Key 序列化器：StringRedisSerializer</li>
-   *   <li>Hash Value 序列化器：GenericJackson2JsonRedisSerializer</li>
+   *   <li>Key 序列化器：StringRedisSerializer
+   *   <li>Value 序列化器：GenericJackson2JsonRedisSerializer
+   *   <li>Hash Key 序列化器：StringRedisSerializer
+   *   <li>Hash Value 序列化器：GenericJackson2JsonRedisSerializer
    * </ul>
    *
    * @param connectionFactory Redis 连接工厂
@@ -84,4 +84,3 @@ public class RedisConfig {
     RedisKeyBuilder.init(redisProperties);
   }
 }
-

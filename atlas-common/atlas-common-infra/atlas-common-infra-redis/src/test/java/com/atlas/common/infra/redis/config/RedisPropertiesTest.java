@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,4 +45,3 @@ class RedisPropertiesTest {
     assertEquals("custom-prefix", properties.getKeyPrefix());
   }
 }
-
