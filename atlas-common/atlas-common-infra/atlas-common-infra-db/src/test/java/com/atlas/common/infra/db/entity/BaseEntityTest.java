@@ -1,13 +1,13 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
@@ -26,12 +26,13 @@ class BaseEntityTest {
   }
 
   @Test
-  void testIdField() throws NoSuchFieldException {
-    Field idField = BaseEntity.class.getDeclaredField("id");
-    assertNotNull(idField);
-    TableId tableId = idField.getAnnotation(TableId.class);
-    assertNotNull(tableId);
-    assert (tableId.type() == IdType.AUTO);
+  void testDeletedField() throws NoSuchFieldException {
+    Field deletedField = BaseEntity.class.getDeclaredField("deleted");
+    assertNotNull(deletedField);
+    TableLogic tableLogic = deletedField.getAnnotation(TableLogic.class);
+    assertNotNull(tableLogic);
+    assertEquals("0", tableLogic.value());
+    assertEquals("1", tableLogic.delVal());
   }
 
   @Test
@@ -74,7 +75,7 @@ class BaseEntityTest {
   void testFieldTypes() {
     BaseEntity entity = new BaseEntity();
     // 验证字段类型
-    assertNull(entity.getId());
+    assertNull(entity.getDeleted());
     assertNull(entity.getCreateTime());
     assertNull(entity.getUpdateTime());
     assertNull(entity.getCreateBy());
@@ -84,17 +85,17 @@ class BaseEntityTest {
   @Test
   void testSettersAndGetters() {
     BaseEntity entity = new BaseEntity();
-    Long id = 1L;
+    Integer deleted = 0;
     LocalDateTime now = LocalDateTime.now();
     String user = "testuser";
 
-    entity.setId(id);
+    entity.setDeleted(deleted);
     entity.setCreateTime(now);
     entity.setUpdateTime(now);
     entity.setCreateBy(user);
     entity.setUpdateBy(user);
 
-    assert (entity.getId().equals(id));
+    assertEquals(deleted, entity.getDeleted());
     assert (entity.getCreateTime().equals(now));
     assert (entity.getUpdateTime().equals(now));
     assert (entity.getCreateBy().equals(user));

@@ -28,6 +28,7 @@
 - **自动填充**: 插入和更新数据时自动填充审计字段（创建时间、更新时间、创建人、更新人）
 - **安全集成**: 集成安全模块，从安全上下文获取当前用户信息（可选）
 - **基础实体**: 提供 `BaseEntity` 基础实体类，业务实体类可以继承使用
+- **逻辑删除**: `BaseEntity` 包含逻辑删除字段，支持逻辑删除功能
 - **异常处理**: 如果获取用户信息失败，使用默认值 "system"，不阻塞主流程
 
 ## 快速开始
@@ -88,6 +89,8 @@ MyBatis-Plus 配置会自动应用，无需手动配置。所有数据库操作�
 
 ```java
 import com.atlas.common.infra.db.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -96,11 +99,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_user")
 public class User extends BaseEntity {
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    
     private String username;
     private String email;
     private String phone;
     // 其他业务字段...
-    // 审计字段（createTime、updateTime、createBy、updateBy）已从 BaseEntity 继承
+    // 审计字段（createTime、updateTime、createBy、updateBy）和逻辑删除字段（deleted）已从 BaseEntity 继承
 }
 ```
 
@@ -362,7 +368,7 @@ atlas:
 
 3. **分页查询**: 分页查询使用 MyBatis-Plus 的 `Page<T>` 对象，分页插件会自动拦截并添加分页 SQL。
 
-4. **实体类设计**: 建议使用 `BaseEntity` 基础实体类，确保审计字段的一致性。如果业务需要自定义审计字段，可以自行定义。
+4. **实体类设计**: 建议使用 `BaseEntity` 基础实体类，确保审计字段和逻辑删除字段的一致性。`BaseEntity` 不包含主键字段，业务实体类需要自行定义主键字段。如果业务需要自定义审计字段，可以自行定义。
 
 5. **Mapper 扫描**: 确保 Mapper 接口被 Spring 扫描到，可以使用 `@Mapper` 注解或 `@MapperScan` 注解。
 

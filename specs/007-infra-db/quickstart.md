@@ -68,6 +68,8 @@ MyBatis-Plus 配置会自动应用，无需手动配置。所有数据库操作�
 
 ```java
 import com.atlas.common.infra.db.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -76,11 +78,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_user")
 public class User extends BaseEntity {
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    
     private String username;
     private String email;
     private String phone;
     // 其他业务字段...
-    // 审计字段（createTime、updateTime、createBy、updateBy）已从 BaseEntity 继承
+    // 审计字段（createTime、updateTime、createBy、updateBy）和逻辑删除字段（deleted）已从 BaseEntity 继承
 }
 ```
 

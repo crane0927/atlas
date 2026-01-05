@@ -97,7 +97,7 @@
 
 ### BaseEntity（基础实体类）
 
-**描述**: 基础实体类，包含审计字段定义（可选）。
+**描述**: 基础实体类，包含审计字段和逻辑删除字段定义（可选）。
 
 **包名**: `com.atlas.common.infra.db.entity`
 
@@ -105,7 +105,7 @@
 
 | 字段名 | 类型 | 说明 | 注解 |
 |--------|------|------|------|
-| id | Long | 主键 ID | @TableId(type = IdType.AUTO) |
+| deleted | Integer | 逻辑删除标记 | @TableLogic(value = "0", delVal = "1") |
 | createTime | LocalDateTime | 创建时间 | @TableField(fill = FieldFill.INSERT) |
 | updateTime | LocalDateTime | 更新时间 | @TableField(fill = FieldFill.INSERT_UPDATE) |
 | createBy | String | 创建人 | @TableField(fill = FieldFill.INSERT) |
@@ -114,7 +114,8 @@
 **约束规则**:
 - 基础实体类为可选，业务模块可以选择使用或自定义
 - 审计字段使用 `@TableField` 注解标记自动填充
-- ID 字段使用自增策略
+- 逻辑删除字段使用 `@TableLogic` 注解标记，0 表示未删除，1 表示已删除
+- 基础实体类不包含主键字段，业务实体类需要自行定义主键字段
 
 ## 配置参数
 
@@ -159,10 +160,15 @@ atlas:
 ```java
 @Data
 @EqualsAndHashCode(callSuper = true)
+@TableName("sys_user")
 public class User extends BaseEntity {
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    
     private String username;
     private String email;
     // 其他业务字段...
+    // 审计字段（createTime、updateTime、createBy、updateBy）和逻辑删除字段（deleted）已从 BaseEntity 继承
 }
 ```
 
