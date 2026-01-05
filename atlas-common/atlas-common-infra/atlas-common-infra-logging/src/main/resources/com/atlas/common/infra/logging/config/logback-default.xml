@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Logback 日志配置模板
+    
+    本配置文件提供了标准的 Logback 日志配置模板，包含：
+    1. 统一的日志格式（包含时间戳、线程、级别、Logger、TraceId、消息）
+    2. 控制台和文件输出
+    3. 日志文件轮转（按时间和大小）
+    4. 错误日志单独输出
+    5. 环境特定日志级别配置（dev、test、prod）
+    
+    使用方法：
+    在模块的 logback-spring.xml 中使用 <include> 引入本配置：
+    <include resource="com/atlas/common/infra/logging/config/logback-default.xml"/>
+    
+    然后根据模块需求配置特定的 Logger 和 Appender 引用。
+-->
+<configuration>
+    <!--
+        日志格式属性定义
+        
+        格式说明：
+        - %d{yyyy-MM-dd HH:mm:ss.SSS}: 时间戳，精确到毫秒
+        - [%thread]: 线程名称
+        - %-5level: 日志级别，左对齐，5位宽度（INFO、ERROR、DEBUG等）
+        - %logger{50}: Logger名称，最大50个字符
+        - [TraceId: %X{traceId}]: 链路追踪ID，从MDC中获取
+        - %msg: 日志消息内容
+        - %n: 换行符
+    -->
+    <property name="LOG_PATTERN" 
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} [TraceId: %X{traceId}] - %msg%n"/>
+
+    <!--
+        控制台输出 Appender
+        
+        用于开发环境和控制台查看日志
+    -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 使用统一的日志格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+            <!-- 字符编码：UTF-8 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--
+        文件输出 Appender
+        
+        支持按时间和大小轮转：
+        - 按时间：每天生成新日志文件
+        - 按大小：单个日志文件最大100MB，超过后自动轮转
+        - 文件命名：logs/atlas.{日期}.{序号}.log
+    -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径（模块可以覆盖此路径） -->
+        <file>logs/atlas.log</file>
+        
+        <encoder>
+            <!-- 使用统一的日志格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+            <!-- 字符编码：UTF-8 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        
+        <!--
+            日志轮转策略：按时间和大小轮转
+            
+            配置说明：
+            - fileNamePattern: 日志文件命名模式，%d{yyyy-MM-dd} 表示日期，%i 表示序号
+            - maxFileSize: 单个日志文件最大大小，超过后触发轮转
+            - maxHistory: 日志文件保留天数，30天
+            - totalSizeCap: 所有日志文件总大小上限（可选）
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件命名模式：按日期和序号 -->
+            <fileNamePattern>logs/atlas.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个日志文件最大大小：100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件保留天数：30天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 所有日志文件总大小上限：10GB（可选） -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!--
+        错误日志单独输出 Appender
+        
+        只输出 ERROR 级别的日志，便于快速定位错误：
+        - 文件路径：logs/atlas-error.log
+        - 日志级别：ERROR
+        - 保留天数：90天（比普通日志保留更长时间）
+    -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 错误日志文件路径 -->
+        <file>logs/atlas-error.log</file>
+        
+        <!--
+            日志级别过滤器：只输出 ERROR 级别及以上的日志
+        -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        
+        <encoder>
+            <!-- 使用统一的日志格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+            <!-- 字符编码：UTF-8 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        
+        <!--
+            错误日志轮转策略：按时间和大小轮转
+            
+            配置说明：
+            - fileNamePattern: 错误日志文件命名模式
+            - maxFileSize: 单个日志文件最大大小：100MB
+            - maxHistory: 错误日志文件保留天数：90天（比普通日志保留更长时间）
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 错误日志文件命名模式：按日期和序号 -->
+            <fileNamePattern>logs/atlas-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个日志文件最大大小：100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 错误日志文件保留天数：90天 -->
+            <maxHistory>90</maxHistory>
+            <!-- 所有错误日志文件总大小上限：10GB（可选） -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!--
+        环境特定日志级别配置
+        
+        使用 Spring Profile 区分不同环境的日志级别：
+        - dev: 开发环境，使用 DEBUG 级别，便于开发调试
+        - test: 测试环境，使用 INFO 级别，记录业务关键信息
+        - prod: 生产环境，使用 INFO 级别，避免过多日志影响性能
+        
+        注意：生产环境不应使用 DEBUG 或 TRACE 级别
+    -->
+    
+    <!-- 开发环境配置 -->
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <!-- 开发环境：同时输出到控制台和文件 -->
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境配置 -->
+    <springProfile name="test">
+        <root level="INFO">
+            <!-- 测试环境：同时输出到控制台和文件 -->
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境配置 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <!-- 生产环境：只输出到文件，不输出到控制台 -->
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+    </springProfile>
+
+    <!--
+        默认配置（未指定环境时使用）
+        
+        默认使用 INFO 级别，同时输出到控制台和文件
+    -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+
+    <!--
+        应用特定 Logger 配置示例
+        
+        模块可以根据需要配置特定包的日志级别：
+        
+        <logger name="com.atlas.yourmodule" level="DEBUG"/>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mybatis" level="DEBUG"/>
+    -->
+
+</configuration>

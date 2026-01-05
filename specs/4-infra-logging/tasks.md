@@ -65,15 +65,15 @@
 
 **独立测试标准**: 日志配置模板创建完成，包含统一日志格式、控制台和文件输出、日志轮转、环境特定配置，配置包含完整的中文注释
 
-- [ ] T011 [FR1] 创建 logback-default.xml 配置模板文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T012 [FR1] 定义日志格式属性 LOG_PATTERN（包含时间戳、线程、级别、Logger、TraceId、消息）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T013 [FR1] 配置控制台输出 appender（CONSOLE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T014 [FR1] 配置文件输出 appender（FILE，支持按时间和大小轮转）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T015 [FR1] 配置错误日志单独输出 appender（ERROR_FILE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T016 [FR1] 配置日志轮转策略（按时间：每天，按大小：100MB）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T017 [FR1] 配置日志文件保留策略（普通日志30天，错误日志90天）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T018 [FR1] 配置环境特定日志级别（dev、test、prod）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
-- [ ] T019 [FR1] 添加完整的中文注释（配置说明、参数说明）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T011 [FR1] 创建 logback-default.xml 配置模板文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T012 [FR1] 定义日志格式属性 LOG_PATTERN（包含时间戳、线程、级别、Logger、TraceId、消息）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T013 [FR1] 配置控制台输出 appender（CONSOLE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T014 [FR1] 配置文件输出 appender（FILE，支持按时间和大小轮转）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T015 [FR1] 配置错误日志单独输出 appender（ERROR_FILE）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T016 [FR1] 配置日志轮转策略（按时间：每天，按大小：100MB）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T017 [FR1] 配置日志文件保留策略（普通日志30天，错误日志90天）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T018 [FR1] 配置环境特定日志级别（dev、test、prod）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
+- [x] T019 [FR1] 添加完整的中文注释（配置说明、参数说明）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/resources/com/atlas/common/infra/logging/config/logback-default.xml`
 
 ## Phase 3: FR2 - TraceId 自动注入和管理
 
