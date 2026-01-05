@@ -83,34 +83,34 @@
 
 ### TraceId 工具类和生成器
 
-- [ ] T020 [P] [FR2] 创建 TraceIdGenerator 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
-- [ ] T021 [FR2] 实现 generateUUID() 方法（生成32位UUID，去除连字符）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
-- [ ] T022 [FR2] 实现 generateSnowflake() 方法（使用雪花算法生成TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
-- [ ] T023 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
-- [ ] T024 [P] [FR2] 创建 TraceIdUtil 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T025 [FR2] 定义 ThreadLocal 存储字段在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T026 [FR2] 实现 setTraceId(String traceId) 方法（同时设置 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T027 [FR2] 实现 getTraceId() 方法（优先从 ThreadLocal 获取，如果为空则从 MDC 获取）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T028 [FR2] 实现 clear() 方法（同时清理 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T029 [FR2] 实现 generate() 方法（生成新的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
-- [ ] T030 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T020 [P] [FR2] 创建 TraceIdGenerator 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
+- [x] T021 [FR2] 实现 generateUUID() 方法（生成32位UUID，去除连字符）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
+- [x] T022 [FR2] 实现 generateSnowflake() 方法（使用雪花算法生成TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
+- [x] T023 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdGenerator.java`
+- [x] T024 [P] [FR2] 创建 TraceIdUtil 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T025 [FR2] 定义 ThreadLocal 存储字段在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T026 [FR2] 实现 setTraceId(String traceId) 方法（同时设置 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T027 [FR2] 实现 getTraceId() 方法（优先从 ThreadLocal 获取，如果为空则从 MDC 获取）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T028 [FR2] 实现 clear() 方法（同时清理 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T029 [FR2] 实现 generate() 方法（生成新的 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
+- [x] T030 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdUtil.java`
 
 ### TraceId 拦截器
 
-- [ ] T031 [P] [FR2] 创建 TraceIdInterceptor 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T032 [FR2] 实现 HandlerInterceptor 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T033 [FR2] 实现 preHandle() 方法（从请求头获取或生成 TraceId，设置到 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T034 [FR2] 实现 afterCompletion() 方法（清理 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T035 [FR2] 配置 TraceId 请求头名称（默认 X-Trace-Id）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T036 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
-- [ ] T037 [P] [FR2] 创建 TraceIdFeignInterceptor 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
-- [ ] T038 [FR2] 实现 RequestInterceptor 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
-- [ ] T039 [FR2] 实现 apply() 方法（从 TraceIdUtil 获取 TraceId，添加到请求头）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
-- [ ] T040 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
-- [ ] T041 [P] [FR2] 创建 TraceIdTaskDecorator 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
-- [ ] T042 [FR2] 实现 TaskDecorator 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
-- [ ] T043 [FR2] 实现 decorate() 方法（继承父线程的 TraceId，在新线程中设置）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
-- [ ] T044 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
+- [x] T031 [P] [FR2] 创建 TraceIdInterceptor 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T032 [FR2] 实现 HandlerInterceptor 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T033 [FR2] 实现 preHandle() 方法（从请求头获取或生成 TraceId，设置到 ThreadLocal 和 MDC）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T034 [FR2] 实现 afterCompletion() 方法（清理 TraceId）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T035 [FR2] 配置 TraceId 请求头名称（默认 X-Trace-Id）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T036 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdInterceptor.java`
+- [x] T037 [P] [FR2] 创建 TraceIdFeignInterceptor 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
+- [x] T038 [FR2] 实现 RequestInterceptor 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
+- [x] T039 [FR2] 实现 apply() 方法（从 TraceIdUtil 获取 TraceId，添加到请求头）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
+- [x] T040 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/trace/TraceIdFeignInterceptor.java`
+- [x] T041 [P] [FR2] 创建 TraceIdTaskDecorator 类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
+- [x] T042 [FR2] 实现 TaskDecorator 接口在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
+- [x] T043 [FR2] 实现 decorate() 方法（继承父线程的 TraceId，在新线程中设置）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
+- [x] T044 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-infra/atlas-common-infra-logging/src/main/java/com/atlas/common/infra/logging/async/TraceIdTaskDecorator.java`
 
 ## Phase 4: FR3 - 敏感信息脱敏工具
 
