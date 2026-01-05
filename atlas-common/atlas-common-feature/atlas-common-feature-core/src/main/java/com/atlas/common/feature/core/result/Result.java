@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.MDC;
 
 /**
  * 统一 API 响应包装类
@@ -55,6 +56,13 @@ public class Result<T> {
   private Long timestamp;
 
   /**
+   * 链路追踪 ID
+   *
+   * <p>用于分布式追踪，关联一次请求在整个微服务系统中的完整调用链 如果未设置，将从 MDC 中自动获取
+   */
+  private String traceId;
+
+  /**
    * 创建成功响应
    *
    * @param data 响应数据
@@ -67,6 +75,7 @@ public class Result<T> {
         .message("操作成功")
         .data(data)
         .timestamp(System.currentTimeMillis())
+        .traceId(getTraceId())
         .build();
   }
 
@@ -84,6 +93,7 @@ public class Result<T> {
         .message(message)
         .data(data)
         .timestamp(System.currentTimeMillis())
+        .traceId(getTraceId())
         .build();
   }
 
@@ -101,6 +111,7 @@ public class Result<T> {
         .message(message)
         .data(null)
         .timestamp(System.currentTimeMillis())
+        .traceId(getTraceId())
         .build();
   }
 
@@ -119,6 +130,7 @@ public class Result<T> {
         .message(message)
         .data(data)
         .timestamp(System.currentTimeMillis())
+        .traceId(getTraceId())
         .build();
   }
 
@@ -129,5 +141,14 @@ public class Result<T> {
    */
   public boolean isSuccess() {
     return "000000".equals(code);
+  }
+
+  /**
+   * 从 MDC 获取 TraceId
+   *
+   * @return TraceId，如果不存在则返回 null
+   */
+  private static String getTraceId() {
+    return MDC.get("traceId");
   }
 }

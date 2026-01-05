@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.MDC;
 
 /**
  * 统一分页响应对象
@@ -45,6 +46,13 @@ public class PageResult<T> {
   private Integer pages;
 
   /**
+   * 链路追踪 ID
+   *
+   * <p>用于分布式追踪，关联一次请求在整个微服务系统中的完整调用链 如果未设置，将从 MDC 中自动获取
+   */
+  private String traceId;
+
+  /**
    * 创建分页对象
    *
    * @param list 数据列表
@@ -77,6 +85,7 @@ public class PageResult<T> {
         .page(page)
         .size(size)
         .pages(pages)
+        .traceId(getTraceId())
         .build();
   }
 
@@ -127,5 +136,14 @@ public class PageResult<T> {
    */
   public boolean isLast() {
     return pages == 0 || page == pages;
+  }
+
+  /**
+   * 从 MDC 获取 TraceId
+   *
+   * @return TraceId，如果不存在则返回 null
+   */
+  private static String getTraceId() {
+    return MDC.get("traceId");
   }
 }
