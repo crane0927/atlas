@@ -1,11 +1,8 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.config;
 
-import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,17 +15,19 @@ import org.springframework.context.annotation.Configuration;
  * <p>该配置类会自动注册到 Spring 容器，业务模块引入该模块后即可使用 MyBatis-Plus 功能。
  *
  * <p>配置说明：
+ *
  * <ul>
- *   <li>通过 {@link MyBatisPlusProperties} 读取配置文件中的参数</li>
- *   <li>配置 {@link MybatisPlusInterceptor} 拦截器，用于添加插件</li>
- *   <li>配置 {@link PaginationInnerInterceptor} 分页插件，支持 PostgreSQL 数据库</li>
+ *   <li>通过 {@link MyBatisPlusProperties} 读取配置文件中的参数
+ *   <li>配置 {@link MybatisPlusInterceptor} 拦截器，用于添加插件
+ *   <li>配置 {@link PaginationInnerInterceptor} 分页插件，支持 PostgreSQL 数据库
  * </ul>
  *
  * <p>分页插件配置：
+ *
  * <ul>
- *   <li>数据库类型：从配置文件中读取，默认为 PostgreSQL</li>
- *   <li>最大每页数量：从配置文件中读取，默认为 1000</li>
- *   <li>溢出处理：从配置文件中读取，默认为 false</li>
+ *   <li>数据库类型：从配置文件中读取，默认为 PostgreSQL
+ *   <li>最大每页数量：从配置文件中读取，默认为 1000
+ *   <li>溢出处理：从配置文件中读取，默认为 false
  * </ul>
  *
  * @author Atlas
@@ -54,8 +53,7 @@ public class MyBatisPlusConfig {
    */
   @Bean
   public PaginationInnerInterceptor paginationInnerInterceptor() {
-    MyBatisPlusProperties.PaginationProperties pagination =
-        myBatisPlusProperties.getPagination();
+    MyBatisPlusProperties.PaginationProperties pagination = myBatisPlusProperties.getPagination();
     PaginationInnerInterceptor paginationInterceptor =
         new PaginationInnerInterceptor(pagination.getDbType());
     paginationInterceptor.setMaxLimit(pagination.getMaxLimit());
@@ -81,4 +79,3 @@ public class MyBatisPlusConfig {
     return interceptor;
   }
 }
-

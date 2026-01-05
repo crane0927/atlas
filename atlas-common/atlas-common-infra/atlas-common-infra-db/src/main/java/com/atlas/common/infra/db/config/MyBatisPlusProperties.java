@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -52,4 +50,3 @@ public class MyBatisPlusProperties {
     private DbType dbType = DbType.POSTGRE_SQL;
   }
 }
-

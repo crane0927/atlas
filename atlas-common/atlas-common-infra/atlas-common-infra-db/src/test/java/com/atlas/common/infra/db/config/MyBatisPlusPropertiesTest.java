@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,7 +53,8 @@ class MyBatisPlusPropertiesTest {
   @Test
   void testSetPaginationProperties() {
     MyBatisPlusProperties properties = new MyBatisPlusProperties();
-    MyBatisPlusProperties.PaginationProperties pagination = new MyBatisPlusProperties.PaginationProperties();
+    MyBatisPlusProperties.PaginationProperties pagination =
+        new MyBatisPlusProperties.PaginationProperties();
     pagination.setMaxLimit(3000L);
     pagination.setOverflow(true);
     pagination.setDbType(DbType.ORACLE);
@@ -66,4 +65,3 @@ class MyBatisPlusPropertiesTest {
     assertEquals(DbType.ORACLE, properties.getPagination().getDbType());
   }
 }
-

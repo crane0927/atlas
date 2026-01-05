@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.config;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,4 +47,3 @@ class MyBatisPlusConfigTest {
     // 但可以通过验证 Bean 创建成功来间接验证
   }
 }
-

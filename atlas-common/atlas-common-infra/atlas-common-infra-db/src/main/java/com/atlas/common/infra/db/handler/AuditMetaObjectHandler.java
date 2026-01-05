@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.handler;
 
 import com.atlas.common.feature.security.context.SecurityContextHolder;
@@ -17,24 +15,28 @@ import org.springframework.stereotype.Component;
  * <p>实现 MyBatis-Plus 的 {@link MetaObjectHandler} 接口，用于自动填充审计字段。
  *
  * <p>填充的字段包括：
+ *
  * <ul>
- *   <li>createTime：创建时间（插入时填充）</li>
- *   <li>updateTime：更新时间（插入和更新时填充）</li>
- *   <li>createBy：创建人（插入时填充，从安全上下文获取）</li>
- *   <li>updateBy：更新人（更新时填充，从安全上下文获取）</li>
+ *   <li>createTime：创建时间（插入时填充）
+ *   <li>updateTime：更新时间（插入和更新时填充）
+ *   <li>createBy：创建人（插入时填充，从安全上下文获取）
+ *   <li>updateBy：更新人（更新时填充，从安全上下文获取）
  * </ul>
  *
  * <p>使用说明：
+ *
  * <ul>
- *   <li>实体类需要使用 {@link com.baomidou.mybatisplus.annotation.TableField} 注解标记需要自动填充的字段</li>
- *   <li>fill 属性设置为 {@link com.baomidou.mybatisplus.annotation.FieldFill#INSERT} 或 {@link com.baomidou.mybatisplus.annotation.FieldFill#INSERT_UPDATE}</li>
- *   <li>如果安全上下文获取失败，创建人和更新人字段会填充默认值 "system"</li>
+ *   <li>实体类需要使用 {@link com.baomidou.mybatisplus.annotation.TableField} 注解标记需要自动填充的字段
+ *   <li>fill 属性设置为 {@link com.baomidou.mybatisplus.annotation.FieldFill#INSERT} 或 {@link
+ *       com.baomidou.mybatisplus.annotation.FieldFill#INSERT_UPDATE}
+ *   <li>如果安全上下文获取失败，创建人和更新人字段会填充默认值 "system"
  * </ul>
  *
  * <p>依赖说明：
+ *
  * <ul>
- *   <li>可选依赖 {@link SecurityContextHolder} 获取当前用户信息</li>
- *   <li>如果安全模块未实现，getCurrentUser() 方法会返回默认值 "system"</li>
+ *   <li>可选依赖 {@link SecurityContextHolder} 获取当前用户信息
+ *   <li>如果安全模块未实现，getCurrentUser() 方法会返回默认值 "system"
  * </ul>
  *
  * @author Atlas
@@ -82,8 +84,7 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
   /**
    * 获取当前用户信息
    *
-   * <p>从安全上下文获取当前登录用户的用户名。如果获取失败（未登录、安全模块未实现等），
-   * 返回默认值 "system"。
+   * <p>从安全上下文获取当前登录用户的用户名。如果获取失败（未登录、安全模块未实现等）， 返回默认值 "system"。
    *
    * <p>该方法不会抛出异常，确保审计字段填充功能不会阻塞主业务流程。
    *
@@ -102,4 +103,3 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
     return "system";
   }
 }
-

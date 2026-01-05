@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -16,12 +14,13 @@ import lombok.Data;
  * <p>提供通用的审计字段定义，业务实体类可以继承此类以使用审计功能。
  *
  * <p>包含的字段：
+ *
  * <ul>
- *   <li>id：主键 ID，使用自增策略</li>
- *   <li>createTime：创建时间，插入时自动填充</li>
- *   <li>updateTime：更新时间，插入和更新时自动填充</li>
- *   <li>createBy：创建人，插入时自动填充</li>
- *   <li>updateBy：更新人，更新时自动填充</li>
+ *   <li>id：主键 ID，使用自增策略
+ *   <li>createTime：创建时间，插入时自动填充
+ *   <li>updateTime：更新时间，插入和更新时自动填充
+ *   <li>createBy：创建人，插入时自动填充
+ *   <li>updateBy：更新人，更新时自动填充
  * </ul>
  *
  * <p>使用示例：
@@ -39,10 +38,11 @@ import lombok.Data;
  * }</pre>
  *
  * <p>注意：
+ *
  * <ul>
- *   <li>审计字段的自动填充由 {@link com.atlas.common.infra.db.handler.AuditMetaObjectHandler} 处理</li>
- *   <li>如果业务实体类不需要审计功能，可以不继承此类，自行定义字段</li>
- *   <li>如果业务实体类需要自定义审计字段名称，可以不继承此类，自行定义字段并使用 {@link TableField} 注解</li>
+ *   <li>审计字段的自动填充由 {@link com.atlas.common.infra.db.handler.AuditMetaObjectHandler} 处理
+ *   <li>如果业务实体类不需要审计功能，可以不继承此类，自行定义字段
+ *   <li>如果业务实体类需要自定义审计字段名称，可以不继承此类，自行定义字段并使用 {@link TableField} 注解
  * </ul>
  *
  * @author Atlas
@@ -70,4 +70,3 @@ public class BaseEntity {
   @TableField(fill = FieldFill.INSERT_UPDATE)
   private String updateBy;
 }
-
