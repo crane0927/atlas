@@ -134,19 +134,19 @@ MVP 提供核心的路由转发、CORS 支持、TraceId 追踪和统一错误返
 
 **任务**:
 
-- [ ] T016 [P] 创建 `GatewayProperties` 配置属性类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/GatewayProperties.java`
-- [ ] T017 在 `GatewayProperties` 中添加 `@ConfigurationProperties(prefix = "atlas.gateway")` 注解
-- [ ] T018 在 `GatewayProperties` 中添加 `routes` 字段（List<RouteConfig>）
-- [ ] T019 在 `GatewayProperties` 中添加 `whitelist` 字段（WhitelistConfig）
-- [ ] T020 在 `GatewayProperties` 中添加 `cors` 字段（CorsConfig）
-- [ ] T021 [P] 创建 `RouteConfig` 内部类在 `GatewayProperties.java` 中
-- [ ] T022 在 `RouteConfig` 中添加 `id`、`uri`、`predicates`、`filters` 字段
-- [ ] T023 [P] 创建 `WhitelistConfig` 内部类在 `GatewayProperties.java` 中
-- [ ] T024 在 `WhitelistConfig` 中添加 `enabled`、`paths` 字段
-- [ ] T025 [P] 创建 `CorsConfig` 内部类在 `GatewayProperties.java` 中
-- [ ] T026 在 `CorsConfig` 中添加 `allowedOrigins`、`allowedMethods`、`allowedHeaders`、`allowCredentials`、`maxAge` 字段
-- [ ] T027 在 `GatewayProperties` 中添加完整的中文注释（类注释、字段注释）
-- [ ] T028 创建 `GatewayPropertiesTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/GatewayPropertiesTest.java`
+- [X] T016 [P] 创建 `GatewayProperties` 配置属性类在 `atlas-gateway/src/main/java/com/atlas/gateway/config/GatewayProperties.java`
+- [X] T017 在 `GatewayProperties` 中添加 `@ConfigurationProperties(prefix = "atlas.gateway")` 注解
+- [X] T018 在 `GatewayProperties` 中添加 `routes` 字段（List<RouteConfig>）
+- [X] T019 在 `GatewayProperties` 中添加 `whitelist` 字段（WhitelistConfig）
+- [X] T020 在 `GatewayProperties` 中添加 `cors` 字段（CorsConfig）
+- [X] T021 [P] 创建 `RouteConfig` 内部类在 `GatewayProperties.java` 中
+- [X] T022 在 `RouteConfig` 中添加 `id`、`uri`、`predicates`、`filters` 字段
+- [X] T023 [P] 创建 `WhitelistConfig` 内部类在 `GatewayProperties.java` 中
+- [X] T024 在 `WhitelistConfig` 中添加 `enabled`、`paths` 字段
+- [X] T025 [P] 创建 `CorsConfig` 内部类在 `GatewayProperties.java` 中
+- [X] T026 在 `CorsConfig` 中添加 `allowedOrigins`、`allowedMethods`、`allowedHeaders`、`allowCredentials`、`maxAge` 字段
+- [X] T027 在 `GatewayProperties` 中添加完整的中文注释（类注释、字段注释）
+- [X] T028 创建 `GatewayPropertiesTest` 单元测试在 `atlas-gateway/src/test/java/com/atlas/gateway/config/GatewayPropertiesTest.java`
 
 ### Phase 3: Gateway 路由配置实现 [US1]
 
