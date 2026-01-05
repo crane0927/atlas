@@ -238,6 +238,7 @@
     <modules>
         <module>atlas-test-module</module>
         <module>atlas-common/atlas-common-feature/atlas-common-feature-core</module>
+        <module>atlas-common/atlas-common-feature/atlas-common-feature-security</module>
     </modules>
 
 </project>

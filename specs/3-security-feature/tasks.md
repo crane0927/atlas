@@ -45,14 +45,14 @@
 
 **独立测试标准**: 模块目录结构创建完成，POM 配置正确，可以开始实现核心接口
 
-- [ ] T001 创建模块目录结构 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security`
-- [ ] T002 创建源代码目录 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security`
-- [ ] T003 创建测试代码目录 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security`
-- [ ] T004 创建模块 POM 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
-- [ ] T005 [FR1-FR3] 配置模块基本信息（groupId、artifactId、version、packaging）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
-- [ ] T006 [FR1-FR3] 配置继承父 POM 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
-- [ ] T007 [FR1-FR3] 确保无强制外部依赖（保持抽象层纯净性）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
-- [ ] T008 将模块添加到父 POM 的 modules 列表在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
+- [x] T001 创建模块目录结构 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security`
+- [x] T002 创建源代码目录 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security`
+- [x] T003 创建测试代码目录 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/test/java/com/atlas/common/feature/security`
+- [x] T004 创建模块 POM 文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
+- [x] T005 [FR1-FR3] 配置模块基本信息（groupId、artifactId、version、packaging）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
+- [x] T006 [FR1-FR3] 配置继承父 POM 在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
+- [x] T007 [FR1-FR3] 确保无强制外部依赖（保持抽象层纯净性）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/pom.xml`
+- [x] T008 将模块添加到父 POM 的 modules 列表在 `/Users/liuhuan/workspace/project/java/backend/atlas/pom.xml`
 
 ## Phase 2: 核心接口实现
 
@@ -62,54 +62,54 @@
 
 ### FR1: LoginUser 接口
 
-- [ ] T009 [FR1] 创建 LoginUser 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T010 [FR1] 定义 getUserId() 方法（返回 Object）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T011 [FR1] 定义 getUsername() 方法（返回 String）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T012 [FR1] 定义 getRoles() 方法（返回 List<String>）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T013 [FR1] 定义 getPermissions() 方法（返回 List<String>）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T014 [FR1] 定义 hasRole(String role) 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T015 [FR1] 定义 hasPermission(String permission) 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
-- [ ] T016 [FR1] 添加完整的中文注释（接口、方法）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T009 [FR1] 创建 LoginUser 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T010 [FR1] 定义 getUserId() 方法（返回 Object）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T011 [FR1] 定义 getUsername() 方法（返回 String）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T012 [FR1] 定义 getRoles() 方法（返回 List<String>）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T013 [FR1] 定义 getPermissions() 方法（返回 List<String>）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T014 [FR1] 定义 hasRole(String role) 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T015 [FR1] 定义 hasPermission(String permission) 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
+- [x] T016 [FR1] 添加完整的中文注释（接口、方法）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/user/LoginUser.java`
 
 ### FR2: 权限注解定义
 
-- [ ] T017 [P] [FR2] 创建 Logical 枚举文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
-- [ ] T018 [FR2] 定义 Logical 枚举值（AND、OR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
-- [ ] T019 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
-- [ ] T020 [P] [FR2] 创建 @RequiresPermission 注解文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T021 [FR2] 定义 @RequiresPermission 注解的 value 属性（String[]）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T022 [FR2] 定义 @RequiresPermission 注解的 logical 属性（Logical，默认 AND）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T023 [FR2] 配置 @RequiresPermission 注解的 @Target（TYPE、METHOD）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T024 [FR2] 配置 @RequiresPermission 注解的 @Retention（RUNTIME）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T025 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
-- [ ] T026 [P] [FR2] 创建 @RequiresRole 注解文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
-- [ ] T027 [FR2] 定义 @RequiresRole 注解的 value 属性（String[]）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
-- [ ] T028 [FR2] 定义 @RequiresRole 注解的 logical 属性（Logical，默认 AND）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
-- [ ] T029 [FR2] 配置 @RequiresRole 注解的 @Target（TYPE、METHOD）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
-- [ ] T030 [FR2] 配置 @RequiresRole 注解的 @Retention（RUNTIME）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
-- [ ] T031 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T017 [P] [FR2] 创建 Logical 枚举文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
+- [x] T018 [FR2] 定义 Logical 枚举值（AND、OR）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
+- [x] T019 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/Logical.java`
+- [x] T020 [P] [FR2] 创建 @RequiresPermission 注解文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T021 [FR2] 定义 @RequiresPermission 注解的 value 属性（String[]）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T022 [FR2] 定义 @RequiresPermission 注解的 logical 属性（Logical，默认 AND）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T023 [FR2] 配置 @RequiresPermission 注解的 @Target（TYPE、METHOD）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T024 [FR2] 配置 @RequiresPermission 注解的 @Retention（RUNTIME）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T025 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresPermission.java`
+- [x] T026 [P] [FR2] 创建 @RequiresRole 注解文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T027 [FR2] 定义 @RequiresRole 注解的 value 属性（String[]）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T028 [FR2] 定义 @RequiresRole 注解的 logical 属性（Logical，默认 AND）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T029 [FR2] 配置 @RequiresRole 注解的 @Target（TYPE、METHOD）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T030 [FR2] 配置 @RequiresRole 注解的 @Retention（RUNTIME）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
+- [x] T031 [FR2] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/annotation/RequiresRole.java`
 
 ### FR3: 安全上下文接口
 
-- [ ] T032 [P] [FR3] 创建 SecurityContext 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
-- [ ] T033 [FR3] 定义 SecurityContext.getLoginUser() 方法（返回 LoginUser）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
-- [ ] T034 [FR3] 定义 SecurityContext.isAuthenticated() 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
-- [ ] T035 [FR3] 定义 SecurityContext.clear() 方法（返回 void，可选）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
-- [ ] T036 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
-- [ ] T037 [P] [FR3] 创建 SecurityContextHolder 抽象类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
-- [ ] T038 [FR3] 定义 SecurityContextHolder.getContext() 静态方法（返回 SecurityContext，抽象）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
-- [ ] T039 [FR3] 实现 SecurityContextHolder.getLoginUser() 静态方法（基于 getContext()）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
-- [ ] T040 [FR3] 实现 SecurityContextHolder.isAuthenticated() 静态方法（基于 getContext()）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
-- [ ] T041 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
+- [x] T032 [P] [FR3] 创建 SecurityContext 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
+- [x] T033 [FR3] 定义 SecurityContext.getLoginUser() 方法（返回 LoginUser）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
+- [x] T034 [FR3] 定义 SecurityContext.isAuthenticated() 方法（返回 boolean）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
+- [x] T035 [FR3] 定义 SecurityContext.clear() 方法（返回 void，可选）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
+- [x] T036 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContext.java`
+- [x] T037 [P] [FR3] 创建 SecurityContextHolder 抽象类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
+- [x] T038 [FR3] 定义 SecurityContextHolder.getContext() 静态方法（返回 SecurityContext，抽象）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
+- [x] T039 [FR3] 实现 SecurityContextHolder.getLoginUser() 静态方法（基于 getContext()）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
+- [x] T040 [FR3] 实现 SecurityContextHolder.isAuthenticated() 静态方法（基于 getContext()）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
+- [x] T041 [FR3] 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/context/SecurityContextHolder.java`
 
 ### 可选：安全异常接口
 
-- [ ] T042 [P] 创建 AuthenticationException 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
-- [ ] T043 定义 AuthenticationException.getMessage() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
-- [ ] T044 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
-- [ ] T045 [P] 创建 AuthorizationException 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
-- [ ] T046 定义 AuthorizationException.getMessage() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
-- [ ] T047 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
+- [x] T042 [P] 创建 AuthenticationException 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
+- [x] T043 定义 AuthenticationException.getMessage() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
+- [x] T044 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthenticationException.java`
+- [x] T045 [P] 创建 AuthorizationException 接口文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
+- [x] T046 定义 AuthorizationException.getMessage() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
+- [x] T047 添加完整的中文注释在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-security/src/main/java/com/atlas/common/feature/security/exception/AuthorizationException.java`
 
 ## Phase 3: 单元测试
 
