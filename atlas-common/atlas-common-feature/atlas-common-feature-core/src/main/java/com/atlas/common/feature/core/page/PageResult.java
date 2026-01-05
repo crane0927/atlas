@@ -85,7 +85,7 @@ public class PageResult<T> {
         .page(page)
         .size(size)
         .pages(pages)
-        .traceId(getTraceId())
+        .traceId(getTraceIdFromMDC())
         .build();
   }
 
@@ -143,7 +143,7 @@ public class PageResult<T> {
    *
    * @return TraceId，如果不存在则返回 null
    */
-  private static String getTraceId() {
+  private static String getTraceIdFromMDC() {
     return MDC.get("traceId");
   }
 }

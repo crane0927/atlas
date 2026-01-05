@@ -75,7 +75,7 @@ public class Result<T> {
         .message("操作成功")
         .data(data)
         .timestamp(System.currentTimeMillis())
-        .traceId(getTraceId())
+        .traceId(getTraceIdFromMDC())
         .build();
   }
 
@@ -93,7 +93,7 @@ public class Result<T> {
         .message(message)
         .data(data)
         .timestamp(System.currentTimeMillis())
-        .traceId(getTraceId())
+        .traceId(getTraceIdFromMDC())
         .build();
   }
 
@@ -111,7 +111,7 @@ public class Result<T> {
         .message(message)
         .data(null)
         .timestamp(System.currentTimeMillis())
-        .traceId(getTraceId())
+        .traceId(getTraceIdFromMDC())
         .build();
   }
 
@@ -130,7 +130,7 @@ public class Result<T> {
         .message(message)
         .data(data)
         .timestamp(System.currentTimeMillis())
-        .traceId(getTraceId())
+        .traceId(getTraceIdFromMDC())
         .build();
   }
 
@@ -148,7 +148,7 @@ public class Result<T> {
    *
    * @return TraceId，如果不存在则返回 null
    */
-  private static String getTraceId() {
+  private static String getTraceIdFromMDC() {
     return MDC.get("traceId");
   }
 }

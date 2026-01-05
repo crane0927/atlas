@@ -131,42 +131,42 @@
 
 ### Result 类测试
 
-- [ ] T055 [FR1] 创建 ResultTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T056 [FR1] 测试 success(T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T057 [FR1] 测试 success(String message, T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T058 [FR1] 测试 error(String code, String message) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T059 [FR1] 测试 error(String code, String message, T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T060 [FR1] 测试 isSuccess() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
-- [ ] T061 [FR1] 测试 JSON 序列化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T055 [FR1] 创建 ResultTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T056 [FR1] 测试 success(T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T057 [FR1] 测试 success(String message, T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T058 [FR1] 测试 error(String code, String message) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T059 [FR1] 测试 error(String code, String message, T data) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T060 [FR1] 测试 isSuccess() 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
+- [x] T061 [FR1] 测试 JSON 序列化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/result/ResultTest.java`
 
 ### 异常类测试
 
-- [ ] T062 [P] [FR3] 创建 BusinessExceptionTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
-- [ ] T063 [FR3] 测试 BusinessException 创建和抛出在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
-- [ ] T064 [FR3] 测试 BusinessException 错误码和消息在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
-- [ ] T065 [FR3] 测试 BusinessException 异常链在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
-- [ ] T066 [P] [FR3] 测试 ParameterException、PermissionException、DataException 继承关系在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/`
+- [x] T062 [P] [FR3] 创建 BusinessExceptionTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
+- [x] T063 [FR3] 测试 BusinessException 创建和抛出在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
+- [x] T064 [FR3] 测试 BusinessException 错误码和消息在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
+- [x] T065 [FR3] 测试 BusinessException 异常链在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/BusinessExceptionTest.java`
+- [x] T066 [P] [FR3] 测试 ParameterException、PermissionException、DataException 继承关系在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/exception/`
 
 ### PageResult 类测试
 
-- [ ] T067 [P] [FR4] 创建 PageResultTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
-- [ ] T068 [FR4] 测试 of(List<T> list, Long total, Integer page, Integer size) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
-- [ ] T069 [FR4] 测试 of(List<T> list, Long total) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
-- [ ] T070 [FR4] 测试分页计算逻辑（pages、hasPrevious、hasNext、isFirst、isLast）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
-- [ ] T071 [FR4] 测试边界情况（total=0、空列表、page>pages）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
-- [ ] T072 [FR4] 测试 JSON 序列化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T067 [P] [FR4] 创建 PageResultTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T068 [FR4] 测试 of(List<T> list, Long total, Integer page, Integer size) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T069 [FR4] 测试 of(List<T> list, Long total) 方法在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T070 [FR4] 测试分页计算逻辑（pages、hasPrevious、hasNext、isFirst、isLast）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T071 [FR4] 测试边界情况（total=0、空列表、page>pages）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
+- [x] T072 [FR4] 测试 JSON 序列化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/page/PageResultTest.java`
 
 ### 错误码常量类测试
 
-- [ ] T073 [P] [FR2] 创建 CommonErrorCodeTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
-- [ ] T074 [FR2] 测试错误码格式（6位数字）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
-- [ ] T075 [FR2] 测试错误码常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
+- [x] T073 [P] [FR2] 创建 CommonErrorCodeTest 测试类文件 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
+- [x] T074 [FR2] 测试错误码格式（6位数字）在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
+- [x] T075 [FR2] 测试错误码常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonErrorCodeTest.java`
 
 ### 常量类测试
 
-- [ ] T076 [P] [FR5] 测试 HttpStatus 常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/HttpStatusTest.java`
-- [ ] T077 [FR5] 测试 CommonConstants 常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonConstantsTest.java`
-- [ ] T078 [FR5] 测试常量类不能被实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/`
+- [x] T076 [P] [FR5] 测试 HttpStatus 常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/HttpStatusTest.java`
+- [x] T077 [FR5] 测试 CommonConstants 常量值在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/CommonConstantsTest.java`
+- [x] T078 [FR5] 测试常量类不能被实例化在 `/Users/liuhuan/workspace/project/java/backend/atlas/atlas-common/atlas-common-feature/atlas-common-feature-core/src/test/java/com/atlas/common/feature/core/constant/`
 
 ## Phase 4: 文档和示例
 
