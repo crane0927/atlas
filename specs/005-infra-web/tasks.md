@@ -106,10 +106,10 @@ MVP 提供核心的异常处理和参数校验功能，满足最基本的 Web �
 
 **独立测试标准**: ValidationError 和 FieldError 类可以正确序列化和反序列化
 
-- [ ] T012 [P] Create `FieldError` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/FieldError.java`
-- [ ] T013 [P] Create `ValidationError` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/ValidationError.java`
-- [ ] T014 [P] Write unit tests for `FieldError` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/FieldErrorTest.java`
-- [ ] T015 [P] Write unit tests for `ValidationError` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/ValidationErrorTest.java`
+- [x] T012 [P] Create `FieldError` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/FieldError.java`
+- [x] T013 [P] Create `ValidationError` class in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/ValidationError.java`
+- [x] T014 [P] Write unit tests for `FieldError` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/FieldErrorTest.java`
+- [x] T015 [P] Write unit tests for `ValidationError` in `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/com/atlas/common/infra/web/exception/ValidationErrorTest.java`
 
 ### Phase 3: US1 - 全局异常处理
 
