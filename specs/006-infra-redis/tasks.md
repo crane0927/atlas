@@ -118,18 +118,18 @@ MVP 提供核心的 Redis 序列化配置和 Key 命名规范功能，满足最�
 
 **独立测试标准**: 可以正确执行缓存的增删改查操作，支持设置和查询缓存过期时间，支持批量删除和模式匹配删除，异常情况可以正确处理并记录日志
 
-- [ ] T028 [US3] Create `CacheUtil` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T029 [US3] Implement static RedisTemplate injection in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T030 [US3] Implement `set(String key, Object value)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T031 [US3] Implement `set(String key, Object value, int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T032 [US3] Implement `get(String key, Class<T> clazz)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T033 [US3] Implement `delete(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T034 [US3] Implement `deletePattern(String pattern)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T035 [US3] Implement `exists(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T036 [US3] Implement `expire(String key, int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T037 [US3] Implement `getExpire(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T038 [US3] Implement exception handling and logging in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
-- [ ] T039 [P] [US3] Write unit tests for `CacheUtil` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/util/CacheUtilTest.java`
+- [x] T028 [US3] Create `CacheUtil` class in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T029 [US3] Implement static RedisTemplate injection in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T030 [US3] Implement `set(String key, Object value)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T031 [US3] Implement `set(String key, Object value, int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T032 [US3] Implement `get(String key, Class<T> clazz)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T033 [US3] Implement `delete(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T034 [US3] Implement `deletePattern(String pattern)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T035 [US3] Implement `exists(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T036 [US3] Implement `expire(String key, int seconds)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T037 [US3] Implement `getExpire(String key)` method in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T038 [US3] Implement exception handling and logging in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/main/java/com/atlas/common/infra/redis/util/CacheUtil.java`
+- [x] T039 [P] [US3] Write unit tests for `CacheUtil` in `atlas-common/atlas-common-infra/atlas-common-infra-redis/src/test/java/com/atlas/common/infra/redis/util/CacheUtilTest.java`
 
 ### Phase 5: 文档和测试完善
 
