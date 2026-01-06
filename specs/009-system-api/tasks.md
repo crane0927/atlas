@@ -69,16 +69,16 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [ ] T001 创建 `atlas-service-api` 父模块目录和 `pom.xml`（packaging 为 pom）
-- [ ] T002 在根目录 `pom.xml` 中添加 `atlas-service-api` 模块到 `<modules>` 列表
-- [ ] T003 创建 `atlas-service-api/atlas-system-api` 目录结构：`atlas-service-api/atlas-system-api/src/main/java` 和 `atlas-service-api/atlas-system-api/src/test/java`
-- [ ] T004 创建 `atlas-service-api/atlas-system-api/pom.xml`，配置模块基本信息（groupId、artifactId、version、packaging）
-- [ ] T005 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加父 POM 依赖（继承 `atlas-service-api` 父项目）
-- [ ] T006 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `atlas-common-feature-core` 依赖
-- [ ] T007 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
-- [ ] T008 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `lombok` 依赖（可选，用于简化代码）
-- [ ] T009 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖
-- [ ] T010 创建版本包目录结构：`atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto`、`model/vo`、`feign`、`enums`
+- [X] T001 创建 `atlas-service-api` 父模块目录和 `pom.xml`（packaging 为 pom）
+- [X] T002 在根目录 `pom.xml` 中添加 `atlas-service-api` 模块到 `<modules>` 列表
+- [X] T003 创建 `atlas-service-api/atlas-system-api` 目录结构：`atlas-service-api/atlas-system-api/src/main/java` 和 `atlas-service-api/atlas-system-api/src/test/java`
+- [X] T004 创建 `atlas-service-api/atlas-system-api/pom.xml`，配置模块基本信息（groupId、artifactId、version、packaging）
+- [X] T005 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加父 POM 依赖（继承 `atlas-service-api` 父项目）
+- [X] T006 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `atlas-common-feature-core` 依赖
+- [X] T007 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
+- [X] T008 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `lombok` 依赖（可选，用于简化代码）
+- [X] T009 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖
+- [X] T010 创建版本包目录结构：`atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto`、`model/vo`、`feign`、`enums`
 
 ---
 
@@ -90,11 +90,11 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [ ] T011 [P] [US1] 创建 `UserStatus` 枚举类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/enums/UserStatus.java`
-- [ ] T012 [US1] 在 `UserStatus` 枚举中添加枚举值：ACTIVE（激活）、INACTIVE（未激活）、LOCKED（锁定）、DELETED（已删除）
-- [ ] T013 [US1] 为 `UserStatus` 枚举值添加完整的中文注释
-- [ ] T014 [P] [US1] 创建 `UserStatus` 枚举的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/enums/UserStatusTest.java`
-- [ ] T015 [US1] 在测试中验证 `UserStatus` 枚举的 JSON 序列化/反序列化功能
+- [X] T011 [P] [US1] 创建 `UserStatus` 枚举类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/enums/UserStatus.java`
+- [X] T012 [US1] 在 `UserStatus` 枚举中添加枚举值：ACTIVE（激活）、INACTIVE（未激活）、LOCKED（锁定）、DELETED（已删除）
+- [X] T013 [US1] 为 `UserStatus` 枚举值添加完整的中文注释
+- [X] T014 [P] [US1] 创建 `UserStatus` 枚举的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/enums/UserStatusTest.java`
+- [X] T015 [US1] 在测试中验证 `UserStatus` 枚举的 JSON 序列化/反序列化功能
 
 ---
 
@@ -106,18 +106,18 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [ ] T016 [P] [US1] 创建 `UserDTO` 类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto/UserDTO.java`
-- [ ] T017 [US1] 在 `UserDTO` 中添加字段：`userId` (Long)、`username` (String)、`nickname` (String)、`email` (String)、`phone` (String)、`status` (UserStatus)、`avatar` (String)
-- [ ] T018 [US1] 为 `UserDTO` 的所有字段添加完整的中文注释
-- [ ] T019 [US1] 在 `UserDTO` 中使用 Lombok 注解（`@Data`、`@NoArgsConstructor`、`@AllArgsConstructor`）简化代码
-- [ ] T020 [P] [US1] 创建 `UserQueryApi` Feign 接口在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/feign/UserQueryApi.java`
-- [ ] T021 [US1] 在 `UserQueryApi` 接口上添加 `@FeignClient(name = "atlas-system", path = "/api/v1")` 注解
-- [ ] T022 [US1] 在 `UserQueryApi` 接口中添加 `getUserById` 方法：`@GetMapping("/users/{userId}") Result<UserDTO> getUserById(@PathVariable Long userId)`
-- [ ] T023 [US1] 在 `UserQueryApi` 接口中添加 `getUserByUsername` 方法：`@GetMapping("/users/by-username") Result<UserDTO> getUserByUsername(@RequestParam String username)`
-- [ ] T024 [US1] 为 `UserQueryApi` 接口的所有方法添加完整的中文注释
-- [ ] T025 [P] [US1] 创建 `UserDTO` 的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/model/dto/UserDTOTest.java`
-- [ ] T026 [US1] 在测试中验证 `UserDTO` 的 JSON 序列化/反序列化功能
-- [ ] T027 [US1] 在测试中验证 `UserDTO` 字段的向后兼容性（新增字段可空）
+- [X] T016 [P] [US1] 创建 `UserDTO` 类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto/UserDTO.java`
+- [X] T017 [US1] 在 `UserDTO` 中添加字段：`userId` (Long)、`username` (String)、`nickname` (String)、`email` (String)、`phone` (String)、`status` (UserStatus)、`avatar` (String)
+- [X] T018 [US1] 为 `UserDTO` 的所有字段添加完整的中文注释
+- [X] T019 [US1] 在 `UserDTO` 中使用 Lombok 注解（`@Data`、`@NoArgsConstructor`、`@AllArgsConstructor`）简化代码
+- [X] T020 [P] [US1] 创建 `UserQueryApi` Feign 接口在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/feign/UserQueryApi.java`
+- [X] T021 [US1] 在 `UserQueryApi` 接口上添加 `@FeignClient(name = "atlas-system", path = "/api/v1")` 注解
+- [X] T022 [US1] 在 `UserQueryApi` 接口中添加 `getUserById` 方法：`@GetMapping("/users/{userId}") Result<UserDTO> getUserById(@PathVariable Long userId)`
+- [X] T023 [US1] 在 `UserQueryApi` 接口中添加 `getUserByUsername` 方法：`@GetMapping("/users/by-username") Result<UserDTO> getUserByUsername(@RequestParam String username)`
+- [X] T024 [US1] 为 `UserQueryApi` 接口的所有方法添加完整的中文注释
+- [X] T025 [P] [US1] 创建 `UserDTO` 的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/model/dto/UserDTOTest.java`
+- [X] T026 [US1] 在测试中验证 `UserDTO` 的 JSON 序列化/反序列化功能
+- [X] T027 [US1] 在测试中验证 `UserDTO` 字段的向后兼容性（新增字段可空）
 
 ---
 
@@ -129,19 +129,19 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [ ] T028 [P] [US2] 创建 `UserAuthoritiesDTO` 类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto/UserAuthoritiesDTO.java`
-- [ ] T029 [US2] 在 `UserAuthoritiesDTO` 中添加字段：`userId` (Long)、`roles` (List<String>)、`permissions` (List<String>)
-- [ ] T030 [US2] 为 `UserAuthoritiesDTO` 的所有字段添加完整的中文注释
-- [ ] T031 [US2] 在 `UserAuthoritiesDTO` 中使用 Lombok 注解（`@Data`、`@NoArgsConstructor`、`@AllArgsConstructor`）简化代码
-- [ ] T032 [P] [US2] 创建 `PermissionQueryApi` Feign 接口在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/feign/PermissionQueryApi.java`
-- [ ] T033 [US2] 在 `PermissionQueryApi` 接口上添加 `@FeignClient(name = "atlas-system", path = "/api/v1")` 注解
-- [ ] T034 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserRoles` 方法：`@GetMapping("/users/{userId}/roles") Result<List<String>> getUserRoles(@PathVariable Long userId)`
-- [ ] T035 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserPermissions` 方法：`@GetMapping("/users/{userId}/permissions") Result<List<String>> getUserPermissions(@PathVariable Long userId)`
-- [ ] T036 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserAuthorities` 方法：`@GetMapping("/users/{userId}/authorities") Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable Long userId)`
-- [ ] T037 [US2] 为 `PermissionQueryApi` 接口的所有方法添加完整的中文注释
-- [ ] T038 [P] [US2] 创建 `UserAuthoritiesDTO` 的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/model/dto/UserAuthoritiesDTOTest.java`
-- [ ] T039 [US2] 在测试中验证 `UserAuthoritiesDTO` 的 JSON 序列化/反序列化功能
-- [ ] T040 [US2] 在测试中验证 `UserAuthoritiesDTO` 字段的向后兼容性（新增字段可空）
+- [X] T028 [P] [US2] 创建 `UserAuthoritiesDTO` 类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto/UserAuthoritiesDTO.java`
+- [X] T029 [US2] 在 `UserAuthoritiesDTO` 中添加字段：`userId` (Long)、`roles` (List<String>)、`permissions` (List<String>)
+- [X] T030 [US2] 为 `UserAuthoritiesDTO` 的所有字段添加完整的中文注释
+- [X] T031 [US2] 在 `UserAuthoritiesDTO` 中使用 Lombok 注解（`@Data`、`@NoArgsConstructor`、`@AllArgsConstructor`）简化代码
+- [X] T032 [P] [US2] 创建 `PermissionQueryApi` Feign 接口在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/feign/PermissionQueryApi.java`
+- [X] T033 [US2] 在 `PermissionQueryApi` 接口上添加 `@FeignClient(name = "atlas-system", path = "/api/v1")` 注解
+- [X] T034 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserRoles` 方法：`@GetMapping("/users/{userId}/roles") Result<List<String>> getUserRoles(@PathVariable Long userId)`
+- [X] T035 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserPermissions` 方法：`@GetMapping("/users/{userId}/permissions") Result<List<String>> getUserPermissions(@PathVariable Long userId)`
+- [X] T036 [US2] 在 `PermissionQueryApi` 接口中添加 `getUserAuthorities` 方法：`@GetMapping("/users/{userId}/authorities") Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable Long userId)`
+- [X] T037 [US2] 为 `PermissionQueryApi` 接口的所有方法添加完整的中文注释
+- [X] T038 [P] [US2] 创建 `UserAuthoritiesDTO` 的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/model/dto/UserAuthoritiesDTOTest.java`
+- [X] T039 [US2] 在测试中验证 `UserAuthoritiesDTO` 的 JSON 序列化/反序列化功能
+- [X] T040 [US2] 在测试中验证 `UserAuthoritiesDTO` 字段的向后兼容性（新增字段可空）
 
 ---
 
@@ -153,17 +153,17 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [ ] T041 创建 `atlas-service-api/atlas-system-api/README.md` 文档，包含模块简介、主要功能、快速开始、使用示例、配置说明
-- [ ] T042 在 `README.md` 中添加模块依赖说明（允许的依赖和禁止的依赖）
-- [ ] T043 在 `README.md` 中添加版本包管理说明（v1 包结构）
-- [ ] T044 在 `README.md` 中添加接口兼容性规则说明
-- [ ] T045 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖（使用 Maven 依赖分析工具）
-- [ ] T046 验证包结构符合技术模块规范（按技术分层组织：`com.atlas.system.api.v1.feign`、`model.dto`、`model.vo`、`enums`）
-- [ ] T047 验证所有类、方法、字段包含完整的中文注释
-- [ ] T048 验证接口路径遵循 RESTful 设计规范
-- [ ] T049 验证接口返回类型使用统一的 `Result<T>` 格式
-- [ ] T050 运行所有单元测试，确保测试通过
-- [ ] T051 验证模块可以成功编译和打包（`mvn clean compile` 和 `mvn clean package`）
+- [X] T041 创建 `atlas-service-api/atlas-system-api/README.md` 文档，包含模块简介、主要功能、快速开始、使用示例、配置说明
+- [X] T042 在 `README.md` 中添加模块依赖说明（允许的依赖和禁止的依赖）
+- [X] T043 在 `README.md` 中添加版本包管理说明（v1 包结构）
+- [X] T044 在 `README.md` 中添加接口兼容性规则说明
+- [X] T045 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖（使用 Maven 依赖分析工具）
+- [X] T046 验证包结构符合技术模块规范（按技术分层组织：`com.atlas.system.api.v1.feign`、`model.dto`、`model.vo`、`enums`）
+- [X] T047 验证所有类、方法、字段包含完整的中文注释
+- [X] T048 验证接口路径遵循 RESTful 设计规范
+- [X] T049 验证接口返回类型使用统一的 `Result<T>` 格式
+- [X] T050 运行所有单元测试，确保测试通过
+- [X] T051 验证模块可以成功编译和打包（`mvn clean compile` 和 `mvn clean package`）
 
 ---
 

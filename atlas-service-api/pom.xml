@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父 POM -->
+    <parent>
+        <groupId>com.atlas</groupId>
+        <artifactId>atlas</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 模块信息 -->
+    <artifactId>atlas-service-api</artifactId>
+    <packaging>pom</packaging>
+
+    <name>atlas-service-api</name>
+    <description>服务 API 接口定义模块 - 定义各业务服务的 Feign 接口契约、DTO 对象和枚举常量</description>
+
+    <!-- 模块列表 -->
+    <modules>
+        <module>atlas-system-api</module>
+    </modules>
+
+</project>
