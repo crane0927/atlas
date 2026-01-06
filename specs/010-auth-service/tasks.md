@@ -62,25 +62,25 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T001 在根 `pom.xml` 中添加 `atlas-auth` 模块
-- [ ] T002 创建 `atlas-auth/pom.xml`，配置父模块和基础依赖
-- [ ] T003 在 `atlas-auth/pom.xml` 中添加 `atlas-common-feature-core` 依赖
-- [ ] T004 在 `atlas-auth/pom.xml` 中添加 `atlas-common-feature-security` 依赖
-- [ ] T005 在 `atlas-auth/pom.xml` 中添加 `atlas-common-infra-redis` 依赖
-- [ ] T006 在 `atlas-auth/pom.xml` 中添加 `atlas-service-api/atlas-system-api` 依赖
-- [ ] T007 在 `atlas-auth/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
-- [ ] T008 在 `atlas-auth/pom.xml` 中添加 `io.jsonwebtoken:jjwt` 依赖（版本 0.12.x）
-- [ ] T009 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/controller`
-- [ ] T010 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/service`
-- [ ] T011 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/dto`
-- [ ] T012 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/vo`
-- [ ] T013 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/enums`
-- [ ] T014 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/config`
-- [ ] T015 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/util`
-- [ ] T016 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/filter`
-- [ ] T017 创建目录结构：`atlas-auth/src/test/java/com/atlas/auth`
-- [ ] T018 创建 `atlas-auth/src/main/resources/application.yml`
-- [ ] T019 验证项目可以成功编译（`mvn clean compile`）
+- [X] T001 在根 `pom.xml` 中添加 `atlas-auth` 模块
+- [X] T002 创建 `atlas-auth/pom.xml`，配置父模块和基础依赖
+- [X] T003 在 `atlas-auth/pom.xml` 中添加 `atlas-common-feature-core` 依赖
+- [X] T004 在 `atlas-auth/pom.xml` 中添加 `atlas-common-feature-security` 依赖
+- [X] T005 在 `atlas-auth/pom.xml` 中添加 `atlas-common-infra-redis` 依赖
+- [X] T006 在 `atlas-auth/pom.xml` 中添加 `atlas-service-api/atlas-system-api` 依赖
+- [X] T007 在 `atlas-auth/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
+- [X] T008 在 `atlas-auth/pom.xml` 中添加 `io.jsonwebtoken:jjwt` 依赖（版本 0.12.x）
+- [X] T009 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/controller`
+- [X] T010 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/service`
+- [X] T011 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/dto`
+- [X] T012 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/vo`
+- [X] T013 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/model/enums`
+- [X] T014 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/config`
+- [X] T015 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/util`
+- [X] T016 创建目录结构：`atlas-auth/src/main/java/com/atlas/auth/filter`
+- [X] T017 创建目录结构：`atlas-auth/src/test/java/com/atlas/auth`
+- [X] T018 创建 `atlas-auth/src/main/resources/application.yml`
+- [X] T019 验证项目可以成功编译（`mvn clean compile`）
 
 ---
 
@@ -92,19 +92,19 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T020 创建 `JwtConfig` 配置类在 `atlas-auth/src/main/java/com/atlas/auth/config/JwtConfig.java`
-- [ ] T021 在 `JwtConfig` 中配置 RSA 密钥对（从 Nacos Config 读取）
-- [ ] T022 在 `JwtConfig` 中配置 Token 过期时间（默认 7200 秒）
-- [ ] T023 创建 `JwtUtil` 工具类在 `atlas-auth/src/main/java/com/atlas/auth/util/JwtUtil.java`
-- [ ] T024 在 `JwtUtil` 中实现 `generateToken()` 方法（生成 JWT Token）
-- [ ] T025 在 `JwtUtil` 中实现 `parseToken()` 方法（解析 JWT Token）
-- [ ] T026 在 `JwtUtil` 中实现 `validateToken()` 方法（验证 Token 签名和过期时间）
-- [ ] T027 创建 `PasswordUtil` 工具类在 `atlas-auth/src/main/java/com/atlas/auth/util/PasswordUtil.java`
-- [ ] T028 在 `PasswordUtil` 中实现 `encode()` 方法（密码加密，使用 BCrypt）
-- [ ] T029 在 `PasswordUtil` 中实现 `matches()` 方法（密码验证）
-- [ ] T030 创建 `TokenType` 枚举在 `atlas-auth/src/main/java/com/atlas/auth/model/enums/TokenType.java`
-- [ ] T031 创建 `JwtUtil` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/util/JwtUtilTest.java`
-- [ ] T032 创建 `PasswordUtil` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/util/PasswordUtilTest.java`
+- [X] T020 创建 `JwtConfig` 配置类在 `atlas-auth/src/main/java/com/atlas/auth/config/JwtConfig.java`
+- [X] T021 在 `JwtConfig` 中配置 RSA 密钥对（从 Nacos Config 读取）
+- [X] T022 在 `JwtConfig` 中配置 Token 过期时间（默认 7200 秒）
+- [X] T023 创建 `JwtUtil` 工具类在 `atlas-auth/src/main/java/com/atlas/auth/util/JwtUtil.java`
+- [X] T024 在 `JwtUtil` 中实现 `generateToken()` 方法（生成 JWT Token）
+- [X] T025 在 `JwtUtil` 中实现 `parseToken()` 方法（解析 JWT Token）
+- [X] T026 在 `JwtUtil` 中实现 `validateToken()` 方法（验证 Token 签名和过期时间）
+- [X] T027 创建 `PasswordUtil` 工具类在 `atlas-auth/src/main/java/com/atlas/auth/util/PasswordUtil.java`
+- [X] T028 在 `PasswordUtil` 中实现 `encode()` 方法（密码加密，使用 BCrypt）
+- [X] T029 在 `PasswordUtil` 中实现 `matches()` 方法（密码验证）
+- [X] T030 创建 `TokenType` 枚举在 `atlas-auth/src/main/java/com/atlas/auth/model/enums/TokenType.java`
+- [X] T031 创建 `JwtUtil` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/util/JwtUtilTest.java`
+- [X] T032 创建 `PasswordUtil` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/util/PasswordUtilTest.java`
 
 ---
 
@@ -116,33 +116,33 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T033 [US1] 创建 `LoginRequestVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/LoginRequestVO.java`
-- [ ] T034 [US1] 创建 `LoginResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/LoginResponseVO.java`
-- [ ] T035 [US1] 创建 `UserVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/UserVO.java`
-- [ ] T036 [US1] 创建 `TokenInfoDTO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/dto/TokenInfoDTO.java`
-- [ ] T037 [US1] 创建 `SessionService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/SessionService.java`
-- [ ] T038 [US1] 实现 `SessionService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/SessionServiceImpl.java`
-- [ ] T039 [US1] 在 `SessionService` 中实现 `saveSession()` 方法（存储用户会话到 Redis）
-- [ ] T040 [US1] 在 `SessionService` 中实现 `getSession()` 方法（从 Redis 获取会话）
-- [ ] T041 [US1] 在 `SessionService` 中实现 `deleteSession()` 方法（删除会话）
-- [ ] T042 [US1] 创建 `TokenService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/TokenService.java`
-- [ ] T043 [US1] 实现 `TokenService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/TokenServiceImpl.java`
-- [ ] T044 [US1] 在 `TokenService` 中实现 `generateToken()` 方法（生成 JWT Token）
-- [ ] T045 [US1] 在 `TokenService` 中实现 `parseToken()` 方法（解析 Token 获取用户信息）
-- [ ] T046 [US1] 创建 `AuthService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/AuthService.java`
-- [ ] T047 [US1] 实现 `AuthService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/AuthServiceImpl.java`
-- [ ] T048 [US1] 在 `AuthService` 中注入 `UserQueryApi` Feign 客户端
-- [ ] T049 [US1] 在 `AuthService` 中注入 `PermissionQueryApi` Feign 客户端
-- [ ] T050 [US1] 在 `AuthService` 中实现 `login()` 方法（登录业务逻辑）
-- [ ] T051 [US1] 在 `login()` 方法中调用 `UserQueryApi.getUserByUsername()` 查询用户信息
-- [ ] T052 [US1] 在 `login()` 方法中验证用户状态（必须为激活状态）
-- [ ] T053 [US1] 在 `login()` 方法中验证用户密码（使用 `PasswordUtil.matches()`）
-- [ ] T054 [US1] 在 `login()` 方法中调用 `PermissionQueryApi.getUserAuthorities()` 查询用户权限
-- [ ] T055 [US1] 在 `login()` 方法中调用 `TokenService.generateToken()` 生成 Token
-- [ ] T056 [US1] 在 `login()` 方法中调用 `SessionService.saveSession()` 存储会话
-- [ ] T057 [US1] 创建 `AuthController` 在 `atlas-auth/src/main/java/com/atlas/auth/controller/AuthController.java`
-- [ ] T058 [US1] 在 `AuthController` 中实现 `login()` 接口（POST `/api/v1/auth/login`）
-- [ ] T059 [US1] 在 `login()` 接口中处理异常（用户不存在、密码错误、用户未激活等）
+- [X] T033 [US1] 创建 `LoginRequestVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/LoginRequestVO.java`
+- [X] T034 [US1] 创建 `LoginResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/LoginResponseVO.java`
+- [X] T035 [US1] 创建 `UserVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/UserVO.java`
+- [X] T036 [US1] 创建 `TokenInfoDTO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/dto/TokenInfoDTO.java`
+- [X] T037 [US1] 创建 `SessionService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/SessionService.java`
+- [X] T038 [US1] 实现 `SessionService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/SessionServiceImpl.java`
+- [X] T039 [US1] 在 `SessionService` 中实现 `saveSession()` 方法（存储用户会话到 Redis）
+- [X] T040 [US1] 在 `SessionService` 中实现 `getSession()` 方法（从 Redis 获取会话）
+- [X] T041 [US1] 在 `SessionService` 中实现 `deleteSession()` 方法（删除会话）
+- [X] T042 [US1] 创建 `TokenService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/TokenService.java`
+- [X] T043 [US1] 实现 `TokenService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/TokenServiceImpl.java`
+- [X] T044 [US1] 在 `TokenService` 中实现 `generateToken()` 方法（生成 JWT Token）
+- [X] T045 [US1] 在 `TokenService` 中实现 `parseToken()` 方法（解析 Token 获取用户信息）
+- [X] T046 [US1] 创建 `AuthService` 接口在 `atlas-auth/src/main/java/com/atlas/auth/service/AuthService.java`
+- [X] T047 [US1] 实现 `AuthService` 在 `atlas-auth/src/main/java/com/atlas/auth/service/impl/AuthServiceImpl.java`
+- [X] T048 [US1] 在 `AuthService` 中注入 `UserQueryApi` Feign 客户端
+- [X] T049 [US1] 在 `AuthService` 中注入 `PermissionQueryApi` Feign 客户端
+- [X] T050 [US1] 在 `AuthService` 中实现 `login()` 方法（登录业务逻辑）
+- [X] T051 [US1] 在 `login()` 方法中调用 `UserQueryApi.getUserByUsername()` 查询用户信息
+- [X] T052 [US1] 在 `login()` 方法中验证用户状态（必须为激活状态）
+- [X] T053 [US1] 在 `login()` 方法中验证用户密码（使用 `PasswordUtil.matches()`）- 注意：需要根据实际实现调整
+- [X] T054 [US1] 在 `login()` 方法中调用 `PermissionQueryApi.getUserAuthorities()` 查询用户权限
+- [X] T055 [US1] 在 `login()` 方法中调用 `TokenService.generateToken()` 生成 Token
+- [X] T056 [US1] 在 `login()` 方法中调用 `SessionService.saveSession()` 存储会话
+- [X] T057 [US1] 创建 `AuthController` 在 `atlas-auth/src/main/java/com/atlas/auth/controller/AuthController.java`
+- [X] T058 [US1] 在 `AuthController` 中实现 `login()` 接口（POST `/api/v1/auth/login`）
+- [X] T059 [US1] 在 `login()` 接口中处理异常（用户不存在、密码错误、用户未激活等）
 - [ ] T060 [US1] 创建登录接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
 - [ ] T061 [US1] 创建 `AuthService` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/service/AuthServiceTest.java`
 

@@ -261,6 +261,7 @@
         <module>atlas-common/atlas-common-infra/atlas-common-infra-db</module>
         <module>atlas-gateway</module>
         <module>atlas-service-api</module>
+        <module>atlas-auth</module>
     </modules>
 
 </project>
