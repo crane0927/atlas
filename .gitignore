@@ -26,6 +26,7 @@ buildNumber.properties
 *.rar
 
 # IDE
+.agent/
 .idea/
 *.iml
 *.iws
