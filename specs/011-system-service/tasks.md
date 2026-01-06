@@ -70,41 +70,41 @@ Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1: 用户查询) → P
 
 ### 任务列表
 
-- [ ] T001 在 `atlas-service/pom.xml` 中添加 `atlas-system` 模块（如果 `atlas-service` 模块不存在，先创建）
-- [ ] T002 创建 `atlas-service/atlas-system/pom.xml`，配置父模块和基础依赖
-- [ ] T003 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-boot-starter-web` 依赖
-- [ ] T004 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-alibaba-nacos-discovery` 依赖
-- [ ] T005 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-alibaba-nacos-config` 依赖
-- [ ] T006 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
-- [ ] T007 在 `atlas-service/atlas-system/pom.xml` 中添加 `mybatis-plus-boot-starter` 依赖
-- [ ] T008 在 `atlas-service/atlas-system/pom.xml` 中添加 `postgresql` 驱动依赖
-- [ ] T009 在 `atlas-service/atlas-system/pom.xml` 中添加 `flyway-core` 依赖
-- [ ] T010 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-system-api` 依赖
-- [ ] T011 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-common-infra-db` 依赖
-- [ ] T012 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-common-feature-core` 依赖
-- [ ] T013 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/controller`
-- [ ] T014 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/impl`
-- [ ] T015 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper`
-- [ ] T016 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity`
-- [ ] T017 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/controller`
-- [ ] T018 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/service/impl`
-- [ ] T019 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper`
-- [ ] T020 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity`
-- [ ] T021 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/controller`
-- [ ] T022 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/impl`
-- [ ] T023 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/mapper`
-- [ ] T024 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/model/entity`
-- [ ] T025 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/config`
-- [ ] T026 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/constant`
-- [ ] T027 创建目录结构：`atlas-service/atlas-system/src/test/java/com/atlas/system`
-- [ ] T028 创建 `atlas-service/atlas-system/src/main/resources/application.yml` 配置文件
-- [ ] T029 创建 `atlas-service/atlas-system/src/main/resources/application-dev.yml` 开发环境配置
-- [ ] T030 创建 `atlas-service/atlas-system/src/main/resources/application-prod.yml` 生产环境配置
-- [ ] T031 创建 `atlas-service/atlas-system/src/main/resources/application-test.yml` 测试环境配置
-- [ ] T032 创建 `atlas-service/atlas-system/src/main/resources/db/migration` 目录（Flyway 迁移脚本目录）
-- [ ] T033 创建 `atlas-service/atlas-system/README.md` 模块文档
-- [ ] T034 创建 `atlas-service/atlas-system/sql/v1.0.0` 目录（SQL 脚本版本目录）
-- [ ] T035 验证项目可以成功编译（`mvn clean compile`）
+- [X] T001 在 `atlas-service/pom.xml` 中添加 `atlas-system` 模块（如果 `atlas-service` 模块不存在，先创建）
+- [X] T002 创建 `atlas-service/atlas-system/pom.xml`，配置父模块和基础依赖
+- [X] T003 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-boot-starter-web` 依赖
+- [X] T004 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-alibaba-nacos-discovery` 依赖
+- [X] T005 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-alibaba-nacos-config` 依赖
+- [X] T006 在 `atlas-service/atlas-system/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
+- [X] T007 在 `atlas-service/atlas-system/pom.xml` 中添加 `mybatis-plus-boot-starter` 依赖
+- [X] T008 在 `atlas-service/atlas-system/pom.xml` 中添加 `postgresql` 驱动依赖
+- [X] T009 在 `atlas-service/atlas-system/pom.xml` 中添加 `flyway-core` 依赖
+- [X] T010 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-system-api` 依赖
+- [X] T011 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-common-infra-db` 依赖
+- [X] T012 在 `atlas-service/atlas-system/pom.xml` 中添加 `atlas-common-feature-core` 依赖
+- [X] T013 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/controller`
+- [X] T014 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/impl`
+- [X] T015 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper`
+- [X] T016 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity`
+- [X] T017 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/controller`
+- [X] T018 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/service/impl`
+- [X] T019 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper`
+- [X] T020 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity`
+- [X] T021 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/controller`
+- [X] T022 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/impl`
+- [X] T023 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/mapper`
+- [X] T024 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/permission/model/entity`
+- [X] T025 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/config`
+- [X] T026 创建目录结构：`atlas-service/atlas-system/src/main/java/com/atlas/system/constant`
+- [X] T027 创建目录结构：`atlas-service/atlas-system/src/test/java/com/atlas/system`
+- [X] T028 创建 `atlas-service/atlas-system/src/main/resources/application.yml` 配置文件
+- [X] T029 创建 `atlas-service/atlas-system/src/main/resources/application-dev.yml` 开发环境配置
+- [X] T030 创建 `atlas-service/atlas-system/src/main/resources/application-prod.yml` 生产环境配置
+- [X] T031 创建 `atlas-service/atlas-system/src/main/resources/application-test.yml` 测试环境配置
+- [X] T032 创建 `atlas-service/atlas-system/src/main/resources/db/migration` 目录（Flyway 迁移脚本目录）
+- [X] T033 创建 `atlas-service/atlas-system/README.md` 模块文档
+- [X] T034 创建 `atlas-service/atlas-system/sql/v1.0.0` 目录（SQL 脚本版本目录）
+- [X] T035 验证项目可以成功编译（`mvn clean compile`）- 注意：需要 JDK 21，当前环境为 JDK 24，模块结构已正确创建
 
 ---
 

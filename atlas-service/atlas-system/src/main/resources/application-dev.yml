@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/atlas_system_dev
+    username: postgres
+    password: postgres
+
+logging:
+  level:
+    com.atlas: DEBUG
+

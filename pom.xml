@@ -262,6 +262,7 @@
         <module>atlas-gateway</module>
         <module>atlas-service-api</module>
         <module>atlas-auth</module>
+        <module>atlas-service</module>
     </modules>
 
 </project>
