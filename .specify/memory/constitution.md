@@ -18,9 +18,9 @@ Version: 0.3.8 → 0.3.9
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.3.9  
+**版本**: 0.4.1  
 **批准日期**: 2025-01-27  
-**最后修订日期**: 2026-01-05
+**最后修订日期**: 2026-01-06
 
 ## 概述
 
@@ -365,7 +365,223 @@ atlas/
 - 技术模块按技术组织，便于技术层统一管理和优化
 - 统一的包结构规范提高代码可读性和团队协作效率
 
-### 原则 13: 模块职责边界
+### 原则 13: DTO 与 VO 使用规范
+
+**规则**: 项目必须明确区分 DTO（Data Transfer Object）和 VO（View Object）的使用场景，禁止混用。
+
+**定义**:
+
+1. **DTO（Data Transfer Object，数据传输对象）**
+   - **用途**: 用于服务间数据传输、跨层数据传输、API 接口契约定义
+   - **使用场景**:
+     - **服务间调用**: Feign 接口的请求参数和响应结果（定义在 `atlas-service-api` 模块中）
+     - **跨层传输**: Service 层与 Controller 层之间的数据传输
+     - **API 契约**: 作为 API 接口的输入输出对象，定义在 `atlas-service-api` 模块中
+   - **特点**:
+     - 关注数据传输，不包含业务逻辑
+     - 字段通常与数据库实体或业务对象对应
+     - 可以包含多个实体的组合字段
+     - 必须遵循接口兼容性规则（新增字段必须可空或提供默认值）
+   - **包路径**: 
+     - API 模块: `com.atlas.{service-name}.api.v{version}.dto`
+     - 业务模块: `com.atlas.{module-name}.{business-module}.model.dto`
+
+2. **VO（View Object，视图对象）**
+   - **用途**: 用于前端展示、页面渲染、用户交互
+   - **使用场景**:
+     - **Controller 返回**: Controller 层返回给前端的数据对象
+     - **页面展示**: 包含前端需要的展示字段和格式化数据
+     - **用户交互**: 包含前端表单提交、查询条件等
+   - **特点**:
+     - 关注前端展示需求，字段可能包含格式化后的数据（如日期字符串、金额格式化等）
+     - 可以包含多个 DTO 或实体的组合字段
+     - 可以包含前端特有的字段（如状态文本、操作按钮等）
+     - 不参与服务间调用，仅用于前后端交互
+   - **包路径**: `com.atlas.{module-name}.{business-module}.model.vo`
+
+**使用范围规定**:
+
+1. **atlas-service-api 模块**:
+   - **必须使用 DTO**: 所有 Feign 接口的请求参数和响应结果必须使用 DTO
+   - **禁止使用 VO**: API 模块中禁止定义 VO，因为 API 模块是服务间调用的契约，不涉及前端展示
+   - **示例**: `UserDTO`、`UserAuthoritiesDTO` 等定义在 `atlas-system-api` 中
+
+2. **atlas-service 模块（业务服务）**:
+   - **Service 层**: 
+     - 内部方法参数和返回值可以使用 Entity 或 DTO
+     - 与 Controller 层交互时使用 DTO
+     - 调用其他服务时使用 API 模块定义的 DTO
+   - **Controller 层**:
+     - 接收前端请求参数可以使用 VO（如 `UserQueryVO`、`UserCreateVO`）
+     - 返回给前端的数据使用 VO（如 `UserVO`、`UserListVO`）
+     - 与 Service 层交互时使用 DTO
+   - **Mapper 层**: 使用 Entity，不涉及 DTO 或 VO
+
+3. **数据流转示例**:
+   ```
+   前端 → Controller (VO) → Service (DTO) → Mapper (Entity) → 数据库
+   数据库 → Mapper (Entity) → Service (DTO) → Controller (VO) → 前端
+   服务A → Feign (DTO) → 服务B Controller (DTO) → Service (Entity/DTO) → 数据库
+   ```
+
+**命名规范**:
+
+- **DTO 命名**: `{EntityName}DTO`，如 `UserDTO`、`OrderDTO`、`UserAuthoritiesDTO`
+- **VO 命名**: `{EntityName}VO` 或 `{Purpose}VO`，如 `UserVO`、`UserListVO`、`UserQueryVO`、`UserCreateVO`
+- **包路径规范**:
+  - DTO: `com.atlas.{module-name}.{business-module}.model.dto`
+  - VO: `com.atlas.{module-name}.{business-module}.model.vo`
+
+**转换规则**:
+
+1. **Entity → DTO**: Service 层将 Entity 转换为 DTO 返回给 Controller 层或通过 Feign 返回给其他服务
+2. **DTO → VO**: Controller 层将 DTO 转换为 VO 返回给前端（可以包含格式化、字段组合等操作）
+3. **VO → DTO**: Controller 层将前端提交的 VO 转换为 DTO 传递给 Service 层
+4. **转换工具**: 可以使用 MapStruct、BeanUtils 等工具进行对象转换，但必须保证转换的正确性
+
+**禁止事项**:
+
+1. **禁止在 API 模块中使用 VO**: `atlas-service-api` 模块中禁止定义 VO，只能定义 DTO
+2. **禁止在服务间调用中使用 VO**: Feign 接口的请求参数和响应结果必须使用 DTO，禁止使用 VO
+3. **禁止混用**: 同一场景下不能同时使用 DTO 和 VO，必须明确选择一种
+4. **禁止直接返回 Entity**: Controller 层禁止直接返回 Entity 对象，必须转换为 VO 或 DTO
+
+**理由**: 
+- 明确区分 DTO 和 VO 的使用场景，避免概念混淆和误用
+- DTO 用于服务间调用和跨层传输，保证接口契约的稳定性
+- VO 用于前端展示，可以灵活调整字段以满足前端需求
+- 分离关注点，提高代码可维护性和可扩展性
+- 符合分层架构原则，各层职责清晰
+
+**验证**:
+- 代码审查时检查 API 模块中是否定义了 VO（应使用 DTO）
+- 检查 Controller 层是否直接返回 Entity（应转换为 VO）
+- 检查 Feign 接口是否使用了 VO（应使用 DTO）
+- 检查包路径是否符合规范（DTO 在 `dto` 包，VO 在 `vo` 包）
+- 检查命名是否符合规范（DTO 以 `DTO` 结尾，VO 以 `VO` 结尾）
+
+**其他对象类型说明**:
+
+3. **Entity（实体类）**
+   - **用途**: 对应数据库表结构，用于数据持久化
+   - **使用场景**:
+     - **Mapper 层**: Mapper 接口的输入输出参数
+     - **Service 层**: 内部业务逻辑处理，与数据库交互
+     - **数据持久化**: 通过 MyBatis-Plus 进行数据库操作
+   - **特点**:
+     - 与数据库表结构一一对应
+     - 包含数据库字段映射注解（如 `@TableName`、`@TableId`、`@TableField`）
+     - 可以继承 `BaseEntity` 使用审计字段（创建时间、更新时间、创建人、更新人等）
+     - 支持逻辑删除（使用 `@TableLogic` 注解）
+     - 不直接暴露给 Controller 层或外部服务
+   - **包路径**: `com.atlas.{module-name}.{business-module}.model.entity`
+   - **命名规范**: `{EntityName}`，如 `User`、`Order`、`Product`
+   - **禁止事项**:
+     - 禁止在 Controller 层直接返回 Entity
+     - 禁止在 Feign 接口中使用 Entity
+     - 禁止在 API 模块中定义 Entity
+
+4. **Query/Request（查询/请求对象）**
+   - **用途**: 封装查询条件、分页参数、请求参数
+   - **使用场景**:
+     - **Controller 层**: 接收前端查询请求参数（如 `UserQueryVO`、`OrderQueryVO`）
+     - **Service 层**: 封装复杂查询条件（如 `UserQueryDTO`、`OrderQueryDTO`）
+     - **分页查询**: 封装分页参数（页码、每页大小、排序字段等）
+   - **特点**:
+     - 关注查询条件，不包含业务逻辑
+     - 可以包含多个查询字段的组合
+     - 支持分页参数、排序参数
+     - 字段通常可空，支持可选查询条件
+   - **包路径**: 
+     - Controller 层: `com.atlas.{module-name}.{business-module}.model.vo`（如 `UserQueryVO`）
+     - Service 层: `com.atlas.{module-name}.{business-module}.model.dto`（如 `UserQueryDTO`）
+   - **命名规范**: `{EntityName}QueryVO`、`{EntityName}QueryDTO`、`{EntityName}RequestVO`、`{EntityName}RequestDTO`
+   - **示例**: `UserQueryVO`、`OrderQueryDTO`、`UserCreateRequestVO`、`OrderUpdateRequestDTO`
+
+5. **BO（Business Object，业务对象）**
+   - **用途**: 封装业务逻辑和业务规则，用于复杂业务场景
+   - **使用场景**:
+     - **复杂业务逻辑**: 需要封装多个实体或 DTO 的业务对象
+     - **业务规则封装**: 包含业务规则和业务方法的对象
+     - **领域模型**: 在领域驱动设计（DDD）中使用
+   - **特点**:
+     - 可以包含业务逻辑方法
+     - 可以组合多个 Entity 或 DTO
+     - 关注业务语义，不关注数据持久化
+     - 通常在 Service 层内部使用
+   - **包路径**: `com.atlas.{module-name}.{business-module}.model.bo`
+   - **命名规范**: `{EntityName}BO` 或 `{BusinessPurpose}BO`，如 `UserBO`、`OrderBO`、`PaymentBO`
+   - **使用建议**: 
+     - 仅在复杂业务场景下使用，简单场景优先使用 Entity 或 DTO
+     - 避免过度设计，保持代码简洁
+
+6. **Result<T>（统一响应包装类）**
+   - **用途**: 统一封装所有 HTTP 接口的响应数据
+   - **使用场景**:
+     - **Controller 返回**: 所有 Controller 方法的返回值
+     - **Feign 接口返回**: 所有 Feign 接口的返回值
+     - **统一响应格式**: 提供统一的成功/失败响应格式
+   - **特点**:
+     - 包含状态码（code）、消息（message）、数据（data）、时间戳（timestamp）、追踪ID（traceId）
+     - 支持泛型，可以包装任意类型的数据
+     - 自动从 MDC 中获取 traceId，支持分布式追踪
+     - 成功响应：`Result.success(data)`
+     - 失败响应：`Result.error(code, message)`
+   - **包路径**: `com.atlas.common.feature.core.result`
+   - **使用规范**:
+     - 所有 HTTP 接口必须使用 `Result<T>` 包装响应数据
+     - 禁止直接返回 DTO、VO 或 Entity
+     - 禁止在 Service 层返回 `Result<T>`（Service 层返回业务对象，Controller 层包装为 Result）
+
+7. **PageResult<T>（分页响应对象）**
+   - **用途**: 统一封装分页查询结果
+   - **使用场景**:
+     - **分页查询返回**: 分页查询接口的返回值
+     - **列表查询**: 需要返回列表数据和分页信息的场景
+   - **特点**:
+     - 包含列表数据（list）、总数（total）、页码（page）、每页大小（size）、总页数（pages）、追踪ID（traceId）
+     - 支持泛型，可以包装任意类型的数据列表
+     - 自动从 MDC 中获取 traceId
+   - **包路径**: `com.atlas.common.feature.core.page`
+   - **使用规范**:
+     - 分页查询接口必须使用 `PageResult<T>` 包装响应数据
+     - 禁止使用自定义分页对象
+     - 禁止在 Service 层返回 `PageResult<T>`（Service 层返回分页数据，Controller 层包装为 PageResult）
+
+**完整数据流转示例**:
+```
+前端请求:
+  前端 → Controller (QueryVO) → Service (QueryDTO) → Mapper (Entity) → 数据库
+
+数据查询:
+  数据库 → Mapper (Entity) → Service (Entity/BO) → Service (DTO) → Controller (VO) → Result<VO> → 前端
+
+服务间调用:
+  服务A → Feign (QueryDTO) → 服务B Controller (QueryDTO) → Service (Entity) → Mapper (Entity) → 数据库
+  数据库 → Mapper (Entity) → Service (DTO) → Controller (DTO) → Result<DTO> → Feign (DTO) → 服务A
+```
+
+**对象类型选择指南**:
+
+| 场景 | 使用对象类型 | 示例 |
+|------|------------|------|
+| 数据库表映射 | Entity | `User`、`Order` |
+| 服务间调用（Feign） | DTO | `UserDTO`、`OrderDTO` |
+| Controller 与 Service 交互 | DTO | `UserDTO`、`OrderDTO` |
+| Controller 返回前端 | VO | `UserVO`、`OrderVO` |
+| 前端查询条件 | QueryVO | `UserQueryVO`、`OrderQueryVO` |
+| Service 查询条件 | QueryDTO | `UserQueryDTO`、`OrderQueryDTO` |
+| 复杂业务逻辑 | BO（可选） | `UserBO`、`OrderBO` |
+| HTTP 接口响应 | Result<T> | `Result<UserVO>`、`Result<PageResult<UserVO>>` |
+| 分页查询响应 | PageResult<T> | `PageResult<UserVO>` |
+
+**禁止事项补充**:
+1. **禁止在 API 模块中定义 Entity**: `atlas-service-api` 模块中禁止定义 Entity，只能定义 DTO
+2. **禁止在 Controller 层直接使用 Entity**: Controller 层禁止直接接收或返回 Entity，必须转换为 VO 或 DTO
+3. **禁止在 Service 层返回 Result**: Service 层返回业务对象，Controller 层负责包装为 Result
+4. **禁止混用对象类型**: 同一场景下必须使用统一的对象类型，禁止混用
+
+### 原则 14: 模块职责边界
 
 **规则**: 每个模块必须有明确的职责边界，禁止跨边界直接访问，必须通过定义好的接口进行交互。
 
@@ -497,13 +713,13 @@ atlas/
 
 ## 质量保证原则
 
-### 原则 14: 单元测试要求
+### 原则 15: 单元测试要求
 
 **规则**: 核心业务逻辑和公共方法必须编写单元测试，测试覆盖率不低于 70%。
 
 **理由**: 单元测试确保代码质量，减少回归问题，提高重构信心。
 
-### 原则 15: 代码规范检查
+### 原则 16: 代码规范检查
 
 **规则**: 代码必须通过 Checkstyle、PMD、SpotBugs 等静态代码分析工具检查。
 
@@ -578,6 +794,8 @@ atlas/
 | 0.3.7 | 2026-01-05 | 新增模块文档要求（每个模块下需要有 README.md） | 系统 |
 | 0.3.8 | 2026-01-05 | 新增包结构组织规范（业务模块按业务再按技术分层，技术模块按技术再按业务分层） | 系统 |
 | 0.3.9 | 2026-01-05 | 将 atlas-gateway 从业务模块调整为技术模块 | 系统 |
+| 0.4.0 | 2026-01-06 | 新增 DTO 与 VO 使用规范，明确两者区别和使用范围 | 系统 |
+| 0.4.1 | 2026-01-06 | 补充 Entity、Query/Request、BO、Result、PageResult 等对象类型说明 | 系统 |
 
 ---
 
