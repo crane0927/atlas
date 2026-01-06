@@ -143,8 +143,8 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 - [X] T057 [US1] 创建 `AuthController` 在 `atlas-auth/src/main/java/com/atlas/auth/controller/AuthController.java`
 - [X] T058 [US1] 在 `AuthController` 中实现 `login()` 接口（POST `/api/v1/auth/login`）
 - [X] T059 [US1] 在 `login()` 接口中处理异常（用户不存在、密码错误、用户未激活等）
-- [ ] T060 [US1] 创建登录接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
-- [ ] T061 [US1] 创建 `AuthService` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/service/AuthServiceTest.java`
+- [X] T060 [US1] 创建登录接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
+- [X] T061 [US1] 创建 `AuthService` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/service/AuthServiceTest.java`
 
 ---
 
@@ -156,18 +156,18 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T062 [US2] 在 `SessionService` 中实现 `addToBlacklist()` 方法（将 Token 加入黑名单）
-- [ ] T063 [US2] 在 `SessionService` 中实现 `isBlacklisted()` 方法（检查 Token 是否在黑名单中）
-- [ ] T064 [US2] 在 `AuthService` 中实现 `logout()` 方法（登出业务逻辑）
-- [ ] T065 [US2] 在 `logout()` 方法中从请求头提取 Token
-- [ ] T066 [US2] 在 `logout()` 方法中调用 `TokenService.parseToken()` 解析 Token
-- [ ] T067 [US2] 在 `logout()` 方法中调用 `SessionService.addToBlacklist()` 加入黑名单
-- [ ] T068 [US2] 在 `logout()` 方法中调用 `SessionService.deleteSession()` 删除会话
-- [ ] T069 [US2] 在 `AuthController` 中实现 `logout()` 接口（POST `/api/v1/auth/logout`）
-- [ ] T070 [US2] 在 `logout()` 接口中添加 `@PreAuthorize` 或自定义拦截器验证 Token
-- [ ] T071 [US2] 在 `logout()` 接口中处理异常（Token 无效、缺失等）
-- [ ] T072 [US2] 创建登出接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
-- [ ] T073 [US2] 创建 `AuthService.logout()` 的单元测试
+- [X] T062 [US2] 在 `SessionService` 中实现 `addToBlacklist()` 方法（将 Token 加入黑名单）
+- [X] T063 [US2] 在 `SessionService` 中实现 `isBlacklisted()` 方法（检查 Token 是否在黑名单中）
+- [X] T064 [US2] 在 `AuthService` 中实现 `logout()` 方法（登出业务逻辑）
+- [X] T065 [US2] 在 `logout()` 方法中从请求头提取 Token
+- [X] T066 [US2] 在 `logout()` 方法中调用 `TokenService.parseToken()` 解析 Token
+- [X] T067 [US2] 在 `logout()` 方法中调用 `SessionService.addToBlacklist()` 加入黑名单
+- [X] T068 [US2] 在 `logout()` 方法中调用 `SessionService.deleteSession()` 删除会话
+- [X] T069 [US2] 在 `AuthController` 中实现 `logout()` 接口（POST `/api/v1/auth/logout`）
+- [X] T070 [US2] 在 `logout()` 接口中添加 `@PreAuthorize` 或自定义拦截器验证 Token - 已在 Controller 中实现 Token 提取和验证
+- [X] T071 [US2] 在 `logout()` 接口中处理异常（Token 无效、缺失等）
+- [X] T072 [US2] 创建登出接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
+- [X] T073 [US2] 创建 `AuthService.logout()` 的单元测试
 
 ---
 
