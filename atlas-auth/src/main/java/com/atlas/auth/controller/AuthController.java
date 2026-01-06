@@ -133,7 +133,7 @@ public class AuthController {
 
     log.debug("用户登出请求: tokenId={}", token.substring(0, Math.min(20, token.length())));
     authService.logout(token);
-    return Result.success("登出成功");
+    return Result.success("登出成功", null);
   }
 
   /**
