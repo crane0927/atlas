@@ -179,14 +179,14 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T074 [US3] 创建 `PublicKeyResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/PublicKeyResponseVO.java`
-- [ ] T075 [US3] 在 `JwtConfig` 中实现 `getPublicKey()` 方法（获取公钥）
-- [ ] T076 [US3] 在 `JwtConfig` 中实现 `getKeyId()` 方法（获取密钥ID）
-- [ ] T077 [US3] 在 `AuthController` 中实现 `getPublicKey()` 接口（GET `/api/v1/auth/public-key`）
-- [ ] T078 [US3] 在 `getPublicKey()` 接口中返回公钥（PEM 格式或 JWK 格式）
-- [ ] T079 [US3] 在 `getPublicKey()` 接口中返回密钥ID（支持公钥轮换）
-- [ ] T080 [US3] 创建公钥接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
-- [ ] T081 [US3] 验证公钥格式符合标准（JWK 或 PEM）
+- [X] T074 [US3] 创建 `PublicKeyResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/PublicKeyResponseVO.java`
+- [X] T075 [US3] 在 `JwtConfig` 中实现 `getPublicKey()` 方法（获取公钥）- 已实现 `getPublicKeyPem()`
+- [X] T076 [US3] 在 `JwtConfig` 中实现 `getKeyId()` 方法（获取密钥ID）- 已实现
+- [X] T077 [US3] 在 `AuthController` 中实现 `getPublicKey()` 接口（GET `/api/v1/auth/public-key`）
+- [X] T078 [US3] 在 `getPublicKey()` 接口中返回公钥（PEM 格式或 JWK 格式）
+- [X] T079 [US3] 在 `getPublicKey()` 接口中返回密钥ID（支持公钥轮换）
+- [X] T080 [US3] 创建公钥接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
+- [X] T081 [US3] 验证公钥格式符合标准（JWK 或 PEM）- 使用 PEM 格式
 
 ---
 
@@ -198,19 +198,19 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T082 [US4] 创建 `IntrospectRequestVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/IntrospectRequestVO.java`
-- [ ] T083 [US4] 创建 `IntrospectResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/IntrospectResponseVO.java`
-- [ ] T084 [US4] 在 `TokenService` 中实现 `validateToken()` 方法（验证 Token 有效性）
-- [ ] T085 [US4] 在 `validateToken()` 方法中验证 Token 格式（JWT 标准）
-- [ ] T086 [US4] 在 `validateToken()` 方法中验证 Token 签名（使用公钥）
-- [ ] T087 [US4] 在 `validateToken()` 方法中验证 Token 过期时间
-- [ ] T088 [US4] 在 `validateToken()` 方法中检查 Token 是否在黑名单中（调用 `SessionService.isBlacklisted()`）
-- [ ] T089 [US4] 在 `AuthController` 中实现 `introspect()` 接口（POST `/api/v1/auth/introspect`）
-- [ ] T090 [US4] 在 `introspect()` 接口中添加服务间认证（使用 API Key 或服务 Token）
-- [ ] T091 [US4] 在 `introspect()` 接口中调用 `TokenService.validateToken()` 验证 Token
-- [ ] T092 [US4] 在 `introspect()` 接口中返回 Token 验证结果和用户信息
-- [ ] T093 [US4] 创建 Introspection 接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
-- [ ] T094 [US4] 验证接口响应时间 < 100ms（性能测试）
+- [X] T082 [US4] 创建 `IntrospectRequestVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/IntrospectRequestVO.java`
+- [X] T083 [US4] 创建 `IntrospectResponseVO` 在 `atlas-auth/src/main/java/com/atlas/auth/model/vo/IntrospectResponseVO.java`
+- [X] T084 [US4] 在 `TokenService` 中实现 `validateToken()` 方法（验证 Token 有效性）- 已在 TokenServiceImpl 中实现
+- [X] T085 [US4] 在 `validateToken()` 方法中验证 Token 格式（JWT 标准）- 通过 JwtUtil.parseToken() 实现
+- [X] T086 [US4] 在 `validateToken()` 方法中验证 Token 签名（使用公钥）- 通过 JwtUtil.parseToken() 实现
+- [X] T087 [US4] 在 `validateToken()` 方法中验证 Token 过期时间 - 通过 JwtUtil.parseToken() 实现
+- [X] T088 [US4] 在 `validateToken()` 方法中检查 Token 是否在黑名单中（调用 `SessionService.isBlacklisted()`）- 已在 TokenServiceImpl 中实现
+- [X] T089 [US4] 在 `AuthController` 中实现 `introspect()` 接口（POST `/api/v1/auth/introspect`）
+- [ ] T090 [US4] 在 `introspect()` 接口中添加服务间认证（使用 API Key 或服务 Token）- 暂缓实现，后续可根据需要添加
+- [X] T091 [US4] 在 `introspect()` 接口中调用 `TokenService.validateToken()` 验证 Token
+- [X] T092 [US4] 在 `introspect()` 接口中返回 Token 验证结果和用户信息
+- [X] T093 [US4] 创建 Introspection 接口的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/controller/AuthControllerTest.java`
+- [ ] T094 [US4] 验证接口响应时间 < 100ms（性能测试）- 需要集成测试环境
 
 ---
 
@@ -239,22 +239,22 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T099 [US6] 创建 `LoginUserImpl` 实现类在 `atlas-auth/src/main/java/com/atlas/auth/model/dto/LoginUserImpl.java`
-- [ ] T100 [US6] 实现 `LoginUser` 接口的所有方法（`getUserId()`, `getUsername()`, `getRoles()`, `getPermissions()`, `hasRole()`, `hasPermission()`）
-- [ ] T101 [US6] 创建 `SecurityContextImpl` 实现类在 `atlas-auth/src/main/java/com/atlas/auth/context/SecurityContextImpl.java`
-- [ ] T102 [US6] 在 `SecurityContextImpl` 中使用 `ThreadLocal<LoginUser>` 存储用户信息
-- [ ] T103 [US6] 实现 `SecurityContext` 接口的所有方法（`getLoginUser()`, `isAuthenticated()`, `clear()`）
-- [ ] T104 [US6] 创建 `SecurityContextFilter` 过滤器在 `atlas-auth/src/main/java/com/atlas/auth/filter/SecurityContextFilter.java`
-- [ ] T105 [US6] 在 `SecurityContextFilter` 中从请求头提取 Token（`Authorization: Bearer {token}`）
-- [ ] T106 [US6] 在 `SecurityContextFilter` 中调用 `TokenService.parseToken()` 解析 Token
-- [ ] T107 [US6] 在 `SecurityContextFilter` 中调用 `TokenService.validateToken()` 验证 Token
-- [ ] T108 [US6] 在 `SecurityContextFilter` 中将用户信息封装为 `LoginUserImpl` 对象
-- [ ] T109 [US6] 在 `SecurityContextFilter` 中设置 `SecurityContext`（使用 `SecurityContextHolder.setContext()`）
-- [ ] T110 [US6] 在 `SecurityContextFilter` 中在请求结束时清理 `SecurityContext`（`finally` 块中调用 `clear()`）
-- [ ] T111 [US6] 创建 `SecurityConfig` 配置类在 `atlas-auth/src/main/java/com/atlas/auth/config/SecurityConfig.java`
-- [ ] T112 [US6] 在 `SecurityConfig` 中注册 `SecurityContextFilter`（使用 `FilterRegistrationBean`）
-- [ ] T113 [US6] 创建 `SecurityContextFilter` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/filter/SecurityContextFilterTest.java`
-- [ ] T114 [US6] 创建下游服务使用示例（在文档中说明如何使用 `SecurityContext`）
+- [X] T099 [US6] 创建 `LoginUserImpl` 实现类在 `atlas-auth/src/main/java/com/atlas/auth/model/dto/LoginUserImpl.java`
+- [X] T100 [US6] 实现 `LoginUser` 接口的所有方法（`getUserId()`, `getUsername()`, `getRoles()`, `getPermissions()`, `hasRole()`, `hasPermission()`）
+- [X] T101 [US6] 创建 `SecurityContextImpl` 实现类在 `atlas-auth/src/main/java/com/atlas/auth/context/SecurityContextImpl.java`
+- [X] T102 [US6] 在 `SecurityContextImpl` 中使用 `ThreadLocal<LoginUser>` 存储用户信息
+- [X] T103 [US6] 实现 `SecurityContext` 接口的所有方法（`getLoginUser()`, `isAuthenticated()`, `clear()`）
+- [X] T104 [US6] 创建 `SecurityContextFilter` 过滤器在 `atlas-auth/src/main/java/com/atlas/auth/filter/SecurityContextFilter.java`
+- [X] T105 [US6] 在 `SecurityContextFilter` 中从请求头提取 Token（`Authorization: Bearer {token}`）
+- [X] T106 [US6] 在 `SecurityContextFilter` 中调用 `TokenService.parseToken()` 解析 Token - 通过 validateToken() 实现
+- [X] T107 [US6] 在 `SecurityContextFilter` 中调用 `TokenService.validateToken()` 验证 Token
+- [X] T108 [US6] 在 `SecurityContextFilter` 中将用户信息封装为 `LoginUserImpl` 对象
+- [X] T109 [US6] 在 `SecurityContextFilter` 中设置 `SecurityContext`（使用 `SecurityContextHolder.setContext()`）- 通过 SecurityContextImpl.setLoginUser() 实现
+- [X] T110 [US6] 在 `SecurityContextFilter` 中在请求结束时清理 `SecurityContext`（`finally` 块中调用 `clear()`）
+- [X] T111 [US6] 创建 `SecurityConfig` 配置类在 `atlas-auth/src/main/java/com/atlas/auth/config/SecurityConfig.java`
+- [X] T112 [US6] 在 `SecurityConfig` 中注册 `SecurityContextFilter`（使用 `FilterRegistrationBean`）
+- [X] T113 [US6] 创建 `SecurityContextFilter` 的单元测试在 `atlas-auth/src/test/java/com/atlas/auth/filter/SecurityContextFilterTest.java`
+- [X] T114 [US6] 创建下游服务使用示例（在文档中说明如何使用 `SecurityContext`）- 已在 README.md 中说明
 
 ---
 
@@ -266,27 +266,27 @@ Phase 5 (US3: Gateway JWT 公钥) ← Phase 6 (US4: Gateway Introspection) → P
 
 ### 任务列表
 
-- [ ] T115 创建错误码常量类在 `atlas-auth/src/main/java/com/atlas/auth/constant/AuthErrorCode.java`
-- [ ] T116 定义所有业务错误码（登录失败、Token 无效、用户未激活等）
-- [ ] T117 在 `AuthController` 中使用统一异常处理（`@ControllerAdvice`）
-- [ ] T118 创建异常处理类在 `atlas-auth/src/main/java/com/atlas/auth/exception/AuthExceptionHandler.java`
-- [ ] T119 在异常处理中返回统一的错误响应格式（`Result<T>`）
-- [ ] T120 创建集成测试在 `atlas-auth/src/test/java/com/atlas/auth/integration/AuthIntegrationTest.java`
-- [ ] T121 测试登录流程（包括与 `atlas-system-api` 的集成）
-- [ ] T122 测试登出流程（包括 Redis 黑名单操作）
-- [ ] T123 测试 Token 校验流程
-- [ ] T124 测试 Gateway 集成（JWT 公钥方式和 Introspection 方式）
-- [ ] T125 性能测试：登录接口响应时间 < 500ms（P95）
-- [ ] T126 性能测试：Token 校验接口响应时间 < 100ms（P95）
-- [ ] T127 性能测试：支持 1000+ 并发登录请求
-- [ ] T128 性能测试：Redis 操作响应时间 < 10ms
-- [ ] T129 创建 API 文档（使用 SpringDoc OpenAPI）
-- [ ] T130 在 `AuthController` 中添加 Swagger 注解（`@Operation`, `@ApiResponse` 等）
-- [ ] T131 验证所有类和方法包含完整的中文注释
-- [ ] T132 验证代码符合包结构规范（所有对象类型在 `model` 包下）
-- [ ] T133 验证代码符合 RESTful 设计规范
-- [ ] T134 创建 README.md 文档在 `atlas-auth/README.md`
-- [ ] T135 在 README.md 中添加模块说明、快速开始、配置说明
+- [X] T115 创建错误码常量类在 `atlas-auth/src/main/java/com/atlas/auth/constant/AuthErrorCode.java`
+- [X] T116 定义所有业务错误码（登录失败、Token 无效、用户未激活等）
+- [X] T117 在 `AuthController` 中使用统一异常处理（`@ControllerAdvice`）- 已通过 AuthExceptionHandler 实现
+- [X] T118 创建异常处理类在 `atlas-auth/src/main/java/com/atlas/auth/exception/AuthExceptionHandler.java`
+- [X] T119 在异常处理中返回统一的错误响应格式（`Result<T>`）
+- [ ] T120 创建集成测试在 `atlas-auth/src/test/java/com/atlas/auth/integration/AuthIntegrationTest.java` - 需要集成测试环境
+- [ ] T121 测试登录流程（包括与 `atlas-system-api` 的集成）- 需要集成测试环境
+- [ ] T122 测试登出流程（包括 Redis 黑名单操作）- 需要集成测试环境
+- [ ] T123 测试 Token 校验流程 - 需要集成测试环境
+- [ ] T124 测试 Gateway 集成（JWT 公钥方式和 Introspection 方式）- 需要集成测试环境
+- [ ] T125 性能测试：登录接口响应时间 < 500ms（P95）- 需要性能测试环境
+- [ ] T126 性能测试：Token 校验接口响应时间 < 100ms（P95）- 需要性能测试环境
+- [ ] T127 性能测试：支持 1000+ 并发登录请求 - 需要性能测试环境
+- [ ] T128 性能测试：Redis 操作响应时间 < 10ms - 需要性能测试环境
+- [ ] T129 创建 API 文档（使用 SpringDoc OpenAPI）- 可选，可根据需要添加
+- [ ] T130 在 `AuthController` 中添加 Swagger 注解（`@Operation`, `@ApiResponse` 等）- 可选，可根据需要添加
+- [X] T131 验证所有类和方法包含完整的中文注释 - 已完成
+- [X] T132 验证代码符合包结构规范（所有对象类型在 `model` 包下）- 已完成
+- [X] T133 验证代码符合 RESTful 设计规范 - 已完成
+- [X] T134 创建 README.md 文档在 `atlas-auth/README.md`
+- [X] T135 在 README.md 中添加模块说明、快速开始、配置说明
 
 ---
 
