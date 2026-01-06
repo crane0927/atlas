@@ -78,7 +78,7 @@ Phase 5 (Polish: 文档、测试、验收)
 - [X] T007 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `spring-cloud-starter-openfeign` 依赖
 - [X] T008 在 `atlas-service-api/atlas-system-api/pom.xml` 中添加 `lombok` 依赖（可选，用于简化代码）
 - [X] T009 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖
-- [X] T010 创建版本包目录结构：`atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto`、`model/vo`、`feign`、`enums`
+- [X] T010 创建版本包目录结构：`atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/dto`、`model/vo`、`model/enums`、`feign`
 
 ---
 
@@ -90,10 +90,10 @@ Phase 5 (Polish: 文档、测试、验收)
 
 ### 任务列表
 
-- [X] T011 [P] [US1] 创建 `UserStatus` 枚举类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/enums/UserStatus.java`
+- [X] T011 [P] [US1] 创建 `UserStatus` 枚举类在 `atlas-service-api/atlas-system-api/src/main/java/com/atlas/system/api/v1/model/enums/UserStatus.java`
 - [X] T012 [US1] 在 `UserStatus` 枚举中添加枚举值：ACTIVE（激活）、INACTIVE（未激活）、LOCKED（锁定）、DELETED（已删除）
 - [X] T013 [US1] 为 `UserStatus` 枚举值添加完整的中文注释
-- [X] T014 [P] [US1] 创建 `UserStatus` 枚举的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/enums/UserStatusTest.java`
+- [X] T014 [P] [US1] 创建 `UserStatus` 枚举的单元测试在 `atlas-service-api/atlas-system-api/src/test/java/com/atlas/system/api/v1/model/enums/UserStatusTest.java`
 - [X] T015 [US1] 在测试中验证 `UserStatus` 枚举的 JSON 序列化/反序列化功能
 
 ---
@@ -158,7 +158,7 @@ Phase 5 (Polish: 文档、测试、验收)
 - [X] T043 在 `README.md` 中添加版本包管理说明（v1 包结构）
 - [X] T044 在 `README.md` 中添加接口兼容性规则说明
 - [X] T045 验证 `atlas-service-api/atlas-system-api/pom.xml` 中不包含 web/db/redis 等实现层依赖（使用 Maven 依赖分析工具）
-- [X] T046 验证包结构符合技术模块规范（按技术分层组织：`com.atlas.system.api.v1.feign`、`model.dto`、`model.vo`、`enums`）
+- [X] T046 验证包结构符合技术模块规范（按技术分层组织：`com.atlas.system.api.v1.feign`、`model.dto`、`model.vo`、`model.enums`）
 - [X] T047 验证所有类、方法、字段包含完整的中文注释
 - [X] T048 验证接口路径遵循 RESTful 设计规范
 - [X] T049 验证接口返回类型使用统一的 `Result<T>` 格式

@@ -3,7 +3,7 @@
  */
 package com.atlas.system.api.v1.model.dto;
 
-import com.atlas.system.api.v1.enums.UserStatus;
+import com.atlas.system.api.v1.model.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

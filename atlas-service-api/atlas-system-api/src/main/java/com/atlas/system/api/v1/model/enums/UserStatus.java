@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2025 Atlas. All rights reserved.
  */
-package com.atlas.system.api.v1.enums;
+package com.atlas.system.api.v1.model.enums;
 
 /**
  * 用户状态枚举

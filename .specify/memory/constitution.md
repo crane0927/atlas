@@ -18,7 +18,7 @@ Version: 0.3.8 → 0.3.9
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.4.1  
+**版本**: 0.4.2  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2026-01-06
 
@@ -383,7 +383,7 @@ atlas/
      - 可以包含多个实体的组合字段
      - 必须遵循接口兼容性规则（新增字段必须可空或提供默认值）
    - **包路径**: 
-     - API 模块: `com.atlas.{service-name}.api.v{version}.dto`
+     - API 模块: `com.atlas.{service-name}.api.v{version}.model.dto`
      - 业务模块: `com.atlas.{module-name}.{business-module}.model.dto`
 
 2. **VO（View Object，视图对象）**
@@ -429,7 +429,9 @@ atlas/
 - **DTO 命名**: `{EntityName}DTO`，如 `UserDTO`、`OrderDTO`、`UserAuthoritiesDTO`
 - **VO 命名**: `{EntityName}VO` 或 `{Purpose}VO`，如 `UserVO`、`UserListVO`、`UserQueryVO`、`UserCreateVO`
 - **包路径规范**:
-  - DTO: `com.atlas.{module-name}.{business-module}.model.dto`
+  - DTO: 
+    - API 模块: `com.atlas.{service-name}.api.v{version}.model.dto`
+    - 业务模块: `com.atlas.{module-name}.{business-module}.model.dto`
   - VO: `com.atlas.{module-name}.{business-module}.model.vo`
 
 **转换规则**:
@@ -457,7 +459,7 @@ atlas/
 - 代码审查时检查 API 模块中是否定义了 VO（应使用 DTO）
 - 检查 Controller 层是否直接返回 Entity（应转换为 VO）
 - 检查 Feign 接口是否使用了 VO（应使用 DTO）
-- 检查包路径是否符合规范（DTO 在 `dto` 包，VO 在 `vo` 包）
+- 检查包路径是否符合规范（所有对象类型必须在 `model` 包下，DTO 在 `model.dto`，VO 在 `model.vo`，Entity 在 `model.entity`，BO 在 `model.bo`，枚举在 `model.enums`）
 - 检查命名是否符合规范（DTO 以 `DTO` 结尾，VO 以 `VO` 结尾）
 
 **其他对象类型说明**:
@@ -480,6 +482,59 @@ atlas/
      - 禁止在 Controller 层直接返回 Entity
      - 禁止在 Feign 接口中使用 Entity
      - 禁止在 API 模块中定义 Entity
+
+**重要原则：所有对象类型必须放在 model 层**
+
+**规则**: 所有对象相关的类型（DTO、VO、Entity、BO、枚举、常量等）都必须放在 `model` 包下，禁止在 `model` 包外定义对象类型。
+
+**具体要求**:
+
+1. **业务模块**:
+   - **包路径**: `com.atlas.{module-name}.{business-module}.model.{type}`
+   - **对象类型分类**:
+     - `model.dto` - DTO 对象
+     - `model.vo` - VO 对象
+     - `model.entity` - Entity 实体类
+     - `model.bo` - BO 业务对象
+     - `model.enums` - 枚举常量
+     - `model.constant` - 常量类（可选，简单常量可直接放在业务模块下）
+   - **示例**:
+     ```java
+     package com.atlas.system.user.model.dto;      // DTO
+     package com.atlas.system.user.model.vo;       // VO
+     package com.atlas.system.user.model.entity;  // Entity
+     package com.atlas.system.user.model.bo;       // BO
+     package com.atlas.system.user.model.enums;   // 枚举
+     ```
+
+2. **API 模块**（`atlas-service-api`）:
+   - **包路径**: `com.atlas.{service-name}.api.v{version}.model.{type}`
+   - **对象类型分类**:
+     - `model.dto` - DTO 对象（必须）
+     - `model.enums` - 枚举常量（必须）
+     - `model.constant` - 常量类（可选）
+   - **禁止**: API 模块中禁止定义 VO、Entity、BO
+   - **示例**:
+     ```java
+     package com.atlas.system.api.v1.model.dto;    // DTO
+     package com.atlas.system.api.v1.model.enums;  // 枚举
+     ```
+
+3. **技术模块**（如 `atlas-gateway`、`atlas-common-*`）:
+   - 根据模块特性，对象类型也应放在 `model` 包下（如果存在）
+   - 工具类、配置类等非对象类型按技术分层组织
+
+**禁止事项**:
+- 禁止在 `model` 包外定义对象类型（DTO、VO、Entity、BO、枚举等）
+- 禁止将枚举、常量等对象类型直接放在业务模块根包下
+- 禁止在 API 模块中将枚举放在 `enums` 包下（应放在 `model.enums` 下）
+
+**理由**: 
+- 统一的对象组织方式提高代码可维护性和可读性
+- `model` 包明确标识所有数据模型和对象类型
+- 便于代码查找和重构
+- 符合领域驱动设计（DDD）的理念
+- 避免对象类型散落在不同包下，造成混乱
 
 4. **Query/Request（查询/请求对象）**
    - **用途**: 封装查询条件、分页参数、请求参数
@@ -515,7 +570,25 @@ atlas/
      - 仅在复杂业务场景下使用，简单场景优先使用 Entity 或 DTO
      - 避免过度设计，保持代码简洁
 
-6. **Result<T>（统一响应包装类）**
+6. **枚举（Enums）**
+   - **用途**: 定义常量枚举值，用于状态、类型等固定值
+   - **使用场景**:
+     - **状态枚举**: 如用户状态、订单状态等
+     - **类型枚举**: 如用户类型、支付类型等
+     - **代码枚举**: 如错误码、状态码等
+   - **特点**:
+     - 定义固定的枚举值集合
+     - 支持 JSON 序列化/反序列化
+     - 提供类型安全
+   - **包路径**: 
+     - API 模块: `com.atlas.{service-name}.api.v{version}.model.enums`
+     - 业务模块: `com.atlas.{module-name}.{business-module}.model.enums`
+   - **命名规范**: `{EntityName}Status`、`{EntityName}Type`、`{Purpose}Enum`，如 `UserStatus`、`OrderType`、`PaymentStatus`
+   - **禁止事项**:
+     - 禁止在 `model` 包外定义枚举
+     - 禁止将枚举直接放在业务模块根包下
+
+7. **Result<T>（统一响应包装类）**
    - **用途**: 统一封装所有 HTTP 接口的响应数据
    - **使用场景**:
      - **Controller 返回**: 所有 Controller 方法的返回值
@@ -533,7 +606,7 @@ atlas/
      - 禁止直接返回 DTO、VO 或 Entity
      - 禁止在 Service 层返回 `Result<T>`（Service 层返回业务对象，Controller 层包装为 Result）
 
-7. **PageResult<T>（分页响应对象）**
+8. **PageResult<T>（分页响应对象）**
    - **用途**: 统一封装分页查询结果
    - **使用场景**:
      - **分页查询返回**: 分页查询接口的返回值
@@ -563,15 +636,16 @@ atlas/
 
 **对象类型选择指南**:
 
-| 场景 | 使用对象类型 | 示例 |
-|------|------------|------|
-| 数据库表映射 | Entity | `User`、`Order` |
-| 服务间调用（Feign） | DTO | `UserDTO`、`OrderDTO` |
-| Controller 与 Service 交互 | DTO | `UserDTO`、`OrderDTO` |
-| Controller 返回前端 | VO | `UserVO`、`OrderVO` |
-| 前端查询条件 | QueryVO | `UserQueryVO`、`OrderQueryVO` |
-| Service 查询条件 | QueryDTO | `UserQueryDTO`、`OrderQueryDTO` |
-| 复杂业务逻辑 | BO（可选） | `UserBO`、`OrderBO` |
+| 场景 | 使用对象类型 | 包路径示例 |
+|------|------------|-----------|
+| 数据库表映射 | Entity | `com.atlas.system.user.model.entity.User` |
+| 服务间调用（Feign） | DTO | `com.atlas.system.api.v1.model.dto.UserDTO` |
+| Controller 与 Service 交互 | DTO | `com.atlas.system.user.model.dto.UserDTO` |
+| Controller 返回前端 | VO | `com.atlas.system.user.model.vo.UserVO` |
+| 前端查询条件 | QueryVO | `com.atlas.system.user.model.vo.UserQueryVO` |
+| Service 查询条件 | QueryDTO | `com.atlas.system.user.model.dto.UserQueryDTO` |
+| 复杂业务逻辑 | BO（可选） | `com.atlas.system.user.model.bo.UserBO` |
+| 状态/类型枚举 | Enums | `com.atlas.system.user.model.enums.UserStatus` |
 | HTTP 接口响应 | Result<T> | `Result<UserVO>`、`Result<PageResult<UserVO>>` |
 | 分页查询响应 | PageResult<T> | `PageResult<UserVO>` |
 
@@ -580,6 +654,8 @@ atlas/
 2. **禁止在 Controller 层直接使用 Entity**: Controller 层禁止直接接收或返回 Entity，必须转换为 VO 或 DTO
 3. **禁止在 Service 层返回 Result**: Service 层返回业务对象，Controller 层负责包装为 Result
 4. **禁止混用对象类型**: 同一场景下必须使用统一的对象类型，禁止混用
+5. **禁止在 model 包外定义对象类型**: 所有对象类型（DTO、VO、Entity、BO、枚举等）必须放在 `model` 包下
+6. **禁止将枚举放在 model 包外**: 枚举必须放在 `model.enums` 包下，禁止直接放在业务模块根包下
 
 ### 原则 14: 模块职责边界
 
@@ -796,6 +872,7 @@ atlas/
 | 0.3.9 | 2026-01-05 | 将 atlas-gateway 从业务模块调整为技术模块 | 系统 |
 | 0.4.0 | 2026-01-06 | 新增 DTO 与 VO 使用规范，明确两者区别和使用范围 | 系统 |
 | 0.4.1 | 2026-01-06 | 补充 Entity、Query/Request、BO、Result、PageResult 等对象类型说明 | 系统 |
+| 0.4.2 | 2026-01-06 | 规定所有对象类型（DTO、VO、Entity、BO、枚举等）必须放在 model 层下 | 系统 |
 
 ---
 
