@@ -6,12 +6,12 @@ package com.atlas.auth.service.impl;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.service.SessionService;
 import com.atlas.common.infra.redis.util.CacheUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.ObjectMapper;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,7 +38,7 @@ public class SessionServiceImpl implements SessionService {
   private final ObjectMapper objectMapper;
 
   public SessionServiceImpl(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper != null ? objectMapper : new com.fasterxml.jackson.databind.ObjectMapper();
+    this.objectMapper = objectMapper != null ? objectMapper : new ObjectMapper();
   }
 
   @Override
