@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Atlas Team
  * @since 1.0.0
  */
-@FeignClient(value = "atlas-system-user", path = "/api/v1")
+@FeignClient(value = "atlas-system",contextId = "user-query-api", path = "/api/v1")
 public interface UserQueryApi {
 
   /**
