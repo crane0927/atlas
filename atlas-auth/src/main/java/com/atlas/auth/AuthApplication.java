@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @since 1.0.0
  */
 @SpringBootApplication
-@EnableFeignClients(basePackages = "com.atlas.system.api")
+@EnableFeignClients(basePackages = "com.atlas.system.api.v1.feign")
 public class AuthApplication {
 
   public static void main(String[] args) {
