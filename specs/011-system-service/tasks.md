@@ -207,46 +207,46 @@ Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1: 用户查询) → P
 
 #### 实体类和 Mapper
 
-- [ ] T082 [P] [US2] 创建 `Role` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity/Role.java`
-- [ ] T083 [P] [US2] 在 `Role` 实体类中添加 MyBatis-Plus 注解和所有字段
-- [ ] T084 [P] [US2] 创建 `Permission` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/model/entity/Permission.java`
-- [ ] T085 [P] [US2] 在 `Permission` 实体类中添加 MyBatis-Plus 注解和所有字段
-- [ ] T086 [P] [US2] 创建 `UserRole` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity/UserRole.java`
-- [ ] T087 [P] [US2] 在 `UserRole` 实体类中添加 MyBatis-Plus 注解和所有字段
-- [ ] T088 [P] [US2] 创建 `RolePermission` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity/RolePermission.java`
-- [ ] T089 [P] [US2] 在 `RolePermission` 实体类中添加 MyBatis-Plus 注解和所有字段
-- [ ] T090 [P] [US2] 创建 `RoleMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper/RoleMapper.java`
-- [ ] T091 [P] [US2] 在 `RoleMapper` 中继承 `BaseMapper<Role>`
-- [ ] T092 [P] [US2] 创建 `PermissionMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/mapper/PermissionMapper.java`
-- [ ] T093 [P] [US2] 在 `PermissionMapper` 中继承 `BaseMapper<Permission>`
-- [ ] T094 [US2] 创建 `UserRoleMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper/UserRoleMapper.java`
-- [ ] T095 [US2] 在 `UserRoleMapper` 中继承 `BaseMapper<UserRole>`
-- [ ] T096 [US2] 在 `UserRoleMapper` 中添加 `selectRoleCodesByUserId` 方法（根据用户ID查询角色代码列表）
-- [ ] T097 [US2] 创建 `RolePermissionMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper/RolePermissionMapper.java`
-- [ ] T098 [US2] 在 `RolePermissionMapper` 中继承 `BaseMapper<RolePermission>`
-- [ ] T099 [US2] 在 `RolePermissionMapper` 中添加 `selectPermissionCodesByRoleIds` 方法（根据角色ID列表查询权限代码列表）
+- [X] T082 [P] [US2] 创建 `Role` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity/Role.java`
+- [X] T083 [P] [US2] 在 `Role` 实体类中添加 MyBatis-Plus 注解和所有字段
+- [X] T084 [P] [US2] 创建 `Permission` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/model/entity/Permission.java`
+- [X] T085 [P] [US2] 在 `Permission` 实体类中添加 MyBatis-Plus 注解和所有字段
+- [X] T086 [P] [US2] 创建 `UserRole` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity/UserRole.java`
+- [X] T087 [P] [US2] 在 `UserRole` 实体类中添加 MyBatis-Plus 注解和所有字段
+- [X] T088 [P] [US2] 创建 `RolePermission` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/model/entity/RolePermission.java`
+- [X] T089 [P] [US2] 在 `RolePermission` 实体类中添加 MyBatis-Plus 注解和所有字段
+- [X] T090 [P] [US2] 创建 `RoleMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper/RoleMapper.java`
+- [X] T091 [P] [US2] 在 `RoleMapper` 中继承 `BaseMapper<Role>`
+- [X] T092 [P] [US2] 创建 `PermissionMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/mapper/PermissionMapper.java`
+- [X] T093 [P] [US2] 在 `PermissionMapper` 中继承 `BaseMapper<Permission>`
+- [X] T094 [US2] 创建 `UserRoleMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper/UserRoleMapper.java`
+- [X] T095 [US2] 在 `UserRoleMapper` 中继承 `BaseMapper<UserRole>`
+- [X] T096 [US2] 在 `UserRoleMapper` 中添加 `selectRoleCodesByUserId` 方法（根据用户ID查询角色代码列表）
+- [X] T097 [US2] 创建 `RolePermissionMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/role/mapper/RolePermissionMapper.java`
+- [X] T098 [US2] 在 `RolePermissionMapper` 中继承 `BaseMapper<RolePermission>`
+- [X] T099 [US2] 在 `RolePermissionMapper` 中添加 `selectPermissionCodesByRoleIds` 方法（根据角色ID列表查询权限代码列表）
 
 #### Service 层
 
-- [ ] T100 [US2] 创建 `PermissionService` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/PermissionService.java`
-- [ ] T101 [US2] 在 `PermissionService` 接口中添加 `getRolesByUserId(Long userId)` 方法
-- [ ] T102 [US2] 在 `PermissionService` 接口中添加 `getPermissionsByUserId(Long userId)` 方法
-- [ ] T103 [US2] 在 `PermissionService` 接口中添加 `getAuthoritiesByUserId(Long userId)` 方法
-- [ ] T104 [US2] 创建 `PermissionServiceImpl` 实现类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/impl/PermissionServiceImpl.java`
-- [ ] T105 [US2] 在 `PermissionServiceImpl` 中实现 `getRolesByUserId` 方法，查询用户角色列表
-- [ ] T106 [US2] 在 `PermissionServiceImpl` 中实现 `getPermissionsByUserId` 方法，通过角色关联查询权限列表并去重
-- [ ] T107 [US2] 在 `PermissionServiceImpl` 中实现 `getAuthoritiesByUserId` 方法，返回 `UserAuthoritiesDTO`
-- [ ] T108 [US2] 在 `PermissionServiceImpl` 中处理用户不存在的情况，返回空列表
+- [X] T100 [US2] 创建 `PermissionService` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/PermissionService.java`
+- [X] T101 [US2] 在 `PermissionService` 接口中添加 `getRolesByUserId(Long userId)` 方法
+- [X] T102 [US2] 在 `PermissionService` 接口中添加 `getPermissionsByUserId(Long userId)` 方法
+- [X] T103 [US2] 在 `PermissionService` 接口中添加 `getAuthoritiesByUserId(Long userId)` 方法
+- [X] T104 [US2] 创建 `PermissionServiceImpl` 实现类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/service/impl/PermissionServiceImpl.java`
+- [X] T105 [US2] 在 `PermissionServiceImpl` 中实现 `getRolesByUserId` 方法，查询用户角色列表
+- [X] T106 [US2] 在 `PermissionServiceImpl` 中实现 `getPermissionsByUserId` 方法，通过角色关联查询权限列表并去重
+- [X] T107 [US2] 在 `PermissionServiceImpl` 中实现 `getAuthoritiesByUserId` 方法，返回 `UserAuthoritiesDTO`
+- [X] T108 [US2] 在 `PermissionServiceImpl` 中处理用户不存在的情况，返回空列表
 
 #### Controller 层
 
-- [ ] T109 [US2] 创建 `PermissionController` 在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/controller/PermissionController.java`
-- [ ] T110 [US2] 在 `PermissionController` 中实现 `atlas-system-api` 的 `PermissionQueryApi` 接口
-- [ ] T111 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/roles` 接口
-- [ ] T112 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/permissions` 接口
-- [ ] T113 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/authorities` 接口
-- [ ] T114 [US2] 在 `PermissionController` 中确保接口返回格式符合 API 契约
-- [ ] T115 [US2] 在 `PermissionController` 中添加完整的中文注释（类、方法、参数）
+- [X] T109 [US2] 创建 `PermissionController` 在 `atlas-service/atlas-system/src/main/java/com/atlas/system/permission/controller/PermissionController.java`
+- [X] T110 [US2] 在 `PermissionController` 中实现 `atlas-system-api` 的 `PermissionQueryApi` 接口
+- [X] T111 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/roles` 接口
+- [X] T112 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/permissions` 接口
+- [X] T113 [US2] 在 `PermissionController` 中实现 `GET /api/v1/users/{userId}/authorities` 接口
+- [X] T114 [US2] 在 `PermissionController` 中确保接口返回格式符合 API 契约
+- [X] T115 [US2] 在 `PermissionController` 中添加完整的中文注释（类、方法、参数）
 
 ---
 
