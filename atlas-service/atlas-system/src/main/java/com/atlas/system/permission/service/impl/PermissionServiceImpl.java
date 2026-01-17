@@ -1,16 +1,23 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.permission.service.impl;
 
+import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
+import com.atlas.system.constant.SystemErrorCode;
+import com.atlas.system.permission.mapper.PermissionMapper;
+import com.atlas.system.permission.model.dto.PermissionCreateDTO;
+import com.atlas.system.permission.model.entity.Permission;
 import com.atlas.system.permission.service.PermissionService;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 权限服务实现类
@@ -36,6 +43,7 @@ public class PermissionServiceImpl implements PermissionService {
   private final UserMapper userMapper;
   private final UserRoleMapper userRoleMapper;
   private final RolePermissionMapper rolePermissionMapper;
+  private final PermissionMapper permissionMapper;
 
   /**
    * 查询用户角色列表
@@ -91,5 +99,37 @@ public class PermissionServiceImpl implements PermissionService {
     dto.setRoles(roles != null ? roles : new ArrayList<>());
     dto.setPermissions(permissions != null ? permissions : new ArrayList<>());
     return dto;
+  }
+
+  /**
+   * 创建权限
+   *
+   * @param permissionCreateDTO 权限创建 DTO
+   * @return 权限ID
+   * @throws BusinessException 如果权限代码已存在，错误码：032006
+   */
+  @Override
+  @Transactional
+  public Long createPermission(PermissionCreateDTO permissionCreateDTO) {
+    // 检查权限代码是否已存在
+    Permission existingPermission =
+        permissionMapper.selectOne(
+            new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<Permission>()
+                .eq(Permission::getPermissionCode, permissionCreateDTO.getPermissionCode()));
+    if (existingPermission != null && !"DELETED".equals(existingPermission.getStatus())) {
+      throw new BusinessException(
+          SystemErrorCode.PERMISSION_CODE_ALREADY_EXISTS, "权限代码已存在");
+    }
+    // 创建权限实体
+    Permission permission = new Permission();
+    permission.setPermissionCode(permissionCreateDTO.getPermissionCode());
+    permission.setPermissionName(permissionCreateDTO.getPermissionName());
+    permission.setDescription(permissionCreateDTO.getDescription());
+    permission.setStatus("ACTIVE");
+    permission.setCreatedAt(LocalDateTime.now());
+    permission.setUpdatedAt(LocalDateTime.now());
+    // 保存权限
+    permissionMapper.insert(permission);
+    return permission.getPermissionId();
   }
 }

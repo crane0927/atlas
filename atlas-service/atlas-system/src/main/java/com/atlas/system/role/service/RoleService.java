@@ -1,0 +1,45 @@
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
+package com.atlas.system.role.service;
+
+import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.system.role.model.dto.RoleCreateDTO;
+
+/**
+ * 角色服务接口
+ *
+ * <p>提供角色创建和关联业务逻辑。
+ *
+ * <p>方法说明：
+ *
+ * <ul>
+ *   <li>createRole：创建角色
+ *   <li>assignPermissionToRole：为角色分配权限
+ * </ul>
+ *
+ * @author Atlas Team
+ * @since 1.0.0
+ */
+public interface RoleService {
+
+  /**
+   * 创建角色
+   *
+   * <p>根据角色创建 DTO 创建新角色。
+   *
+   * @param roleCreateDTO 角色创建 DTO
+   * @return 角色ID
+   * @throws BusinessException 如果角色代码已存在，错误码：032005
+   */
+  Long createRole(RoleCreateDTO roleCreateDTO);
+
+  /**
+   * 为角色分配权限
+   *
+   * <p>建立角色与权限的关联关系。
+   *
+   * @param roleId 角色ID
+   * @param permissionId 权限ID
+   * @throws BusinessException 如果角色或权限不存在，错误码：032101 或 032201
+   */
+  void assignPermissionToRole(Long roleId, Long permissionId);
+}
