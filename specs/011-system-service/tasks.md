@@ -116,23 +116,23 @@ Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1: 用户查询) → P
 
 ### 任务列表
 
-- [ ] T036 设计用户表（`sys_user`）结构，包含所有必需字段和索引
-- [ ] T037 设计角色表（`sys_role`）结构，包含所有必需字段和索引
-- [ ] T038 设计权限表（`sys_permission`）结构，包含所有必需字段和索引
-- [ ] T039 设计用户角色关联表（`sys_user_role`）结构，包含外键约束
-- [ ] T040 设计角色权限关联表（`sys_role_permission`）结构，包含外键约束
-- [ ] T041 创建 Flyway 迁移脚本 `atlas-service/atlas-system/src/main/resources/db/migration/V1__Create_user_role_permission_tables.sql`
-- [ ] T042 在 Flyway 迁移脚本中创建用户表（`sys_user`）
-- [ ] T043 在 Flyway 迁移脚本中创建角色表（`sys_role`）
-- [ ] T044 在 Flyway 迁移脚本中创建权限表（`sys_permission`）
-- [ ] T045 在 Flyway 迁移脚本中创建用户角色关联表（`sys_user_role`）
-- [ ] T046 在 Flyway 迁移脚本中创建角色权限关联表（`sys_role_permission`）
-- [ ] T047 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/001_create_user_table.sql`
-- [ ] T048 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/002_create_role_table.sql`
-- [ ] T049 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/003_create_permission_table.sql`
-- [ ] T050 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/004_create_user_role_table.sql`
-- [ ] T051 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/005_create_role_permission_table.sql`
-- [ ] T052 创建 `atlas-service/atlas-system/sql/v1.0.0/README.md`，说明版本变更内容
+- [X] T036 设计用户表（`sys_user`）结构，包含所有必需字段和索引
+- [X] T037 设计角色表（`sys_role`）结构，包含所有必需字段和索引
+- [X] T038 设计权限表（`sys_permission`）结构，包含所有必需字段和索引
+- [X] T039 设计用户角色关联表（`sys_user_role`）结构，包含外键约束
+- [X] T040 设计角色权限关联表（`sys_role_permission`）结构，包含外键约束
+- [X] T041 创建 Flyway 迁移脚本 `atlas-service/atlas-system/src/main/resources/db/migration/V1__Create_user_role_permission_tables.sql`
+- [X] T042 在 Flyway 迁移脚本中创建用户表（`sys_user`）
+- [X] T043 在 Flyway 迁移脚本中创建角色表（`sys_role`）
+- [X] T044 在 Flyway 迁移脚本中创建权限表（`sys_permission`）
+- [X] T045 在 Flyway 迁移脚本中创建用户角色关联表（`sys_user_role`）
+- [X] T046 在 Flyway 迁移脚本中创建角色权限关联表（`sys_role_permission`）
+- [X] T047 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/001_create_user_table.sql`
+- [X] T048 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/002_create_role_table.sql`
+- [X] T049 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/003_create_permission_table.sql`
+- [X] T050 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/004_create_user_role_table.sql`
+- [X] T051 创建 SQL 脚本 `atlas-service/atlas-system/sql/v1.0.0/005_create_role_permission_table.sql`
+- [X] T052 创建 `atlas-service/atlas-system/sql/v1.0.0/README.md`，说明版本变更内容
 - [ ] T053 验证数据库迁移脚本可以成功执行（启动服务或手动执行 Flyway）
 
 ---
