@@ -33,6 +33,8 @@ public class SystemErrorCode {
   /** 用户名已存在 */
   public static final String USERNAME_ALREADY_EXISTS = "032004";
 
+  // 预留错误码：032002-032003, 032005-032099
+
   // ========== 角色相关错误 (10-19) ==========
 
   /** 角色不存在 */
@@ -41,6 +43,8 @@ public class SystemErrorCode {
   /** 角色代码已存在 */
   public static final String ROLE_CODE_ALREADY_EXISTS = "032105";
 
+  // 预留错误码：032102-032104, 032106-032199
+
   // ========== 权限相关错误 (20-29) ==========
 
   /** 权限不存在 */
@@ -48,6 +52,8 @@ public class SystemErrorCode {
 
   /** 权限代码已存在 */
   public static final String PERMISSION_CODE_ALREADY_EXISTS = "032206";
+
+  // 预留错误码：032202-032205, 032207-032299
 
   /** 私有构造函数，防止实例化 */
   private SystemErrorCode() {

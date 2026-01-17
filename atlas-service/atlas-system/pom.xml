@@ -101,6 +101,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Atlas Common Infra Web (全局异常处理) -->
+        <dependency>
+            <groupId>com.atlas</groupId>
+            <artifactId>atlas-common-infra-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
