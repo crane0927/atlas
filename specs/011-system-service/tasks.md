@@ -152,42 +152,42 @@ Phase 1 (Setup) → Phase 2 (Foundational) → Phase 3 (US1: 用户查询) → P
 
 #### 实体类和 Mapper
 
-- [ ] T054 [P] [US1] 创建 `User` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity/User.java`
-- [ ] T055 [P] [US1] 在 `User` 实体类中添加 MyBatis-Plus 注解（`@TableName`、`@TableId` 等）
-- [ ] T056 [P] [US1] 在 `User` 实体类中添加所有字段（userId、username、password、nickname、email、phone、status、avatar、createdAt、updatedAt）
-- [ ] T057 [P] [US1] 创建 `UserMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper/UserMapper.java`
-- [ ] T058 [US1] 在 `UserMapper` 中继承 `BaseMapper<User>`
-- [ ] T059 [US1] 在 `UserMapper` 中添加 `selectByUsername` 方法（根据用户名查询用户）
+- [X] T054 [P] [US1] 创建 `User` 实体类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/model/entity/User.java`
+- [X] T055 [P] [US1] 在 `User` 实体类中添加 MyBatis-Plus 注解（`@TableName`、`@TableId` 等）
+- [X] T056 [P] [US1] 在 `User` 实体类中添加所有字段（userId、username、password、nickname、email、phone、status、avatar、createdAt、updatedAt）
+- [X] T057 [P] [US1] 创建 `UserMapper` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/mapper/UserMapper.java`
+- [X] T058 [US1] 在 `UserMapper` 中继承 `BaseMapper<User>`
+- [X] T059 [US1] 在 `UserMapper` 中添加 `selectByUsername` 方法（根据用户名查询用户）
 
 #### Service 层
 
-- [ ] T060 [US1] 创建 `UserService` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/UserService.java`
-- [ ] T061 [US1] 在 `UserService` 接口中添加 `getUserById(Long userId)` 方法
-- [ ] T062 [US1] 在 `UserService` 接口中添加 `getUserByUsername(String username)` 方法
-- [ ] T063 [US1] 创建 `UserServiceImpl` 实现类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/impl/UserServiceImpl.java`
-- [ ] T064 [US1] 在 `UserServiceImpl` 中实现 `getUserById` 方法，调用 Mapper 查询并转换为 DTO
-- [ ] T065 [US1] 在 `UserServiceImpl` 中实现 `getUserByUsername` 方法，调用 Mapper 查询并转换为 DTO
-- [ ] T066 [US1] 在 `UserServiceImpl` 中实现 Entity 到 DTO 的转换方法
-- [ ] T067 [US1] 在 `UserServiceImpl` 中处理用户不存在的情况，抛出 `BusinessException`（错误码 `032001`）
+- [X] T060 [US1] 创建 `UserService` 接口在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/UserService.java`
+- [X] T061 [US1] 在 `UserService` 接口中添加 `getUserById(Long userId)` 方法
+- [X] T062 [US1] 在 `UserService` 接口中添加 `getUserByUsername(String username)` 方法
+- [X] T063 [US1] 创建 `UserServiceImpl` 实现类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/service/impl/UserServiceImpl.java`
+- [X] T064 [US1] 在 `UserServiceImpl` 中实现 `getUserById` 方法，调用 Mapper 查询并转换为 DTO
+- [X] T065 [US1] 在 `UserServiceImpl` 中实现 `getUserByUsername` 方法，调用 Mapper 查询并转换为 DTO
+- [X] T066 [US1] 在 `UserServiceImpl` 中实现 Entity 到 DTO 的转换方法
+- [X] T067 [US1] 在 `UserServiceImpl` 中处理用户不存在的情况，抛出 `BusinessException`（错误码 `032001`）
 
 #### Controller 层
 
-- [ ] T068 [US1] 创建 `UserController` 在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/controller/UserController.java`
-- [ ] T069 [US1] 在 `UserController` 中实现 `atlas-system-api` 的 `UserQueryApi` 接口
-- [ ] T070 [US1] 在 `UserController` 中实现 `GET /api/v1/users/{userId}` 接口
-- [ ] T071 [US1] 在 `UserController` 中实现 `GET /api/v1/users/by-username?username={username}` 接口
-- [ ] T072 [US1] 在 `UserController` 中确保接口返回 `Result<UserDTO>` 格式
-- [ ] T073 [US1] 在 `UserController` 中添加完整的中文注释（类、方法、参数）
+- [X] T068 [US1] 创建 `UserController` 在 `atlas-service/atlas-system/src/main/java/com/atlas/system/user/controller/UserController.java`
+- [X] T069 [US1] 在 `UserController` 中实现 `atlas-system-api` 的 `UserQueryApi` 接口
+- [X] T070 [US1] 在 `UserController` 中实现 `GET /api/v1/users/{userId}` 接口
+- [X] T071 [US1] 在 `UserController` 中实现 `GET /api/v1/users/by-username?username={username}` 接口
+- [X] T072 [US1] 在 `UserController` 中确保接口返回 `Result<UserDTO>` 格式
+- [X] T073 [US1] 在 `UserController` 中添加完整的中文注释（类、方法、参数）
 
 #### 配置和启动
 
-- [ ] T074 [US1] 创建 `SystemApplication` 启动类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/SystemApplication.java`
-- [ ] T075 [US1] 在 `SystemApplication` 中添加 `@SpringBootApplication` 注解
-- [ ] T076 [US1] 在 `SystemApplication` 中添加 `@EnableDiscoveryClient` 注解（如需要）
-- [ ] T077 [US1] 在 `SystemApplication` 中添加 `@EnableFeignClients` 注解（如需要）
-- [ ] T078 [US1] 在 `application.yml` 中配置数据库连接信息
-- [ ] T079 [US1] 在 `application.yml` 中配置 Nacos 服务注册与发现
-- [ ] T080 [US1] 在 `application.yml` 中配置 Flyway 迁移脚本路径
+- [X] T074 [US1] 创建 `SystemApplication` 启动类在 `atlas-service/atlas-system/src/main/java/com/atlas/system/SystemApplication.java`
+- [X] T075 [US1] 在 `SystemApplication` 中添加 `@SpringBootApplication` 注解
+- [X] T076 [US1] 在 `SystemApplication` 中添加 `@EnableDiscoveryClient` 注解（如需要）
+- [X] T077 [US1] 在 `SystemApplication` 中添加 `@EnableFeignClients` 注解（如需要）
+- [X] T078 [US1] 在 `application.yml` 中配置数据库连接信息
+- [X] T079 [US1] 在 `application.yml` 中配置 Nacos 服务注册与发现
+- [X] T080 [US1] 在 `application.yml` 中配置 Flyway 迁移脚本路径
 - [ ] T081 [US1] 验证服务能够成功启动并注册到 Nacos
 
 ---
