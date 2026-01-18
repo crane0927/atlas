@@ -25,6 +25,8 @@ spring:
     nacos:
       config:
         server-addr: localhost:8848
+        username: nacos
+        password: nacos
         file-extension: yaml
         group: DEFAULT_GROUP
         namespace: dev
@@ -34,6 +36,12 @@ spring:
           - data-id: atlas-gateway-${spring.profiles.active:dev}.yaml
             group: DEFAULT_GROUP
             refresh: true
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: dev
+        group: DEFAULT_GROUP
 
 server:
   port: 8080

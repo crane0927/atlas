@@ -1,14 +1,20 @@
 spring:
   application:
     name: atlas-auth
+  config:
+    import: optional:nacos:atlas-auth-dev.yaml
   cloud:
     nacos:
       discovery:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
         group: ${NACOS_GROUP:DEV_GROUP}
       config:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
         group: ${NACOS_GROUP:DEV_GROUP}
         file-extension: yaml
@@ -19,6 +25,16 @@ spring:
 
 server:
   port: ${SERVER_PORT:8084}
+
+# Atlas Auth 配置（从环境变量读取 JWT 密钥）
+atlas:
+  auth:
+    jwt:
+      private-key: ${ATLAS_AUTH_JWT_PRIVATE_KEY:}
+      public-key: ${ATLAS_AUTH_JWT_PUBLIC_KEY:}
+      key-id: ${ATLAS_AUTH_JWT_KEY_ID:atlas-key}
+      expire: ${ATLAS_AUTH_JWT_EXPIRE:7200}
+      algorithm: ${ATLAS_AUTH_JWT_ALGORITHM:RS256}
 
 logging:
   level:
