@@ -239,33 +239,33 @@
 
 #### 依赖版本验证
 
-- [ ] T069 [P] [US5] 检查所有 Spring Boot Starter 依赖版本（执行 `mvn dependency:tree | grep spring-boot-starter`）
-- [ ] T070 [P] [US5] 检查所有 Spring Cloud 依赖版本（执行 `mvn dependency:tree | grep spring-cloud`）
-- [ ] T071 [P] [US5] 检查所有 Spring Cloud Alibaba 依赖版本（执行 `mvn dependency:tree | grep spring-cloud-alibaba`）
-- [ ] T072 [P] [US5] 检查 MyBatis-Plus 版本（执行 `mvn dependency:tree | grep mybatis-plus`）
-- [ ] T073 [P] [US5] 检查 PostgreSQL 驱动版本（执行 `mvn dependency:tree | grep postgresql`）
-- [ ] T074 [P] [US5] 检查 Lombok 版本（执行 `mvn dependency:tree | grep lombok`）
+- [X] T069 [P] [US5] 检查所有 Spring Boot Starter 依赖版本（执行 `mvn dependency:tree | grep spring-boot-starter`）
+- [X] T070 [P] [US5] 检查所有 Spring Cloud 依赖版本（执行 `mvn dependency:tree | grep spring-cloud`）
+- [X] T071 [P] [US5] 检查所有 Spring Cloud Alibaba 依赖版本（执行 `mvn dependency:tree | grep spring-cloud-alibaba`）
+- [X] T072 [P] [US5] 检查 MyBatis-Plus 版本（执行 `mvn dependency:tree | grep mybatis-plus`）
+- [X] T073 [P] [US5] 检查 PostgreSQL 驱动版本（执行 `mvn dependency:tree | grep postgresql`）
+- [X] T074 [P] [US5] 检查 Lombok 版本（执行 `mvn dependency:tree | grep lombok`）
 
 #### 依赖冲突检查
 
-- [ ] T075 [US5] 生成 Maven 依赖树（执行 `mvn dependency:tree > dependency-tree.txt`）
-- [ ] T076 [US5] 分析依赖树，确认无版本冲突
-- [ ] T077 [US5] 执行依赖分析（执行 `mvn dependency:analyze`）
-- [ ] T078 [US5] 检查依赖分析结果，确认无未使用的依赖或缺失的依赖
+- [X] T075 [US5] 生成 Maven 依赖树（执行 `mvn dependency:tree > dependency-tree.txt`）
+- [X] T076 [US5] 分析依赖树，确认无版本冲突
+- [X] T077 [US5] 执行依赖分析（执行 `mvn dependency:analyze`）
+- [X] T078 [US5] 检查依赖分析结果，确认无未使用的依赖或缺失的依赖
 
 #### 运行时兼容性检查
 
-- [ ] T079 [US5] 检查服务启动日志，确认无 ClassNotFoundException 错误
-- [ ] T080 [US5] 检查服务启动日志，确认无 NoSuchMethodError 错误
-- [ ] T081 [US5] 检查服务启动日志，确认无其他兼容性错误
-- [ ] T082 [US5] 运行服务功能测试，确认无运行时兼容性错误
+- [X] T079 [US5] 检查服务启动日志，确认无 ClassNotFoundException 错误
+- [X] T080 [US5] 检查服务启动日志，确认无 NoSuchMethodError 错误
+- [X] T081 [US5] 检查服务启动日志，确认无其他兼容性错误
+- [X] T082 [US5] 运行服务功能测试，确认无运行时兼容性错误
 
 #### 兼容性验证结果
 
-- [ ] T083 [US5] 记录所有依赖版本到验证报告
-- [ ] T084 [US5] 记录依赖冲突检查结果到验证报告
-- [ ] T085 [US5] 记录运行时兼容性检查结果到验证报告
-- [ ] T086 [US5] 如果发现兼容性问题，记录问题详情和建议解决方案到验证报告
+- [X] T083 [US5] 记录所有依赖版本到验证报告
+- [X] T084 [US5] 记录依赖冲突检查结果到验证报告
+- [X] T085 [US5] 记录运行时兼容性检查结果到验证报告
+- [X] T086 [US5] 如果发现兼容性问题，记录问题详情和建议解决方案到验证报告
 
 ## Phase 7: 验证报告生成
 
