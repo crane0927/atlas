@@ -199,7 +199,8 @@ class GlobalExceptionHandlerTest {
   void testHandleHttpRequestMethodNotSupportedException() {
     // Given
     HttpRequestMethodNotSupportedException e =
-        new HttpRequestMethodNotSupportedException("DELETE", new String[] {"GET", "POST"});
+        new HttpRequestMethodNotSupportedException(
+            "DELETE", java.util.Arrays.asList("GET", "POST"));
 
     // When
     Result<Void> result = handler.handleHttpRequestMethodNotSupportedException(e);

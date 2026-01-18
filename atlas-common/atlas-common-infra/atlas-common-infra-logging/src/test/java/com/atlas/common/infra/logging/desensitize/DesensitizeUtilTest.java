@@ -33,7 +33,7 @@ class DesensitizeUtilTest {
   @Test
   void testMaskPhoneWithShortLength() {
     // Given
-    String phone = "1381234"; // 长度小于 7
+    String phone = "138123"; // 长度小于 7（实际长度 6）
 
     // When
     String masked = DesensitizeUtil.maskPhone(phone);

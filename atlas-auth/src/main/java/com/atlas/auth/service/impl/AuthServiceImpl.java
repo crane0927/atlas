@@ -206,10 +206,12 @@ public class AuthServiceImpl implements AuthService {
    *
    * <p>从 UserDTO 中获取密码。注意：实际实现中，密码不应该在 DTO 中传递。 这里是一个临时实现，实际应该通过其他方式获取密码（如专门的密码验证接口）。
    *
+   * <p>注意：此方法设置为 protected 以便在测试中 mock。
+   *
    * @param userDTO 用户 DTO
    * @return 加密后的密码
    */
-  private String getStoredPassword(UserDTO userDTO) {
+  protected String getStoredPassword(UserDTO userDTO) {
     // TODO: 根据实际实现调整
     // 方案 1: UserDTO 中添加 password 字段（不推荐，不符合安全最佳实践）
     // 方案 2: 在 atlas-system 服务中提供密码验证接口

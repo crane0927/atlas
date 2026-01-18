@@ -54,7 +54,7 @@ class AuthGatewayFilterTest {
     request = mock(ServerHttpRequest.class);
     response = mock(ServerHttpResponse.class);
     requestHeaders = new HttpHeaders();
-    responseHeaders = new HttpHeaders();
+    responseHeaders = mock(HttpHeaders.class);
 
     when(exchange.getRequest()).thenReturn(request);
     when(exchange.getResponse()).thenReturn(response);
@@ -144,7 +144,7 @@ class AuthGatewayFilterTest {
     // 验证返回错误响应
     StepVerifier.create(result).verifyComplete();
     verify(response).setStatusCode(org.springframework.http.HttpStatus.OK);
-    verify(response.getHeaders())
+    verify(responseHeaders)
         .setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
     verify(response).writeWith(any());
     // 验证过滤器链未被调用

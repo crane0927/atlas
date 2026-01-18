@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.atlas.gateway.config.GatewayProperties.CorsConfig;
 import com.atlas.gateway.config.GatewayProperties.RouteConfig;
 import com.atlas.gateway.config.GatewayProperties.WhitelistConfig;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -82,7 +83,7 @@ class NacosConfigRefreshIntegrationTest {
   @Test
   void testCorsConfigurationBinding() {
     // 验证 CORS 配置正确绑定
-    CorsConfig cors = gatewayProperties.getCors();
+    GatewayProperties.CorsConfig cors = gatewayProperties.getCors();
     assertNotNull(cors);
     assertEquals("*", cors.getAllowedOrigins());
     assertEquals("GET,POST", cors.getAllowedMethods());
@@ -119,13 +120,12 @@ class NacosConfigRefreshIntegrationTest {
   @Test
   void testConfigurationDynamicUpdate() {
     // 模拟配置变更事件
-    EnvironmentChangeEvent event =
-        new EnvironmentChangeEvent(
-            applicationContext,
-            Arrays.asList(
-                "atlas.gateway.routes[0].uri",
-                "atlas.gateway.whitelist.paths[0]",
-                "atlas.gateway.cors.allowed-methods"));
+    Set<String> keys = new HashSet<>(
+        Arrays.asList(
+            "atlas.gateway.routes[0].uri",
+            "atlas.gateway.whitelist.paths[0]",
+            "atlas.gateway.cors.allowed-methods"));
+    EnvironmentChangeEvent event = new EnvironmentChangeEvent(applicationContext, keys);
 
     // 验证配置变更监听器存在
     NacosConfigRefreshListener listener =

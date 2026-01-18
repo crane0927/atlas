@@ -42,8 +42,8 @@ public final class DesensitizeInterceptor {
   /** 手机号正则表达式 */
   private static final Pattern PHONE_PATTERN = Pattern.compile("1[3-9]\\d{9}");
 
-  /** 身份证号正则表达式 */
-  private static final Pattern ID_CARD_PATTERN = Pattern.compile("\\d{15}|\\d{17}[\\dXx]");
+  /** 身份证号正则表达式（优先匹配 18 位，再匹配 15 位） */
+  private static final Pattern ID_CARD_PATTERN = Pattern.compile("\\d{17}[\\dXx]|\\d{18}|\\d{15}");
 
   /** 银行卡号正则表达式 */
   private static final Pattern BANK_CARD_PATTERN = Pattern.compile("\\d{16,19}");
@@ -91,6 +91,16 @@ public final class DesensitizeInterceptor {
 
     String result = message;
 
+    // 先脱敏身份证号（18位数字可能被银行卡号模式匹配，需要优先处理）
+    result =
+        ID_CARD_PATTERN
+            .matcher(result)
+            .replaceAll(
+                matchResult -> {
+                  String idCard = matchResult.group();
+                  return DesensitizeUtil.maskIdCard(idCard);
+                });
+
     // 脱敏手机号
     result =
         PHONE_PATTERN
@@ -99,16 +109,6 @@ public final class DesensitizeInterceptor {
                 matchResult -> {
                   String phone = matchResult.group();
                   return DesensitizeUtil.maskPhone(phone);
-                });
-
-    // 脱敏身份证号
-    result =
-        ID_CARD_PATTERN
-            .matcher(result)
-            .replaceAll(
-                matchResult -> {
-                  String idCard = matchResult.group();
-                  return DesensitizeUtil.maskIdCard(idCard);
                 });
 
     // 脱敏银行卡号

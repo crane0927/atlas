@@ -161,7 +161,7 @@ class CacheUtilTest {
 
     // Then
     verify(redisTemplate).keys("test:*");
-    verify(redisTemplate, never()).delete(any());
+    verify(redisTemplate, never()).delete(anyString());
   }
 
   @Test
@@ -174,7 +174,7 @@ class CacheUtilTest {
 
     // Then
     verify(redisTemplate).keys("test:*");
-    verify(redisTemplate, never()).delete(any());
+    verify(redisTemplate, never()).delete(anyString());
   }
 
   @Test

@@ -3,7 +3,10 @@ package com.atlas.gateway.filter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.ServerWebExchange.Builder;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -50,7 +54,16 @@ class TraceIdGatewayFilterTest {
     when(exchange.getResponse()).thenReturn(response);
     when(request.getHeaders()).thenReturn(requestHeaders);
     when(response.getHeaders()).thenReturn(responseHeaders);
-    when(exchange.mutate()).thenReturn(ServerWebExchange.builder(exchange));
+    // Mock mutate() 返回 builder，builder.request() 返回 builder，builder.build() 返回 exchange
+    Builder exchangeBuilder = mock(Builder.class);
+    when(exchange.mutate()).thenReturn(exchangeBuilder);
+    when(exchangeBuilder.request(any(ServerHttpRequest.class))).thenReturn(exchangeBuilder);
+    when(exchangeBuilder.build()).thenReturn(exchange);
+    // Mock request.mutate() 返回 builder
+    ServerHttpRequest.Builder requestBuilder = mock(ServerHttpRequest.Builder.class);
+    when(request.mutate()).thenReturn(requestBuilder);
+    when(requestBuilder.header(any(), any())).thenReturn(requestBuilder);
+    when(requestBuilder.build()).thenReturn(request);
     when(chain.filter(any())).thenReturn(Mono.empty());
   }
 
@@ -70,6 +83,15 @@ class TraceIdGatewayFilterTest {
     // 设置请求头中的 TraceId
     String existingTraceId = "existing-trace-id-12345";
     requestHeaders.add("X-Trace-Id", existingTraceId);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return Mono.empty();
+            })
+        .when(chain)
+        .filter(any());
 
     // 执行过滤器
     Mono<Void> result = traceIdGatewayFilter.filter(exchange, chain);
@@ -78,16 +100,28 @@ class TraceIdGatewayFilterTest {
     StepVerifier.create(result).verifyComplete();
     verify(chain).filter(any());
 
-    // 验证 TraceId 被设置
-    assertEquals(existingTraceId, TraceIdUtil.getTraceId());
+    // 验证 TraceId 在 filter 执行过程中被设置
+    assertEquals(existingTraceId, actualTraceId[0]);
 
     // 验证响应头中包含 TraceId
     assertEquals(existingTraceId, responseHeaders.getFirst("X-Trace-Id"));
+    
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
   void testFilterWithoutTraceId() {
     // 不设置请求头中的 TraceId
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return Mono.empty();
+            })
+        .when(chain)
+        .filter(any());
 
     // 执行过滤器
     Mono<Void> result = traceIdGatewayFilter.filter(exchange, chain);
@@ -96,19 +130,30 @@ class TraceIdGatewayFilterTest {
     StepVerifier.create(result).verifyComplete();
     verify(chain).filter(any());
 
-    // 验证 TraceId 被生成并设置
-    String traceId = TraceIdUtil.getTraceId();
-    assertNotNull(traceId);
-    assertEquals(32, traceId.length()); // UUID 格式，去除连字符后为 32 位
+    // 验证 TraceId 在 filter 执行过程中被生成并设置
+    assertNotNull(actualTraceId[0]);
+    assertEquals(32, actualTraceId[0].length()); // UUID 格式，去除连字符后为 32 位
 
     // 验证响应头中包含 TraceId
-    assertEquals(traceId, responseHeaders.getFirst("X-Trace-Id"));
+    assertEquals(actualTraceId[0], responseHeaders.getFirst("X-Trace-Id"));
+    
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
   void testFilterWithEmptyTraceId() {
     // 设置空的 TraceId
     requestHeaders.add("X-Trace-Id", "");
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return Mono.empty();
+            })
+        .when(chain)
+        .filter(any());
 
     // 执行过滤器
     Mono<Void> result = traceIdGatewayFilter.filter(exchange, chain);
@@ -117,13 +162,15 @@ class TraceIdGatewayFilterTest {
     StepVerifier.create(result).verifyComplete();
     verify(chain).filter(any());
 
-    // 验证 TraceId 被生成并设置（空字符串会被视为无效，自动生成）
-    String traceId = TraceIdUtil.getTraceId();
-    assertNotNull(traceId);
-    assertEquals(32, traceId.length());
+    // 验证 TraceId 在 filter 执行过程中被生成并设置（空字符串会被视为无效，自动生成）
+    assertNotNull(actualTraceId[0]);
+    assertEquals(32, actualTraceId[0].length());
 
     // 验证响应头中包含 TraceId
-    assertEquals(traceId, responseHeaders.getFirst("X-Trace-Id"));
+    assertEquals(actualTraceId[0], responseHeaders.getFirst("X-Trace-Id"));
+    
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
@@ -150,6 +197,15 @@ class TraceIdGatewayFilterTest {
     // 设置请求头中的 TraceId
     String traceId = "forward-trace-id-12345";
     requestHeaders.add("X-Trace-Id", traceId);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return Mono.empty();
+            })
+        .when(chain)
+        .filter(any());
 
     // 执行过滤器
     Mono<Void> result = traceIdGatewayFilter.filter(exchange, chain);
@@ -158,8 +214,11 @@ class TraceIdGatewayFilterTest {
     StepVerifier.create(result).verifyComplete();
     verify(chain).filter(any());
 
-    // 验证 TraceId 被设置
-    assertEquals(traceId, TraceIdUtil.getTraceId());
+    // 验证 TraceId 在 filter 执行过程中被设置
+    assertEquals(traceId, actualTraceId[0]);
+    
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test

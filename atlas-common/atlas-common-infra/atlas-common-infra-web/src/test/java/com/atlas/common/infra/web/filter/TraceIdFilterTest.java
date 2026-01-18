@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -52,47 +54,78 @@ class TraceIdFilterTest {
     // Given
     String traceId = "test-trace-id-12345";
     when(request.getHeader("X-Trace-Id")).thenReturn(traceId);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return null;
+            })
+        .when(filterChain)
+        .doFilter(request, response);
 
     // When
     filter.doFilter(request, response, filterChain);
 
     // Then
     verify(filterChain).doFilter(request, response);
-    assertEquals(traceId, TraceIdUtil.getTraceId());
+    assertEquals(traceId, actualTraceId[0]);
     // 验证响应头未添加（默认不添加）
     verify(response, never()).setHeader("X-Trace-Id", traceId);
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
   void testDoFilterWithoutTraceIdInHeader() throws ServletException, IOException {
     // Given
     when(request.getHeader("X-Trace-Id")).thenReturn(null);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return null;
+            })
+        .when(filterChain)
+        .doFilter(request, response);
 
     // When
     filter.doFilter(request, response, filterChain);
 
     // Then
     verify(filterChain).doFilter(request, response);
-    String generatedTraceId = TraceIdUtil.getTraceId();
-    assertNotNull(generatedTraceId);
+    assertNotNull(actualTraceId[0]);
     // 验证响应头未添加（默认不添加）
     verify(response, never()).setHeader(any(), any());
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
   void testDoFilterWithEmptyTraceIdInHeader() throws ServletException, IOException {
     // Given
     when(request.getHeader("X-Trace-Id")).thenReturn("");
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return null;
+            })
+        .when(filterChain)
+        .doFilter(request, response);
 
     // When
     filter.doFilter(request, response, filterChain);
 
     // Then
     verify(filterChain).doFilter(request, response);
-    String generatedTraceId = TraceIdUtil.getTraceId();
-    assertNotNull(generatedTraceId);
+    assertNotNull(actualTraceId[0]);
     // 验证响应头未添加（默认不添加）
     verify(response, never()).setHeader(any(), any());
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
@@ -101,15 +134,26 @@ class TraceIdFilterTest {
     String traceId = "test-trace-id-12345";
     when(request.getHeader("X-Trace-Id")).thenReturn(traceId);
     filter.setAddResponseHeader(true);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return null;
+            })
+        .when(filterChain)
+        .doFilter(request, response);
 
     // When
     filter.doFilter(request, response, filterChain);
 
     // Then
     verify(filterChain).doFilter(request, response);
-    assertEquals(traceId, TraceIdUtil.getTraceId());
+    assertEquals(traceId, actualTraceId[0]);
     // 验证响应头已添加
     verify(response).setHeader("X-Trace-Id", traceId);
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test
@@ -132,7 +176,7 @@ class TraceIdFilterTest {
     String traceId = "test-trace-id-12345";
     when(request.getHeader("X-Trace-Id")).thenReturn(traceId);
     IOException exception = new IOException("Test exception");
-    when(filterChain.doFilter(request, response)).thenThrow(exception);
+    doThrow(exception).when(filterChain).doFilter(request, response);
 
     // When & Then
     try {
@@ -149,15 +193,25 @@ class TraceIdFilterTest {
   void testDoFilterGeneratesNewTraceIdWhenHeaderIsMissing() throws ServletException, IOException {
     // Given
     when(request.getHeader("X-Trace-Id")).thenReturn(null);
+    final String[] actualTraceId = new String[1];
+    doAnswer(
+            invocation -> {
+              // 在 filter 执行过程中检查 TraceId
+              actualTraceId[0] = TraceIdUtil.getTraceId();
+              return null;
+            })
+        .when(filterChain)
+        .doFilter(request, response);
 
     // When
     filter.doFilter(request, response, filterChain);
 
     // Then
-    String generatedTraceId = TraceIdUtil.getTraceId();
-    assertNotNull(generatedTraceId);
+    assertNotNull(actualTraceId[0]);
     // 验证生成的 TraceId 格式正确（32 位 UUID，去除连字符）
-    assertEquals(32, generatedTraceId.length());
+    assertEquals(32, actualTraceId[0].length());
+    // 验证 TraceId 已被清理
+    assertNull(TraceIdUtil.getTraceId());
   }
 
   @Test

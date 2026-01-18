@@ -3,7 +3,6 @@ package com.atlas.gateway.config;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.atlas.gateway.config.GatewayProperties.CorsConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.cors.reactive.CorsWebFilter;

@@ -173,8 +173,8 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
   public Result<Void> handleHttpRequestMethodNotSupportedException(
       HttpRequestMethodNotSupportedException e) {
-    String message =
-        String.format("HTTP 方法 '%s' 不支持，支持的方法: %s", e.getMethod(), e.getSupportedMethods());
+    String supportedMethods = String.join(", ", e.getSupportedMethods());
+    String message = String.format("HTTP 方法 '%s' 不支持，支持的方法: %s", e.getMethod(), supportedMethods);
     log.warn("HTTP 方法不支持: method={}, supportedMethods={}", e.getMethod(), e.getSupportedMethods());
     return Result.error(CommonErrorCode.PARAM_ERROR, message);
   }

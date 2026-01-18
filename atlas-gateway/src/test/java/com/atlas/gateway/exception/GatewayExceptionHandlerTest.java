@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.common.infra.logging.trace.TraceIdUtil;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -36,16 +38,20 @@ class GatewayExceptionHandlerTest {
   private GatewayExceptionHandler exceptionHandler;
   private ServerWebExchange exchange;
   private ServerHttpResponse response;
+  private HttpHeaders responseHeaders;
   private ObjectMapper objectMapper;
 
   @BeforeEach
   void setUp() {
     objectMapper = new ObjectMapper();
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     exceptionHandler = new GatewayExceptionHandler(objectMapper);
     exchange = mock(ServerWebExchange.class);
     response = mock(ServerHttpResponse.class);
+    responseHeaders = mock(HttpHeaders.class);
 
     when(exchange.getResponse()).thenReturn(response);
+    when(response.getHeaders()).thenReturn(responseHeaders);
     when(response.bufferFactory()).thenReturn(new DefaultDataBufferFactory());
     when(response.writeWith(any())).thenReturn(Mono.empty());
   }

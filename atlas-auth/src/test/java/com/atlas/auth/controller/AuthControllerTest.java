@@ -2,6 +2,7 @@
 package com.atlas.auth.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -32,7 +34,22 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Atlas Team
  * @since 1.0.0
  */
-@WebMvcTest(AuthController.class)
+@WebMvcTest(
+    controllers = AuthController.class,
+    excludeAutoConfiguration = {
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
+    },
+    excludeFilters = {
+      @org.springframework.context.annotation.ComponentScan.Filter(
+          type = org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE,
+          classes = com.atlas.auth.filter.SecurityContextFilter.class)
+    })
+@TestPropertySource(
+    properties = {
+      "spring.autoconfigure.exclude=com.alibaba.cloud.nacos.NacosConfigAutoConfiguration,com.alibaba.cloud.nacos.NacosDiscoveryAutoConfiguration,com.alibaba.cloud.nacos.endpoint.NacosConfigEndpointAutoConfiguration",
+      "spring.cloud.nacos.config.enabled=false",
+      "spring.cloud.nacos.discovery.enabled=false"
+    })
 class AuthControllerTest {
 
   @Autowired private MockMvc mockMvc;
@@ -98,8 +115,8 @@ class AuthControllerTest {
 
   @Test
   void testLogoutSuccess() throws Exception {
-    // Mock 服务方法（无返回值）
-    when(authService.logout(any(String.class))).thenReturn(null);
+    // Mock 服务方法（void 方法，使用 doNothing）
+    doNothing().when(authService).logout(any(String.class));
 
     // 执行请求
     mockMvc

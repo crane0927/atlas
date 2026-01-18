@@ -162,19 +162,20 @@ public final class DesensitizeUtil {
       return value;
     }
 
-    Pattern pattern = rule.getPattern();
-    if (pattern == null) {
-      return value;
-    }
-
-    Matcher matcher = pattern.matcher(value);
-    if (!matcher.find()) {
-      return value;
-    }
-
     int prefixLength = rule.getPrefixLength() != null ? rule.getPrefixLength() : 0;
     int suffixLength = rule.getSuffixLength() != null ? rule.getSuffixLength() : 0;
     String replacement = rule.getReplacement() != null ? rule.getReplacement() : "****";
+
+    Pattern pattern = rule.getPattern();
+    // 如果有 pattern，先匹配；如果没有 pattern，直接使用 prefixLength 和 suffixLength
+    if (pattern != null) {
+      Matcher matcher = pattern.matcher(value);
+      if (!matcher.find()) {
+        return value;
+      }
+      // 如果匹配成功，使用匹配到的值进行脱敏
+      value = matcher.group();
+    }
 
     // 如果 prefixLength + suffixLength >= value.length()，则全部替换
     if (prefixLength + suffixLength >= value.length()) {

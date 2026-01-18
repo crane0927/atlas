@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -163,7 +164,9 @@ class PermissionServiceTest {
     assertTrue(authorities.getPermissions().contains("user:write"));
 
     // 验证服务调用
-    verify(userMapper).selectById(1L);
+    // 注意：getAuthoritiesByUserId 内部调用了 getRolesByUserId 和 getPermissionsByUserId，
+    // 这两个方法都会调用 userMapper.selectById，所以总共调用了 2 次
+    verify(userMapper, times(2)).selectById(1L);
     verify(userRoleMapper).selectRoleCodesByUserId(1L);
     verify(userRoleMapper).selectRoleIdsByUserId(1L);
     verify(rolePermissionMapper).selectPermissionCodesByRoleIds(Arrays.asList(1L, 2L));
@@ -184,7 +187,9 @@ class PermissionServiceTest {
     assertTrue(authorities.getPermissions().isEmpty());
 
     // 验证服务调用
-    verify(userMapper).selectById(1L);
+    // 注意：getAuthoritiesByUserId 内部调用了 getRolesByUserId 和 getPermissionsByUserId，
+    // 这两个方法都会调用 userMapper.selectById，所以总共调用了 2 次
+    verify(userMapper, times(2)).selectById(1L);
   }
 
   @Test

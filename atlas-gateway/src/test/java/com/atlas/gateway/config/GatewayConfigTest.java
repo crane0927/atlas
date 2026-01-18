@@ -130,9 +130,9 @@ class GatewayConfigTest {
     // 执行刷新
     gatewayConfig.refreshRoutes();
 
-    // 验证调用了 RouteDefinitionWriter（每个路由调用一次 delete 和 save）
-    verify(routeDefinitionWriter).delete(any(Mono.class));
-    verify(routeDefinitionWriter).save(any(Mono.class));
+    // 验证调用了 RouteDefinitionWriter（每个路由调用一次 delete 和 save，共 2 个路由）
+    verify(routeDefinitionWriter, org.mockito.Mockito.times(2)).delete(any(Mono.class));
+    verify(routeDefinitionWriter, org.mockito.Mockito.times(2)).save(any(Mono.class));
   }
 
   @Test

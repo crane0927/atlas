@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,7 +29,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -55,7 +55,32 @@ class AuthServiceTest {
 
   @Mock private JwtConfig jwtConfig;
 
-  @InjectMocks private AuthServiceImpl authService;
+  private TestableAuthServiceImpl authService;
+
+  /** 可测试的 AuthServiceImpl 子类，用于访问 protected 方法 */
+  static class TestableAuthServiceImpl extends AuthServiceImpl {
+    private String mockStoredPassword;
+
+    public TestableAuthServiceImpl(
+        UserQueryApi userQueryApi,
+        PermissionQueryApi permissionQueryApi,
+        PasswordUtil passwordUtil,
+        TokenService tokenService,
+        SessionService sessionService,
+        JwtConfig jwtConfig) {
+      super(
+          userQueryApi, permissionQueryApi, passwordUtil, tokenService, sessionService, jwtConfig);
+    }
+
+    public void setMockStoredPassword(String password) {
+      this.mockStoredPassword = password;
+    }
+
+    @Override
+    protected String getStoredPassword(UserDTO userDTO) {
+      return mockStoredPassword != null ? mockStoredPassword : super.getStoredPassword(userDTO);
+    }
+  }
 
   private UserDTO userDTO;
   private UserAuthoritiesDTO authoritiesDTO;
@@ -75,8 +100,18 @@ class AuthServiceTest {
     authoritiesDTO.setRoles(Arrays.asList("admin", "user"));
     authoritiesDTO.setPermissions(Arrays.asList("user:read", "user:write"));
 
-    // Mock 配置
-    when(jwtConfig.getExpire()).thenReturn(7200L);
+    // 创建 TestableAuthServiceImpl 实例（用于访问 protected 方法）
+    authService =
+        new TestableAuthServiceImpl(
+            userQueryApi,
+            permissionQueryApi,
+            passwordUtil,
+            tokenService,
+            sessionService,
+            jwtConfig);
+
+    // Mock 配置（使用 lenient 避免 UnnecessaryStubbingException）
+    lenient().when(jwtConfig.getExpire()).thenReturn(7200L);
   }
 
   @Test
@@ -87,6 +122,8 @@ class AuthServiceTest {
     // Mock 服务调用
     when(userQueryApi.getUserByUsername("admin")).thenReturn(Result.success(userDTO));
     when(permissionQueryApi.getUserAuthorities(1L)).thenReturn(Result.success(authoritiesDTO));
+    // 设置 mock 密码（通过子类的方法）
+    authService.setMockStoredPassword("encoded-password");
     when(passwordUtil.matches("password123", "encoded-password")).thenReturn(true);
 
     TokenInfoDTO tokenInfo = new TokenInfoDTO();
@@ -117,7 +154,7 @@ class AuthServiceTest {
     verify(userQueryApi).getUserByUsername("admin");
     verify(permissionQueryApi).getUserAuthorities(1L);
     verify(tokenService).generateToken(any(TokenInfoDTO.class));
-    verify(sessionService).saveSession(1L, any(TokenInfoDTO.class), anyLong());
+    verify(sessionService).saveSession(anyLong(), any(TokenInfoDTO.class), anyLong());
   }
 
   @Test
@@ -180,6 +217,8 @@ class AuthServiceTest {
     // Mock 服务调用
     when(tokenService.parseToken(token)).thenReturn(tokenInfo);
     when(tokenService.validateToken(token)).thenReturn(tokenInfo);
+    // Mock jwtConfig.getExpire() 用于 addToBlacklist 调用
+    when(jwtConfig.getExpire()).thenReturn(7200L);
 
     // 执行登出
     authService.logout(token);

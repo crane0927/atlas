@@ -17,10 +17,15 @@ import org.springframework.test.context.TestPropertySource;
  *
  * @author Atlas Team
  */
-@SpringBootTest(classes = GatewayProperties.class)
+@SpringBootTest(
+    classes = GatewayProperties.class,
+    webEnvironment = org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE)
 @EnableConfigurationProperties(GatewayProperties.class)
 @TestPropertySource(
     properties = {
+      "spring.autoconfigure.exclude=com.alibaba.cloud.nacos.NacosConfigAutoConfiguration,com.alibaba.cloud.nacos.NacosDiscoveryAutoConfiguration,com.alibaba.cloud.nacos.endpoint.NacosConfigEndpointAutoConfiguration",
+      "spring.cloud.nacos.config.enabled=false",
+      "spring.cloud.nacos.discovery.enabled=false",
       "atlas.gateway.routes[0].id=health-route",
       "atlas.gateway.routes[0].uri=http://localhost:8080",
       "atlas.gateway.routes[0].predicates[0]=Path=/health/**",

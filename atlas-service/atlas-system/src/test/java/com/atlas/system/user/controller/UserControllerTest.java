@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.infra.web.exception.GlobalExceptionHandler;
 import com.atlas.system.api.v1.model.dto.UserDTO;
 import com.atlas.system.api.v1.model.enums.UserStatus;
 import com.atlas.system.constant.SystemErrorCode;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -26,7 +29,18 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Atlas Team
  * @since 1.0.0
  */
-@WebMvcTest(UserController.class)
+@WebMvcTest(
+    controllers = UserController.class,
+    excludeAutoConfiguration = {
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
+    })
+@Import(GlobalExceptionHandler.class)
+@TestPropertySource(
+    properties = {
+      "spring.autoconfigure.exclude=com.alibaba.cloud.nacos.NacosConfigAutoConfiguration,com.alibaba.cloud.nacos.NacosDiscoveryAutoConfiguration,com.alibaba.cloud.nacos.endpoint.NacosConfigEndpointAutoConfiguration",
+      "spring.cloud.nacos.config.enabled=false",
+      "spring.cloud.nacos.discovery.enabled=false"
+    })
 class UserControllerTest {
 
   @Autowired private MockMvc mockMvc;

@@ -72,7 +72,8 @@ class JacksonConfigTest {
     assertNotNull(json);
     // 日期应该序列化为字符串格式，不是时间戳
     assertTrue(json.contains("2026-01-27"));
-    assertTrue(!json.contains("\"createTime\":"));
+    // 应该包含 createTime 字段
+    assertTrue(json.contains("\"createTime\""));
   }
 
   @Test

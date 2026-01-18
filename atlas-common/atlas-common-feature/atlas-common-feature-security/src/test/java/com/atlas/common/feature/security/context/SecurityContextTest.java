@@ -109,6 +109,8 @@ class SecurityContextTest {
   void testGetLoginUserWhenNotAuthenticated() {
     // Given
     ThreadLocalSecurityContext context = new ThreadLocalSecurityContext();
+    // 确保清理之前测试留下的数据
+    context.clear();
 
     // When
     LoginUser result = context.getLoginUser();
