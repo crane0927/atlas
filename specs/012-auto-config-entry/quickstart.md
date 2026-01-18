@@ -12,3 +12,9 @@
 ## 验证
 
 - 启动服务并触发业务异常，确认响应结构为统一 `Result` 格式
+- 移除公共模块依赖后启动服务，确认可启动并回退到默认异常响应
+
+## 回归记录
+
+- [ ] 成功响应结构保持一致（`code`/`message`/`data`/`timestamp`/`success`）
+- [ ] 失败响应结构保持一致（`code`/`message`/`timestamp`/`success`）

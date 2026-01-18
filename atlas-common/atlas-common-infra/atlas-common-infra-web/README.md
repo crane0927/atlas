@@ -209,7 +209,8 @@ public class CustomWebConfig {
 
 ### 全局异常处理器配置
 
-全局异常处理器无需配置，Spring Boot 会自动扫描和注册。
+全局异常处理器无需配置，模块提供自动配置入口进行注册，业务服务无需显式 `@Import` 配置类即可生效。
+当依赖缺失或非 Servlet 环境时，自动配置不会生效，服务回退到默认异常处理链路。
 
 如果需要自定义异常处理行为，可以创建自己的 `GlobalExceptionHandler`：
 

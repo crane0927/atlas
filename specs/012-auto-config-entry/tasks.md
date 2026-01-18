@@ -14,13 +14,13 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 更新自动配置入口文档说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T001 更新自动配置入口文档说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
 
 ## Phase 2: Foundational
 
-- [ ] T002 创建自动配置类 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebExceptionAutoConfiguration.java`
-- [ ] T003 [P] 添加自动配置入口元数据 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
-- [ ] T004 [P] 在自动配置类中注册异常处理扫描（复用现有 `GlobalExceptionHandler` 包路径）
+- [x] T002 创建自动配置类 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebExceptionAutoConfiguration.java`
+- [x] T003 [P] 添加自动配置入口元数据 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
+- [x] T004 [P] 在自动配置类中注册异常处理扫描（复用现有 `GlobalExceptionHandler` 包路径）
 
 ## Phase 3: US1（自动启用统一异常响应）
 
@@ -30,10 +30,10 @@
 - 业务服务移除显式导入后可正常启动
 - 触发业务异常返回统一 `Result` 格式
 
-- [ ] T005 [US1] 移除服务侧显式导入配置 `atlas-service/atlas-system/src/main/java/com/atlas/system/SystemApplication.java`
-- [ ] T006 [US1] 删除服务侧临时配置类 `atlas-service/atlas-system/src/main/java/com/atlas/system/config/WebExceptionHandlerConfig.java`
-- [ ] T007 [US1] 确认公共模块依赖关系不变（如需调整，更新 `atlas-service/atlas-system/pom.xml`）
-- [ ] T008 [US1] 添加单元测试或最小启动验证说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/...`（若已有测试基座则复用）
+- [x] T005 [US1] 移除服务侧显式导入配置 `atlas-service/atlas-system/src/main/java/com/atlas/system/SystemApplication.java`
+- [x] T006 [US1] 删除服务侧临时配置类 `atlas-service/atlas-system/src/main/java/com/atlas/system/config/WebExceptionHandlerConfig.java`
+- [x] T007 [US1] 确认公共模块依赖关系不变（如需调整，更新 `atlas-service/atlas-system/pom.xml`）
+- [x] T008 [US1] 添加单元测试或最小启动验证说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/test/java/...`（若已有测试基座则复用）
 
 ## Phase 4: US2（公共模块不可用时降级）
 
@@ -43,13 +43,13 @@
 - 移除公共模块依赖后服务仍可启动
 - 响应回退到默认异常处理链路
 
-- [ ] T009 [US2] 在自动配置类中增加条件加载与降级说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebExceptionAutoConfiguration.java`
-- [ ] T010 [US2] 编写降级场景验证用例或说明 `specs/012-auto-config-entry/quickstart.md`
+- [x] T009 [US2] 在自动配置类中增加条件加载与降级说明 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/config/WebExceptionAutoConfiguration.java`
+- [x] T010 [US2] 编写降级场景验证用例或说明 `specs/012-auto-config-entry/quickstart.md`
 
 ## Phase 5: Polish & Cross-cutting
 
-- [ ] T011 更新公共模块文档与示例 `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
-- [ ] T012 回归验证现有接口响应格式（成功/失败）并记录结果 `specs/012-auto-config-entry/quickstart.md`
+- [x] T011 更新公共模块文档与示例 `atlas-common/atlas-common-infra/atlas-common-infra-web/README.md`
+- [x] T012 回归验证现有接口响应格式（成功/失败）并记录结果 `specs/012-auto-config-entry/quickstart.md`
 
 ## 并行执行示例
 
