@@ -1,7 +1,6 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
-import com.atlas.gateway.config.GatewayProperties.CorsConfig;
 import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +75,7 @@ public class CorsConfig {
    * <p>根据 {@link GatewayProperties} 中的 CORS 配置更新配置源。
    */
   private void updateCorsConfiguration() {
-    CorsConfig corsConfig = gatewayProperties.getCors();
+    GatewayProperties.CorsConfig corsConfig = gatewayProperties.getCors();
     org.springframework.web.cors.CorsConfiguration config =
         new org.springframework.web.cors.CorsConfiguration();
 
@@ -120,7 +119,7 @@ public class CorsConfig {
 
     // 配置预检请求缓存时间
     if (corsConfig.getMaxAge() != null && corsConfig.getMaxAge() >= 0) {
-      config.setMaxAge(corsConfig.getMaxAge());
+      config.setMaxAge((long) corsConfig.getMaxAge());
     }
 
     // 配置对所有路径生效

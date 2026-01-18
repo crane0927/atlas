@@ -12,6 +12,7 @@ import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -95,7 +96,8 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     if (ex instanceof ResponseStatusException) {
       ResponseStatusException statusException = (ResponseStatusException) ex;
-      HttpStatus status = statusException.getStatusCode();
+      HttpStatusCode statusCode = statusException.getStatusCode();
+      HttpStatus status = statusCode instanceof HttpStatus ? (HttpStatus) statusCode : HttpStatus.INTERNAL_SERVER_ERROR;
       if (status == HttpStatus.NOT_FOUND) {
         // 路由不存在
         errorCode = "010404";

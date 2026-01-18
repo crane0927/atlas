@@ -77,13 +77,15 @@ public class TraceIdGatewayFilter implements GlobalFilter, Ordered {
     ServerHttpRequest request = exchange.getRequest();
 
     // 从请求头获取 TraceId
-    String traceId = request.getHeaders().getFirst(TRACE_ID_HEADER);
+    String traceIdFromHeader = request.getHeaders().getFirst(TRACE_ID_HEADER);
 
     // 如果请求头中没有 TraceId，生成新的 TraceId
-    if (traceId == null || traceId.isEmpty()) {
+    final String traceId;
+    if (traceIdFromHeader == null || traceIdFromHeader.isEmpty()) {
       traceId = TraceIdUtil.generate();
       log.debug("请求头中没有 TraceId，自动生成: {}", traceId);
     } else {
+      traceId = traceIdFromHeader;
       log.debug("从请求头获取 TraceId: {}", traceId);
     }
 
