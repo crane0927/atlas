@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service;
 
 import com.atlas.auth.model.vo.LoginRequestVO;
@@ -29,6 +27,7 @@ public interface AuthService {
    * <p>验证用户身份并签发 Token。
    *
    * <p>流程：
+   *
    * <ol>
    *   <li>通过 `atlas-system-api` 查询用户信息
    *   <li>验证用户状态（必须为激活状态）
@@ -51,6 +50,7 @@ public interface AuthService {
    * <p>使 Token 失效并清除会话。
    *
    * <p>流程：
+   *
    * <ol>
    *   <li>从请求头提取 Token
    *   <li>解析 Token 获取用户ID和 Token ID
@@ -64,4 +64,3 @@ public interface AuthService {
    */
   void logout(String token);
 }
-

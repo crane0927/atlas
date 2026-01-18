@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,4 +64,3 @@ public class DefaultTokenValidator implements TokenValidator {
     return true;
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth;
 
 import org.springframework.boot.SpringApplication;
@@ -23,4 +21,3 @@ public class AuthApplication {
     SpringApplication.run(AuthApplication.class, args);
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import lombok.AllArgsConstructor;
@@ -13,10 +11,11 @@ import lombok.NoArgsConstructor;
  * <p>JWT 公钥响应数据，用于 Gateway 获取公钥进行 Token 验证。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>algorithm：算法（如 "RS256"）</li>
- *   <li>publicKey：公钥（PEM 格式）</li>
- *   <li>keyId：密钥ID（用于公钥轮换）</li>
+ *   <li>algorithm：算法（如 "RS256"）
+ *   <li>publicKey：公钥（PEM 格式）
+ *   <li>keyId：密钥ID（用于公钥轮换）
  * </ul>
  *
  * @author Atlas Team
@@ -36,4 +35,3 @@ public class PublicKeyResponseVO {
   /** 密钥ID（用于公钥轮换） */
   private String keyId;
 }
-

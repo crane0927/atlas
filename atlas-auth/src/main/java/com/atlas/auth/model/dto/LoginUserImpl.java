@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.dto;
 
 import com.atlas.common.feature.security.user.LoginUser;
@@ -16,11 +14,12 @@ import lombok.NoArgsConstructor;
  * <p>实现 `LoginUser` 接口，封装用户信息供下游服务使用。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>userId：用户ID</li>
- *   <li>username：用户名</li>
- *   <li>roles：角色列表（不能为 null）</li>
- *   <li>permissions：权限列表（不能为 null）</li>
+ *   <li>userId：用户ID
+ *   <li>username：用户名
+ *   <li>roles：角色列表（不能为 null）
+ *   <li>permissions：权限列表（不能为 null）
  * </ul>
  *
  * @author Atlas Team
@@ -73,4 +72,3 @@ public class LoginUserImpl implements LoginUser {
     return getPermissions().contains(permission);
   }
 }
-

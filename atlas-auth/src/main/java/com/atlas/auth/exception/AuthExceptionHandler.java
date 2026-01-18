@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.exception;
 
 import com.atlas.common.feature.core.exception.BusinessException;
@@ -23,14 +21,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * <p>统一处理 Auth 模块的异常，返回统一的错误响应格式。
  *
  * <p>处理的异常类型：
+ *
  * <ul>
- *   <li>BusinessException - 业务异常</li>
- *   <li>ParameterException - 参数异常</li>
- *   <li>PermissionException - 权限异常</li>
- *   <li>DataException - 数据异常</li>
- *   <li>MethodArgumentNotValidException - 参数校验异常</li>
- *   <li>BindException - 绑定异常</li>
- *   <li>其他异常 - 系统异常</li>
+ *   <li>BusinessException - 业务异常
+ *   <li>ParameterException - 参数异常
+ *   <li>PermissionException - 权限异常
+ *   <li>DataException - 数据异常
+ *   <li>MethodArgumentNotValidException - 参数校验异常
+ *   <li>BindException - 绑定异常
+ *   <li>其他异常 - 系统异常
  * </ul>
  *
  * @author Atlas Team
@@ -104,7 +103,8 @@ public class AuthExceptionHandler {
     FieldError fieldError = e.getBindingResult().getFieldError();
     String message = fieldError != null ? fieldError.getDefaultMessage() : "参数校验失败";
     log.warn("参数校验异常: message={}", message);
-    return Result.error(com.atlas.common.feature.core.constant.CommonErrorCode.PARAM_REQUIRED, message);
+    return Result.error(
+        com.atlas.common.feature.core.constant.CommonErrorCode.PARAM_REQUIRED, message);
   }
 
   /**
@@ -119,7 +119,8 @@ public class AuthExceptionHandler {
     FieldError fieldError = e.getBindingResult().getFieldError();
     String message = fieldError != null ? fieldError.getDefaultMessage() : "参数绑定失败";
     log.warn("参数绑定异常: message={}", message);
-    return Result.error(com.atlas.common.feature.core.constant.CommonErrorCode.PARAM_REQUIRED, message);
+    return Result.error(
+        com.atlas.common.feature.core.constant.CommonErrorCode.PARAM_REQUIRED, message);
   }
 
   /**
@@ -136,4 +137,3 @@ public class AuthExceptionHandler {
         com.atlas.common.feature.core.constant.CommonErrorCode.SYSTEM_ERROR, "系统错误，请稍后重试");
   }
 }
-

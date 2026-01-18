@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * <p>提供用户、角色、权限管理功能，支持 Auth 服务查询用户信息和权限信息。
  *
  * <p>主要功能：
+ *
  * <ul>
  *   <li>用户查询：支持根据用户ID和用户名查询用户信息
  *   <li>权限查询：支持查询用户角色和权限信息

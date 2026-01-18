@@ -163,11 +163,13 @@ class UserServiceTest {
     // Mock 服务调用
     when(userMapper.selectByUsername("newuser")).thenReturn(null);
     when(passwordEncoder.encode("password123")).thenReturn("encoded-password");
-    when(userMapper.insert(any(User.class))).thenAnswer(invocation -> {
-      User u = invocation.getArgument(0);
-      u.setUserId(2L);
-      return 1;
-    });
+    when(userMapper.insert(any(User.class)))
+        .thenAnswer(
+            invocation -> {
+              User u = invocation.getArgument(0);
+              u.setUserId(2L);
+              return 1;
+            });
 
     // 执行创建
     UserDTO result = userService.createUser(userCreateDTO);

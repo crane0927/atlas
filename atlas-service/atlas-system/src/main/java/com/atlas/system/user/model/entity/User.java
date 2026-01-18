@@ -13,6 +13,7 @@ import lombok.Data;
  * <p>对应数据库表：sys_user
  *
  * <p>字段说明：
+ *
  * <ul>
  *   <li>userId：用户ID，主键，自增
  *   <li>username：用户名，唯一，非空

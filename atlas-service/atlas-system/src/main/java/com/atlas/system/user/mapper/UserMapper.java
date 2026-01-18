@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Select;
  * <p>提供用户数据访问方法，继承 MyBatis-Plus 的 BaseMapper 提供基础 CRUD 功能。
  *
  * <p>自定义查询方法：
+ *
  * <ul>
  *   <li>selectByUsername：根据用户名查询用户
  * </ul>

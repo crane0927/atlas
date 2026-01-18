@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service.impl;
 
 import com.atlas.auth.model.dto.TokenInfoDTO;
@@ -59,4 +57,3 @@ public class TokenServiceImpl implements TokenService {
     }
   }
 }
-

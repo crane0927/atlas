@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.api.v1.model.dto;
 
 import com.atlas.system.api.v1.model.enums.UserStatus;
@@ -14,21 +12,23 @@ import lombok.NoArgsConstructor;
  * <p>用户基本信息数据传输对象，用于用户查询接口的响应。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>userId：用户ID，必填字段，不能为 null</li>
- *   <li>username：用户名，必填字段，不能为 null 或空字符串</li>
- *   <li>nickname：昵称，可选字段，可以为 null（向后兼容）</li>
- *   <li>email：邮箱，可选字段，可以为 null（向后兼容）</li>
- *   <li>phone：手机号，可选字段，可以为 null（向后兼容）</li>
- *   <li>status：用户状态，必填字段，不能为 null</li>
- *   <li>avatar：头像URL，可选字段，可以为 null（向后兼容）</li>
+ *   <li>userId：用户ID，必填字段，不能为 null
+ *   <li>username：用户名，必填字段，不能为 null 或空字符串
+ *   <li>nickname：昵称，可选字段，可以为 null（向后兼容）
+ *   <li>email：邮箱，可选字段，可以为 null（向后兼容）
+ *   <li>phone：手机号，可选字段，可以为 null（向后兼容）
+ *   <li>status：用户状态，必填字段，不能为 null
+ *   <li>avatar：头像URL，可选字段，可以为 null（向后兼容）
  * </ul>
  *
  * <p>向后兼容性：
+ *
  * <ul>
- *   <li>新增字段必须可空或提供默认值</li>
- *   <li>不允许删除或修改现有字段</li>
- *   <li>不允许修改字段类型或语义</li>
+ *   <li>新增字段必须可空或提供默认值
+ *   <li>不允许删除或修改现有字段
+ *   <li>不允许修改字段类型或语义
  * </ul>
  *
  * @author Atlas Team
@@ -60,4 +60,3 @@ public class UserDTO {
   /** 头像URL（可选，向后兼容） */
   private String avatar;
 }
-

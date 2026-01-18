@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.api.v1.feign;
 
 import com.atlas.common.feature.core.result.Result;
@@ -16,10 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
  * <p>定义权限查询的 Feign 接口，供 auth 服务查询用户权限和角色信息。
  *
  * <p>接口说明：
+ *
  * <ul>
- *   <li>getUserRoles：查询用户角色列表</li>
- *   <li>getUserPermissions：查询用户权限列表</li>
- *   <li>getUserAuthorities：查询用户完整权限信息（角色+权限）</li>
+ *   <li>getUserRoles：查询用户角色列表
+ *   <li>getUserPermissions：查询用户权限列表
+ *   <li>getUserAuthorities：查询用户完整权限信息（角色+权限）
  * </ul>
  *
  * <p>服务名称：atlas-system
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author Atlas Team
  * @since 1.0.0
  */
-@FeignClient(value = "atlas-system",contextId = "permission-query-api", path = "/api/v1")
+@FeignClient(value = "atlas-system", contextId = "permission-query-api", path = "/api/v1")
 public interface PermissionQueryApi {
 
   /**
@@ -67,4 +66,3 @@ public interface PermissionQueryApi {
   @GetMapping("/users/{userId}/authorities")
   Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable Long userId);
 }
-

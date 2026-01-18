@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import com.atlas.gateway.config.GatewayProperties.CorsConfig;
@@ -79,23 +77,22 @@ public class CorsConfig {
    */
   private void updateCorsConfiguration() {
     CorsConfig corsConfig = gatewayProperties.getCors();
-    org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
+    org.springframework.web.cors.CorsConfiguration config =
+        new org.springframework.web.cors.CorsConfiguration();
 
     // 配置允许的源
     if (corsConfig.getAllowedOrigins() != null) {
       if ("*".equals(corsConfig.getAllowedOrigins())) {
         config.addAllowedOriginPattern("*");
       } else {
-        List<String> origins =
-            Arrays.asList(corsConfig.getAllowedOrigins().split(","));
+        List<String> origins = Arrays.asList(corsConfig.getAllowedOrigins().split(","));
         origins.forEach(origin -> config.addAllowedOrigin(origin.trim()));
       }
     }
 
     // 配置允许的 HTTP 方法
     if (corsConfig.getAllowedMethods() != null) {
-      List<String> methods =
-          Arrays.asList(corsConfig.getAllowedMethods().split(","));
+      List<String> methods = Arrays.asList(corsConfig.getAllowedMethods().split(","));
       methods.forEach(
           method -> {
             try {
@@ -111,8 +108,7 @@ public class CorsConfig {
       if ("*".equals(corsConfig.getAllowedHeaders())) {
         config.addAllowedHeader("*");
       } else {
-        List<String> headers =
-            Arrays.asList(corsConfig.getAllowedHeaders().split(","));
+        List<String> headers = Arrays.asList(corsConfig.getAllowedHeaders().split(","));
         headers.forEach(header -> config.addAllowedHeader(header.trim()));
       }
     }
@@ -158,4 +154,3 @@ public class CorsConfig {
     }
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.filter;
 
 import com.atlas.auth.context.SecurityContextImpl;
@@ -23,28 +21,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * <p>从请求头中提取 Token，验证 Token 并设置安全上下文，供下游服务使用。
  *
  * <p>功能特性：
+ *
  * <ul>
- *   <li>从 `Authorization: Bearer {token}` 请求头中提取 Token</li>
- *   <li>验证 Token 的有效性（签名、过期时间、黑名单）</li>
- *   <li>将用户信息封装为 `LoginUser` 对象</li>
- *   <li>设置 `SecurityContext`（使用 ThreadLocal）</li>
- *   <li>请求结束时清理 `SecurityContext`（避免内存泄漏）</li>
+ *   <li>从 `Authorization: Bearer {token}` 请求头中提取 Token
+ *   <li>验证 Token 的有效性（签名、过期时间、黑名单）
+ *   <li>将用户信息封装为 `LoginUser` 对象
+ *   <li>设置 `SecurityContext`（使用 ThreadLocal）
+ *   <li>请求结束时清理 `SecurityContext`（避免内存泄漏）
  * </ul>
  *
  * <p>处理流程：
+ *
  * <ol>
- *   <li>从请求头提取 Token（如果存在）</li>
- *   <li>验证 Token 有效性</li>
- *   <li>如果 Token 有效，设置 `SecurityContext`</li>
- *   <li>继续处理请求</li>
- *   <li>请求结束时清理 `SecurityContext`</li>
+ *   <li>从请求头提取 Token（如果存在）
+ *   <li>验证 Token 有效性
+ *   <li>如果 Token 有效，设置 `SecurityContext`
+ *   <li>继续处理请求
+ *   <li>请求结束时清理 `SecurityContext`
  * </ol>
  *
  * <p>注意：
+ *
  * <ul>
- *   <li>如果 Token 无效或缺失，不设置 `SecurityContext`，请求继续处理（由业务层决定是否拒绝）</li>
- *   <li>使用 `@Order` 注解确保在其他过滤器之后执行</li>
- *   <li>使用 `OncePerRequestFilter` 确保每个请求只执行一次</li>
+ *   <li>如果 Token 无效或缺失，不设置 `SecurityContext`，请求继续处理（由业务层决定是否拒绝）
+ *   <li>使用 `@Order` 注解确保在其他过滤器之后执行
+ *   <li>使用 `OncePerRequestFilter` 确保每个请求只执行一次
  * </ul>
  *
  * @author Atlas Team
@@ -85,7 +86,8 @@ public class SecurityContextFilter extends OncePerRequestFilter {
 
           // 4. 设置 SecurityContext
           securityContext.setLoginUser(loginUser);
-          log.debug("设置安全上下文: userId={}, username={}", tokenInfo.getUserId(), tokenInfo.getUsername());
+          log.debug(
+              "设置安全上下文: userId={}, username={}", tokenInfo.getUserId(), tokenInfo.getUsername());
         } else {
           log.debug("Token 验证失败，不设置安全上下文");
         }
@@ -124,4 +126,3 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     return trimmed;
   }
 }
-

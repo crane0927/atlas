@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +15,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,39 +50,40 @@ class JwtUtilTest {
     jwtConfigProps.setAlgorithm("RS256");
     authProperties.setJwt(jwtConfigProps);
 
-    jwtConfig = new JwtConfig(authProperties) {
-      @Override
-      public PrivateKey privateKey() {
-        return privateKey;
-      }
+    jwtConfig =
+        new JwtConfig(authProperties) {
+          @Override
+          public PrivateKey privateKey() {
+            return privateKey;
+          }
 
-      @Override
-      public PublicKey publicKey() {
-        return publicKey;
-      }
+          @Override
+          public PublicKey publicKey() {
+            return publicKey;
+          }
 
-      @Override
-      public String getKeyId() {
-        return "test-key";
-      }
+          @Override
+          public String getKeyId() {
+            return "test-key";
+          }
 
-      @Override
-      public Long getExpire() {
-        return 7200L;
-      }
+          @Override
+          public Long getExpire() {
+            return 7200L;
+          }
 
-      @Override
-      public String getAlgorithm() {
-        return "RS256";
-      }
+          @Override
+          public String getAlgorithm() {
+            return "RS256";
+          }
 
-      @Override
-      public String getPublicKeyPem() {
-        return "-----BEGIN PUBLIC KEY-----\n"
-            + Base64.getEncoder().encodeToString(publicKey.getEncoded())
-            + "\n-----END PUBLIC KEY-----";
-      }
-    };
+          @Override
+          public String getPublicKeyPem() {
+            return "-----BEGIN PUBLIC KEY-----\n"
+                + Base64.getEncoder().encodeToString(publicKey.getEncoded())
+                + "\n-----END PUBLIC KEY-----";
+          }
+        };
 
     jwtUtil = new JwtUtil(jwtConfig, privateKey, publicKey);
   }
@@ -156,4 +154,3 @@ class JwtUtilTest {
     assertThrows(RuntimeException.class, () -> jwtUtil.parseToken("invalid.token.here"));
   }
 }
-

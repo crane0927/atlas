@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.atlas.gateway.config.GatewayProperties.CorsConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 
 /**
@@ -113,4 +110,3 @@ class CorsConfigTest {
     assertNotNull(corsWebFilter);
   }
 }
-

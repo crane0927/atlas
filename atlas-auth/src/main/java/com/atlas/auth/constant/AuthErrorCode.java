@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.constant;
 
 /**
@@ -9,20 +7,22 @@ package com.atlas.auth.constant;
  * <p>定义 Auth 模块的错误码，模块码使用 01（atlas-auth）。
  *
  * <p>错误码格式：MMTTSS（6位数字）
+ *
  * <ul>
- *   <li>MM: 模块码（01）</li>
- *   <li>TT: 错误类型码（00-99）</li>
- *   <li>SS: 序号（00-99）</li>
+ *   <li>MM: 模块码（01）
+ *   <li>TT: 错误类型码（00-99）
+ *   <li>SS: 序号（00-99）
  * </ul>
  *
  * <p>错误类型码分配：
+ *
  * <ul>
- *   <li>00-09: 系统错误</li>
- *   <li>10-19: 参数错误</li>
- *   <li>20-29: 业务错误（登录失败、用户状态等）</li>
- *   <li>30-39: 权限错误（Token 相关）</li>
- *   <li>40-49: 数据错误</li>
- *   <li>50-99: 预留扩展</li>
+ *   <li>00-09: 系统错误
+ *   <li>10-19: 参数错误
+ *   <li>20-29: 业务错误（登录失败、用户状态等）
+ *   <li>30-39: 权限错误（Token 相关）
+ *   <li>40-49: 数据错误
+ *   <li>50-99: 预留扩展
  * </ul>
  *
  * @author Atlas Team
@@ -79,4 +79,3 @@ public class AuthErrorCode {
     throw new UnsupportedOperationException("常量类不允许实例化");
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +10,6 @@ import static org.mockito.Mockito.when;
 
 import com.atlas.gateway.config.GatewayProperties.RouteConfig;
 import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -146,4 +143,3 @@ class GatewayConfigTest {
     gatewayConfig.refreshRoutes();
   }
 }
-

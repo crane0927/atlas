@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.context;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +18,6 @@ class SecurityContextHolderTest {
       context = ctx;
     }
 
-    @Override
     public static SecurityContext getContext() {
       return context;
     }
@@ -186,4 +183,3 @@ class SecurityContextHolderTest {
     assertFalse(authenticated);
   }
 }
-

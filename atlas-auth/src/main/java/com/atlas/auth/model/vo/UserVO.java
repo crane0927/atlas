@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +11,12 @@ import lombok.NoArgsConstructor;
  * <p>用户基本信息视图对象，用于登录响应。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>userId：用户ID</li>
- *   <li>username：用户名</li>
- *   <li>nickname：昵称（可选）</li>
- *   <li>email：邮箱（可选）</li>
+ *   <li>userId：用户ID
+ *   <li>username：用户名
+ *   <li>nickname：昵称（可选）
+ *   <li>email：邮箱（可选）
  * </ul>
  *
  * @author Atlas Team
@@ -40,4 +39,3 @@ public class UserVO {
   /** 邮箱（可选） */
   private String email;
 }
-

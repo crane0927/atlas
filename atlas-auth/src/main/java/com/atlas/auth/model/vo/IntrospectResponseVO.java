@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import java.util.List;
@@ -14,13 +12,14 @@ import lombok.NoArgsConstructor;
  * <p>Token Introspection 响应数据，包含 Token 验证结果和用户信息。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>active：Token 是否有效</li>
- *   <li>userId：用户ID（如果 Token 有效）</li>
- *   <li>username：用户名（如果 Token 有效）</li>
- *   <li>roles：角色列表（如果 Token 有效）</li>
- *   <li>permissions：权限列表（如果 Token 有效）</li>
- *   <li>expiresAt：Token 过期时间戳（秒，如果 Token 有效）</li>
+ *   <li>active：Token 是否有效
+ *   <li>userId：用户ID（如果 Token 有效）
+ *   <li>username：用户名（如果 Token 有效）
+ *   <li>roles：角色列表（如果 Token 有效）
+ *   <li>permissions：权限列表（如果 Token 有效）
+ *   <li>expiresAt：Token 过期时间戳（秒，如果 Token 有效）
  * </ul>
  *
  * @author Atlas Team
@@ -49,4 +48,3 @@ public class IntrospectResponseVO {
   /** Token 过期时间戳（秒，如果 Token 有效） */
   private Long expiresAt;
 }
-

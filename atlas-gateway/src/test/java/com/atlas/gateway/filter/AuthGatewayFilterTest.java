@@ -1,10 +1,7 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -19,7 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -51,8 +47,7 @@ class AuthGatewayFilterTest {
     gatewayProperties = new GatewayProperties();
     tokenValidator = mock(TokenValidator.class);
     objectMapper = new ObjectMapper();
-    authGatewayFilter =
-        new AuthGatewayFilter(gatewayProperties, tokenValidator, objectMapper);
+    authGatewayFilter = new AuthGatewayFilter(gatewayProperties, tokenValidator, objectMapper);
 
     exchange = mock(ServerWebExchange.class);
     chain = mock(GatewayFilterChain.class);
@@ -149,7 +144,8 @@ class AuthGatewayFilterTest {
     // 验证返回错误响应
     StepVerifier.create(result).verifyComplete();
     verify(response).setStatusCode(org.springframework.http.HttpStatus.OK);
-    verify(response.getHeaders()).setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+    verify(response.getHeaders())
+        .setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
     verify(response).writeWith(any());
     // 验证过滤器链未被调用
     verify(chain, org.mockito.Mockito.never()).filter(any());
@@ -237,4 +233,3 @@ class AuthGatewayFilterTest {
     assertEquals(true, result);
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,4 +65,3 @@ public class PasswordUtil {
     return passwordEncoder.matches(rawPassword, encodedPassword);
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.enums;
 
 /**
@@ -9,8 +7,9 @@ package com.atlas.auth.model.enums;
  * <p>定义 Token 的类型，用于标识 Token 的用途。
  *
  * <p>枚举值说明：
+ *
  * <ul>
- *   <li>BEARER：Bearer Token，用于 HTTP Authorization 头</li>
+ *   <li>BEARER：Bearer Token，用于 HTTP Authorization 头
  * </ul>
  *
  * @author Atlas Team
@@ -21,4 +20,3 @@ public enum TokenType {
   /** Bearer Token - 用于 HTTP Authorization 头 */
   BEARER
 }
-

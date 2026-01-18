@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.context;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +47,10 @@ class SecurityContextTest {
     private final java.util.List<String> permissions;
 
     public TestLoginUser(
-        Long userId, String username, java.util.List<String> roles, java.util.List<String> permissions) {
+        Long userId,
+        String username,
+        java.util.List<String> roles,
+        java.util.List<String> permissions) {
       this.userId = userId;
       this.username = username;
       this.roles = roles != null ? roles : Collections.emptyList();
@@ -174,4 +175,3 @@ class SecurityContextTest {
     assertFalse(authenticated);
   }
 }
-

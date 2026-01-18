@@ -21,9 +21,7 @@ import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
 import com.atlas.system.user.model.entity.User;
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,8 +66,7 @@ class PermissionServiceTest {
   void testGetRolesByUserIdSuccess() {
     // Mock 服务调用
     when(userMapper.selectById(1L)).thenReturn(user);
-    when(userRoleMapper.selectRoleCodesByUserId(1L))
-        .thenReturn(Arrays.asList("admin", "user"));
+    when(userRoleMapper.selectRoleCodesByUserId(1L)).thenReturn(Arrays.asList("admin", "user"));
 
     // 执行查询
     List<String> roles = permissionService.getRolesByUserId(1L);
@@ -147,8 +144,7 @@ class PermissionServiceTest {
   void testGetAuthoritiesByUserIdSuccess() {
     // Mock 服务调用
     when(userMapper.selectById(1L)).thenReturn(user);
-    when(userRoleMapper.selectRoleCodesByUserId(1L))
-        .thenReturn(Arrays.asList("admin", "user"));
+    when(userRoleMapper.selectRoleCodesByUserId(1L)).thenReturn(Arrays.asList("admin", "user"));
     when(userRoleMapper.selectRoleIdsByUserId(1L)).thenReturn(Arrays.asList(1L, 2L));
     when(rolePermissionMapper.selectPermissionCodesByRoleIds(Arrays.asList(1L, 2L)))
         .thenReturn(Arrays.asList("user:read", "user:write"));
@@ -201,11 +197,13 @@ class PermissionServiceTest {
 
     // Mock 服务调用
     when(permissionMapper.selectOne(any())).thenReturn(null);
-    when(permissionMapper.insert(any(Permission.class))).thenAnswer(invocation -> {
-      Permission p = invocation.getArgument(0);
-      p.setPermissionId(1L);
-      return 1;
-    });
+    when(permissionMapper.insert(any(Permission.class)))
+        .thenAnswer(
+            invocation -> {
+              Permission p = invocation.getArgument(0);
+              p.setPermissionId(1L);
+              return 1;
+            });
 
     // 执行创建
     Long permissionId = permissionService.createPermission(permissionCreateDTO);
@@ -236,8 +234,7 @@ class PermissionServiceTest {
     // 执行创建并验证异常
     BusinessException exception =
         assertThrows(
-            BusinessException.class,
-            () -> permissionService.createPermission(permissionCreateDTO));
+            BusinessException.class, () -> permissionService.createPermission(permissionCreateDTO));
 
     assertEquals(SystemErrorCode.PERMISSION_CODE_ALREADY_EXISTS, exception.getErrorCode());
     assertEquals("权限代码已存在", exception.getMessage());

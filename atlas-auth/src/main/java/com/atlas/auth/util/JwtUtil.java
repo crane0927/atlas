@@ -1,13 +1,10 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.util;
 
 import com.atlas.auth.config.JwtConfig;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.time.Instant;
@@ -100,11 +97,7 @@ public class JwtUtil {
   public TokenInfoDTO parseToken(String token) {
     try {
       Claims claims =
-          Jwts.parser()
-              .verifyWith(publicKey)
-              .build()
-              .parseSignedClaims(token)
-              .getPayload();
+          Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(token).getPayload();
 
       TokenInfoDTO tokenInfo = new TokenInfoDTO();
       tokenInfo.setTokenId(claims.getId());
@@ -146,4 +139,3 @@ public class JwtUtil {
     }
   }
 }
-

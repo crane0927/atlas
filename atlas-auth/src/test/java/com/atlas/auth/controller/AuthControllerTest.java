@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.controller;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -13,10 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.atlas.auth.config.JwtConfig;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.model.vo.IntrospectRequestVO;
-import com.atlas.auth.model.vo.IntrospectResponseVO;
 import com.atlas.auth.model.vo.LoginRequestVO;
 import com.atlas.auth.model.vo.LoginResponseVO;
-import com.atlas.auth.model.vo.PublicKeyResponseVO;
 import com.atlas.auth.model.vo.UserVO;
 import com.atlas.auth.service.AuthService;
 import com.atlas.auth.service.TokenService;
@@ -107,9 +103,7 @@ class AuthControllerTest {
 
     // 执行请求
     mockMvc
-        .perform(
-            post("/api/v1/auth/logout")
-                .header("Authorization", "Bearer test-token"))
+        .perform(post("/api/v1/auth/logout").header("Authorization", "Bearer test-token"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.code").value("000000"))
         .andExpect(jsonPath("$.message").value("登出成功"));
@@ -128,7 +122,9 @@ class AuthControllerTest {
   void testGetPublicKey() throws Exception {
     // Mock 配置
     when(jwtConfig.getAlgorithm()).thenReturn("RS256");
-    when(jwtConfig.getPublicKeyPem()).thenReturn("-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...\n-----END PUBLIC KEY-----");
+    when(jwtConfig.getPublicKeyPem())
+        .thenReturn(
+            "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...\n-----END PUBLIC KEY-----");
     when(jwtConfig.getKeyId()).thenReturn("key-2025-01-06");
 
     // 执行请求
@@ -189,4 +185,3 @@ class AuthControllerTest {
         .andExpect(jsonPath("$.data.active").value(false));
   }
 }
-

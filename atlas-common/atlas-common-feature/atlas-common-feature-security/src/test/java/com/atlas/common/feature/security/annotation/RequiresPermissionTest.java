@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.annotation;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,13 +10,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.junit.jupiter.api.Test;
 
-/** @RequiresPermission 注解单元测试 */
+/**
+ * @RequiresPermission 注解单元测试
+ */
 class RequiresPermissionTest {
 
   @RequiresPermission("user:read")
   static class TestClass {}
 
-  @RequiresPermission(value = {"user:read", "user:write"}, logical = Logical.AND)
+  @RequiresPermission(
+      value = {"user:read", "user:write"},
+      logical = Logical.AND)
   static class TestClassWithMultiplePermissions {}
 
   @RequiresPermission(value = "user:write", logical = Logical.OR)
@@ -112,4 +114,3 @@ class RequiresPermissionTest {
     assertTrue(annotation instanceof RequiresPermission);
   }
 }
-

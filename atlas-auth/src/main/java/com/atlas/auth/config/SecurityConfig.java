@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.config;
 
 import com.atlas.auth.context.AuthSecurityContextHolder;
@@ -9,7 +7,6 @@ import com.atlas.auth.filter.SecurityContextFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import jakarta.annotation.PostConstruct;
 
 /**
  * 安全配置类
@@ -17,10 +14,11 @@ import jakarta.annotation.PostConstruct;
  * <p>配置安全相关的 Bean 和过滤器。
  *
  * <p>功能特性：
+ *
  * <ul>
- *   <li>注册 `SecurityContextImpl` Bean</li>
- *   <li>注册 `SecurityContextFilter` 过滤器</li>
- *   <li>设置 `SecurityContextHolder` 的实现</li>
+ *   <li>注册 `SecurityContextImpl` Bean
+ *   <li>注册 `SecurityContextFilter` 过滤器
+ *   <li>设置 `SecurityContextHolder` 的实现
  * </ul>
  *
  * @author Atlas Team
@@ -75,4 +73,3 @@ public class SecurityConfig {
     return new AuthSecurityContextHolder();
   }
 }
-

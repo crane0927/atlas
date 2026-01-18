@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import com.atlas.common.infra.logging.trace.TraceIdUtil;
@@ -93,17 +91,10 @@ public class TraceIdGatewayFilter implements GlobalFilter, Ordered {
     TraceIdUtil.setTraceId(traceId);
 
     // 将 TraceId 添加到转发请求的请求头（修改 ServerHttpRequest）
-    ServerHttpRequest modifiedRequest =
-        request
-            .mutate()
-            .header(TRACE_ID_HEADER, traceId)
-            .build();
+    ServerHttpRequest modifiedRequest = request.mutate().header(TRACE_ID_HEADER, traceId).build();
 
     // 将 TraceId 添加到响应头（修改 ServerHttpResponse）
-    exchange
-        .getResponse()
-        .getHeaders()
-        .add(TRACE_ID_HEADER, traceId);
+    exchange.getResponse().getHeaders().add(TRACE_ID_HEADER, traceId);
 
     // 使用修改后的请求继续执行过滤器链
     ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
@@ -131,4 +122,3 @@ public class TraceIdGatewayFilter implements GlobalFilter, Ordered {
     return Ordered.HIGHEST_PRECEDENCE;
   }
 }
-

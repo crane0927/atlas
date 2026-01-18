@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.context;
 
 import com.atlas.common.feature.security.user.LoginUser;
@@ -8,10 +6,10 @@ import com.atlas.common.feature.security.user.LoginUser;
 /**
  * 安全上下文持有者
  *
- * <p>提供静态方法获取安全上下文，方便开发人员使用。该抽象类不包含具体实现，
- * getContext() 方法由具体实现提供。
+ * <p>提供静态方法获取安全上下文，方便开发人员使用。该抽象类不包含具体实现， getContext() 方法由具体实现提供。
  *
  * <p>使用示例：
+ *
  * <pre>
  * // 获取当前登录用户
  * LoginUser user = SecurityContextHolder.getLoginUser();
@@ -23,9 +21,10 @@ import com.atlas.common.feature.security.user.LoginUser;
  * </pre>
  *
  * <p>实现类应该：
+ *
  * <ul>
- *   <li>实现 getContext() 方法，提供具体的安全上下文实现</li>
- *   <li>支持 ThreadLocal、Request Scope、全局单例等多种实现方式</li>
+ *   <li>实现 getContext() 方法，提供具体的安全上下文实现
+ *   <li>支持 ThreadLocal、Request Scope、全局单例等多种实现方式
  * </ul>
  *
  * @author Atlas
@@ -68,4 +67,3 @@ public abstract class SecurityContextHolder {
     return context != null && context.isAuthenticated();
   }
 }
-

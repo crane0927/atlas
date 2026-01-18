@@ -1,15 +1,13 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.controller;
 
 import com.atlas.auth.config.JwtConfig;
+import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.model.vo.IntrospectRequestVO;
 import com.atlas.auth.model.vo.IntrospectResponseVO;
 import com.atlas.auth.model.vo.LoginRequestVO;
 import com.atlas.auth.model.vo.LoginResponseVO;
 import com.atlas.auth.model.vo.PublicKeyResponseVO;
-import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.service.AuthService;
 import com.atlas.auth.service.TokenService;
 import com.atlas.common.feature.core.result.Result;
@@ -28,9 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>提供用户登录、登出等认证相关的 RESTful 接口。
  *
  * <p>接口列表：
+ *
  * <ul>
- *   <li>POST /api/v1/auth/login - 用户登录</li>
- *   <li>POST /api/v1/auth/logout - 用户登出</li>
+ *   <li>POST /api/v1/auth/login - 用户登录
+ *   <li>POST /api/v1/auth/logout - 用户登出
  * </ul>
  *
  * @author Atlas Team
@@ -57,6 +56,7 @@ public class AuthController {
    * <p>验证用户身份并签发 Token。
    *
    * <p>请求示例：
+   *
    * <pre>{@code
    * POST /api/v1/auth/login
    * Content-Type: application/json
@@ -68,6 +68,7 @@ public class AuthController {
    * }</pre>
    *
    * <p>响应示例：
+   *
    * <pre>{@code
    * {
    *   "code": "000000",
@@ -104,12 +105,14 @@ public class AuthController {
    * <p>使 Token 失效并清除会话。
    *
    * <p>请求示例：
+   *
    * <pre>{@code
    * POST /api/v1/auth/logout
    * Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
    * }</pre>
    *
    * <p>响应示例：
+   *
    * <pre>{@code
    * {
    *   "code": "000000",
@@ -123,7 +126,8 @@ public class AuthController {
    * @return 登出响应
    */
   @PostMapping("/logout")
-  public Result<Void> logout(@RequestHeader(value = "Authorization", required = false) String authorization) {
+  public Result<Void> logout(
+      @RequestHeader(value = "Authorization", required = false) String authorization) {
     // 从 Authorization 头中提取 Token
     String token = extractToken(authorization);
     if (token == null) {
@@ -142,11 +146,13 @@ public class AuthController {
    * <p>为 Gateway 提供 JWT 公钥，支持 Gateway 自主验证 Token。
    *
    * <p>请求示例：
+   *
    * <pre>{@code
    * GET /api/v1/auth/public-key
    * }</pre>
    *
    * <p>响应示例：
+   *
    * <pre>{@code
    * {
    *   "code": "000000",
@@ -179,6 +185,7 @@ public class AuthController {
    * <p>为 Gateway 提供 Token 验证接口，Gateway 通过调用此接口验证 Token。
    *
    * <p>请求示例：
+   *
    * <pre>{@code
    * POST /api/v1/auth/introspect
    * Content-Type: application/json
@@ -189,6 +196,7 @@ public class AuthController {
    * }</pre>
    *
    * <p>响应示例（Token 有效）：
+   *
    * <pre>{@code
    * {
    *   "code": "000000",
@@ -207,6 +215,7 @@ public class AuthController {
    * }</pre>
    *
    * <p>响应示例（Token 无效）：
+   *
    * <pre>{@code
    * {
    *   "code": "000000",
@@ -224,7 +233,9 @@ public class AuthController {
    */
   @PostMapping("/introspect")
   public Result<IntrospectResponseVO> introspect(@Valid @RequestBody IntrospectRequestVO request) {
-    log.debug("Token Introspection 请求: tokenId={}", request.getToken().substring(0, Math.min(20, request.getToken().length())));
+    log.debug(
+        "Token Introspection 请求: tokenId={}",
+        request.getToken().substring(0, Math.min(20, request.getToken().length())));
 
     // 验证 Token
     TokenInfoDTO tokenInfo = tokenService.validateToken(request.getToken());
@@ -268,4 +279,3 @@ public class AuthController {
     return trimmed;
   }
 }
-

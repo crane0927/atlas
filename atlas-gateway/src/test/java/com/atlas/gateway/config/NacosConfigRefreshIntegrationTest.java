@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +10,6 @@ import com.atlas.gateway.config.GatewayProperties.RouteConfig;
 import com.atlas.gateway.config.GatewayProperties.WhitelistConfig;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -142,4 +139,3 @@ class NacosConfigRefreshIntegrationTest {
     // 注意：在实际环境中，配置变更会通过 Nacos Config 自动触发
   }
 }
-

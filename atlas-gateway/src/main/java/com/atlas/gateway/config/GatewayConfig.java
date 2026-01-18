@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import com.atlas.gateway.config.GatewayProperties.RouteConfig;
@@ -174,12 +172,10 @@ public class GatewayConfig {
           routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
           log.info("刷新路由配置成功: id={}, uri={}", routeConfig.getId(), routeConfig.getUri());
         } catch (Exception e) {
-          log.error(
-              "刷新路由配置失败: id={}, error={}", routeConfig.getId(), e.getMessage(), e);
+          log.error("刷新路由配置失败: id={}, error={}", routeConfig.getId(), e.getMessage(), e);
         }
       }
     }
     log.info("路由配置刷新完成");
   }
 }
-

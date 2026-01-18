@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.user;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -221,4 +219,3 @@ class LoginUserTest {
     assertTrue(user.hasPermission("user:read"));
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.dto;
 
 import java.util.List;
@@ -14,14 +12,15 @@ import lombok.NoArgsConstructor;
  * <p>Token 信息数据传输对象，用于内部传递 Token 相关的用户信息。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>tokenId：Token ID（JWT 的 jti），用于黑名单管理</li>
- *   <li>userId：用户ID</li>
- *   <li>username：用户名</li>
- *   <li>roles：角色列表</li>
- *   <li>permissions：权限列表</li>
- *   <li>issuedAt：签发时间戳（秒）</li>
- *   <li>expiresAt：过期时间戳（秒）</li>
+ *   <li>tokenId：Token ID（JWT 的 jti），用于黑名单管理
+ *   <li>userId：用户ID
+ *   <li>username：用户名
+ *   <li>roles：角色列表
+ *   <li>permissions：权限列表
+ *   <li>issuedAt：签发时间戳（秒）
+ *   <li>expiresAt：过期时间戳（秒）
  * </ul>
  *
  * @author Atlas Team
@@ -53,4 +52,3 @@ public class TokenInfoDTO {
   /** 过期时间戳（秒） */
   private Long expiresAt;
 }
-

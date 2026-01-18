@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.annotation;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,13 +10,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.junit.jupiter.api.Test;
 
-/** @RequiresRole 注解单元测试 */
+/**
+ * @RequiresRole 注解单元测试
+ */
 class RequiresRoleTest {
 
   @RequiresRole("ADMIN")
   static class TestClass {}
 
-  @RequiresRole(value = {"ADMIN", "MANAGER"}, logical = Logical.OR)
+  @RequiresRole(
+      value = {"ADMIN", "MANAGER"},
+      logical = Logical.OR)
   static class TestClassWithMultipleRoles {}
 
   @RequiresRole(value = "USER", logical = Logical.AND)
@@ -39,8 +41,7 @@ class RequiresRoleTest {
   @Test
   void testRequiresRoleWithMultipleRoles() {
     // Given
-    RequiresRole annotation =
-        TestClassWithMultipleRoles.class.getAnnotation(RequiresRole.class);
+    RequiresRole annotation = TestClassWithMultipleRoles.class.getAnnotation(RequiresRole.class);
 
     // When & Then
     assertNotNull(annotation);
@@ -108,4 +109,3 @@ class RequiresRoleTest {
     assertTrue(annotation instanceof RequiresRole);
   }
 }
-

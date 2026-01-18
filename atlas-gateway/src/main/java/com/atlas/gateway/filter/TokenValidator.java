@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -58,4 +56,3 @@ public interface TokenValidator {
    */
   boolean validate(ServerHttpRequest request);
 }
-

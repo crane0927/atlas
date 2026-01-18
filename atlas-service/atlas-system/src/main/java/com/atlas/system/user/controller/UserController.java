@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>实现 UserQueryApi 接口，提供用户查询的 RESTful API 接口。
  *
  * <p>接口说明：
+ *
  * <ul>
  *   <li>GET /api/v1/users/{userId}：根据用户ID查询用户信息
  *   <li>GET /api/v1/users/by-username?username={username}：根据用户名查询用户信息

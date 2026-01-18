@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -102,7 +100,8 @@ class GatewayPropertiesTest {
     route.setId("test-route");
     route.setUri("http://localhost:9090");
     route.setPredicates(Arrays.asList("Path=/test/**"));
-    route.setFilters(Arrays.asList("StripPrefix=1", "RewritePath=/test/(?<segment>.*), /$\\{segment}"));
+    route.setFilters(
+        Arrays.asList("StripPrefix=1", "RewritePath=/test/(?<segment>.*), /$\\{segment}"));
 
     assertEquals("test-route", route.getId());
     assertEquals("http://localhost:9090", route.getUri());
@@ -136,4 +135,3 @@ class GatewayPropertiesTest {
     assertEquals(1800, cors.getMaxAge());
   }
 }
-

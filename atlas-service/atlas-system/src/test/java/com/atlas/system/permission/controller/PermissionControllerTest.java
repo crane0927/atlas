@@ -1,7 +1,6 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.permission.controller;
 
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -38,8 +37,7 @@ class PermissionControllerTest {
   @Test
   void testGetUserRolesSuccess() throws Exception {
     // Mock 服务方法
-    when(permissionService.getRolesByUserId(1L))
-        .thenReturn(Arrays.asList("admin", "user"));
+    when(permissionService.getRolesByUserId(1L)).thenReturn(Arrays.asList("admin", "user"));
 
     // 执行请求
     mockMvc

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.api.v1.feign;
 
 import com.atlas.common.feature.core.result.Result;
@@ -16,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  * <p>定义用户查询的 Feign 接口，供 auth 服务和其他服务查询用户信息。
  *
  * <p>接口说明：
+ *
  * <ul>
- *   <li>getUserById：根据用户ID查询用户信息</li>
- *   <li>getUserByUsername：根据用户名查询用户信息</li>
+ *   <li>getUserById：根据用户ID查询用户信息
+ *   <li>getUserByUsername：根据用户名查询用户信息
  * </ul>
  *
  * <p>服务名称：atlas-system
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Atlas Team
  * @since 1.0.0
  */
-@FeignClient(value = "atlas-system",contextId = "user-query-api", path = "/api/v1")
+@FeignClient(value = "atlas-system", contextId = "user-query-api", path = "/api/v1")
 public interface UserQueryApi {
 
   /**
@@ -55,4 +54,3 @@ public interface UserQueryApi {
   @GetMapping("/users/by-username")
   Result<UserDTO> getUserByUsername(@RequestParam String username);
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.security.annotation;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,4 +23,3 @@ class LogicalTest {
     assertEquals(Logical.OR, Logical.valueOf("OR"));
   }
 }
-

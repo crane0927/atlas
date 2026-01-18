@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,7 +80,8 @@ class GatewayExceptionHandlerTest {
     TraceIdUtil.setTraceId("test-trace-id-12345");
 
     // 创建 ServiceUnavailableException
-    ResponseStatusException exception = new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "服务不可用");
+    ResponseStatusException exception =
+        new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "服务不可用");
 
     // 执行异常处理
     Mono<Void> result = exceptionHandler.handle(exchange, exception);
@@ -161,10 +160,12 @@ class GatewayExceptionHandlerTest {
     DataBuffer[] capturedBuffer = new DataBuffer[1];
 
     when(response.bufferFactory()).thenReturn(bufferFactory);
-    when(response.writeWith(any())).thenAnswer(invocation -> {
-      Mono<DataBuffer> bufferMono = invocation.getArgument(0);
-      return bufferMono.doOnNext(buffer -> capturedBuffer[0] = buffer).then();
-    });
+    when(response.writeWith(any()))
+        .thenAnswer(
+            invocation -> {
+              Mono<DataBuffer> bufferMono = invocation.getArgument(0);
+              return bufferMono.doOnNext(buffer -> capturedBuffer[0] = buffer).then();
+            });
 
     // 执行异常处理
     Mono<Void> result = exceptionHandler.handle(exchange, exception);
@@ -183,4 +184,3 @@ class GatewayExceptionHandlerTest {
     }
   }
 }
-

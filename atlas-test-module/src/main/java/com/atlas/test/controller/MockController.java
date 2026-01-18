@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.test.controller;
 
 import com.atlas.common.feature.core.result.Result;
@@ -61,4 +59,3 @@ public class MockController {
     private Long timestamp;
   }
 }
-

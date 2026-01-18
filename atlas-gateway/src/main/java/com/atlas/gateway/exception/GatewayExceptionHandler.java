@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.exception;
 
 import com.atlas.common.feature.core.result.Result;
@@ -109,7 +107,8 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
       } else {
         // 其他 HTTP 状态异常
         errorCode = "010000";
-        errorMessage = statusException.getReason() != null ? statusException.getReason() : "Gateway 错误";
+        errorMessage =
+            statusException.getReason() != null ? statusException.getReason() : "Gateway 错误";
       }
     } else if (ex instanceof TimeoutException) {
       // 请求超时
@@ -126,7 +125,12 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
     }
 
     // 记录异常日志
-    log.error("Gateway 异常: errorCode={}, message={}, exception={}", errorCode, errorMessage, ex.getClass().getName(), ex);
+    log.error(
+        "Gateway 异常: errorCode={}, message={}, exception={}",
+        errorCode,
+        errorMessage,
+        ex.getClass().getName(),
+        ex);
 
     // 构建错误响应
     String traceId = TraceIdUtil.getTraceId();
@@ -147,12 +151,13 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
     } catch (JsonProcessingException e) {
       log.error("序列化错误响应失败", e);
       // 如果序列化失败，返回简单的错误响应
-      String fallbackJson = String.format(
-          "{\"code\":\"%s\",\"message\":\"%s\",\"traceId\":\"%s\",\"timestamp\":%d}",
-          errorCode, errorMessage, traceId != null ? traceId : "", System.currentTimeMillis());
-      DataBuffer buffer = response.bufferFactory().wrap(fallbackJson.getBytes(StandardCharsets.UTF_8));
+      String fallbackJson =
+          String.format(
+              "{\"code\":\"%s\",\"message\":\"%s\",\"traceId\":\"%s\",\"timestamp\":%d}",
+              errorCode, errorMessage, traceId != null ? traceId : "", System.currentTimeMillis());
+      DataBuffer buffer =
+          response.bufferFactory().wrap(fallbackJson.getBytes(StandardCharsets.UTF_8));
       return response.writeWith(Mono.just(buffer));
     }
   }
 }
-

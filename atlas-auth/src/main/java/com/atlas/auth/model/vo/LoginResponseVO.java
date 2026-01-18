@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +11,12 @@ import lombok.NoArgsConstructor;
  * <p>用户登录响应数据，包含 Token 和用户基本信息。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>token：JWT Token</li>
- *   <li>tokenType：Token 类型（固定为 "Bearer"）</li>
- *   <li>expiresIn：Token 过期时间（秒）</li>
- *   <li>user：用户基本信息</li>
+ *   <li>token：JWT Token
+ *   <li>tokenType：Token 类型（固定为 "Bearer"）
+ *   <li>expiresIn：Token 过期时间（秒）
+ *   <li>user：用户基本信息
  * </ul>
  *
  * @author Atlas Team
@@ -40,4 +39,3 @@ public class LoginResponseVO {
   /** 用户基本信息 */
   private UserVO user;
 }
-

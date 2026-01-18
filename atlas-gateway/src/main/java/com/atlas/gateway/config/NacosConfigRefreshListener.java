@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +31,8 @@ import org.springframework.stereotype.Component;
  *   <li>CORS 配置：{@code atlas.gateway.cors.*}
  * </ul>
  *
- * <p>注意：此监听器依赖于 Spring Cloud 的配置刷新机制。当 Nacos Config 配置变更时，
- * Spring Cloud 会自动刷新配置并发布 EnvironmentChangeEvent 事件。
+ * <p>注意：此监听器依赖于 Spring Cloud 的配置刷新机制。当 Nacos Config 配置变更时， Spring Cloud 会自动刷新配置并发布
+ * EnvironmentChangeEvent 事件。
  *
  * @author Atlas Team
  * @since 1.0.0
@@ -55,8 +53,8 @@ public class NacosConfigRefreshListener implements ApplicationListener<Environme
   /**
    * 处理环境变更事件
    *
-   * <p>当 Nacos Config 配置变更时，Spring Cloud 会发布 EnvironmentChangeEvent 事件。
-   * 如果变更的配置项包含 Gateway 相关配置（atlas.gateway.*），则刷新路由规则和 CORS 配置。
+   * <p>当 Nacos Config 配置变更时，Spring Cloud 会发布 EnvironmentChangeEvent 事件。 如果变更的配置项包含 Gateway
+   * 相关配置（atlas.gateway.*），则刷新路由规则和 CORS 配置。
    *
    * @param event 环境变更事件
    */
@@ -102,4 +100,3 @@ public class NacosConfigRefreshListener implements ApplicationListener<Environme
     }
   }
 }
-

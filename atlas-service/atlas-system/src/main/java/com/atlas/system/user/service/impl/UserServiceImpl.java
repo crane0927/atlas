@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  * <p>实现用户查询业务逻辑，包括根据用户ID和用户名查询用户信息。
  *
  * <p>功能说明：
+ *
  * <ul>
  *   <li>实现 getUserById 方法，根据用户ID查询用户
  *   <li>实现 getUserByUsername 方法，根据用户名查询用户

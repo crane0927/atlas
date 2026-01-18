@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway;
 
 import org.springframework.boot.SpringApplication;
@@ -26,4 +24,3 @@ public class GatewayApplication {
     SpringApplication.run(GatewayApplication.class, args);
   }
 }
-

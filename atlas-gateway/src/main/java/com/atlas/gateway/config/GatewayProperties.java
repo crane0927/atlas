@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import java.util.ArrayList;
@@ -141,4 +139,3 @@ public class GatewayProperties {
     private Integer maxAge = 3600;
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -70,4 +68,3 @@ class PasswordUtilTest {
     assertTrue(passwordUtil.matches(rawPassword, encodedPassword2));
   }
 }
-

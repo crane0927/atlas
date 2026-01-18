@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.config;
 
 import lombok.Data;
@@ -68,4 +66,3 @@ public class AuthProperties {
     private String algorithm = "RS256";
   }
 }
-

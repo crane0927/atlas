@@ -7,6 +7,7 @@ package com.atlas.system.constant;
  * <p>定义系统域（atlas-system）的错误码，模块码使用 03。
  *
  * <p>错误码格式：MMTTSS（6位数字）
+ *
  * <ul>
  *   <li>MM: 模块码（03）
  *   <li>TT: 错误类型码（00-99）
@@ -14,6 +15,7 @@ package com.atlas.system.constant;
  * </ul>
  *
  * <p>错误类型码分配：
+ *
  * <ul>
  *   <li>00-09: 用户相关错误
  *   <li>10-19: 角色相关错误

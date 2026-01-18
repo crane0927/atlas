@@ -1,9 +1,6 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.config;
 
-import io.jsonwebtoken.security.Keys;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -169,4 +166,3 @@ public class JwtConfig {
     return authProperties.getJwt().getPublicKey();
   }
 }
-

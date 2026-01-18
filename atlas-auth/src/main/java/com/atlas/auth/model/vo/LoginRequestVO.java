@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,9 +12,10 @@ import lombok.NoArgsConstructor;
  * <p>用户登录请求参数，包含用户名和密码。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>username：用户名，必填字段</li>
- *   <li>password：密码，必填字段</li>
+ *   <li>username：用户名，必填字段
+ *   <li>password：密码，必填字段
  * </ul>
  *
  * @author Atlas Team
@@ -35,4 +34,3 @@ public class LoginRequestVO {
   @NotBlank(message = "密码不能为空")
   private String password;
 }
-

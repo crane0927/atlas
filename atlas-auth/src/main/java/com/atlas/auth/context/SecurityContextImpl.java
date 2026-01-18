@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.context;
 
 import com.atlas.common.feature.security.context.SecurityContext;
@@ -12,10 +10,11 @@ import com.atlas.common.feature.security.user.LoginUser;
  * <p>使用 ThreadLocal 存储用户信息，为下游服务提供安全上下文。
  *
  * <p>实现特性：
+ *
  * <ul>
- *   <li>使用 ThreadLocal 存储用户信息，线程安全</li>
- *   <li>支持多线程环境下的用户上下文隔离</li>
- *   <li>提供 clear() 方法清理上下文，避免内存泄漏</li>
+ *   <li>使用 ThreadLocal 存储用户信息，线程安全
+ *   <li>支持多线程环境下的用户上下文隔离
+ *   <li>提供 clear() 方法清理上下文，避免内存泄漏
  * </ul>
  *
  * @author Atlas Team
@@ -55,4 +54,3 @@ public class SecurityContextImpl implements SecurityContext {
     context.remove();
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service.impl;
 
 import com.atlas.auth.config.JwtConfig;
@@ -14,7 +12,6 @@ import com.atlas.auth.service.SessionService;
 import com.atlas.auth.service.TokenService;
 import com.atlas.auth.util.PasswordUtil;
 import com.atlas.common.feature.core.exception.BusinessException;
-import com.atlas.common.feature.core.exception.DataException;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.api.v1.feign.PermissionQueryApi;
 import com.atlas.system.api.v1.feign.UserQueryApi;
@@ -110,22 +107,32 @@ public class AuthServiceImpl implements AuthService {
     // 或者需要在 atlas-system 服务中提供密码验证接口
     // TODO: 根据实际实现调整密码验证逻辑
     String storedPassword = getStoredPassword(userDTO);
-    if (storedPassword == null || !passwordUtil.matches(loginRequest.getPassword(), storedPassword)) {
+    if (storedPassword == null
+        || !passwordUtil.matches(loginRequest.getPassword(), storedPassword)) {
       log.warn("密码错误: userId={}", userDTO.getUserId());
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_ERROR, "用户名或密码错误");
     }
 
     // 5. 查询用户权限和角色
-    Result<UserAuthoritiesDTO> authoritiesResult = permissionQueryApi.getUserAuthorities(userDTO.getUserId());
-    if (authoritiesResult == null || !authoritiesResult.isSuccess() || authoritiesResult.getData() == null) {
+    Result<UserAuthoritiesDTO> authoritiesResult =
+        permissionQueryApi.getUserAuthorities(userDTO.getUserId());
+    if (authoritiesResult == null
+        || !authoritiesResult.isSuccess()
+        || authoritiesResult.getData() == null) {
       log.warn("查询用户权限失败: userId={}", userDTO.getUserId());
       // 权限查询失败时，使用空列表
-      authoritiesResult = Result.success(new UserAuthoritiesDTO(userDTO.getUserId(), new ArrayList<>(), new ArrayList<>()));
+      authoritiesResult =
+          Result.success(
+              new UserAuthoritiesDTO(userDTO.getUserId(), new ArrayList<>(), new ArrayList<>()));
     }
 
     UserAuthoritiesDTO authoritiesDTO = authoritiesResult.getData();
-    List<String> roles = authoritiesDTO.getRoles() != null ? authoritiesDTO.getRoles() : new ArrayList<>();
-    List<String> permissions = authoritiesDTO.getPermissions() != null ? authoritiesDTO.getPermissions() : new ArrayList<>();
+    List<String> roles =
+        authoritiesDTO.getRoles() != null ? authoritiesDTO.getRoles() : new ArrayList<>();
+    List<String> permissions =
+        authoritiesDTO.getPermissions() != null
+            ? authoritiesDTO.getPermissions()
+            : new ArrayList<>();
 
     // 6. 生成 Token
     TokenInfoDTO tokenInfo = new TokenInfoDTO();
@@ -185,7 +192,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     // 3. 将 Token 加入黑名单
-    sessionService.addToBlacklist(tokenInfo.getTokenId(), tokenInfo.getUserId(), jwtConfig.getExpire());
+    sessionService.addToBlacklist(
+        tokenInfo.getTokenId(), tokenInfo.getUserId(), jwtConfig.getExpire());
 
     // 4. 删除会话信息
     sessionService.deleteSession(tokenInfo.getUserId());
@@ -196,8 +204,7 @@ public class AuthServiceImpl implements AuthService {
   /**
    * 获取存储的密码
    *
-   * <p>从 UserDTO 中获取密码。注意：实际实现中，密码不应该在 DTO 中传递。
-   * 这里是一个临时实现，实际应该通过其他方式获取密码（如专门的密码验证接口）。
+   * <p>从 UserDTO 中获取密码。注意：实际实现中，密码不应该在 DTO 中传递。 这里是一个临时实现，实际应该通过其他方式获取密码（如专门的密码验证接口）。
    *
    * @param userDTO 用户 DTO
    * @return 加密后的密码
@@ -211,4 +218,3 @@ public class AuthServiceImpl implements AuthService {
     return null;
   }
 }
-

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.api.v1.model.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -129,4 +127,3 @@ class UserDTOTest {
     assertEquals("https://example.com/avatar.jpg", userDTO.getAvatar());
   }
 }
-

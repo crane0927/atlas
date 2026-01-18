@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,9 +24,7 @@ import com.atlas.system.api.v1.feign.UserQueryApi;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.api.v1.model.dto.UserDTO;
 import com.atlas.system.api.v1.model.enums.UserStatus;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -89,10 +85,8 @@ class AuthServiceTest {
     LoginRequestVO loginRequest = new LoginRequestVO("admin", "password123");
 
     // Mock 服务调用
-    when(userQueryApi.getUserByUsername("admin"))
-        .thenReturn(Result.success(userDTO));
-    when(permissionQueryApi.getUserAuthorities(1L))
-        .thenReturn(Result.success(authoritiesDTO));
+    when(userQueryApi.getUserByUsername("admin")).thenReturn(Result.success(userDTO));
+    when(permissionQueryApi.getUserAuthorities(1L)).thenReturn(Result.success(authoritiesDTO));
     when(passwordUtil.matches("password123", "encoded-password")).thenReturn(true);
 
     TokenInfoDTO tokenInfo = new TokenInfoDTO();
@@ -132,8 +126,7 @@ class AuthServiceTest {
     LoginRequestVO loginRequest = new LoginRequestVO("admin", "password123");
 
     // Mock 服务调用（用户不存在）
-    when(userQueryApi.getUserByUsername("admin"))
-        .thenReturn(Result.error("012001", "用户不存在"));
+    when(userQueryApi.getUserByUsername("admin")).thenReturn(Result.error("012001", "用户不存在"));
 
     // 执行登录并验证异常
     BusinessException exception =
@@ -152,8 +145,7 @@ class AuthServiceTest {
     userDTO.setStatus(UserStatus.INACTIVE);
 
     // Mock 服务调用
-    when(userQueryApi.getUserByUsername("admin"))
-        .thenReturn(Result.success(userDTO));
+    when(userQueryApi.getUserByUsername("admin")).thenReturn(Result.success(userDTO));
 
     // 执行登录并验证异常
     BusinessException exception =
@@ -168,8 +160,7 @@ class AuthServiceTest {
     userDTO.setStatus(UserStatus.LOCKED);
 
     // Mock 服务调用
-    when(userQueryApi.getUserByUsername("admin"))
-        .thenReturn(Result.success(userDTO));
+    when(userQueryApi.getUserByUsername("admin")).thenReturn(Result.success(userDTO));
 
     // 执行登录并验证异常
     BusinessException exception =
@@ -206,8 +197,7 @@ class AuthServiceTest {
     String token = "invalid-token";
 
     // Mock 服务调用（Token 解析失败）
-    when(tokenService.parseToken(token))
-        .thenThrow(new RuntimeException("Token 无效"));
+    when(tokenService.parseToken(token)).thenThrow(new RuntimeException("Token 无效"));
 
     // 执行登出并验证异常
     BusinessException exception =
@@ -219,4 +209,3 @@ class AuthServiceTest {
     verify(sessionService, never()).deleteSession(anyLong());
   }
 }
-

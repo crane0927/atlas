@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service.impl;
 
 import com.atlas.auth.model.dto.TokenInfoDTO;
@@ -10,9 +8,8 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import tools.jackson.databind.ObjectMapper;
-
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * 会话服务实现类
@@ -20,6 +17,7 @@ import org.springframework.stereotype.Service;
  * <p>实现用户会话和 Token 黑名单的管理功能，使用 Redis 存储。
  *
  * <p>Redis Key 设计：
+ *
  * <ul>
  *   <li>会话信息：`session:{userId}` (String, JSON, 带过期时间)
  *   <li>Token 黑名单：`token:blacklist:{tokenId}` (String, JSON, 带过期时间)
@@ -104,7 +102,8 @@ public class SessionServiceImpl implements SessionService {
 
       // 存储到 Redis，设置过期时间
       CacheUtil.set(key, blacklistData, expireSeconds.intValue());
-      log.debug("Token 加入黑名单成功: tokenId={}, userId={}, expireSeconds={}", tokenId, userId, expireSeconds);
+      log.debug(
+          "Token 加入黑名单成功: tokenId={}, userId={}, expireSeconds={}", tokenId, userId, expireSeconds);
     } catch (Exception e) {
       log.error("Token 加入黑名单失败: tokenId={}", tokenId, e);
       throw new RuntimeException("Token 加入黑名单失败: " + e.getMessage(), e);
@@ -127,4 +126,3 @@ public class SessionServiceImpl implements SessionService {
     }
   }
 }
-

@@ -117,8 +117,7 @@ public class PermissionServiceImpl implements PermissionService {
             new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<Permission>()
                 .eq(Permission::getPermissionCode, permissionCreateDTO.getPermissionCode()));
     if (existingPermission != null && !"DELETED".equals(existingPermission.getStatus())) {
-      throw new BusinessException(
-          SystemErrorCode.PERMISSION_CODE_ALREADY_EXISTS, "权限代码已存在");
+      throw new BusinessException(SystemErrorCode.PERMISSION_CODE_ALREADY_EXISTS, "权限代码已存在");
     }
     // 创建权限实体
     Permission permission = new Permission();

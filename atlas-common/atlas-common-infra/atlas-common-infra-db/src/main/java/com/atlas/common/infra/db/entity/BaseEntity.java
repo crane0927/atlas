@@ -54,7 +54,7 @@ import lombok.Data;
 public class BaseEntity {
 
   /** 逻辑删除标记，0 表示未删除，1 表示已删除 */
-  @TableLogic(value = "0", delVal = "1")
+  @TableLogic(value = "0")
   private Integer deleted;
 
   /** 创建时间，插入时自动填充 */

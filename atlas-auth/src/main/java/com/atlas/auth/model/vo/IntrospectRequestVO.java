@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.model.vo;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,8 +12,9 @@ import lombok.NoArgsConstructor;
  * <p>Token Introspection 请求参数，用于 Gateway 验证 Token。
  *
  * <p>字段说明：
+ *
  * <ul>
- *   <li>token：待验证的 Token</li>
+ *   <li>token：待验证的 Token
  * </ul>
  *
  * @author Atlas Team
@@ -30,4 +29,3 @@ public class IntrospectRequestVO {
   @NotBlank(message = "Token 不能为空")
   private String token;
 }
-

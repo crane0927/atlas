@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service;
 
 import com.atlas.auth.model.dto.TokenInfoDTO;
@@ -54,4 +52,3 @@ public interface TokenService {
    */
   TokenInfoDTO validateToken(String token);
 }
-

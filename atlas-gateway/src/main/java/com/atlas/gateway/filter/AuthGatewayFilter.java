@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import com.atlas.common.feature.core.result.Result;
@@ -97,7 +95,8 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
     this.gatewayProperties = gatewayProperties;
     this.tokenValidator = tokenValidator;
     this.pathMatcher = new AntPathMatcher();
-    this.objectMapper = objectMapper != null ? objectMapper : new com.fasterxml.jackson.databind.ObjectMapper();
+    this.objectMapper =
+        objectMapper != null ? objectMapper : new com.fasterxml.jackson.databind.ObjectMapper();
   }
 
   /**
@@ -206,7 +205,8 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
               AUTH_ERROR_MESSAGE,
               traceId != null ? traceId : "",
               System.currentTimeMillis());
-      DataBuffer buffer = response.bufferFactory().wrap(fallbackJson.getBytes(StandardCharsets.UTF_8));
+      DataBuffer buffer =
+          response.bufferFactory().wrap(fallbackJson.getBytes(StandardCharsets.UTF_8));
       return response.writeWith(Mono.just(buffer));
     }
   }
@@ -223,4 +223,3 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
     return Ordered.HIGHEST_PRECEDENCE + 1;
   }
 }
-
