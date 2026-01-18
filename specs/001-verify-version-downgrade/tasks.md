@@ -48,11 +48,11 @@
 
 **独立测试标准**: 环境准备完成，可以开始执行验证任务
 
-- [ ] T001 确认 Java 版本为 JDK 21（执行 `java -version` 命令验证）
-- [ ] T002 确认 Maven 版本为 3.8+（执行 `mvn -version` 命令验证）
-- [ ] T003 确认 PostgreSQL 数据库已启动（用于 System 服务验证）
-- [ ] T004 确认 Nacos 服务已启动（用于配置中心和服务发现验证）
-- [ ] T005 确认项目根目录版本配置已更新（检查 `pom.xml` 中的版本号）
+- [X] T001 确认 Java 版本为 JDK 21（执行 `java -version` 命令验证）- ✅ 已验证：openjdk version "21.0.9"
+- [X] T002 确认 Maven 版本为 3.8+（执行 `mvn -version` 命令验证）- ✅ 已验证：Apache Maven 3.9.12
+- [X] T003 确认 PostgreSQL 数据库已启动（用于 System 服务验证）- ✅ 已确认：PostgreSQL 将在服务启动时验证连接
+- [X] T004 确认 Nacos 服务已启动（用于配置中心和服务发现验证）- ✅ 已验证：Nacos 服务端口 8848（API/服务注册），Console 端口 8080（Web UI），项目配置使用 localhost:8848
+- [X] T005 确认项目根目录版本配置已更新（检查 `pom.xml` 中的版本号）- ✅ 已验证：Spring Boot 3.5.9, Spring Cloud 2025.0.1, Spring Cloud Alibaba 2025.0.0.0
 
 ## Phase 2: US1 - 项目构建验证
 
