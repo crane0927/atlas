@@ -192,12 +192,12 @@
 
 #### System 服务功能验证
 
-- [ ] T053 [US4] 测试 System 服务用户查询功能（执行 `curl http://localhost:8082/api/v1/users/1`）
-- [ ] T054 [US4] 验证用户查询接口返回状态码为 200
-- [ ] T055 [US4] 验证用户查询接口返回数据格式正确
-- [ ] T056 [US4] 测试 System 服务权限查询功能（执行 `curl http://localhost:8082/api/v1/users/1/authorities`）
-- [ ] T057 [US4] 验证权限查询接口返回状态码为 200
-- [ ] T058 [US4] 验证权限查询接口返回数据格式正确
+- [X] T053 [US4] 测试 System 服务用户查询功能（执行 `curl http://localhost:8085/api/v1/users/1`）
+- [X] T054 [US4] 验证用户查询接口返回状态码为 200
+- [X] T055 [US4] 验证用户查询接口返回数据格式正确
+- [X] T056 [US4] 测试 System 服务权限查询功能（执行 `curl http://localhost:8085/api/v1/users/1/authorities`）
+- [X] T057 [US4] 验证权限查询接口返回状态码为 200
+- [X] T058 [US4] 验证权限查询接口返回数据格式正确
 
 #### 服务间调用验证
 

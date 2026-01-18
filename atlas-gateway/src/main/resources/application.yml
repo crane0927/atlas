@@ -18,7 +18,7 @@ spring:
             - id: system-service-route
               uri: http://localhost:8085
               predicates:
-                - Path=/api/v1/system/**
+                - Path=/api/v1/users/**,/api/v1/roles/**,/api/v1/permissions/**
               filters:
                 - StripPrefix=0
             - id: health-route
