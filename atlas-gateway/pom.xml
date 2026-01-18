@@ -46,6 +46,13 @@
             <groupId>com.atlas</groupId>
             <artifactId>atlas-common-feature-core</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <!-- 排除 Spring MVC，Gateway 使用 WebFlux -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Atlas Common Infra Logging -->
@@ -53,6 +60,13 @@
             <groupId>com.atlas</groupId>
             <artifactId>atlas-common-infra-logging</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <!-- 排除 Spring MVC，Gateway 使用 WebFlux -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Lombok -->

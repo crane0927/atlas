@@ -1,6 +1,8 @@
 spring:
   application:
     name: atlas-gateway
+  config:
+    import: optional:nacos:atlas-gateway-dev.yaml
   cloud:
     gateway:
       # Gateway 路由配置（也可以通过 Nacos Config 配置）
@@ -30,6 +32,10 @@ spring:
           - data-id: atlas-gateway-${spring.profiles.active:dev}.yaml
             group: DEFAULT_GROUP
             refresh: true
+
+server:
+  port: 8083
+
 
 # Atlas Gateway 配置
 atlas:
