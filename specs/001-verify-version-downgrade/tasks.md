@@ -179,9 +179,9 @@
 
 #### Gateway 功能验证
 
-- [ ] T046 [US4] 测试 Gateway 路由转发功能（通过 Gateway 访问后端服务接口，如 `curl http://localhost:8080/api/v1/auth/public-key`）
-- [ ] T047 [US4] 验证 Gateway 路由转发响应状态码为 200
-- [ ] T048 [US4] 验证 Gateway 路由转发响应体格式正确
+- [X] T046 [US4] 测试 Gateway 路由转发功能（通过 Gateway 访问后端服务接口，如 `curl http://localhost:8080/api/v1/auth/public-key`）- ✅ 路由转发功能正常，成功转发到 Auth 服务并返回响应
+- [X] T047 [US4] 验证 Gateway 路由转发响应状态码为 200 - ✅ 响应状态码为 200
+- [X] T048 [US4] 验证 Gateway 路由转发响应体格式正确 - ✅ 响应体为 JSON 格式，包含 code、message、data、timestamp、success 字段，数据格式正确
 
 #### Auth 服务功能验证
 

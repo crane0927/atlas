@@ -9,6 +9,18 @@ spring:
         webflux:
           # Gateway 路由配置（使用新的配置键，也可以通过 Nacos Config 配置）
           routes:
+            - id: auth-service-route
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/v1/auth/**
+              filters:
+                - StripPrefix=0
+            - id: system-service-route
+              uri: http://localhost:8085
+              predicates:
+                - Path=/api/v1/system/**
+              filters:
+                - StripPrefix=0
             - id: health-route
               uri: http://localhost:8080
               predicates:
