@@ -78,6 +78,27 @@ public class UserServiceImpl implements UserService {
   }
 
   /**
+   * 验证用户密码
+   *
+   * @param username 用户名
+   * @param password 明文密码
+   * @return 加密后的密码，如果用户不存在或密码错误则抛出 BusinessException
+   */
+  @Override
+  public String verifyPassword(String username, String password) {
+    User user = userMapper.selectByUsername(username);
+    if (user == null) {
+      throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
+    }
+    // 验证密码
+    if (!passwordEncoder.matches(password, user.getPassword())) {
+      throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户名或密码错误");
+    }
+    // 返回加密后的密码（用于 Auth 服务后续验证）
+    return user.getPassword();
+  }
+
+  /**
    * 将 User 实体转换为 UserDTO
    *
    * @param user 用户实体

@@ -42,6 +42,9 @@ public class AuthServiceImpl implements AuthService {
   private final SessionService sessionService;
   private final JwtConfig jwtConfig;
 
+  // 临时存储当前登录请求，用于 getStoredPassword 方法
+  private LoginRequestVO currentLoginRequest;
+
   public AuthServiceImpl(
       UserQueryApi userQueryApi,
       PermissionQueryApi permissionQueryApi,
@@ -66,6 +69,9 @@ public class AuthServiceImpl implements AuthService {
     if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_EMPTY, "密码不能为空");
     }
+
+    // 保存当前登录请求，用于 getStoredPassword 方法
+    this.currentLoginRequest = loginRequest;
 
     // 2. 查询用户信息
     Result<UserDTO> userResult = userQueryApi.getUserByUsername(loginRequest.getUsername());
@@ -204,7 +210,7 @@ public class AuthServiceImpl implements AuthService {
   /**
    * 获取存储的密码
    *
-   * <p>从 UserDTO 中获取密码。注意：实际实现中，密码不应该在 DTO 中传递。 这里是一个临时实现，实际应该通过其他方式获取密码（如专门的密码验证接口）。
+   * <p>通过调用 System 服务的密码验证接口获取加密后的密码。
    *
    * <p>注意：此方法设置为 protected 以便在测试中 mock。
    *
@@ -212,11 +218,23 @@ public class AuthServiceImpl implements AuthService {
    * @return 加密后的密码
    */
   protected String getStoredPassword(UserDTO userDTO) {
-    // TODO: 根据实际实现调整
-    // 方案 1: UserDTO 中添加 password 字段（不推荐，不符合安全最佳实践）
-    // 方案 2: 在 atlas-system 服务中提供密码验证接口
-    // 方案 3: 通过其他方式获取密码
-    // 这里暂时返回 null，实际实现中需要根据具体情况调整
+    try {
+      // 通过 System 服务的密码验证接口获取加密后的密码
+      // 注意：这里传入的密码是登录请求中的密码，System 服务会验证密码并返回加密后的密码
+      if (currentLoginRequest == null) {
+        log.warn("当前登录请求为空，无法获取密码");
+        return null;
+      }
+      Result<String> passwordResult =
+          userQueryApi.verifyPassword(userDTO.getUsername(), currentLoginRequest.getPassword());
+      if (passwordResult != null
+          && passwordResult.isSuccess()
+          && passwordResult.getData() != null) {
+        return passwordResult.getData();
+      }
+    } catch (Exception e) {
+      log.warn("获取用户密码失败: username={}, error={}", userDTO.getUsername(), e.getMessage());
+    }
     return null;
   }
 }

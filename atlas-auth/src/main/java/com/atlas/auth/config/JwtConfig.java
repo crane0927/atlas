@@ -70,7 +70,8 @@ public class JwtConfig {
     try {
       String privateKeyPem = authProperties.getJwt().getPrivateKey();
       if (privateKeyPem == null || privateKeyPem.trim().isEmpty()) {
-        throw new IllegalStateException("JWT 私钥未配置，请在环境变量 ATLAS_AUTH_JWT_PRIVATE_KEY 或 Nacos Config 中配置 atlas.auth.jwt.private-key");
+        throw new IllegalStateException(
+            "JWT 私钥未配置，请在环境变量 ATLAS_AUTH_JWT_PRIVATE_KEY 或 Nacos Config 中配置 atlas.auth.jwt.private-key");
       }
 
       // 处理环境变量中的 \n 转义字符（支持多种格式）
@@ -108,7 +109,8 @@ public class JwtConfig {
     try {
       String publicKeyPem = authProperties.getJwt().getPublicKey();
       if (publicKeyPem == null || publicKeyPem.trim().isEmpty()) {
-        throw new IllegalStateException("JWT 公钥未配置，请在环境变量 ATLAS_AUTH_JWT_PUBLIC_KEY 或 Nacos Config 中配置 atlas.auth.jwt.public-key");
+        throw new IllegalStateException(
+            "JWT 公钥未配置，请在环境变量 ATLAS_AUTH_JWT_PUBLIC_KEY 或 Nacos Config 中配置 atlas.auth.jwt.public-key");
       }
 
       // 处理环境变量中的 \n 转义字符（支持多种格式）

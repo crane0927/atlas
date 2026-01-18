@@ -45,6 +45,17 @@ public interface UserService {
   UserDTO getUserByUsername(String username);
 
   /**
+   * 验证用户密码
+   *
+   * <p>通过用户名和密码验证用户身份，返回加密后的密码用于后续验证。
+   *
+   * @param username 用户名
+   * @param password 明文密码
+   * @return 加密后的密码，如果用户不存在或密码错误则抛出 BusinessException
+   */
+  String verifyPassword(String username, String password);
+
+  /**
    * 创建用户
    *
    * <p>根据用户创建 DTO 创建新用户，密码会自动加密存储。

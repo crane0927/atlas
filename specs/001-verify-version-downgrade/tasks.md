@@ -185,10 +185,10 @@
 
 #### Auth 服务功能验证
 
-- [ ] T049 [US4] 测试 Auth 服务登录功能（执行 `curl -X POST http://localhost:8081/api/v1/auth/login -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}'`）
-- [ ] T050 [US4] 验证登录接口返回状态码为 200
-- [ ] T051 [US4] 验证登录接口返回 Token 信息
-- [ ] T052 [US4] 验证 Token 格式正确
+- [X] T049 [US4] 测试 Auth 服务登录功能（执行 `curl -X POST http://localhost:8084/api/v1/auth/login -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}'`）
+- [X] T050 [US4] 验证登录接口返回状态码为 200
+- [X] T051 [US4] 验证登录接口返回 Token 信息
+- [X] T052 [US4] 验证 Token 格式正确
 
 #### System 服务功能验证
 

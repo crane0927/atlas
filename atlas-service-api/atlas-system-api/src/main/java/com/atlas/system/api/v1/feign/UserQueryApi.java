@@ -53,4 +53,16 @@ public interface UserQueryApi {
    */
   @GetMapping("/users/by-username")
   Result<UserDTO> getUserByUsername(@RequestParam String username);
+
+  /**
+   * 验证用户密码
+   *
+   * <p>通过用户名和密码验证用户身份，用于登录场景。
+   *
+   * @param username 用户名
+   * @param password 明文密码
+   * @return 验证结果，使用 {@link Result} 包装，data 为加密后的密码（用于后续验证）
+   */
+  @GetMapping("/users/verify-password")
+  Result<String> verifyPassword(@RequestParam String username, @RequestParam String password);
 }

@@ -63,4 +63,21 @@ public class UserController implements UserQueryApi {
     UserDTO userDTO = userService.getUserByUsername(username);
     return Result.success(userDTO);
   }
+
+  /**
+   * 验证用户密码
+   *
+   * <p>通过用户名和密码验证用户身份，用于登录场景。
+   *
+   * @param username 用户名
+   * @param password 明文密码
+   * @return 验证结果，使用 {@link Result} 包装，data 为加密后的密码（用于后续验证）
+   */
+  @Override
+  @GetMapping("/api/v1/users/verify-password")
+  public Result<String> verifyPassword(
+      @RequestParam String username, @RequestParam String password) {
+    String encodedPassword = userService.verifyPassword(username, password);
+    return Result.success(encodedPassword);
+  }
 }
