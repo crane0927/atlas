@@ -40,10 +40,11 @@
 
 ### 配置数据库
 
-在 PostgreSQL 中创建数据库：
+在 PostgreSQL 中创建数据库与 schema：
 
 ```sql
-CREATE DATABASE atlas_system;
+CREATE DATABASE atlas;
+CREATE SCHEMA atlas_system;
 ```
 
 ### 配置应用
@@ -54,29 +55,41 @@ CREATE DATABASE atlas_system;
 spring:
   application:
     name: atlas-system
-  datasource:
-    url: jdbc:postgresql://localhost:5432/atlas_system
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
+  config:
+    import: optional:nacos:atlas-system-dev.yaml
   cloud:
     nacos:
       discovery:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
         group: ${NACOS_GROUP:DEV_GROUP}
       config:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
         group: ${NACOS_GROUP:DEV_GROUP}
         file-extension: yaml
+        shared-configs:
+          - data-id: atlas-common.yaml
+            group: COMMON_GROUP
+            refresh: true
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/atlas?currentSchema=atlas_system&useUnicode=true&characterEncoding=utf-8
+    username: admin
+    password: PK3uK7pUIwUTi1
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
 
 server:
-  port: 8082
+  port: ${SERVER_PORT:8085}
 ```
 
 ### 运行应用
@@ -99,10 +112,10 @@ java -jar target/atlas-system-1.0.0.jar
 
 ```bash
 # 根据用户ID查询
-curl http://localhost:8082/api/v1/users/1
+curl http://localhost:8085/api/v1/users/1
 
 # 根据用户名查询
-curl http://localhost:8082/api/v1/users/by-username?username=admin
+curl http://localhost:8085/api/v1/users/by-username?username=admin
 ```
 
 响应示例：
@@ -127,13 +140,13 @@ curl http://localhost:8082/api/v1/users/by-username?username=admin
 
 ```bash
 # 查询用户角色列表
-curl http://localhost:8082/api/v1/users/1/roles
+curl http://localhost:8085/api/v1/users/1/roles
 
 # 查询用户权限列表
-curl http://localhost:8082/api/v1/users/1/permissions
+curl http://localhost:8085/api/v1/users/1/permissions
 
 # 查询用户完整权限信息
-curl http://localhost:8082/api/v1/users/1/authorities
+curl http://localhost:8085/api/v1/users/1/authorities
 ```
 
 响应示例：
@@ -153,7 +166,7 @@ curl http://localhost:8082/api/v1/users/1/authorities
 #### 3. 创建用户
 
 ```bash
-curl -X POST http://localhost:8082/api/v1/users \
+curl -X POST http://localhost:8085/api/v1/users \
   -H "Content-Type: application/json" \
   -d '{
     "username": "newuser",
@@ -167,7 +180,7 @@ curl -X POST http://localhost:8082/api/v1/users \
 #### 4. 创建角色
 
 ```bash
-curl -X POST http://localhost:8082/api/v1/roles \
+curl -X POST http://localhost:8085/api/v1/roles \
   -H "Content-Type: application/json" \
   -d '{
     "roleCode": "editor",
@@ -179,7 +192,7 @@ curl -X POST http://localhost:8082/api/v1/roles \
 #### 5. 创建权限
 
 ```bash
-curl -X POST http://localhost:8082/api/v1/permissions \
+curl -X POST http://localhost:8085/api/v1/permissions \
   -H "Content-Type: application/json" \
   -d '{
     "permissionCode": "article:edit",
@@ -191,7 +204,7 @@ curl -X POST http://localhost:8082/api/v1/permissions \
 #### 6. 为用户分配角色
 
 ```bash
-curl -X POST http://localhost:8082/api/v1/users/1/roles \
+curl -X POST http://localhost:8085/api/v1/users/1/roles \
   -H "Content-Type: application/json" \
   -d '{
     "roleId": 1
@@ -201,7 +214,7 @@ curl -X POST http://localhost:8082/api/v1/users/1/roles \
 #### 7. 为角色分配权限
 
 ```bash
-curl -X POST http://localhost:8082/api/v1/roles/1/permissions \
+curl -X POST http://localhost:8085/api/v1/roles/1/permissions \
   -H "Content-Type: application/json" \
   -d '{
     "permissionId": 1

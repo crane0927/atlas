@@ -7,9 +7,9 @@ Atlas 是一个基于 Spring Boot 和 Spring Cloud 的企业级快速开发框�
 ## 技术栈
 
 - **Java**: JDK 21 (LTS)
-- **Spring Boot**: 4.0.1
-- **Spring Cloud**: 2025.1.0
-- **Spring Cloud Alibaba**: 2025.1.0
+- **Spring Boot**: 3.5.9
+- **Spring Cloud**: 2025.0.1
+- **Spring Cloud Alibaba**: 2025.0.0.0
 - **数据库**: PostgreSQL
 - **ORM**: MyBatis-Plus
 - **配置中心**: Nacos

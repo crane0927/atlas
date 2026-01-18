@@ -185,7 +185,6 @@ com.atlas.system.api.v1/
 │   ├── dto/        # DTO 对象定义
 │   │   ├── UserDTO.java
 │   │   └── UserAuthoritiesDTO.java
-│   └── vo/         # VO 对象定义（预留，当前未使用）
 └── enums/          # 枚举常量定义
     └── UserStatus.java
 ```

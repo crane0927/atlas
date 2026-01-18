@@ -121,7 +121,7 @@ server:
 ## 技术栈
 
 - **Java**: JDK 21
-- **Spring Boot**: 4.0.1
+- **Spring Boot**: 3.5.9
 - **Maven**: 3.8+
 - **Lombok**: 简化代码
 
