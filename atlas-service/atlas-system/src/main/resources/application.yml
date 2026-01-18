@@ -1,6 +1,8 @@
 spring:
   application:
     name: atlas-system
+  config:
+    import: optional:nacos:atlas-system-dev.yaml
   cloud:
     nacos:
       discovery:
