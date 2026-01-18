@@ -67,6 +67,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Commons Pool2 (required for Redis connection pool) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!-- Atlas System API -->
         <dependency>
             <groupId>com.atlas</groupId>
