@@ -10,13 +10,13 @@ spring:
         username: nacos
         password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
-        group: ${NACOS_GROUP:DEV_GROUP}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
       config:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
         username: nacos
         password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
-        group: ${NACOS_GROUP:DEV_GROUP}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
         file-extension: yaml
         shared-configs:
           - data-id: atlas-common.yaml

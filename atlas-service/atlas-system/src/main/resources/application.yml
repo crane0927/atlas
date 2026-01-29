@@ -10,38 +10,15 @@ spring:
         username: nacos
         password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
-        group: ${NACOS_GROUP:DEV_GROUP}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
       config:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
         username: nacos
         password: nacos
         namespace: ${NACOS_NAMESPACE:dev}
-        group: ${NACOS_GROUP:DEV_GROUP}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
         file-extension: yaml
         shared-configs:
           - data-id: atlas-common.yaml
             group: COMMON_GROUP
             refresh: true
-
-  # 数据源配置
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/atlas?currentSchema=atlas_system&useUnicode=true&characterEncoding=utf-8
-    username: admin
-    password: PK3uK7pUIwUTi1
-
-  # Flyway 配置
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-    validate-on-migrate: true
-
-server:
-  port: ${SERVER_PORT:8085}
-
-logging:
-  level:
-    root: INFO
-    com.atlas: DEBUG
-
