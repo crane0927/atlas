@@ -19,6 +19,17 @@
   - `keyword`（可选）: key 关键字
 - **响应**: `Result<List<SystemSettingVO>>`
 
+### 1.1 分页查询设置项列表
+
+- **方法**: GET
+- **路径**: `/api/v1/system-settings/page`
+- **查询参数**:
+  - `page`（可选）: 页码（从 1 开始，默认 1）
+  - `size`（可选）: 每页大小（默认 10）
+  - `type`（可选）: SYSTEM / CUSTOM
+  - `keyword`（可选）: key 关键字
+- **响应**: `Result<PageResult<SystemSettingVO>>`
+
 ### 2. 新增自定义设置项
 
 - **方法**: POST

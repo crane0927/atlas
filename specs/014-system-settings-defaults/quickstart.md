@@ -35,7 +35,12 @@
    curl "http://localhost:8085/api/v1/system-settings?type=SYSTEM&keyword=site"
    ```
 
-2. 新增自定义设置项：
+2. 分页查询设置项列表：
+   ```bash
+   curl "http://localhost:8085/api/v1/system-settings/page?page=1&size=10&type=SYSTEM&keyword=site"
+   ```
+
+3. 新增自定义设置项：
    ```bash
    curl -X POST "http://localhost:8085/api/v1/system-settings" \
      -H "Content-Type: application/json" \
@@ -45,7 +50,7 @@
      }'
    ```
 
-3. 修改系统类型设置项 value：
+4. 修改系统类型设置项 value：
    ```bash
    curl -X PUT "http://localhost:8085/api/v1/system-settings/site.name" \
      -H "Content-Type: application/json" \
@@ -54,7 +59,7 @@
      }'
    ```
 
-4. 删除自定义设置项：
+5. 删除自定义设置项：
    ```bash
    curl -X DELETE "http://localhost:8085/api/v1/system-settings/theme.color"
    ```

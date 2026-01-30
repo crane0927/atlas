@@ -7,6 +7,7 @@ import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
+import com.atlas.common.feature.core.page.PageResult;
 import java.util.List;
 
 /**
@@ -28,6 +29,18 @@ public interface SystemSettingService {
    * @return 设置项列表
    */
   List<SystemSettingVO> listSettings(SystemSettingQueryDTO queryDTO);
+
+  /**
+   * 分页查询设置项列表
+   *
+   * <p>支持按类型与关键字过滤。
+   *
+   * @param queryDTO 查询参数
+   * @param page 页码（从 1 开始）
+   * @param size 每页大小
+   * @return 分页结果
+   */
+  PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO, Integer page, Integer size);
 
   /**
    * 创建自定义设置项

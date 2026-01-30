@@ -5,6 +5,7 @@ package com.atlas.system.settings.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.system.constant.SystemErrorCode;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.settings.mapper.SystemSettingMapper;
 import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
@@ -14,6 +15,7 @@ import com.atlas.system.settings.model.enums.SystemSettingType;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
 import com.atlas.system.settings.service.SystemSettingService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -42,17 +44,34 @@ public class SystemSettingServiceImpl implements SystemSettingService {
    */
   @Override
   public List<SystemSettingVO> listSettings(SystemSettingQueryDTO queryDTO) {
-    LambdaQueryWrapper<SystemSetting> queryWrapper = new LambdaQueryWrapper<>();
-    if (queryDTO != null && queryDTO.getType() != null) {
-      queryWrapper.eq(SystemSetting::getType, queryDTO.getType());
-    }
-    if (queryDTO != null && queryDTO.getKeyword() != null && !queryDTO.getKeyword().isBlank()) {
-      queryWrapper.like(SystemSetting::getKey, queryDTO.getKeyword().trim());
-    }
-    return systemSettingMapper.selectList(queryWrapper).stream()
+    return systemSettingMapper.selectList(buildQueryWrapper(queryDTO)).stream()
         .filter(Objects::nonNull)
         .map(this::convertToVO)
         .collect(Collectors.toList());
+  }
+
+  /**
+   * 分页查询设置项列表
+   *
+   * @param queryDTO 查询参数
+   * @param page 页码
+   * @param size 每页大小
+   * @return 分页结果
+   */
+  @Override
+  public PageResult<SystemSettingVO> listSettingsPage(
+      SystemSettingQueryDTO queryDTO, Integer page, Integer size) {
+    int pageNumber = page == null || page < 1 ? 1 : page;
+    int pageSize = size == null || size < 1 ? 10 : size;
+    Page<SystemSetting> pageRequest = new Page<>(pageNumber, pageSize);
+    Page<SystemSetting> resultPage =
+        systemSettingMapper.selectPage(pageRequest, buildQueryWrapper(queryDTO));
+    List<SystemSettingVO> records =
+        resultPage.getRecords().stream()
+            .filter(Objects::nonNull)
+            .map(this::convertToVO)
+            .collect(Collectors.toList());
+    return PageResult.of(records, resultPage.getTotal(), pageNumber, pageSize);
   }
 
   /**
@@ -113,6 +132,17 @@ public class SystemSettingServiceImpl implements SystemSettingService {
           SystemErrorCode.SYSTEM_SETTING_SYSTEM_DELETE_FORBIDDEN, "系统默认设置不可删除");
     }
     systemSettingMapper.deleteById(setting.getSettingId());
+  }
+
+  private LambdaQueryWrapper<SystemSetting> buildQueryWrapper(SystemSettingQueryDTO queryDTO) {
+    LambdaQueryWrapper<SystemSetting> queryWrapper = new LambdaQueryWrapper<>();
+    if (queryDTO != null && queryDTO.getType() != null) {
+      queryWrapper.eq(SystemSetting::getType, queryDTO.getType());
+    }
+    if (queryDTO != null && queryDTO.getKeyword() != null && !queryDTO.getKeyword().isBlank()) {
+      queryWrapper.like(SystemSetting::getKey, queryDTO.getKeyword().trim());
+    }
+    return queryWrapper;
   }
 
   private SystemSettingVO convertToVO(SystemSetting setting) {

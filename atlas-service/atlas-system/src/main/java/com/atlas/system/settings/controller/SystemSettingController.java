@@ -4,6 +4,7 @@
 package com.atlas.system.settings.controller;
 
 import com.atlas.common.feature.core.result.Result;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * <ul>
  *   <li>GET /api/v1/system-settings：查询设置项列表
+ *   <li>GET /api/v1/system-settings/page：分页查询设置项列表
  *   <li>POST /api/v1/system-settings：新增自定义设置项
  *   <li>PUT /api/v1/system-settings/{key}：修改设置项 value
  *   <li>DELETE /api/v1/system-settings/{key}：删除自定义设置项
@@ -59,6 +62,26 @@ public class SystemSettingController {
   public Result<List<SystemSettingVO>> listSystemSettings(SystemSettingQueryDTO queryDTO) {
     List<SystemSettingVO> settings = systemSettingService.listSettings(queryDTO);
     return Result.success(settings);
+  }
+
+  /**
+   * 分页查询设置项列表
+   *
+   * <p>支持按类型与关键字过滤。
+   *
+   * @param queryDTO 查询参数
+   * @param page 页码（从 1 开始）
+   * @param size 每页大小
+   * @return 分页设置项列表
+   */
+  @GetMapping("/page")
+  public Result<PageResult<SystemSettingVO>> listSystemSettingsPage(
+      SystemSettingQueryDTO queryDTO,
+      @RequestParam(defaultValue = "1") Integer page,
+      @RequestParam(defaultValue = "10") Integer size) {
+    PageResult<SystemSettingVO> result =
+        systemSettingService.listSettingsPage(queryDTO, page, size);
+    return Result.success(result);
   }
 
   /**
