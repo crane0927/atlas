@@ -31,3 +31,11 @@ COMMENT ON COLUMN sys_system_setting.create_time IS '创建时间';
 COMMENT ON COLUMN sys_system_setting.update_time IS '更新时间';
 COMMENT ON COLUMN sys_system_setting.create_by IS '创建人';
 COMMENT ON COLUMN sys_system_setting.update_by IS '更新人';
+
+-- 初始化系统默认设置
+INSERT INTO sys_system_setting (setting_key, setting_value, setting_type)
+VALUES
+    ('system.name', 'Atlas', 'SYSTEM'),
+    ('system.description', 'Atlas 系统', 'SYSTEM'),
+    ('user.default.password', 'ChangeMe123', 'SYSTEM')
+ON CONFLICT (setting_key) DO NOTHING;
