@@ -22,12 +22,6 @@
 
     <!-- 依赖（无强制外部依赖，保持抽象层纯净性） -->
     <dependencies>
-        <!-- Spring Boot Starter Test（仅用于测试） -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <!-- 构建配置 -->

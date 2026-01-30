@@ -76,13 +76,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Spring Boot Starter Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Reactor Test (用于测试响应式代码) -->
         <dependency>
             <groupId>io.projectreactor</groupId>

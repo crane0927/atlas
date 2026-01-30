@@ -124,13 +124,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Jackson for JSON processing (required by Nacos) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
