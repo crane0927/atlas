@@ -27,3 +27,34 @@
 - CUSTOM 类型可新增、修改、删除
 - key 重复时返回明确提示
 - 变更记录包含操作者与时间
+
+## 示例请求
+
+1. 查询设置项列表（可选筛选）：
+   ```bash
+   curl "http://localhost:8085/api/v1/system-settings?type=SYSTEM&keyword=site"
+   ```
+
+2. 新增自定义设置项：
+   ```bash
+   curl -X POST "http://localhost:8085/api/v1/system-settings" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "key": "theme.color",
+       "value": "blue"
+     }'
+   ```
+
+3. 修改系统类型设置项 value：
+   ```bash
+   curl -X PUT "http://localhost:8085/api/v1/system-settings/site.name" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "value": "Atlas Pro"
+     }'
+   ```
+
+4. 删除自定义设置项：
+   ```bash
+   curl -X DELETE "http://localhost:8085/api/v1/system-settings/theme.color"
+   ```

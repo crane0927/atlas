@@ -107,11 +107,11 @@ US1 → US2 → US3 → US4
 **目标**: 覆盖核心流程并完善文档  
 **独立测试标准**: 关键规则测试通过且文档可验证
 
-- [ ] T023 [P] 编写 Service 单测 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/service/SystemSettingServiceTest.java`
-- [ ] T024 [P] 编写 Controller 测试 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/controller/SystemSettingControllerTest.java`
-- [ ] T025 [P] 编写 API 测试 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/controller/SystemSettingApiTest.java`
-- [ ] T026 更新接口合约 `specs/014-system-settings-defaults/contracts/README.md`
-- [ ] T027 更新快速开始 `specs/014-system-settings-defaults/quickstart.md`
+- [X] T023 [P] 编写 Service 单测 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/service/SystemSettingServiceTest.java`
+- [X] T024 [P] 编写 Controller 测试 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/controller/SystemSettingControllerTest.java`
+- [X] T025 [P] 编写 API 测试 `atlas-service/atlas-system/src/test/java/com/atlas/system/settings/controller/SystemSettingApiTest.java`
+- [X] T026 更新接口合约 `specs/014-system-settings-defaults/contracts/README.md`
+- [X] T027 更新快速开始 `specs/014-system-settings-defaults/quickstart.md`
 
 ## 并行执行示例
 
