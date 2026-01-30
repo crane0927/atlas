@@ -341,6 +341,76 @@ mvn verify
 - [技术调研文档](../../specs/011-system-service/research.md)
 - [实现任务清单](../../specs/011-system-service/tasks.md)
 
+## Docker 部署
+
+### 目录结构
+
+```
+atlas-service/atlas-system/
+├── docker/
+│   ├── Dockerfile.build    # 编译阶段 Dockerfile
+│   └── Dockerfile.run      # 运行阶段 Dockerfile
+├── src/
+└── pom.xml
+```
+
+### 构建镜像
+
+#### 方式一：本地构建后打包（推荐用于开发）
+
+```bash
+# 1. 本地 Maven 构建
+mvn clean package -DskipTests
+
+# 2. 构建运行镜像
+docker build -f docker/Dockerfile.run -t atlas-system:latest .
+```
+
+#### 方式二：使用编译镜像构建
+
+```bash
+# 使用编译阶段 Dockerfile 构建（需要在项目根目录执行）
+docker build -f atlas-service/atlas-system/docker/Dockerfile.build -t atlas-system-build .
+```
+
+### 运行容器
+
+```bash
+# 基本运行
+docker run -d \
+  --name atlas-system \
+  -p 8085:8085 \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e NACOS_SERVER_ADDR=host.docker.internal:8848 \
+  atlas-system:latest
+
+# 自定义 JVM 参数和数据库配置
+docker run -d \
+  --name atlas-system \
+  -p 8085:8085 \
+  -e JAVA_OPTS="-Xms512m -Xmx1024m" \
+  -e SPRING_DATASOURCE_URL="jdbc:postgresql://host.docker.internal:5432/atlas" \
+  -e SPRING_DATASOURCE_USERNAME="admin" \
+  -e SPRING_DATASOURCE_PASSWORD="password" \
+  atlas-system:latest
+```
+
+### 健康检查
+
+```bash
+# 检查服务健康状态
+curl http://localhost:8085/actuator/health
+
+# 查看容器健康状态
+docker inspect --format='{{.State.Health.Status}}' atlas-system
+```
+
+### 查看日志
+
+```bash
+docker logs -f atlas-system
+```
+
 ## 开发指南
 
 1. 遵循项目宪法和工程规范

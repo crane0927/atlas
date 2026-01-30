@@ -307,6 +307,75 @@ spring:
 
 4. **服务依赖**: 服务依赖 `atlas-system` 服务，确保该服务已启动并注册到服务注册中心。
 
+## Docker 部署
+
+### 目录结构
+
+```
+atlas-auth/
+├── docker/
+│   ├── Dockerfile.build    # 编译阶段 Dockerfile
+│   └── Dockerfile.run      # 运行阶段 Dockerfile
+├── src/
+└── pom.xml
+```
+
+### 构建镜像
+
+#### 方式一：本地构建后打包（推荐用于开发）
+
+```bash
+# 1. 本地 Maven 构建
+mvn clean package -DskipTests
+
+# 2. 构建运行镜像
+docker build -f docker/Dockerfile.run -t atlas-auth:latest .
+```
+
+#### 方式二：使用编译镜像构建
+
+```bash
+# 使用编译阶段 Dockerfile 构建（需要在项目根目录执行）
+docker build -f atlas-auth/docker/Dockerfile.build -t atlas-auth-build .
+```
+
+### 运行容器
+
+```bash
+# 基本运行
+docker run -d \
+  --name atlas-auth \
+  -p 8084:8084 \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e NACOS_SERVER_ADDR=host.docker.internal:8848 \
+  -e ATLAS_AUTH_JWT_PRIVATE_KEY="your-private-key" \
+  -e ATLAS_AUTH_JWT_PUBLIC_KEY="your-public-key" \
+  atlas-auth:latest
+
+# 自定义 JVM 参数
+docker run -d \
+  --name atlas-auth \
+  -p 8084:8084 \
+  -e JAVA_OPTS="-Xms512m -Xmx1024m" \
+  atlas-auth:latest
+```
+
+### 健康检查
+
+```bash
+# 检查服务健康状态
+curl http://localhost:8084/actuator/health
+
+# 查看容器健康状态
+docker inspect --format='{{.State.Health.Status}}' atlas-auth
+```
+
+### 查看日志
+
+```bash
+docker logs -f atlas-auth
+```
+
 ## 参考资源
 
 - [API 契约定义](../../specs/010-auth-service/contracts/README.md)

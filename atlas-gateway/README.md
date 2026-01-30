@@ -356,6 +356,73 @@ curl http://localhost:8080/gateway/api/user/info
 - **HTTPS**: 生产环境使用 HTTPS 协议
 - **敏感信息**: 不要在日志中记录敏感信息（如 Token、密码）
 
+## Docker 部署
+
+### 目录结构
+
+```
+atlas-gateway/
+├── docker/
+│   ├── Dockerfile.build    # 编译阶段 Dockerfile
+│   └── Dockerfile.run      # 运行阶段 Dockerfile
+├── src/
+└── pom.xml
+```
+
+### 构建镜像
+
+#### 方式一：本地构建后打包（推荐用于开发）
+
+```bash
+# 1. 本地 Maven 构建
+mvn clean package -DskipTests
+
+# 2. 构建运行镜像
+docker build -f docker/Dockerfile.run -t atlas-gateway:latest .
+```
+
+#### 方式二：使用编译镜像构建
+
+```bash
+# 使用编译阶段 Dockerfile 构建（需要在项目根目录执行）
+docker build -f atlas-gateway/docker/Dockerfile.build -t atlas-gateway-build .
+```
+
+### 运行容器
+
+```bash
+# 基本运行
+docker run -d \
+  --name atlas-gateway \
+  -p 8080:8080 \
+  -e SPRING_PROFILES_ACTIVE=dev \
+  -e NACOS_SERVER_ADDR=host.docker.internal:8848 \
+  atlas-gateway:latest
+
+# 自定义 JVM 参数
+docker run -d \
+  --name atlas-gateway \
+  -p 8080:8080 \
+  -e JAVA_OPTS="-Xms512m -Xmx1024m" \
+  atlas-gateway:latest
+```
+
+### 健康检查
+
+```bash
+# 检查服务健康状态
+curl http://localhost:8080/actuator/health
+
+# 查看容器健康状态
+docker inspect --format='{{.State.Health.Status}}' atlas-gateway
+```
+
+### 查看日志
+
+```bash
+docker logs -f atlas-gateway
+```
+
 ## 参考资源
 
 - [Spring Cloud Gateway 官方文档](https://spring.io/projects/spring-cloud-gateway)

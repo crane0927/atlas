@@ -1,0 +1,88 @@
+# ============================================================
+# Atlas System - 运行阶段 Dockerfile
+# 用途: 运行 Spring Boot 系统管理服务应用程序
+# 基础镜像: eclipse-temurin:21-jre
+# 服务: atlas-system (系统管理服务)
+# 端口: 8085
+# ============================================================
+
+FROM eclipse-temurin:21-jre
+
+# 设置镜像标签
+LABEL maintainer="Atlas Team"
+LABEL description="Atlas System 运行镜像 - 系统管理服务"
+LABEL version="1.0.0"
+
+# ============================================================
+# 安全配置: 创建非特权用户
+# 说明: 容器安全最佳实践，避免以 root 用户运行
+# ============================================================
+RUN groupadd --system --gid 1001 atlas && \
+    useradd --system --uid 1001 --gid 1001 --no-create-home atlas
+
+# ============================================================
+# 安装健康检查依赖
+# 说明: curl 用于健康检查命令
+# ============================================================
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# 设置工作目录
+WORKDIR /app
+
+# ============================================================
+# 复制应用程序 JAR
+# 说明: 从构建阶段或本地 target 目录复制
+# ============================================================
+COPY target/*.jar app.jar
+
+# 设置文件权限
+RUN chown -R atlas:atlas /app
+
+# 切换到非特权用户
+USER atlas
+
+# ============================================================
+# 端口配置
+# 说明: atlas-system 默认端口 8085
+# ============================================================
+EXPOSE 8085
+
+# ============================================================
+# 健康检查配置
+# 说明: 使用 Spring Boot Actuator 健康检查端点
+# 参数:
+#   - interval: 检查间隔 30 秒
+#   - timeout: 超时时间 10 秒
+#   - start-period: 启动等待时间 60 秒
+#   - retries: 失败重试次数 3 次
+# ============================================================
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8085/actuator/health || exit 1
+
+# ============================================================
+# JVM 参数配置
+# 说明:
+#   - UseContainerSupport: 自动识别容器资源限制
+#   - MaxRAMPercentage: 最大堆内存占容器内存的 75%
+#   - InitialRAMPercentage: 初始堆内存占容器内存的 50%
+#   - java.security.egd: 加速随机数生成，减少启动时间
+# ============================================================
+ENV JAVA_OPTS="-XX:+UseContainerSupport \
+    -XX:MaxRAMPercentage=75.0 \
+    -XX:InitialRAMPercentage=50.0 \
+    -Djava.security.egd=file:/dev/./urandom"
+
+# ============================================================
+# 环境变量配置
+# 说明: 可通过环境变量覆盖默认配置
+# ============================================================
+ENV SPRING_PROFILES_ACTIVE=dev
+ENV SERVER_PORT=8085
+
+# ============================================================
+# 启动命令
+# 说明: 使用 shell 形式以支持环境变量展开
+# ============================================================
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
