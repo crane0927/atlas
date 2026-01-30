@@ -17,3 +17,9 @@
 - **Decision**: 使用 `/api/v1/system-settings` 作为资源路径
 - **Rationale**: 名词复数，符合 RESTful；覆盖查询、创建、更新、删除
 - **Alternatives considered**: `/api/v1/system-settings/defaults`（路径冗长，资源含义重复）
+
+## 决策 4: 权限校验复用点
+
+- **Decision**: 复用 `atlas-common-feature-security` 提供的权限注解与安全上下文抽象
+- **Rationale**: 已定义 `@RequiresRole` / `@RequiresPermission` 与 `SecurityContextHolder` 抽象，可用于系统管理员权限控制与登录态获取
+- **References**: `atlas-common/atlas-common-feature/atlas-common-feature-security/README.md`

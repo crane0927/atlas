@@ -45,21 +45,21 @@ US1 → US2 → US3 → US4
 **目标**: 固化规范与复用点  
 **独立测试标准**: 迁移规范与异常处理复用点确认完毕
 
-- [ ] T001 确认 Flyway 迁移命名规范（参考 `atlas-service/atlas-system/sql/v1.0.0/README.md`）
-- [ ] T002 确认统一异常处理复用点（参考 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`）
-- [ ] T003 记录权限校验复用点到 `specs/014-system-settings-defaults/research.md`
+- [X] T001 确认 Flyway 迁移命名规范（参考 `atlas-service/atlas-system/sql/v1.0.0/README.md`）
+- [X] T002 确认统一异常处理复用点（参考 `atlas-common/atlas-common-infra/atlas-common-infra-web/src/main/java/com/atlas/common/infra/web/exception/GlobalExceptionHandler.java`）
+- [X] T003 记录权限校验复用点到 `specs/014-system-settings-defaults/research.md`
 
 ## Phase 2: Foundational
 
 **目标**: 完成数据结构与持久层基础  
 **独立测试标准**: 表结构与实体定义完成
 
-- [ ] T004 创建迁移脚本 `atlas-service/atlas-system/sql/v1.0.0/006_create_system_setting_table.sql`
-- [ ] T005 [P] 新增枚举 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/enums/SystemSettingType.java`
-- [ ] T006 [P] 新增实体 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/entity/SystemSetting.java`
-- [ ] T007 [P] 新增 Mapper `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/mapper/SystemSettingMapper.java`
-- [ ] T008 [P] 新增 Service 接口 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/SystemSettingService.java`
-- [ ] T009 [P] 新增 Service 实现 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
+- [X] T004 创建迁移脚本 `atlas-service/atlas-system/sql/v1.0.0/006_create_system_setting_table.sql`
+- [X] T005 [P] 新增枚举 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/enums/SystemSettingType.java`
+- [X] T006 [P] 新增实体 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/entity/SystemSetting.java`
+- [X] T007 [P] 新增 Mapper `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/mapper/SystemSettingMapper.java`
+- [X] T008 [P] 新增 Service 接口 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/SystemSettingService.java`
+- [X] T009 [P] 新增 Service 实现 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
 
 ## Phase 3: US1 - 列表查询与筛选
 
