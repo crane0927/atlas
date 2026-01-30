@@ -3,6 +3,7 @@ package com.atlas.auth.context;
 
 import com.atlas.common.feature.security.context.SecurityContext;
 import com.atlas.common.feature.security.context.SecurityContextHolder;
+import lombok.Setter;
 
 /**
  * Auth 模块的 SecurityContextHolder 实现
@@ -35,20 +36,16 @@ import com.atlas.common.feature.security.context.SecurityContextHolder;
  */
 public class AuthSecurityContextHolder extends SecurityContextHolder {
 
-  private static SecurityContextImpl contextInstance;
+    /**
+     * -- SETTER --
+     *  设置 SecurityContext 实例
+     *  <p>由 Spring 容器调用，设置 `SecurityContextImpl` 实例。
+     *
+     */
+    @Setter
+    private static SecurityContextImpl contextInstance;
 
-  /**
-   * 设置 SecurityContext 实例
-   *
-   * <p>由 Spring 容器调用，设置 `SecurityContextImpl` 实例。
-   *
-   * @param context SecurityContextImpl 实例
-   */
-  public static void setContextInstance(SecurityContextImpl context) {
-    contextInstance = context;
-  }
-
-  /**
+    /**
    * 获取当前安全上下文
    *
    * <p>返回 `SecurityContextImpl` 实例，供静态方法使用。
