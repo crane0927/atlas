@@ -67,10 +67,10 @@ US1 → US2 → US3 → US4
 **独立测试标准**: 列表接口返回正确且区分类型  
 **用户故事**: 列表查询与筛选
 
-- [ ] T010 [P] [US1] 新增查询 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingQueryDTO.java`
-- [ ] T011 [P] [US1] 新增 VO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/vo/SystemSettingVO.java`
-- [ ] T012 [US1] 实现查询逻辑于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
-- [ ] T013 [US1] 暴露 GET 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
+- [X] T010 [P] [US1] 新增查询 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingQueryDTO.java`
+- [X] T011 [P] [US1] 新增 VO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/vo/SystemSettingVO.java`
+- [X] T012 [US1] 实现查询逻辑于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
+- [X] T013 [US1] 暴露 GET 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
 
 ## Phase 4: US2 - 系统类型值修改
 
@@ -78,10 +78,10 @@ US1 → US2 → US3 → US4
 **独立测试标准**: 修改系统类型仅更新 value，其他字段不可变  
 **用户故事**: 系统类型值修改
 
-- [ ] T014 [P] [US2] 新增更新 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingUpdateDTO.java`
-- [ ] T015 [US2] 实现更新逻辑（限制 SYSTEM 类型仅改 value）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
-- [ ] T016 [US2] 暴露 PUT 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
-- [ ] T017 [US2] 增补错误码于 `atlas-service/atlas-system/src/main/java/com/atlas/system/constant/SystemErrorCode.java`
+- [X] T014 [P] [US2] 新增更新 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingUpdateDTO.java`
+- [X] T015 [US2] 实现更新逻辑（限制 SYSTEM 类型仅改 value）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
+- [X] T016 [US2] 暴露 PUT 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
+- [X] T017 [US2] 增补错误码于 `atlas-service/atlas-system/src/main/java/com/atlas/system/constant/SystemErrorCode.java`
 
 ## Phase 5: US3 - 新增自定义设置
 

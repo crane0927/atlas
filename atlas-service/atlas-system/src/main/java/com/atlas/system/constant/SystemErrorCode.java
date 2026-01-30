@@ -20,6 +20,7 @@ package com.atlas.system.constant;
  *   <li>00-09: 用户相关错误
  *   <li>10-19: 角色相关错误
  *   <li>20-29: 权限相关错误
+ *   <li>30-39: 系统设置相关错误
  * </ul>
  *
  * @author Atlas Team
@@ -56,6 +57,22 @@ public class SystemErrorCode {
   public static final String PERMISSION_CODE_ALREADY_EXISTS = "032206";
 
   // 预留错误码：032202-032205, 032207-032299
+
+  // ========== 系统设置相关错误 (30-39) ==========
+
+  /** 设置项不存在 */
+  public static final String SYSTEM_SETTING_NOT_FOUND = "032301";
+
+  /** 设置项 key 已存在 */
+  public static final String SYSTEM_SETTING_KEY_ALREADY_EXISTS = "032302";
+
+  /** 系统类型设置项不可删除 */
+  public static final String SYSTEM_SETTING_SYSTEM_DELETE_FORBIDDEN = "032303";
+
+  /** 设置项 value 不合法 */
+  public static final String SYSTEM_SETTING_VALUE_INVALID = "032304";
+
+  // 预留错误码：032305-032399
 
   /** 私有构造函数，防止实例化 */
   private SystemErrorCode() {
