@@ -4,11 +4,13 @@
 
 在开始规划前，请确认以下宪法原则：
 
-- ✅ **技术栈**: JDK 21, Spring Boot 4.0.1, Spring Cloud 2025.1.0, Spring Cloud Alibaba 2025.1.0
-- ✅ **API 设计**: 遵循 RESTful 风格
+- ✅ **技术栈**: JDK 21, Spring Boot 3.5.9, Spring Cloud 2025.0.1, Spring Cloud Alibaba 2025.0.0.0
+- ✅ **数据库**: PostgreSQL + MyBatis-Plus
+- ✅ **API 设计**: 遵循 RESTful 风格，统一使用 `Result<T>` 包装
 - ✅ **代码注释**: 使用中文注释
 - ✅ **代码复用**: 提取公共方法，避免重复代码
-- ✅ **模块化**: 参考 RuoYi 框架的分层架构
+- ✅ **模块化**: 遵循分层架构，Entity 继承 BaseEntity
+- ✅ **单元测试**: 非必要不生成，仅在明确要求时编写
 
 ## 功能概述
 

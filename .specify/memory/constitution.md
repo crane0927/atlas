@@ -1,6 +1,6 @@
 <!--
 Sync Impact Report:
-Version: 0.5.0 → 0.5.1
+Version: 0.5.1
 创建日期: 2025-01-27
 最后修订: 2026-01-30
 修改的原则: 
@@ -8,11 +8,11 @@ Version: 0.5.0 → 0.5.1
 新增章节: 无
 移除章节: 无
 模板更新状态:
-  - .specify/templates/plan-template.md: ⏳ 待同步
+  - .specify/templates/plan-template.md: ✅ 已同步
   - .specify/templates/spec-template.md: ✅ 已同步
-  - .specify/templates/tasks-template.md: ⏳ 待同步
-  - .specify/templates/commands/*.md: ⏳ 待同步
-后续待办: 同步相关模板文件和父 POM 版本配置
+  - .specify/templates/tasks-template.md: ✅ 已同步
+  - .specify/templates/commands/*.md: ✅ 已同步
+后续待办: 无
 -->
 
 # 项目宪法
