@@ -96,6 +96,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Atlas Common Infra Logging (TraceId 工具类，TraceIdFilter 需要) -->
+        <dependency>
+            <groupId>com.atlas</groupId>
+            <artifactId>atlas-common-infra-logging</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Atlas Common Feature Security (安全上下文，审计字段填充需要) -->
         <dependency>
             <groupId>com.atlas</groupId>

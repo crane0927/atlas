@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Atlas Team
  * @since 1.0.0
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.atlas.system", "com.atlas.common"})
 @MapperScan("com.atlas.system.**.mapper")
 public class SystemApplication {
 

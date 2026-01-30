@@ -59,9 +59,10 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
     this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, now);
     // 填充更新时间
     this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, now);
-    // 填充创建人
+    // 填充创建人和更新人
     String currentUser = getCurrentUser();
     this.strictInsertFill(metaObject, "createBy", String.class, currentUser);
+    this.strictInsertFill(metaObject, "updateBy", String.class, currentUser);
   }
 
   /**
