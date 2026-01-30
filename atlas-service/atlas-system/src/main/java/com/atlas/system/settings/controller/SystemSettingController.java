@@ -4,6 +4,7 @@
 package com.atlas.system.settings.controller;
 
 import com.atlas.common.feature.core.result.Result;
+import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
@@ -11,6 +12,8 @@ import com.atlas.system.settings.service.SystemSettingService;
 import java.util.List;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * <ul>
  *   <li>GET /api/v1/system-settings：查询设置项列表
+ *   <li>POST /api/v1/system-settings：新增自定义设置项
  *   <li>PUT /api/v1/system-settings/{key}：修改设置项 value
+ *   <li>DELETE /api/v1/system-settings/{key}：删除自定义设置项
  * </ul>
  *
  * <p>返回格式：统一使用 {@link Result} 包装响应数据
@@ -54,6 +59,31 @@ public class SystemSettingController {
   public Result<List<SystemSettingVO>> listSystemSettings(SystemSettingQueryDTO queryDTO) {
     List<SystemSettingVO> settings = systemSettingService.listSettings(queryDTO);
     return Result.success(settings);
+  }
+
+  /**
+   * 新增自定义设置项
+   *
+   * @param createDTO 创建请求
+   * @return 创建后的设置项
+   */
+  @PostMapping
+  public Result<SystemSettingVO> createSystemSetting(
+      @Valid @RequestBody SystemSettingCreateDTO createDTO) {
+    SystemSettingVO setting = systemSettingService.createSetting(createDTO);
+    return Result.success(setting);
+  }
+
+  /**
+   * 删除自定义设置项
+   *
+   * @param key 设置项 key
+   * @return 删除结果
+   */
+  @DeleteMapping("/{key}")
+  public Result<Boolean> deleteSystemSetting(@PathVariable String key) {
+    systemSettingService.deleteCustomSetting(key);
+    return Result.success(Boolean.TRUE);
   }
 
   /**

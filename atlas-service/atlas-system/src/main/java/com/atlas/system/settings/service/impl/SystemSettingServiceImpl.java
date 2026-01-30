@@ -6,9 +6,11 @@ package com.atlas.system.settings.service.impl;
 import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.settings.mapper.SystemSettingMapper;
+import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.entity.SystemSetting;
+import com.atlas.system.settings.model.enums.SystemSettingType;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
 import com.atlas.system.settings.service.SystemSettingService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -54,6 +56,28 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   }
 
   /**
+   * 创建自定义设置项
+   *
+   * @param createDTO 创建请求
+   * @return 创建后的设置项
+   */
+  @Override
+  public SystemSettingVO createSetting(SystemSettingCreateDTO createDTO) {
+    String key = createDTO.getKey().trim();
+    SystemSetting existing =
+        systemSettingMapper.selectOne(new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+    if (existing != null) {
+      throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_KEY_ALREADY_EXISTS, "设置项 key 已存在");
+    }
+    SystemSetting setting = new SystemSetting();
+    setting.setKey(key);
+    setting.setValue(createDTO.getValue());
+    setting.setType(SystemSettingType.CUSTOM);
+    systemSettingMapper.insert(setting);
+    return convertToVO(setting);
+  }
+
+  /**
    * 修改设置项 value
    *
    * @param key 设置项 key
@@ -70,6 +94,25 @@ public class SystemSettingServiceImpl implements SystemSettingService {
     setting.setValue(updateDTO.getValue());
     systemSettingMapper.updateById(setting);
     return convertToVO(setting);
+  }
+
+  /**
+   * 删除自定义设置项
+   *
+   * @param key 设置项 key
+   */
+  @Override
+  public void deleteCustomSetting(String key) {
+    SystemSetting setting =
+        systemSettingMapper.selectOne(new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+    if (setting == null) {
+      throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_NOT_FOUND, "设置项不存在");
+    }
+    if (SystemSettingType.SYSTEM.equals(setting.getType())) {
+      throw new BusinessException(
+          SystemErrorCode.SYSTEM_SETTING_SYSTEM_DELETE_FORBIDDEN, "系统默认设置不可删除");
+    }
+    systemSettingMapper.deleteById(setting.getSettingId());
   }
 
   private SystemSettingVO convertToVO(SystemSetting setting) {

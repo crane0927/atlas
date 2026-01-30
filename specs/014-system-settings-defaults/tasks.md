@@ -89,9 +89,9 @@ US1 → US2 → US3 → US4
 **独立测试标准**: key 唯一性校验生效且新增成功  
 **用户故事**: 新增自定义设置
 
-- [ ] T018 [P] [US3] 新增创建 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingCreateDTO.java`
-- [ ] T019 [US3] 实现创建逻辑（仅允许 CUSTOM、校验 key 唯一）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
-- [ ] T020 [US3] 暴露 POST 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
+- [X] T018 [P] [US3] 新增创建 DTO `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/model/dto/SystemSettingCreateDTO.java`
+- [X] T019 [US3] 实现创建逻辑（仅允许 CUSTOM、校验 key 唯一）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
+- [X] T020 [US3] 暴露 POST 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
 
 ## Phase 6: US4 - 删除自定义设置
 
@@ -99,8 +99,8 @@ US1 → US2 → US3 → US4
 **独立测试标准**: SYSTEM 删除被拦截且返回明确错误  
 **用户故事**: 删除自定义设置
 
-- [ ] T021 [US4] 实现删除逻辑（SYSTEM 拒绝删除）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
-- [ ] T022 [US4] 暴露 DELETE 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
+- [X] T021 [US4] 实现删除逻辑（SYSTEM 拒绝删除）于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/service/impl/SystemSettingServiceImpl.java`
+- [X] T022 [US4] 暴露 DELETE 接口于 `atlas-service/atlas-system/src/main/java/com/atlas/system/settings/controller/SystemSettingController.java`
 
 ## Phase 7: Polish & Cross-cutting
 

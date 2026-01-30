@@ -3,6 +3,7 @@
  */
 package com.atlas.system.settings.service;
 
+import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
@@ -29,6 +30,14 @@ public interface SystemSettingService {
   List<SystemSettingVO> listSettings(SystemSettingQueryDTO queryDTO);
 
   /**
+   * 创建自定义设置项
+   *
+   * @param createDTO 创建请求
+   * @return 创建后的设置项
+   */
+  SystemSettingVO createSetting(SystemSettingCreateDTO createDTO);
+
+  /**
    * 修改设置项 value
    *
    * <p>仅允许更新 value 字段，不允许修改 key。
@@ -38,4 +47,11 @@ public interface SystemSettingService {
    * @return 更新后的设置项
    */
   SystemSettingVO updateSettingValue(String key, SystemSettingUpdateDTO updateDTO);
+
+  /**
+   * 删除自定义设置项
+   *
+   * @param key 设置项 key
+   */
+  void deleteCustomSetting(String key);
 }
