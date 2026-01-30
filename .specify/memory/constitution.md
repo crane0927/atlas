@@ -1,11 +1,13 @@
 <!--
 Sync Impact Report:
-Version: 0.5.1
+Version: 0.5.1 → 0.6.0
 创建日期: 2025-01-27
 最后修订: 2026-01-30
 修改的原则: 
-  - 原则 17: 单元测试要求 - 新增 AI 辅助开发规则，非必要不生成单元测试
-新增章节: 无
+  - 原则 17: 单元测试要求 → 重编号为原则 18
+  - 原则 18: 代码规范检查 → 重编号为原则 19
+新增章节:
+  - 原则 17: 微服务 Dockerfile 规范 - 新增可启动微服务必须创建编译阶段和运行阶段 Dockerfile 的规范
 移除章节: 无
 模板更新状态:
   - .specify/templates/plan-template.md: ✅ 已同步
@@ -18,7 +20,7 @@ Version: 0.5.1
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.5.1  
+**版本**: 0.6.0  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2026-01-30
 
@@ -899,9 +901,72 @@ atlas/
 - 代码审查时检查所有 Entity 是否继承 `BaseEntity`
 - 检查实体类是否重复定义审计字段或逻辑删除字段
 
+### 原则 17: 微服务 Dockerfile 规范
+
+**规则**: 每个可独立启动的微服务模块必须创建对应的 Dockerfile，分为编译阶段 Dockerfile 和运行阶段 Dockerfile。
+
+**具体要求**:
+
+1. **目录结构**:
+   - 每个可启动微服务必须在模块根目录下创建 `docker` 目录
+   - `docker` 目录下必须包含两个 Dockerfile：
+     - `Dockerfile.build`：编译阶段 Dockerfile，用于构建项目
+     - `Dockerfile.run`：运行阶段 Dockerfile，用于运行服务
+   - **目录结构示例**:
+     ```
+     atlas-gateway/
+     ├── docker/
+     │   ├── Dockerfile.build
+     │   └── Dockerfile.run
+     ├── src/
+     └── pom.xml
+     
+     atlas-auth/
+     ├── docker/
+     │   ├── Dockerfile.build
+     │   └── Dockerfile.run
+     ├── src/
+     └── pom.xml
+     ```
+
+2. **编译阶段 Dockerfile (Dockerfile.build)**:
+   - 用于构建项目，生成可执行的 JAR 文件
+   - 必须使用指定的 JDK 21 基础镜像
+   - 必须包含 Maven 或 Gradle 构建环境
+   - 输出产物为可执行的 JAR 文件
+
+3. **运行阶段 Dockerfile (Dockerfile.run)**:
+   - 用于运行服务，应使用轻量级的运行时镜像
+   - 必须使用指定的 JRE 21 或 JDK 21 运行时基础镜像
+   - 不包含构建工具，仅包含运行时依赖
+   - 必须配置合理的 JVM 参数
+   - 必须暴露服务端口
+   - 建议配置健康检查（HEALTHCHECK）
+
+4. **适用范围**:
+   - **必须创建**: 所有可独立启动的微服务（如 `atlas-gateway`、`atlas-auth`、`atlas-system` 等）
+   - **不需要创建**: 不可独立启动的模块（如 `atlas-common-*`、`atlas-service-api` 等公共模块和 API 定义模块）
+
+5. **命名规范**:
+   - 编译阶段 Dockerfile 命名为 `Dockerfile.build`
+   - 运行阶段 Dockerfile 命名为 `Dockerfile.run`
+   - 如需支持多种构建场景，可添加后缀，如 `Dockerfile.build.dev`、`Dockerfile.run.prod`
+
+**理由**: 
+- 分离编译和运行阶段符合 Docker 最佳实践（多阶段构建理念）
+- 运行阶段使用轻量级镜像，减小镜像体积，提高部署效率
+- 统一的 Dockerfile 结构便于 CI/CD 流水线配置
+- 便于本地开发和生产环境的一致性管理
+
+**验证**:
+- 代码审查时检查可启动微服务是否包含 `docker` 目录
+- 检查 `docker` 目录是否包含 `Dockerfile.build` 和 `Dockerfile.run`
+- 检查 Dockerfile 是否符合命名规范和内容要求
+- CI/CD 流水线可以添加检查，确保所有可启动微服务都有对应的 Dockerfile
+
 ## 质量保证原则
 
-### 原则 17: 单元测试要求
+### 原则 18: 单元测试要求
 
 **规则**: 核心业务逻辑和公共方法必须编写单元测试，测试覆盖率不低于 70%。
 
@@ -920,7 +985,7 @@ atlas/
 - 避免自动生成大量低价值测试，保持代码仓库整洁
 - 让开发者主动决定测试范围，提高测试的针对性和有效性
 
-### 原则 18: 代码规范检查
+### 原则 19: 代码规范检查
 
 **规则**: 代码必须通过 Checkstyle、PMD、SpotBugs 等静态代码分析工具检查。
 
@@ -1003,6 +1068,7 @@ atlas/
 | 0.4.5 | 2026-01-06 | 降级 Spring Boot 版本至 3.5.9，Spring Cloud 版本至 2025.0.1，Spring Cloud Alibaba 版本至 2025.0.0.0 | 系统 |
 | 0.5.0 | 2026-01-30 | 新增数据库实体继承规范：所有数据库表对应实体类必须继承 BaseEntity | 系统 |
 | 0.5.1 | 2026-01-30 | 单元测试要求新增 AI 辅助开发规则：非必要不生成单元测试 | 系统 |
+| 0.6.0 | 2026-01-30 | 新增微服务 Dockerfile 规范：可启动微服务必须创建编译阶段和运行阶段 Dockerfile | 系统 |
 
 ---
 

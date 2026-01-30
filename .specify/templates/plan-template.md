@@ -10,6 +10,7 @@
 - ✅ **代码注释**: 使用中文注释
 - ✅ **代码复用**: 提取公共方法，避免重复代码
 - ✅ **模块化**: 遵循分层架构，Entity 继承 BaseEntity
+- ✅ **Dockerfile**: 可启动微服务需创建 docker 目录，包含 Dockerfile.build 和 Dockerfile.run
 - ✅ **单元测试**: 非必要不生成，仅在明确要求时编写
 
 ## 功能概述

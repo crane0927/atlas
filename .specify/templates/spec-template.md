@@ -9,6 +9,7 @@
 - ✅ **代码复用**: 识别并复用现有公共方法
 - ✅ **模块化**: 功能归属正确的模块
 - ✅ **实体继承**: 数据库实体必须继承 BaseEntity
+- ✅ **Dockerfile**: 可启动微服务需创建 Dockerfile.build 和 Dockerfile.run
 
 ## 功能描述
 

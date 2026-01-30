@@ -10,6 +10,7 @@
 - [ ] 代码注释使用中文
 - [ ] 已识别可复用的公共方法
 - [ ] Entity 继承 BaseEntity
+- [ ] 可启动微服务包含 docker 目录（Dockerfile.build 和 Dockerfile.run）
 
 ## 开发任务
 
@@ -36,6 +37,13 @@
 - [ ] 更新 API 文档
 - [ ] 更新开发文档
 
+### 容器化（如涉及新建可启动微服务）
+
+- [ ] 创建 docker 目录
+- [ ] 创建 Dockerfile.build（编译阶段）
+- [ ] 创建 Dockerfile.run（运行阶段）
+- [ ] 配置 JVM 参数和端口暴露
+
 ## 代码审查检查点
 
 - [ ] RESTful 设计规范
@@ -44,4 +52,5 @@
 - [ ] 异常处理规范性
 - [ ] Entity 继承 BaseEntity
 - [ ] DTO/VO 放在 model 包下
+- [ ] 可启动微服务包含 Dockerfile（如适用）
 - [ ] 测试覆盖率（仅限明确要求的测试）
