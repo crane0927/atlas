@@ -20,8 +20,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,20 +109,15 @@ public class UserServiceImpl implements UserService {
   }
 
   /**
-   * 将 User 实体转换为 UserDTO
+   * 将 User 实体转换为 UserDTO（原则 20：使用 BeanUtils，status 需手写转枚举）
    *
    * @param user 用户实体
    * @return 用户 DTO
    */
   private UserDTO convertToDTO(User user) {
     UserDTO dto = new UserDTO();
-    dto.setUserId(user.getUserId());
-    dto.setUsername(user.getUsername());
-    dto.setNickname(user.getNickname());
-    dto.setEmail(user.getEmail());
-    dto.setPhone(user.getPhone());
+    BeanUtils.copyProperties(user, dto);
     dto.setStatus(convertStatus(user.getStatus()));
-    dto.setAvatar(user.getAvatar());
     return dto;
   }
 
@@ -196,25 +193,24 @@ public class UserServiceImpl implements UserService {
    * 分页查询用户列表
    *
    * @param query 查询条件
-   * @param page 页码
-   * @param size 每页条数
-   * @param sort 排序，格式：字段名,asc 或 字段名,desc
    * @return 分页结果
    */
   @Override
   public PageResult<UserListVO> listUsersPage(UserQueryDTO query) {
-    int pageNum = query != null ? query.getPageSafe() : 1;
-    int pageSize = query != null ? query.getSizeSafe() : 10;
-    String sort = query != null ? query.getSort() : null;
+    int pageNum = Optional.ofNullable(query).map(UserQueryDTO::getPageSafe).orElse(1);
+    int pageSize = Optional.ofNullable(query).map(UserQueryDTO::getSizeSafe).orElse(10);
+    String sort = Optional.ofNullable(query).map(UserQueryDTO::getSort).orElse(null);
 
     LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(User::getStatus, "DELETED");
-    if (query != null && StringUtils.hasText(query.getUsername())) {
-      wrapper.like(User::getUsername, query.getUsername());
-    }
-    if (query != null && StringUtils.hasText(query.getStatus())) {
-      wrapper.eq(User::getStatus, query.getStatus());
-    }
+    Optional.ofNullable(query).ifPresent(q -> {
+      if (StringUtils.hasText(q.getUsername())) {
+        wrapper.like(User::getUsername, q.getUsername());
+      }
+      if (StringUtils.hasText(q.getStatus())) {
+        wrapper.eq(User::getStatus, q.getStatus());
+      }
+    });
     applySort(wrapper, sort);
 
     Page<User> pageReq = new Page<>(pageNum, pageSize);
@@ -250,21 +246,14 @@ public class UserServiceImpl implements UserService {
   }
 
   /**
-   * 将 User 实体转换为 UserListVO
+   * 将 User 实体转换为 UserListVO（原则 20：使用 BeanUtils）
    *
    * @param user 用户实体
    * @return 列表项 VO
    */
   private UserListVO convertToListVO(User user) {
     UserListVO vo = new UserListVO();
-    vo.setUserId(user.getUserId());
-    vo.setUsername(user.getUsername());
-    vo.setNickname(user.getNickname());
-    vo.setEmail(user.getEmail());
-    vo.setPhone(user.getPhone());
-    vo.setStatus(user.getStatus());
-    vo.setAvatar(user.getAvatar());
-    vo.setCreatedAt(user.getCreatedAt());
+    BeanUtils.copyProperties(user, vo);
     return vo;
   }
 

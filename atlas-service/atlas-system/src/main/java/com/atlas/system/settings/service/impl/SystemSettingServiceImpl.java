@@ -18,8 +18,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,16 +59,13 @@ public class SystemSettingServiceImpl implements SystemSettingService {
    * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createTime、updateTime）。
    *
    * @param queryDTO 查询参数
-   * @param page 页码（从 1 开始）
-   * @param size 每页大小
-   * @param sort 排序，格式：字段名,asc 或 字段名,desc，可选
    * @return 分页结果
    */
   @Override
   public PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO) {
-    int pageNumber = queryDTO != null ? queryDTO.getPageSafe() : 1;
-    int pageSize = queryDTO != null ? queryDTO.getSizeSafe() : 10;
-    String sort = queryDTO != null ? queryDTO.getSort() : null;
+    int pageNumber = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getPageSafe).orElse(1);
+    int pageSize = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSizeSafe).orElse(10);
+    String sort = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSort).orElse(null);
     LambdaQueryWrapper<SystemSetting> wrapper = buildQueryWrapper(queryDTO);
     applySort(wrapper, sort);
     Page<SystemSetting> pageRequest = new Page<>(pageNumber, pageSize);
@@ -141,12 +140,12 @@ public class SystemSettingServiceImpl implements SystemSettingService {
 
   private LambdaQueryWrapper<SystemSetting> buildQueryWrapper(SystemSettingQueryDTO queryDTO) {
     LambdaQueryWrapper<SystemSetting> queryWrapper = new LambdaQueryWrapper<>();
-    if (queryDTO != null && queryDTO.getType() != null) {
-      queryWrapper.eq(SystemSetting::getType, queryDTO.getType());
-    }
-    if (queryDTO != null && queryDTO.getKeyword() != null && !queryDTO.getKeyword().isBlank()) {
-      queryWrapper.like(SystemSetting::getKey, queryDTO.getKeyword().trim());
-    }
+    Optional.ofNullable(queryDTO).ifPresent(q -> {
+      if (q.getType() != null) queryWrapper.eq(SystemSetting::getType, q.getType());
+      if (q.getKeyword() != null && !q.getKeyword().isBlank()) {
+        queryWrapper.like(SystemSetting::getKey, q.getKeyword().trim());
+      }
+    });
     return queryWrapper;
   }
 
@@ -175,15 +174,12 @@ public class SystemSettingServiceImpl implements SystemSettingService {
     }
   }
 
+  /**
+   * 将 SystemSetting 实体转换为 SystemSettingVO（原则 20：使用 BeanUtils，Entity 与 VO 字段名一致）
+   */
   private SystemSettingVO convertToVO(SystemSetting setting) {
     SystemSettingVO vo = new SystemSettingVO();
-    vo.setKey(setting.getKey());
-    vo.setValue(setting.getValue());
-    vo.setType(setting.getType());
-    vo.setCreateTime(setting.getCreateTime());
-    vo.setUpdateTime(setting.getUpdateTime());
-    vo.setCreateBy(setting.getCreateBy());
-    vo.setUpdateBy(setting.getUpdateBy());
+    BeanUtils.copyProperties(setting, vo);
     return vo;
   }
 }

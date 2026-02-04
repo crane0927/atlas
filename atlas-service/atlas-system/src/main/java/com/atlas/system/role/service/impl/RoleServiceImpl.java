@@ -2,6 +2,7 @@
 package com.atlas.system.role.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.permission.mapper.PermissionMapper;
 import com.atlas.system.permission.model.entity.Permission;
@@ -17,8 +18,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -120,28 +123,21 @@ public class RoleServiceImpl implements RoleService {
    * 分页查询角色列表
    *
    * @param query 查询条件
-   * @param page 页码
-   * @param size 每页条数
-   * @param sort 排序，格式：字段名,asc 或 字段名,desc
    * @return 分页结果
    */
   @Override
   public PageResult<RoleListVO> listRolesPage(RoleQueryDTO query) {
-    int pageNum = query != null ? query.getPageSafe() : 1;
-    int pageSize = query != null ? query.getSizeSafe() : 10;
-    String sort = query != null ? query.getSort() : null;
+    int pageNum = Optional.ofNullable(query).map(RoleQueryDTO::getPageSafe).orElse(1);
+    int pageSize = Optional.ofNullable(query).map(RoleQueryDTO::getSizeSafe).orElse(10);
+    String sort = Optional.ofNullable(query).map(RoleQueryDTO::getSort).orElse(null);
 
     LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(Role::getStatus, "DELETED");
-    if (query != null && StringUtils.hasText(query.getRoleCode())) {
-      wrapper.like(Role::getRoleCode, query.getRoleCode());
-    }
-    if (query != null && StringUtils.hasText(query.getRoleName())) {
-      wrapper.like(Role::getRoleName, query.getRoleName());
-    }
-    if (query != null && StringUtils.hasText(query.getStatus())) {
-      wrapper.eq(Role::getStatus, query.getStatus());
-    }
+    Optional.ofNullable(query).ifPresent(q -> {
+      if (StringUtils.hasText(q.getRoleCode())) wrapper.like(Role::getRoleCode, q.getRoleCode());
+      if (StringUtils.hasText(q.getRoleName())) wrapper.like(Role::getRoleName, q.getRoleName());
+      if (StringUtils.hasText(q.getStatus())) wrapper.eq(Role::getStatus, q.getStatus());
+    });
     applySort(wrapper, sort);
 
     Page<Role> pageReq = new Page<>(pageNum, pageSize);
@@ -179,19 +175,14 @@ public class RoleServiceImpl implements RoleService {
   }
 
   /**
-   * 将 Role 实体转换为 RoleListVO
+   * 将 Role 实体转换为 RoleListVO（原则 20：使用 BeanUtils）
    *
    * @param role 角色实体
    * @return 列表项 VO
    */
   private RoleListVO convertToListVO(Role role) {
     RoleListVO vo = new RoleListVO();
-    vo.setRoleId(role.getRoleId());
-    vo.setRoleCode(role.getRoleCode());
-    vo.setRoleName(role.getRoleName());
-    vo.setDescription(role.getDescription());
-    vo.setStatus(role.getStatus());
-    vo.setCreatedAt(role.getCreatedAt());
+    BeanUtils.copyProperties(role, vo);
     return vo;
   }
 }

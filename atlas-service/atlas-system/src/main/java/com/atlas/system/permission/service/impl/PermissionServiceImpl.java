@@ -20,8 +20,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -66,7 +68,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
     // 查询用户角色代码列表
     List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(userId);
-    return roleCodes != null ? roleCodes : Collections.emptyList();
+    return Optional.ofNullable(roleCodes).orElse(Collections.emptyList());
   }
 
   /**
@@ -88,7 +90,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
     // 根据角色ID列表查询权限代码列表（已去重）
     List<String> permissionCodes = rolePermissionMapper.selectPermissionCodesByRoleIds(roleIds);
-    return permissionCodes != null ? permissionCodes : Collections.emptyList();
+    return Optional.ofNullable(permissionCodes).orElse(Collections.emptyList());
   }
 
   /**
@@ -103,8 +105,8 @@ public class PermissionServiceImpl implements PermissionService {
     List<String> permissions = getPermissionsByUserId(userId);
     UserAuthoritiesDTO dto = new UserAuthoritiesDTO();
     dto.setUserId(userId);
-    dto.setRoles(roles != null ? roles : new ArrayList<>());
-    dto.setPermissions(permissions != null ? permissions : new ArrayList<>());
+    dto.setRoles(Optional.ofNullable(roles).orElse(new ArrayList<>()));
+    dto.setPermissions(Optional.ofNullable(permissions).orElse(new ArrayList<>()));
     return dto;
   }
 
@@ -143,28 +145,21 @@ public class PermissionServiceImpl implements PermissionService {
    * 分页查询权限列表
    *
    * @param query 查询条件
-   * @param page 页码
-   * @param size 每页条数
-   * @param sort 排序，格式：字段名,asc 或 字段名,desc
    * @return 分页结果
    */
   @Override
   public PageResult<PermissionListVO> listPermissionsPage(PermissionQueryDTO query) {
-    int pageNum = query != null ? query.getPageSafe() : 1;
-    int pageSize = query != null ? query.getSizeSafe() : 10;
-    String sort = query != null ? query.getSort() : null;
+    int pageNum = Optional.ofNullable(query).map(PermissionQueryDTO::getPageSafe).orElse(1);
+    int pageSize = Optional.ofNullable(query).map(PermissionQueryDTO::getSizeSafe).orElse(10);
+    String sort = Optional.ofNullable(query).map(PermissionQueryDTO::getSort).orElse(null);
 
     LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(Permission::getStatus, "DELETED");
-    if (query != null && StringUtils.hasText(query.getPermissionCode())) {
-      wrapper.like(Permission::getPermissionCode, query.getPermissionCode());
-    }
-    if (query != null && StringUtils.hasText(query.getPermissionName())) {
-      wrapper.like(Permission::getPermissionName, query.getPermissionName());
-    }
-    if (query != null && StringUtils.hasText(query.getStatus())) {
-      wrapper.eq(Permission::getStatus, query.getStatus());
-    }
+    Optional.ofNullable(query).ifPresent(q -> {
+      if (StringUtils.hasText(q.getPermissionCode())) wrapper.like(Permission::getPermissionCode, q.getPermissionCode());
+      if (StringUtils.hasText(q.getPermissionName())) wrapper.like(Permission::getPermissionName, q.getPermissionName());
+      if (StringUtils.hasText(q.getStatus())) wrapper.eq(Permission::getStatus, q.getStatus());
+    });
     applySort(wrapper, sort);
 
     Page<Permission> pageReq = new Page<>(pageNum, pageSize);
@@ -202,19 +197,14 @@ public class PermissionServiceImpl implements PermissionService {
   }
 
   /**
-   * 将 Permission 实体转换为 PermissionListVO
+   * 将 Permission 实体转换为 PermissionListVO（原则 20：使用 BeanUtils）
    *
    * @param permission 权限实体
    * @return 列表项 VO
    */
   private PermissionListVO convertToListVO(Permission permission) {
     PermissionListVO vo = new PermissionListVO();
-    vo.setPermissionId(permission.getPermissionId());
-    vo.setPermissionCode(permission.getPermissionCode());
-    vo.setPermissionName(permission.getPermissionName());
-    vo.setDescription(permission.getDescription());
-    vo.setStatus(permission.getStatus());
-    vo.setCreatedAt(permission.getCreatedAt());
+    BeanUtils.copyProperties(permission, vo);
     return vo;
   }
 }
