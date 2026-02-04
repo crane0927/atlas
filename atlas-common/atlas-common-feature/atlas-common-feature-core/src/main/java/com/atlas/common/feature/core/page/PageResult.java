@@ -3,6 +3,8 @@ package com.atlas.common.feature.core.page;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -73,7 +75,7 @@ public class PageResult<T> {
       page = 1;
     }
     if (size == null || size < 1) {
-      size = list.size() > 0 ? list.size() : 10;
+      size = !list.isEmpty() ? list.size() : 10;
     }
 
     // 计算总页数：向上取整
@@ -135,7 +137,7 @@ public class PageResult<T> {
    * @return true 表示是最后一页，false 表示不是
    */
   public boolean isLast() {
-    return pages == 0 || page == pages;
+    return pages == 0 || Objects.equals(page, pages);
   }
 
   /**

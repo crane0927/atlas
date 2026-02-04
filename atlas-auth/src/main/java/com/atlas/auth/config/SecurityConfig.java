@@ -4,6 +4,7 @@ package com.atlas.auth.config;
 import com.atlas.auth.context.AuthSecurityContextHolder;
 import com.atlas.auth.context.SecurityContextImpl;
 import com.atlas.auth.filter.SecurityContextFilter;
+import com.atlas.common.feature.security.context.SecurityContextHolder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,8 +69,10 @@ public class SecurityConfig {
    */
   @Bean
   public AuthSecurityContextHolder authSecurityContextHolder(SecurityContextImpl securityContext) {
-    // 设置静态上下文实例
+    // 设置静态上下文实例（供直接使用 AuthSecurityContextHolder 的代码）
     AuthSecurityContextHolder.setContextInstance(securityContext);
+    // 注册到 common SecurityContextHolder，使 AuditMetaObjectHandler 等通过 getLoginUser() 能拿到当前用户
+    SecurityContextHolder.setContextProvider(AuthSecurityContextHolder::getContext);
     return new AuthSecurityContextHolder();
   }
 }
