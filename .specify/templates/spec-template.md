@@ -10,6 +10,8 @@
 - ✅ **模块化**: 功能归属正确的模块
 - ✅ **实体继承**: 数据库实体必须继承 BaseEntity
 - ✅ **Dockerfile**: 可启动微服务需创建 Dockerfile.build 和 Dockerfile.run
+- ✅ **对象转换**: 使用 BeanUtils/MapStruct 进行 Entity/DTO/VO 转换，禁止手写逐字段赋值
+- ✅ **参数与空值**: 参数校验与空值处理使用 Assert 或 Optional
 
 ## 功能描述
 

@@ -11,6 +11,8 @@
 - [ ] 已识别可复用的公共方法
 - [ ] Entity 继承 BaseEntity
 - [ ] 可启动微服务包含 docker 目录（Dockerfile.build 和 Dockerfile.run）
+- [ ] Entity/DTO/VO 转换使用 BeanUtils 或 MapStruct，禁止手写逐字段赋值
+- [ ] 参数判空与校验使用 Assert 或 Optional，避免冗长 if-else
 
 ## 开发任务
 
@@ -53,4 +55,6 @@
 - [ ] Entity 继承 BaseEntity
 - [ ] DTO/VO 放在 model 包下
 - [ ] 可启动微服务包含 Dockerfile（如适用）
+- [ ] 对象转换使用 BeanUtils/MapStruct（禁止手写逐字段 set/get）
+- [ ] 参数与空值处理使用 Assert 或 Optional
 - [ ] 测试覆盖率（仅限明确要求的测试）

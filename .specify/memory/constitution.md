@@ -1,26 +1,25 @@
 <!--
 Sync Impact Report:
-Version: 0.5.1 → 0.6.0
+Version: 0.6.0 → 0.7.0
 创建日期: 2025-01-27
 最后修订: 2026-01-30
-修改的原则: 
-  - 原则 17: 单元测试要求 → 重编号为原则 18
-  - 原则 18: 代码规范检查 → 重编号为原则 19
+修改的原则: 无（仅新增）
 新增章节:
-  - 原则 17: 微服务 Dockerfile 规范 - 新增可启动微服务必须创建编译阶段和运行阶段 Dockerfile 的规范
+  - 原则 20: 对象转换规范 - Entity/DTO/VO 转换禁止手写逐字段赋值，应使用 BeanUtils 或 MapStruct 等框架
+  - 原则 21: 参数与空值处理规范 - 传入参数判断尽量使用断言工具或 Optional，避免 if-else 判断
 移除章节: 无
 模板更新状态:
   - .specify/templates/plan-template.md: ✅ 已同步
   - .specify/templates/spec-template.md: ✅ 已同步
   - .specify/templates/tasks-template.md: ✅ 已同步
-  - .specify/templates/commands/*.md: ✅ 已同步
+  - .specify/templates/commands/constitution.md: ✅ 已同步
 后续待办: 无
 -->
 
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.6.0  
+**版本**: 0.7.0  
 **批准日期**: 2025-01-27  
 **最后修订日期**: 2026-01-30
 
@@ -991,6 +990,40 @@ atlas/
 
 **理由**: 统一的代码风格和规范提高代码可读性和可维护性。
 
+### 原则 20: 对象转换规范（Entity/DTO/VO）
+
+**规则**: 禁止手写逐字段赋值的对象转换代码（如 Entity → VO、Entity → DTO、DTO → VO）。必须优先使用 BeanUtils（如 Spring `BeanUtils.copyProperties`）、MapStruct 或项目已选定的其它转换框架。
+
+**具体要求**:
+
+- Entity、DTO、VO 之间的转换必须使用 `BeanUtils.copyProperties`、MapStruct 或等效框架完成，禁止在业务代码中手写大量 `vo.setXxx(entity.getXxx())` 形式的赋值。
+- 若目标对象与源对象字段名、类型一致，优先使用 `BeanUtils.copyProperties(source, target)`；若有字段名或类型差异、或需忽略部分字段，可使用 MapStruct 或自定义拷贝工具并在注释中说明。
+- 转换逻辑集中放在工具方法或 Mapper 接口中，避免在 Service 中散落手写转换。
+
+**理由**:
+- 手写逐字段转换易遗漏字段、难以与实体变更同步，且重复代码多。
+- 使用 BeanUtils/MapStruct 可减少重复、降低出错率，便于统一维护。
+
+**验证**:
+- 代码审查时检查 Entity/VO/DTO 转换是否使用 BeanUtils 或 MapStruct，禁止出现大段手写 setXxx(getXxx()) 的转换方法。
+
+### 原则 21: 参数与空值处理规范
+
+**规则**: 对传入参数的判空、校验应尽量使用断言工具（如 Spring `Assert`、Guava `Preconditions`、项目统一 Assert 工具）或 `Optional`，避免冗长的 if-else 分支判断。
+
+**具体要求**:
+
+- 参数非空、状态合法等前置条件校验，优先使用 `Assert.notNull(obj, "message")`、`Assert.hasText(str, "message")` 或项目约定的断言工具，在违反时统一抛出异常。
+- 对“可能为空”的语义表达，优先使用 `Optional` 或 `Optional.ofNullable(...).orElse(...)`，减少多层 `if (x == null) { ... } else { ... }` 嵌套。
+- 在保持可读性的前提下，避免仅做判空后逐分支赋默认值的冗长 if-else 链，可结合 Optional 或断言简化。
+
+**理由**:
+- 断言可集中表达前置条件、统一异常类型与消息，提高可读性和可维护性。
+- Optional 明确表达“可能为空”，减少 NPE 与分支嵌套，符合现代 Java 实践。
+
+**验证**:
+- 代码审查时检查参数校验与空值处理是否优先使用 Assert 或 Optional，避免不必要的多层 if-else 判空分支。
+
 ## 治理规则
 
 ### 版本管理
@@ -1069,6 +1102,7 @@ atlas/
 | 0.5.0 | 2026-01-30 | 新增数据库实体继承规范：所有数据库表对应实体类必须继承 BaseEntity | 系统 |
 | 0.5.1 | 2026-01-30 | 单元测试要求新增 AI 辅助开发规则：非必要不生成单元测试 | 系统 |
 | 0.6.0 | 2026-01-30 | 新增微服务 Dockerfile 规范：可启动微服务必须创建编译阶段和运行阶段 Dockerfile | 系统 |
+| 0.7.0 | 2026-01-30 | 新增对象转换规范（原则 20）：禁止手写逐字段转换，使用 BeanUtils/MapStruct；新增参数与空值处理规范（原则 21）：优先使用断言或 Optional | 系统 |
 
 ---
 

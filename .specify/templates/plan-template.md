@@ -12,6 +12,8 @@
 - ✅ **模块化**: 遵循分层架构，Entity 继承 BaseEntity
 - ✅ **Dockerfile**: 可启动微服务需创建 docker 目录，包含 Dockerfile.build 和 Dockerfile.run
 - ✅ **单元测试**: 非必要不生成，仅在明确要求时编写
+- ✅ **对象转换**: Entity/DTO/VO 转换使用 BeanUtils 或 MapStruct，禁止手写逐字段赋值
+- ✅ **参数与空值**: 参数校验与空值处理优先使用 Assert 或 Optional，避免冗长 if-else
 
 ## 功能概述
 
