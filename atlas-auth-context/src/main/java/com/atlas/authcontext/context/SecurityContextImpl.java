@@ -1,36 +1,21 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
-package com.atlas.auth.context;
+package com.atlas.authcontext.context;
 
 import com.atlas.common.feature.security.context.SecurityContext;
 import com.atlas.common.feature.security.user.LoginUser;
 
 /**
- * 安全上下文实现类
+ * 安全上下文实现（方案 B 抽取至 auth-context）
  *
- * <p>使用 ThreadLocal 存储用户信息，为下游服务提供安全上下文。
+ * <p>使用 ThreadLocal 存储用户信息，供 Filter 设置、SecurityContextHolder 读取。
  *
- * <p>实现特性：
- *
- * <ul>
- *   <li>使用 ThreadLocal 存储用户信息，线程安全
- *   <li>支持多线程环境下的用户上下文隔离
- *   <li>提供 clear() 方法清理上下文，避免内存泄漏
- * </ul>
- *
- * @author Atlas Team
+ * @author Atlas
  * @since 1.0.0
  */
 public class SecurityContextImpl implements SecurityContext {
 
   private static final ThreadLocal<LoginUser> context = new ThreadLocal<>();
 
-  /**
-   * 设置当前登录用户
-   *
-   * <p>将用户信息存储到 ThreadLocal 中。
-   *
-   * @param loginUser 登录用户信息
-   */
   public void setLoginUser(LoginUser loginUser) {
     if (loginUser != null) {
       context.set(loginUser);

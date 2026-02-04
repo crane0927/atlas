@@ -24,7 +24,7 @@ import lombok.Setter;
  * <p>使用方式：
  *
  * <pre>{@code
- * // 在 SecurityConfig 中初始化
+ * // 在 SecurityConfig 中初始化（securityContext 可来自 atlas-auth-context 的 SecurityContextImpl）
  * AuthSecurityContextHolder.setContextInstance(securityContext);
  *
  * // 在下游服务中使用（注意：需要导入 AuthSecurityContextHolder 而不是 SecurityContextHolder）
@@ -38,20 +38,18 @@ public class AuthSecurityContextHolder extends SecurityContextHolder {
 
     /**
      * -- SETTER --
-     *  设置 SecurityContext 实例
-     *  <p>由 Spring 容器调用，设置 `SecurityContextImpl` 实例。
-     *
+     * 设置 SecurityContext 实例（可由 atlas-auth-context 的 SecurityContextImpl 提供）。
      */
     @Setter
-    private static SecurityContextImpl contextInstance;
+    private static SecurityContext contextInstance;
 
     /**
    * 获取当前安全上下文
    *
    * <p>返回 `SecurityContextImpl` 实例，供静态方法使用。
    *
-   * <p>注意：此方法隐藏了父类的静态方法，提供具体实现。 下游服务应该使用 `AuthSecurityContextHolder.getLoginUser()` 而不是
-   * `SecurityContextHolder.getLoginUser()`。
+   * <p>注意：此方法隐藏了父类的静态方法，提供具体实现。下游服务应使用
+   * `AuthSecurityContextHolder.getLoginUser()` 或 common 的 `SecurityContextHolder.getLoginUser()`。
    *
    * @return 当前安全上下文，如果未初始化则返回 null
    */
