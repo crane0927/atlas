@@ -5,6 +5,8 @@ import com.atlas.auth.context.AuthSecurityContextHolder;
 import com.atlas.auth.context.SecurityContextImpl;
 import com.atlas.auth.filter.SecurityContextFilter;
 import com.atlas.common.feature.security.context.SecurityContextHolder;
+import com.atlas.common.feature.security.provider.CurrentUserProvider;
+import com.atlas.common.feature.security.provider.SecurityContextCurrentUserProvider;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Atlas Team
  * @since 1.0.0
  */
-@Configuration
+@Configuration("authSecurityConfig")
 public class SecurityConfig {
 
   /**
@@ -74,5 +76,15 @@ public class SecurityConfig {
     // 注册到 common SecurityContextHolder，使 AuditMetaObjectHandler 等通过 getLoginUser() 能拿到当前用户
     SecurityContextHolder.setContextProvider(AuthSecurityContextHolder::getContext);
     return new AuthSecurityContextHolder();
+  }
+
+  /**
+   * 注册当前用户提供者，供审计等组件通过注入获取当前用户名（参考 Oneself 设计）。
+   *
+   * @return CurrentUserProvider 实例
+   */
+  @Bean
+  public CurrentUserProvider currentUserProvider() {
+    return new SecurityContextCurrentUserProvider();
   }
 }

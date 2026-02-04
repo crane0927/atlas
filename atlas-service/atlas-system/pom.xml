@@ -110,6 +110,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Atlas Auth (Security 配置与 Filter，使本进程内请求可解析 Token 并设置当前用户，审计能拿到 createBy/updateBy) -->
+        <dependency>
+            <groupId>com.atlas</groupId>
+            <artifactId>atlas-auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
