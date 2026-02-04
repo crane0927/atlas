@@ -2,6 +2,7 @@
 package com.atlas.system.user.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.api.v1.model.dto.UserDTO;
 import com.atlas.system.api.v1.model.enums.UserStatus;
 import com.atlas.system.constant.SystemErrorCode;
@@ -10,14 +11,21 @@ import com.atlas.system.role.model.entity.Role;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
 import com.atlas.system.user.model.dto.UserCreateDTO;
+import com.atlas.system.user.model.dto.UserQueryDTO;
 import com.atlas.system.user.model.entity.User;
 import com.atlas.system.user.model.entity.UserRole;
+import com.atlas.system.user.model.vo.UserListVO;
 import com.atlas.system.user.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * 用户服务实现类
@@ -182,6 +190,82 @@ public class UserServiceImpl implements UserService {
     userRole.setRoleId(roleId);
     userRole.setCreatedAt(LocalDateTime.now());
     userRoleMapper.insert(userRole);
+  }
+
+  /**
+   * 分页查询用户列表
+   *
+   * @param query 查询条件
+   * @param page 页码
+   * @param size 每页条数
+   * @param sort 排序，格式：字段名,asc 或 字段名,desc
+   * @return 分页结果
+   */
+  @Override
+  public PageResult<UserListVO> listUsersPage(UserQueryDTO query) {
+    int pageNum = query != null ? query.getPageSafe() : 1;
+    int pageSize = query != null ? query.getSizeSafe() : 10;
+    String sort = query != null ? query.getSort() : null;
+
+    LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+    wrapper.ne(User::getStatus, "DELETED");
+    if (query != null && StringUtils.hasText(query.getUsername())) {
+      wrapper.like(User::getUsername, query.getUsername());
+    }
+    if (query != null && StringUtils.hasText(query.getStatus())) {
+      wrapper.eq(User::getStatus, query.getStatus());
+    }
+    applySort(wrapper, sort);
+
+    Page<User> pageReq = new Page<>(pageNum, pageSize);
+    Page<User> resultPage = userMapper.selectPage(pageReq, wrapper);
+    List<UserListVO> list =
+        resultPage.getRecords().stream()
+            .map(this::convertToListVO)
+            .collect(Collectors.toList());
+    return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
+  }
+
+  /**
+   * 应用排序（白名单：createTime、username）
+   *
+   * @param wrapper 查询包装器
+   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
+   */
+  private void applySort(LambdaQueryWrapper<User> wrapper, String sort) {
+    if (!StringUtils.hasText(sort)) {
+      wrapper.orderByDesc(User::getCreatedAt);
+      return;
+    }
+    String[] parts = sort.split(",");
+    String field = parts.length > 0 ? parts[0].trim() : "";
+    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
+    if ("username".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, User::getUsername);
+    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, User::getCreatedAt);
+    } else {
+      wrapper.orderByDesc(User::getCreatedAt);
+    }
+  }
+
+  /**
+   * 将 User 实体转换为 UserListVO
+   *
+   * @param user 用户实体
+   * @return 列表项 VO
+   */
+  private UserListVO convertToListVO(User user) {
+    UserListVO vo = new UserListVO();
+    vo.setUserId(user.getUserId());
+    vo.setUsername(user.getUsername());
+    vo.setNickname(user.getNickname());
+    vo.setEmail(user.getEmail());
+    vo.setPhone(user.getPhone());
+    vo.setStatus(user.getStatus());
+    vo.setAvatar(user.getAvatar());
+    vo.setCreatedAt(user.getCreatedAt());
+    return vo;
   }
 
   /**

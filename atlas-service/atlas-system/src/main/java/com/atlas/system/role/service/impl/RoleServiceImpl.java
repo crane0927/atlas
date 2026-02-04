@@ -8,13 +8,20 @@ import com.atlas.system.permission.model.entity.Permission;
 import com.atlas.system.role.mapper.RoleMapper;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.role.model.dto.RoleCreateDTO;
+import com.atlas.system.role.model.dto.RoleQueryDTO;
 import com.atlas.system.role.model.entity.Role;
 import com.atlas.system.role.model.entity.RolePermission;
+import com.atlas.system.role.model.vo.RoleListVO;
 import com.atlas.system.role.service.RoleService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * 角色服务实现类
@@ -107,5 +114,84 @@ public class RoleServiceImpl implements RoleService {
     rolePermission.setPermissionId(permissionId);
     rolePermission.setCreatedAt(LocalDateTime.now());
     rolePermissionMapper.insert(rolePermission);
+  }
+
+  /**
+   * 分页查询角色列表
+   *
+   * @param query 查询条件
+   * @param page 页码
+   * @param size 每页条数
+   * @param sort 排序，格式：字段名,asc 或 字段名,desc
+   * @return 分页结果
+   */
+  @Override
+  public PageResult<RoleListVO> listRolesPage(RoleQueryDTO query) {
+    int pageNum = query != null ? query.getPageSafe() : 1;
+    int pageSize = query != null ? query.getSizeSafe() : 10;
+    String sort = query != null ? query.getSort() : null;
+
+    LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
+    wrapper.ne(Role::getStatus, "DELETED");
+    if (query != null && StringUtils.hasText(query.getRoleCode())) {
+      wrapper.like(Role::getRoleCode, query.getRoleCode());
+    }
+    if (query != null && StringUtils.hasText(query.getRoleName())) {
+      wrapper.like(Role::getRoleName, query.getRoleName());
+    }
+    if (query != null && StringUtils.hasText(query.getStatus())) {
+      wrapper.eq(Role::getStatus, query.getStatus());
+    }
+    applySort(wrapper, sort);
+
+    Page<Role> pageReq = new Page<>(pageNum, pageSize);
+    Page<Role> resultPage = roleMapper.selectPage(pageReq, wrapper);
+    List<RoleListVO> list =
+        resultPage.getRecords().stream()
+            .map(this::convertToListVO)
+            .collect(Collectors.toList());
+    return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
+  }
+
+  /**
+   * 应用排序（白名单：roleCode、roleName、createTime、createdAt）
+   *
+   * @param wrapper 查询包装器
+   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
+   */
+  private void applySort(LambdaQueryWrapper<Role> wrapper, String sort) {
+    if (!StringUtils.hasText(sort)) {
+      wrapper.orderByDesc(Role::getCreatedAt);
+      return;
+    }
+    String[] parts = sort.split(",");
+    String field = parts.length > 0 ? parts[0].trim() : "";
+    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
+    if ("roleCode".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Role::getRoleCode);
+    } else if ("roleName".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Role::getRoleName);
+    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Role::getCreatedAt);
+    } else {
+      wrapper.orderByDesc(Role::getCreatedAt);
+    }
+  }
+
+  /**
+   * 将 Role 实体转换为 RoleListVO
+   *
+   * @param role 角色实体
+   * @return 列表项 VO
+   */
+  private RoleListVO convertToListVO(Role role) {
+    RoleListVO vo = new RoleListVO();
+    vo.setRoleId(role.getRoleId());
+    vo.setRoleCode(role.getRoleCode());
+    vo.setRoleName(role.getRoleName());
+    vo.setDescription(role.getDescription());
+    vo.setStatus(role.getStatus());
+    vo.setCreatedAt(role.getCreatedAt());
+    return vo;
   }
 }

@@ -34,13 +34,21 @@ curl -s "http://localhost:8085/api/v1/users?page=1&size=10&username=admin&status
 ### 角色分页列表
 
 ```bash
+# 第一页，每页 10 条，按角色代码升序
 curl -s "http://localhost:8085/api/v1/roles?page=1&size=10&sort=roleCode,asc"
+
+# 带条件：角色代码/名称模糊、状态
+curl -s "http://localhost:8085/api/v1/roles?page=1&size=10&roleCode=admin&roleName=管理员&status=ACTIVE"
 ```
 
 ### 权限分页列表
 
 ```bash
+# 第一页，每页 10 条，按权限名称升序
 curl -s "http://localhost:8085/api/v1/permissions?page=1&size=10&sort=permissionName,asc"
+
+# 带条件：权限代码/名称模糊、状态
+curl -s "http://localhost:8085/api/v1/permissions?page=1&size=10&permissionCode=user&permissionName=用户&status=ACTIVE"
 ```
 
 ### 系统设置分页列表

@@ -1,11 +1,15 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.role.controller;
 
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.role.model.dto.RoleCreateDTO;
+import com.atlas.system.role.model.dto.RoleQueryDTO;
+import com.atlas.system.role.model.vo.RoleListVO;
 import com.atlas.system.role.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>接口说明：
  *
  * <ul>
+ *   <li>GET /api/v1/roles：分页查询角色列表（参数：page、size、sort、roleCode、roleName、status）
  *   <li>POST /api/v1/roles：创建角色
  *   <li>POST /api/v1/roles/{roleId}/permissions：为角色分配权限
  * </ul>
@@ -35,6 +40,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleManagementController {
 
   private final RoleService roleService;
+
+  /**
+   * 分页查询角色列表
+   *
+   * <p>支持按角色代码、角色名称、状态筛选，以及排序（排序字段：roleCode、roleName、createTime、createdAt）。{@link RoleQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   *
+   * @param query 查询条件（roleCode、roleName、status、page、size、sort）
+   * @return 分页结果，使用 {@link Result} 包装
+   */
+  @GetMapping("/roles")
+  public Result<PageResult<RoleListVO>> listRoles(RoleQueryDTO query) {
+    PageResult<RoleListVO> result = roleService.listRolesPage(query);
+    return Result.success(result);
+  }
 
   /**
    * 创建角色

@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * 系统设置服务实现类
@@ -53,19 +54,23 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   /**
    * 分页查询设置项列表
    *
+   * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createTime、updateTime）。
+   *
    * @param queryDTO 查询参数
-   * @param page 页码
+   * @param page 页码（从 1 开始）
    * @param size 每页大小
+   * @param sort 排序，格式：字段名,asc 或 字段名,desc，可选
    * @return 分页结果
    */
   @Override
-  public PageResult<SystemSettingVO> listSettingsPage(
-      SystemSettingQueryDTO queryDTO, Integer page, Integer size) {
-    int pageNumber = page == null || page < 1 ? 1 : page;
-    int pageSize = size == null || size < 1 ? 10 : size;
+  public PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO) {
+    int pageNumber = queryDTO != null ? queryDTO.getPageSafe() : 1;
+    int pageSize = queryDTO != null ? queryDTO.getSizeSafe() : 10;
+    String sort = queryDTO != null ? queryDTO.getSort() : null;
+    LambdaQueryWrapper<SystemSetting> wrapper = buildQueryWrapper(queryDTO);
+    applySort(wrapper, sort);
     Page<SystemSetting> pageRequest = new Page<>(pageNumber, pageSize);
-    Page<SystemSetting> resultPage =
-        systemSettingMapper.selectPage(pageRequest, buildQueryWrapper(queryDTO));
+    Page<SystemSetting> resultPage = systemSettingMapper.selectPage(pageRequest, wrapper);
     List<SystemSettingVO> records =
         resultPage.getRecords().stream()
             .filter(Objects::nonNull)
@@ -143,6 +148,31 @@ public class SystemSettingServiceImpl implements SystemSettingService {
       queryWrapper.like(SystemSetting::getKey, queryDTO.getKeyword().trim());
     }
     return queryWrapper;
+  }
+
+  /**
+   * 应用排序（白名单：key、createTime、updateTime），与 PageQueryDTO 规范一致
+   *
+   * @param wrapper 查询包装器
+   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
+   */
+  private void applySort(LambdaQueryWrapper<SystemSetting> wrapper, String sort) {
+    if (!StringUtils.hasText(sort)) {
+      wrapper.orderByDesc(SystemSetting::getCreateTime);
+      return;
+    }
+    String[] parts = sort.split(",");
+    String field = parts.length > 0 ? parts[0].trim() : "";
+    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
+    if ("key".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, SystemSetting::getKey);
+    } else if ("createTime".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, SystemSetting::getCreateTime);
+    } else if ("updateTime".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, SystemSetting::getUpdateTime);
+    } else {
+      wrapper.orderByDesc(SystemSetting::getCreateTime);
+    }
   }
 
   private SystemSettingVO convertToVO(SystemSetting setting) {

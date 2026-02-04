@@ -3,8 +3,8 @@
  */
 package com.atlas.system.settings.controller;
 
-import com.atlas.common.feature.core.result.Result;
 import com.atlas.common.feature.core.page.PageResult;
+import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -67,20 +66,15 @@ public class SystemSettingController {
   /**
    * 分页查询设置项列表
    *
-   * <p>支持按类型与关键字过滤。
+   * <p>支持按类型与关键字过滤；支持排序（排序字段：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
    *
-   * @param queryDTO 查询参数
-   * @param page 页码（从 1 开始）
-   * @param size 每页大小
+   * @param queryDTO 查询参数（type、keyword、page、size、sort）
    * @return 分页设置项列表
    */
   @GetMapping("/page")
   public Result<PageResult<SystemSettingVO>> listSystemSettingsPage(
-      SystemSettingQueryDTO queryDTO,
-      @RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size) {
-    PageResult<SystemSettingVO> result =
-        systemSettingService.listSettingsPage(queryDTO, page, size);
+      SystemSettingQueryDTO queryDTO) {
+    PageResult<SystemSettingVO> result = systemSettingService.listSettingsPage(queryDTO);
     return Result.success(result);
   }
 

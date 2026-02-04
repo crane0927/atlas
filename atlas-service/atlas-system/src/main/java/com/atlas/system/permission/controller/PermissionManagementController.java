@@ -1,11 +1,15 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.permission.controller;
 
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
+import com.atlas.system.permission.model.dto.PermissionQueryDTO;
+import com.atlas.system.permission.model.vo.PermissionListVO;
 import com.atlas.system.permission.service.PermissionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>接口说明：
  *
  * <ul>
+ *   <li>GET /api/v1/permissions：分页查询权限列表（参数：page、size、sort、permissionCode、permissionName、status）
  *   <li>POST /api/v1/permissions：创建权限
  * </ul>
  *
@@ -33,6 +38,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class PermissionManagementController {
 
   private final PermissionService permissionService;
+
+  /**
+   * 分页查询权限列表
+   *
+   * <p>支持按权限代码、权限名称、状态筛选，以及排序（排序字段：permissionCode、permissionName、createTime、createdAt）。{@link PermissionQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   *
+   * @param query 查询条件（permissionCode、permissionName、status、page、size、sort）
+   * @return 分页结果，使用 {@link Result} 包装
+   */
+  @GetMapping("/permissions")
+  public Result<PageResult<PermissionListVO>> listPermissions(PermissionQueryDTO query) {
+    PageResult<PermissionListVO> result = permissionService.listPermissionsPage(query);
+    return Result.success(result);
+  }
 
   /**
    * 创建权限

@@ -2,8 +2,11 @@
 package com.atlas.system.user.service;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.api.v1.model.dto.UserDTO;
 import com.atlas.system.user.model.dto.UserCreateDTO;
+import com.atlas.system.user.model.dto.UserQueryDTO;
+import com.atlas.system.user.model.vo.UserListVO;
 
 /**
  * 用户服务接口
@@ -76,4 +79,14 @@ public interface UserService {
    * @throws BusinessException 如果用户或角色不存在，错误码：032001 或 032101
    */
   void assignRoleToUser(Long userId, Long roleId);
+
+  /**
+   * 分页查询用户列表
+   *
+   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段白名单：createTime、username）。{@link UserQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   *
+   * @param query 查询条件（用户名、状态、page、size、sort）
+   * @return 分页结果，列表项为 UserListVO（不包含密码）
+   */
+  PageResult<UserListVO> listUsersPage(UserQueryDTO query);
 }

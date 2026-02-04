@@ -2,8 +2,11 @@
 package com.atlas.system.permission.service;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
+import com.atlas.system.permission.model.dto.PermissionQueryDTO;
+import com.atlas.system.permission.model.vo.PermissionListVO;
 import java.util.List;
 
 /**
@@ -65,4 +68,14 @@ public interface PermissionService {
    * @throws BusinessException 如果权限代码已存在，错误码：032006
    */
   Long createPermission(PermissionCreateDTO permissionCreateDTO);
+
+  /**
+   * 分页查询权限列表
+   *
+   * <p>支持按权限代码、权限名称、状态筛选，以及排序（排序字段白名单：permissionCode、permissionName、createTime、createdAt）。{@link PermissionQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   *
+   * @param query 查询条件（含 page、size、sort）
+   * @return 分页结果
+   */
+  PageResult<PermissionListVO> listPermissionsPage(PermissionQueryDTO query);
 }

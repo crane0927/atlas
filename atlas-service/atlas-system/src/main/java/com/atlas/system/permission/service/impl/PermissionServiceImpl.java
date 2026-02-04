@@ -5,9 +5,14 @@ import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.permission.mapper.PermissionMapper;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
+import com.atlas.system.permission.model.dto.PermissionQueryDTO;
 import com.atlas.system.permission.model.entity.Permission;
+import com.atlas.system.permission.model.vo.PermissionListVO;
 import com.atlas.system.permission.service.PermissionService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
@@ -15,9 +20,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * 权限服务实现类
@@ -130,5 +137,84 @@ public class PermissionServiceImpl implements PermissionService {
     // 保存权限
     permissionMapper.insert(permission);
     return permission.getPermissionId();
+  }
+
+  /**
+   * 分页查询权限列表
+   *
+   * @param query 查询条件
+   * @param page 页码
+   * @param size 每页条数
+   * @param sort 排序，格式：字段名,asc 或 字段名,desc
+   * @return 分页结果
+   */
+  @Override
+  public PageResult<PermissionListVO> listPermissionsPage(PermissionQueryDTO query) {
+    int pageNum = query != null ? query.getPageSafe() : 1;
+    int pageSize = query != null ? query.getSizeSafe() : 10;
+    String sort = query != null ? query.getSort() : null;
+
+    LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
+    wrapper.ne(Permission::getStatus, "DELETED");
+    if (query != null && StringUtils.hasText(query.getPermissionCode())) {
+      wrapper.like(Permission::getPermissionCode, query.getPermissionCode());
+    }
+    if (query != null && StringUtils.hasText(query.getPermissionName())) {
+      wrapper.like(Permission::getPermissionName, query.getPermissionName());
+    }
+    if (query != null && StringUtils.hasText(query.getStatus())) {
+      wrapper.eq(Permission::getStatus, query.getStatus());
+    }
+    applySort(wrapper, sort);
+
+    Page<Permission> pageReq = new Page<>(pageNum, pageSize);
+    Page<Permission> resultPage = permissionMapper.selectPage(pageReq, wrapper);
+    List<PermissionListVO> list =
+        resultPage.getRecords().stream()
+            .map(this::convertToListVO)
+            .collect(Collectors.toList());
+    return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
+  }
+
+  /**
+   * 应用排序（白名单：permissionCode、permissionName、createTime、createdAt）
+   *
+   * @param wrapper 查询包装器
+   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
+   */
+  private void applySort(LambdaQueryWrapper<Permission> wrapper, String sort) {
+    if (!StringUtils.hasText(sort)) {
+      wrapper.orderByDesc(Permission::getCreatedAt);
+      return;
+    }
+    String[] parts = sort.split(",");
+    String field = parts.length > 0 ? parts[0].trim() : "";
+    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
+    if ("permissionCode".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Permission::getPermissionCode);
+    } else if ("permissionName".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Permission::getPermissionName);
+    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, Permission::getCreatedAt);
+    } else {
+      wrapper.orderByDesc(Permission::getCreatedAt);
+    }
+  }
+
+  /**
+   * 将 Permission 实体转换为 PermissionListVO
+   *
+   * @param permission 权限实体
+   * @return 列表项 VO
+   */
+  private PermissionListVO convertToListVO(Permission permission) {
+    PermissionListVO vo = new PermissionListVO();
+    vo.setPermissionId(permission.getPermissionId());
+    vo.setPermissionCode(permission.getPermissionCode());
+    vo.setPermissionName(permission.getPermissionName());
+    vo.setDescription(permission.getDescription());
+    vo.setStatus(permission.getStatus());
+    vo.setCreatedAt(permission.getCreatedAt());
+    return vo;
   }
 }

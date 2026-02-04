@@ -2,7 +2,10 @@
 package com.atlas.system.role.service;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.role.model.dto.RoleCreateDTO;
+import com.atlas.system.role.model.dto.RoleQueryDTO;
+import com.atlas.system.role.model.vo.RoleListVO;
 
 /**
  * 角色服务接口
@@ -42,4 +45,14 @@ public interface RoleService {
    * @throws BusinessException 如果角色或权限不存在，错误码：032101 或 032201
    */
   void assignPermissionToRole(Long roleId, Long permissionId);
+
+  /**
+   * 分页查询角色列表
+   *
+   * <p>支持按角色代码、角色名称、状态筛选，以及排序（排序字段白名单：roleCode、roleName、createTime、createdAt）。{@link RoleQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   *
+   * @param query 查询条件（含 page、size、sort）
+   * @return 分页结果
+   */
+  PageResult<RoleListVO> listRolesPage(RoleQueryDTO query);
 }

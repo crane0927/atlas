@@ -1,9 +1,12 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.user.controller;
 
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.api.v1.feign.UserQueryApi;
 import com.atlas.system.api.v1.model.dto.UserDTO;
+import com.atlas.system.user.model.dto.UserQueryDTO;
+import com.atlas.system.user.model.vo.UserListVO;
 import com.atlas.system.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>接口说明：
  *
  * <ul>
+ *   <li>GET /api/v1/users：分页查询用户列表（参数：page、size、sort、username、status）
  *   <li>GET /api/v1/users/{userId}：根据用户ID查询用户信息
  *   <li>GET /api/v1/users/by-username?username={username}：根据用户名查询用户信息
  * </ul>
@@ -33,6 +37,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController implements UserQueryApi {
 
   private final UserService userService;
+
+  /**
+   * 分页查询用户列表
+   *
+   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段：createTime、username）。{@link UserQueryDTO} 继承 {@link com.atlas.common.feature.core.page.PageQueryDTO}，含 page、size、sort。
+   *
+   * @param query 查询条件（username、status、page、size、sort）
+   * @return 分页结果，使用 {@link Result} 包装
+   */
+  @GetMapping("/api/v1/users")
+  public Result<PageResult<UserListVO>> listUsers(UserQueryDTO query) {
+    PageResult<UserListVO> result = userService.listUsersPage(query);
+    return Result.success(result);
+  }
 
   /**
    * 根据用户ID查询用户信息

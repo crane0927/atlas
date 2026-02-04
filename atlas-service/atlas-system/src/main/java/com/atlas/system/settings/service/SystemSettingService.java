@@ -33,14 +33,12 @@ public interface SystemSettingService {
   /**
    * 分页查询设置项列表
    *
-   * <p>支持按类型与关键字过滤。
+   * <p>支持按类型与关键字过滤；支持排序（排序字段白名单：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
    *
-   * @param queryDTO 查询参数
-   * @param page 页码（从 1 开始）
-   * @param size 每页大小
+   * @param queryDTO 查询参数（含 page、size、sort）
    * @return 分页结果
    */
-  PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO, Integer page, Integer size);
+  PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO);
 
   /**
    * 创建自定义设置项
