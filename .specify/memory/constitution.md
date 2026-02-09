@@ -1,27 +1,28 @@
 <!--
 Sync Impact Report:
-Version: 0.6.0 → 0.7.0
+Version: 0.7.0 → 1.0.0
 创建日期: 2025-01-27
-最后修订: 2026-01-30
-修改的原则: 无（仅新增）
-新增章节:
-  - 原则 20: 对象转换规范 - Entity/DTO/VO 转换禁止手写逐字段赋值，应使用 BeanUtils 或 MapStruct 等框架
-  - 原则 21: 参数与空值处理规范 - 传入参数判断尽量使用断言工具或 Optional，避免 if-else 判断
-移除章节: 无
+最后修订: 2026-02-09
+修改的原则:
+  - 原则 4: 数据库迁移统一为 Flyway（不再保留 Liquibase 选项）
+  - 原则 15（原 SQL 目录管理规范）: 已移除
+  - 原则 16→15、17→16、18→17、19→18、20→19、21→20: 重新编号
+移除章节: 原则 15（SQL 目录管理规范）
+新增章节: 无
 模板更新状态:
-  - .specify/templates/plan-template.md: ✅ 已同步
-  - .specify/templates/spec-template.md: ✅ 已同步
-  - .specify/templates/tasks-template.md: ✅ 已同步
-  - .specify/templates/commands/constitution.md: ✅ 已同步
+  - .specify/templates/plan-template.md: ✅ 无需修改（未引用原则 15 或 Flyway/Liquibase）
+  - .specify/templates/spec-template.md: ✅ 无需修改
+  - .specify/templates/tasks-template.md: ✅ 无需修改
+  - .specify/templates/commands/constitution.md: ✅ 无需修改
 后续待办: 无
 -->
 
 # 项目宪法
 
 **项目名称**: Atlas  
-**版本**: 0.7.0  
+**版本**: 1.0.0  
 **批准日期**: 2025-01-27  
-**最后修订日期**: 2026-01-30
+**最后修订日期**: 2026-02-09
 
 ## 概述
 
@@ -69,14 +70,14 @@ Version: 0.6.0 → 0.7.0
 **具体要求**:
 - 所有持久化数据必须存储在 PostgreSQL 数据库中
 - 数据库连接配置必须使用 MyBatis-Plus
-- 数据库迁移使用 Flyway 或 Liquibase 进行版本管理
+- 数据库迁移统一使用 Flyway 进行版本管理
 - 禁止使用其他关系型数据库（如 MySQL、Oracle）作为主数据库
 - 如需使用其他数据库（如 Redis、MongoDB），仅作为缓存或特定场景的辅助存储
 - 不需要数据库连接的模块（如网关、配置中心等）无需配置数据源
 
 **验证**:
 - 需要数据库连接的模块必须使用 MyBatis-Plus 进行数据访问
-- 数据库迁移脚本必须使用 Flyway 或 Liquibase 管理
+- 数据库迁移脚本必须使用 Flyway 管理
 - 代码审查时检查是否有直接使用其他关系型数据库的情况
 - 代码审查时检查是否使用了 Spring Data JPA 或其他 ORM 框架
 
@@ -811,84 +812,14 @@ atlas/
 - 便于模块独立开发、测试和部署
 - 符合单一职责原则和依赖倒置原则
 
-### 原则 15: SQL 目录管理规范
-
-**规则**: 所有涉及数据库的服务，必须在服务目录下建立 `sql` 目录，保存相关的 SQL 语句，并根据版本创建子目录，记录每个版本的 SQL 变更。
-
-**具体要求**:
-
-1. **目录结构**:
-   - 每个涉及数据库的服务必须在服务根目录下创建 `sql` 目录
-   - `sql` 目录下必须按版本创建子目录，版本号使用语义化版本格式（如 `v1.0.0`、`v1.1.0`）
-   - 每个版本子目录下保存该版本的所有 SQL 变更脚本
-   - **目录结构示例**:
-     ```
-     atlas-auth/
-     ├── sql/
-     │   ├── v1.0.0/
-     │   │   ├── 001_create_user_table.sql
-     │   │   ├── 002_create_role_table.sql
-     │   │   └── README.md
-     │   ├── v1.1.0/
-     │   │   ├── 001_add_user_email_column.sql
-     │   │   └── README.md
-     │   └── README.md
-     ```
-
-2. **SQL 文件命名规范**:
-   - SQL 文件使用数字前缀（如 `001_`、`002_`）确保执行顺序
-   - 文件名使用小写字母、数字和下划线，采用描述性命名
-   - 命名格式: `{序号}_{操作类型}_{对象名称}.sql`
-   - **操作类型示例**: `create`、`alter`、`drop`、`insert`、`update`、`migrate`
-   - **示例**: `001_create_user_table.sql`、`002_alter_user_add_email.sql`、`003_migrate_user_data.sql`
-
-3. **版本目录要求**:
-   - 每个版本子目录必须包含 `README.md` 文件，说明该版本的 SQL 变更内容
-   - `README.md` 必须包含：
-     - 版本号
-     - 变更日期
-     - 变更说明：列出所有 SQL 变更的目的和影响
-     - 执行顺序：说明 SQL 文件的执行顺序和依赖关系
-     - 回滚说明：如需要，说明如何回滚该版本的变更
-
-4. **SQL 文件内容要求**:
-   - 每个 SQL 文件必须包含注释，说明变更目的、影响范围、执行条件
-   - 必须包含事务控制（BEGIN/COMMIT），确保原子性
-   - 必须包含错误处理（如适用）
-   - 必须包含版本标识注释（如 `-- Version: v1.0.0`）
-
-5. **适用范围**:
-   - **必须创建**: 所有涉及数据库操作的服务（如 `atlas-auth`、`atlas-system` 等业务服务）
-   - **不需要创建**: 不涉及数据库的模块（如 `atlas-gateway`、`atlas-common-infra-web` 等）
-
-6. **与数据库迁移工具的关系**:
-   - `sql` 目录用于保存 SQL 脚本的历史记录和文档
-   - 可以与 Flyway 或 Liquibase 配合使用，但 `sql` 目录是必需的文档和版本管理目录
-   - Flyway/Liquibase 的迁移脚本可以引用 `sql` 目录中的脚本，或保持独立（但 `sql` 目录必须存在）
-
-**理由**: 
-- SQL 脚本的版本化管理便于追踪数据库变更历史
-- 按版本组织 SQL 脚本有助于理解数据库演进过程
-- 统一的目录结构提高团队协作效率
-- 便于数据库迁移、回滚和问题排查
-- 符合数据库变更管理的最佳实践
-
-**验证**:
-- 代码审查时检查涉及数据库的服务是否包含 `sql` 目录
-- 检查 `sql` 目录是否按版本组织
-- 检查每个版本子目录是否包含 `README.md` 文件
-- 检查 SQL 文件命名是否符合规范
-- 检查 SQL 文件是否包含必要的注释和事务控制
-- CI/CD 流水线可以添加检查，确保涉及数据库的服务都有 `sql` 目录
-
-### 原则 16: 数据库实体继承规范
+### 原则 15: 数据库实体继承规范
 
 **规则**: 所有与数据库表对应的实体类必须继承 `atlas-common-infra-db` 中的 `BaseEntity`。
 
 **具体要求**:
 
 - Entity 必须继承 `com.atlas.common.infra.db.entity.BaseEntity`
-- 禁止在实体类中重复定义审计字段与逻辑删除字段（`deleted`、`createTime`、`updateTime`、`createBy`、`updateBy`）
+- 禁止在实体类中重复定义审计字段与逻辑删除字段（`deleted`、`createdAt`、`updatedAt`、`createdBy`、`updatedBy`）
 - 若业务实体需要自定义审计字段名称，必须仍继承 `BaseEntity`，并通过注解明确映射差异
 
 **理由**:
@@ -900,7 +831,7 @@ atlas/
 - 代码审查时检查所有 Entity 是否继承 `BaseEntity`
 - 检查实体类是否重复定义审计字段或逻辑删除字段
 
-### 原则 17: 微服务 Dockerfile 规范
+### 原则 16: 微服务 Dockerfile 规范
 
 **规则**: 每个可独立启动的微服务模块必须创建对应的 Dockerfile，分为编译阶段 Dockerfile 和运行阶段 Dockerfile。
 
@@ -965,7 +896,7 @@ atlas/
 
 ## 质量保证原则
 
-### 原则 18: 单元测试要求
+### 原则 17: 单元测试要求
 
 **规则**: 核心业务逻辑和公共方法必须编写单元测试，测试覆盖率不低于 70%。
 
@@ -984,13 +915,13 @@ atlas/
 - 避免自动生成大量低价值测试，保持代码仓库整洁
 - 让开发者主动决定测试范围，提高测试的针对性和有效性
 
-### 原则 19: 代码规范检查
+### 原则 18: 代码规范检查
 
 **规则**: 代码必须通过 Checkstyle、PMD、SpotBugs 等静态代码分析工具检查。
 
 **理由**: 统一的代码风格和规范提高代码可读性和可维护性。
 
-### 原则 20: 对象转换规范（Entity/DTO/VO）
+### 原则 19: 对象转换规范（Entity/DTO/VO）
 
 **规则**: 禁止手写逐字段赋值的对象转换代码（如 Entity → VO、Entity → DTO、DTO → VO）。必须优先使用 BeanUtils（如 Spring `BeanUtils.copyProperties`）、MapStruct 或项目已选定的其它转换框架。
 
@@ -1007,7 +938,7 @@ atlas/
 **验证**:
 - 代码审查时检查 Entity/VO/DTO 转换是否使用 BeanUtils 或 MapStruct，禁止出现大段手写 setXxx(getXxx()) 的转换方法。
 
-### 原则 21: 参数与空值处理规范
+### 原则 20: 参数与空值处理规范
 
 **规则**: 对传入参数的判空、校验应尽量使用断言工具（如 Spring `Assert`、Guava `Preconditions`、项目统一 Assert 工具）或 `Optional`，避免冗长的 if-else 分支判断。
 
@@ -1103,6 +1034,7 @@ atlas/
 | 0.5.1 | 2026-01-30 | 单元测试要求新增 AI 辅助开发规则：非必要不生成单元测试 | 系统 |
 | 0.6.0 | 2026-01-30 | 新增微服务 Dockerfile 规范：可启动微服务必须创建编译阶段和运行阶段 Dockerfile | 系统 |
 | 0.7.0 | 2026-01-30 | 新增对象转换规范（原则 20）：禁止手写逐字段转换，使用 BeanUtils/MapStruct；新增参数与空值处理规范（原则 21）：优先使用断言或 Optional | 系统 |
+| 1.0.0 | 2026-02-09 | 原则 15（SQL 目录管理规范）废弃并移除；原则 4 统一为仅使用 Flyway 进行数据库迁移；原则 16–21 重新编号为 15–20 | 系统 |
 
 ---
 
