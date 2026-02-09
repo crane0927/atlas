@@ -22,8 +22,8 @@ import org.springframework.stereotype.Component;
  * <ul>
  *   <li>createdAt：创建时间（插入时填充）
  *   <li>updatedAt：更新时间（插入和更新时填充）
- *   <li>createBy：创建人（插入时填充，从安全上下文获取）
- *   <li>updateBy：更新人（更新时填充，从安全上下文获取）
+ *   <li>createdBy：创建人（插入时填充，从安全上下文获取）
+ *   <li>updatedBy：更新人（更新时填充，从安全上下文获取）
  * </ul>
  *
  * <p>使用说明：
@@ -71,8 +71,8 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
     this.strictInsertFill(metaObject, "updatedAt", LocalDateTime.class, now);
     // 填充创建人和更新人
     String currentUser = getCurrentUser();
-    this.strictInsertFill(metaObject, "createBy", String.class, currentUser);
-    this.strictInsertFill(metaObject, "updateBy", String.class, currentUser);
+    this.strictInsertFill(metaObject, "createdBy", String.class, currentUser);
+    this.strictInsertFill(metaObject, "updatedBy", String.class, currentUser);
   }
 
   /**
@@ -90,8 +90,8 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
     if (metaObject.hasSetter("updatedAt")) {
       metaObject.setValue("updatedAt", now);
     }
-    if (metaObject.hasSetter("updateBy")) {
-      metaObject.setValue("updateBy", currentUser);
+    if (metaObject.hasSetter("updatedBy")) {
+      metaObject.setValue("updatedBy", currentUser);
     }
   }
 

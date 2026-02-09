@@ -18,8 +18,8 @@ import lombok.Data;
  *   <li>deleted：逻辑删除标记，0 表示未删除，1 表示已删除
  *   <li>createdAt：创建时间，插入时自动填充
  *   <li>updatedAt：更新时间，插入和更新时自动填充
- *   <li>createBy：创建人，插入时自动填充
- *   <li>updateBy：更新人，更新时自动填充
+ *   <li>createdBy：创建人，插入时自动填充
+ *   <li>updatedBy：更新人，更新时自动填充
  * </ul>
  *
  * <p>使用示例：
@@ -35,7 +35,7 @@ import lombok.Data;
  *     private String username;
  *     private String email;
  *     // 其他业务字段...
- *     // 审计字段（createdAt、updatedAt、createBy、updateBy）和逻辑删除字段（deleted）已从 BaseEntity 继承
+ *     // 审计字段（createdAt、updatedAt、createdBy、updatedBy）和逻辑删除字段（deleted）已从 BaseEntity 继承
  * }
  * }</pre>
  *
@@ -67,9 +67,9 @@ public class BaseEntity {
 
   /** 创建人，插入时自动填充 */
   @TableField(fill = FieldFill.INSERT)
-  private String createBy;
+  private String createdBy;
 
   /** 更新人，更新时自动填充 */
   @TableField(fill = FieldFill.INSERT_UPDATE)
-  private String updateBy;
+  private String updatedBy;
 }

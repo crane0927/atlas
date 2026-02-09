@@ -19,7 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
  *   <li>用户管理：支持创建用户、分配角色等管理功能
  * </ul>
  *
- * <p>安全上下文与审计字段（createBy/updateBy）由 atlas-common-infra-web 自动配置提供，经 Gateway 下传请求头设置当前用户。
+ * <p>安全上下文与审计字段（createdBy/updatedBy）由 atlas-common-infra-web 自动配置提供，经 Gateway 下传请求头设置当前用户。
  *
  * @author Atlas Team
  * @since 1.0.0

@@ -18,8 +18,8 @@ import lombok.Data;
  *   <li>type：设置项类型（SYSTEM/CUSTOM）
  *   <li>createdAt：创建时间
  *   <li>updatedAt：更新时间
- *   <li>createBy：创建人
- *   <li>updateBy：更新人
+ *   <li>createdBy：创建人
+ *   <li>updatedBy：更新人
  * </ul>
  *
  * @author Atlas Team
@@ -44,8 +44,8 @@ public class SystemSettingVO {
   private LocalDateTime updatedAt;
 
   /** 创建人 */
-  private String createBy;
+  private String createdBy;
 
   /** 更新人 */
-  private String updateBy;
+  private String updatedBy;
 }
