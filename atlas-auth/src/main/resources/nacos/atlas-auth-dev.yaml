@@ -1,0 +1,40 @@
+server:
+  port: ${SERVER_PORT:8084}
+  servlet:
+    context-path: /atlas-auth
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:mBYFyN4wXi6WsA}
+      database: ${REDIS_DATABASE:0}
+      timeout: 10s
+      client-type: lettuce
+      lettuce:
+        pool:
+          enabled: true
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+# 从环境变量读取 JWT 密钥，生产请勿在 Nacos 中明文填写
+atlas:
+  auth:
+    jwt:
+      private-key: ${ATLAS_AUTH_JWT_PRIVATE_KEY:}
+      public-key: ${ATLAS_AUTH_JWT_PUBLIC_KEY:}
+      key-id: ${ATLAS_AUTH_JWT_KEY_ID:atlas-key}
+      expire: ${ATLAS_AUTH_JWT_EXPIRE:7200}
+      algorithm: ${ATLAS_AUTH_JWT_ALGORITHM:RS256}
+    introspect:
+      api-key: ${ATLAS_AUTH_INTROSPECT_API_KEY:}
+
+logging:
+  level:
+    root: INFO
+    com.atlas: DEBUG
+
+

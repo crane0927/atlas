@@ -5,16 +5,10 @@ spring:
     import: optional:nacos:atlas-system-dev.yaml
   cloud:
     nacos:
-      discovery:
-        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
-        username: nacos
-        password: nacos
-        namespace: ${NACOS_NAMESPACE:dev}
-        group: ${NACOS_GROUP:DEFAULT_GROUP}
       config:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
-        username: nacos
-        password: nacos
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
         namespace: ${NACOS_NAMESPACE:dev}
         group: ${NACOS_GROUP:DEFAULT_GROUP}
         file-extension: yaml
@@ -22,3 +16,15 @@ spring:
           - data-id: atlas-common.yaml
             group: COMMON_GROUP
             refresh: true
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
+        namespace: ${NACOS_NAMESPACE:dev}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+
+# Nacos 不可用时兜底
+server:
+  port: 8085
+  servlet:
+    context-path: /atlas-system

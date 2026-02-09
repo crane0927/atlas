@@ -1,0 +1,76 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth-service-route
+              uri: http://localhost:8084
+              predicates:
+                - Path=/atlas-auth/api/v1/**
+              filters:
+                - StripPrefix=0
+
+            - id: system-service-route
+              uri: http://localhost:8085
+              predicates:
+                - Path=/atlas-system/api/v1/**
+              filters:
+                - StripPrefix=0
+
+            - id: health-route
+              uri: http://localhost:8080
+              predicates:
+                - Path=/health/**
+              filters:
+                - StripPrefix=1
+
+            - id: mock-route
+              uri: http://localhost:8080
+              predicates:
+                - Path=/mock/**
+              filters:
+                - StripPrefix=1
+
+atlas:
+  gateway:
+    whitelist:
+      enabled: true
+      paths:
+        - /health/**
+        - /mock/**
+        - /atlas-auth/api/v1/auth/login
+        - /atlas-auth/api/v1/auth/public-key
+
+    auth:
+      validation-mode: jwt
+      jwt:
+        public-key: ${ATLAS_GATEWAY_JWT_PUBLIC_KEY:}
+        algorithm: RS256
+
+      introspect:
+        url: http://localhost:8084/api/v1/auth/introspect
+        api-key: ${ATLAS_GATEWAY_INTROSPECT_API_KEY:}
+
+    routes:
+      - id: health-wild-route
+        uri: http://localhost:8080
+        predicates:
+          - Path=/health/**
+        filters:
+          - StripPrefix=1
+
+      - id: mock-wild-route
+        uri: http://localhost:8080
+        predicates:
+          - Path=/mock/**
+        filters:
+          - StripPrefix=1
+
+logging:
+  level:
+    root: INFO
+    com.atlas.gateway: DEBUG

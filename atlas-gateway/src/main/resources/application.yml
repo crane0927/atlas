@@ -4,97 +4,27 @@ spring:
   config:
     import: optional:nacos:atlas-gateway-dev.yaml
   cloud:
-    gateway:
-      server:
-        webflux:
-          # Gateway 路由配置（使用新的配置键，也可以通过 Nacos Config 配置）
-          routes:
-            - id: auth-service-route
-              uri: http://localhost:8084
-              predicates:
-                - Path=/api/v1/auth/**
-              filters:
-                - StripPrefix=0
-            - id: system-service-route
-              uri: http://localhost:8085
-              predicates:
-                - Path=/api/v1/users/**,/api/v1/roles/**,/api/v1/permissions/**
-              filters:
-                - StripPrefix=0
-            - id: health-route
-              uri: http://localhost:8080
-              predicates:
-                - Path=/health/**
-              filters:
-                - StripPrefix=1
-            - id: mock-route
-              uri: http://localhost:8080
-              predicates:
-                - Path=/mock/**
-              filters:
-                - StripPrefix=1
-    # Nacos Config 配置
     nacos:
       config:
-        server-addr: localhost:8848
-        username: nacos
-        password: nacos
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
         file-extension: yaml
-        group: DEFAULT_GROUP
-        namespace: dev
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        namespace: ${NACOS_NAMESPACE:dev}
         data-id: ${spring.application.name}-${spring.profiles.active:dev}.yaml
         refresh-enabled: true
         shared-configs:
           - data-id: atlas-gateway-${spring.profiles.active:dev}.yaml
-            group: DEFAULT_GROUP
+            group: ${NACOS_GROUP:DEFAULT_GROUP}
             refresh: true
       discovery:
-        server-addr: localhost:8848
-        username: nacos
-        password: nacos
-        namespace: dev
-        group: DEFAULT_GROUP
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
+        namespace: ${NACOS_NAMESPACE:dev}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
 
+# Nacos 不可用时兜底，避免启动失败
 server:
   port: 8080
-
-
-# Atlas Gateway 配置
-# 白名单仅放行必要路径，勿使用 /api/v1/auth/** 以免误放行 logout 等敏感接口
-atlas:
-  gateway:
-    whitelist:
-      enabled: true
-      paths:
-        - /health/**
-        - /mock/**
-        - /api/v1/auth/login
-        - /api/v1/auth/public-key
-    # 校验方式：jwt（本地公钥）或 introspection（调用 Auth 接口）。未配置有效方式时非白名单请求将被拒绝。
-    # auth:
-    #   validation-mode: jwt
-    #   jwt:
-    #     public-key: <PEM 公钥字符串>
-    #     algorithm: RS256
-    #   introspect:
-    #     url: http://localhost:8084/api/v1/auth/introspect
-    #     api-key: <与 atlas.auth.introspect.api-key 一致>
-    routes:
-      - id: health-route
-        uri: http://localhost:8080
-        predicates:
-          - Path=/health/**
-        filters:
-          - StripPrefix=1
-      - id: mock-route
-        uri: http://localhost:8080
-        predicates:
-          - Path=/mock/**
-        filters:
-          - StripPrefix=1
-
-# 日志配置
-logging:
-  level:
-    root: INFO
-    com.atlas.gateway: DEBUG
