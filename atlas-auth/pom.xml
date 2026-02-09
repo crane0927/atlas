@@ -60,10 +60,10 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Atlas Auth Context（方案 B：安全上下文薄模块，Filter + TokenValidator 抽象） -->
+        <!-- Atlas Common Infra Web（SecurityContextImpl、SecurityContextFilter 自动配置） -->
         <dependency>
             <groupId>com.atlas</groupId>
-            <artifactId>atlas-auth-context</artifactId>
+            <artifactId>atlas-common-infra-web</artifactId>
             <version>${project.version}</version>
         </dependency>
 

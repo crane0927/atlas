@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 安全配置类（方案 B：Filter 与 SecurityContextImpl 由 atlas-auth-context 提供）
+ * 安全配置类
  *
- * <p>功能：将 auth-context 的 SecurityContext 注册到 SecurityContextHolder，并注册 CurrentUserProvider。
+ * <p>功能：将 atlas-common-infra-web 提供的 SecurityContext 注册到 SecurityContextHolder，并注册 CurrentUserProvider。
  *
  * @author Atlas Team
  * @since 1.0.0
@@ -21,9 +21,9 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig {
 
   /**
-   * 将 auth-context 的 SecurityContext 注册到静态 Holder，供 getLoginUser() 等使用。
+   * 将 SecurityContext 注册到静态 Holder，供 getLoginUser() 等使用。
    *
-   * @param securityContext 由 atlas-auth-context 提供的 SecurityContextImpl
+   * @param securityContext 由 atlas-common-infra-web 自动配置提供的 SecurityContextImpl
    * @return AuthSecurityContextHolder 实例
    */
   @Bean

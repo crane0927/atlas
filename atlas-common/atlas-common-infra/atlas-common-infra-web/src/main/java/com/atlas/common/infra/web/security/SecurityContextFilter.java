@@ -1,8 +1,7 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
-package com.atlas.authcontext.filter;
+package com.atlas.common.infra.web.security;
 
-import com.atlas.authcontext.context.SecurityContextImpl;
-import com.atlas.authcontext.validator.TokenValidator;
+import com.atlas.common.feature.security.validator.TokenValidator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * 安全上下文过滤器（方案 B 抽取至 auth-context）
+ * 安全上下文过滤器
  *
  * <p>从请求头提取 Token，委托 {@link TokenValidator} 校验并设置安全上下文。
  *
@@ -40,10 +39,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         var loginUser = tokenValidator.validateToken(token);
         if (loginUser != null) {
           securityContext.setLoginUser(loginUser);
-          log.debug(
-              "设置安全上下文: userId={}, username={}",
-              loginUser.getUserId(),
-              loginUser.getUsername());
+          log.debug("设置安全上下文: userId={}, username={}", loginUser.getUserId(), loginUser.getUsername());
         } else {
           log.debug("Token 验证失败，不设置安全上下文");
         }

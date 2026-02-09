@@ -41,6 +41,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- atlas-common-feature-security（SecurityContext、TokenValidator 契约） -->
+        <dependency>
+            <groupId>com.atlas</groupId>
+            <artifactId>atlas-common-feature-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- atlas-common-infra-logging（TraceIdUtil 工具类，可选） -->
         <dependency>
             <groupId>com.atlas</groupId>

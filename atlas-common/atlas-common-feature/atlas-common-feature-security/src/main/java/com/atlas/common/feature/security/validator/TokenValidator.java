@@ -1,12 +1,12 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
-package com.atlas.authcontext.validator;
+package com.atlas.common.feature.security.validator;
 
 import com.atlas.common.feature.security.user.LoginUser;
 
 /**
- * Token 校验器（方案 B 抽象）
+ * Token 校验器接口
  *
- * <p>由 atlas-auth 等模块实现，atlas-auth-context 的 Filter 仅依赖此接口，不依赖具体 Token 实现（JWT + 黑名单等）。
+ * <p>由 atlas-auth 等模块实现，Filter 仅依赖此接口，不依赖具体 Token 实现（JWT + 黑名单等）。
  *
  * @author Atlas
  * @since 1.0.0

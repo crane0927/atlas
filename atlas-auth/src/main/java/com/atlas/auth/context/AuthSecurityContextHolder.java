@@ -24,7 +24,7 @@ import lombok.Setter;
  * <p>使用方式：
  *
  * <pre>{@code
- * // 在 SecurityConfig 中初始化（securityContext 可来自 atlas-auth-context 的 SecurityContextImpl）
+ * // 在 SecurityConfig 中初始化（securityContext 由 atlas-common-infra-web 的 SecurityContextImpl 提供）
  * AuthSecurityContextHolder.setContextInstance(securityContext);
  *
  * // 在下游服务中使用（注意：需要导入 AuthSecurityContextHolder 而不是 SecurityContextHolder）
@@ -38,7 +38,7 @@ public class AuthSecurityContextHolder extends SecurityContextHolder {
 
     /**
      * -- SETTER --
-     * 设置 SecurityContext 实例（可由 atlas-auth-context 的 SecurityContextImpl 提供）。
+     * 设置 SecurityContext 实例（由 atlas-common-infra-web 的 SecurityContextImpl 提供）。
      */
     @Setter
     private static SecurityContext contextInstance;

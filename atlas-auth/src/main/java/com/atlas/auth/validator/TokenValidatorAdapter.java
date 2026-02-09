@@ -4,15 +4,15 @@ package com.atlas.auth.validator;
 import com.atlas.auth.model.dto.LoginUserImpl;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.service.TokenService;
-import com.atlas.authcontext.validator.TokenValidator;
 import com.atlas.common.feature.security.user.LoginUser;
+import com.atlas.common.feature.security.validator.TokenValidator;
 import java.util.Collections;
 import org.springframework.stereotype.Component;
 
 /**
- * TokenValidator 适配器（方案 B）
+ * TokenValidator 适配器
  *
- * <p>委托 {@link TokenService} 校验 Token，将 TokenInfoDTO 转为 LoginUser 供 auth-context Filter 使用。
+ * <p>委托 {@link TokenService} 校验 Token，将 TokenInfoDTO 转为 LoginUser 供 SecurityContextFilter 使用。
  *
  * @author Atlas
  * @since 1.0.0
