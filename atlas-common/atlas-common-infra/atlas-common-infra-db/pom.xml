@@ -41,6 +41,16 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
+        <!-- Flyway -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+
         <!-- atlas-common-feature-security（安全模块，用于获取当前用户信息，可选） -->
         <dependency>
             <groupId>com.atlas</groupId>
