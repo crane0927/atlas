@@ -18,8 +18,8 @@
 ### 2. Key 命名规范
 
 提供统一的 Redis Key 命名规范工具类 `RedisKeyBuilder`：
-- **Key 格式**: `{prefix}:{module}:{business}:{id}`（如：`atlas:user:info:123`）
-- **前缀配置**: 支持 Key 前缀配置，统一管理 Key 命名空间，默认值为 "atlas"
+- **Key 格式**: `{business}:{id}`（可选 `{module}:{business}:{id}`，如：`info:123`）
+- **前缀策略**: 固定前缀为 `atlas`，服务前缀通过配置提供（如 `auth`），Redis 实际 Key 形如 `atlas:auth:info:123`
 - **Builder 模式**: 提供链式调用的 Builder 模式，使用简单直观
 - **TTL 支持**: 支持 Key 过期时间设置（TTL），便于缓存管理
 
@@ -30,6 +30,7 @@
 - **过期时间**: 支持缓存过期时间设置和查询
 - **批量操作**: 支持按模式批量删除缓存（使用 SCAN 命令，避免阻塞 Redis）
 - **存在性检查**: 支持缓存存在性检查
+- **前缀补齐**: 自动补齐固定前缀与服务前缀，业务只需传业务 Key
 - **异常处理**: 所有方法统一处理异常，记录日志但不抛出异常，确保业务逻辑不受影响
 - **类型安全**: 支持泛型，提供类型安全的缓存操作
 
@@ -70,7 +71,8 @@ spring:
 # Atlas Redis 配置
 atlas:
   redis:
-    key-prefix: "atlas"  # Key 前缀，默认值为 "atlas"
+    key-prefix: "atlas"        # 固定前缀（默认 "atlas"）
+    service-prefix: "auth"     # 服务前缀（建议按服务配置）
 ```
 
 ### 使用示例
@@ -108,15 +110,13 @@ import com.atlas.common.infra.redis.key.RedisKeyBuilder;
 
 // 构建 Key
 String key = RedisKeyBuilder.builder()
-    .module("user")
     .business("info")
     .id("123")
     .build();
-// 结果: "atlas:user:info:123"
+// 结果: "info:123"（Redis 实际存储为 atlas:{service}:info:123）
 
 // 设置过期时间（可选，仅用于标记）
 RedisKeyBuilder builder = RedisKeyBuilder.builder()
-    .module("user")
     .business("info")
     .id("123")
     .withTtl(3600);  // 1 小时过期
@@ -131,28 +131,28 @@ String key = builder.build();
 import com.atlas.common.infra.redis.util.CacheUtil;
 
 // 设置缓存（不过期）
-CacheUtil.set("atlas:user:info:123", userInfo);
+CacheUtil.set("info:123", userInfo);
 
 // 设置缓存并指定过期时间（1 小时）
-CacheUtil.set("atlas:user:info:123", userInfo, 3600);
+CacheUtil.set("info:123", userInfo, 3600);
 
 // 获取缓存
-UserInfo userInfo = CacheUtil.get("atlas:user:info:123", UserInfo.class);
+UserInfo userInfo = CacheUtil.get("info:123", UserInfo.class);
 
 // 检查缓存是否存在
-boolean exists = CacheUtil.exists("atlas:user:info:123");
+boolean exists = CacheUtil.exists("info:123");
 
 // 设置缓存过期时间
-CacheUtil.expire("atlas:user:info:123", 3600);
+CacheUtil.expire("info:123", 3600);
 
 // 获取缓存剩余过期时间（秒）
-long ttl = CacheUtil.getExpire("atlas:user:info:123");
+long ttl = CacheUtil.getExpire("info:123");
 
 // 删除缓存
-CacheUtil.delete("atlas:user:info:123");
+CacheUtil.delete("info:123");
 
 // 按模式删除缓存（删除所有匹配的 Key）
-CacheUtil.deletePattern("atlas:user:*");
+CacheUtil.deletePattern("info:*");
 ```
 
 #### 4. 完整业务场景示例
@@ -175,7 +175,6 @@ public class UserService {
     public UserInfo getUserById(Long id) {
         // 构建 Key
         String key = RedisKeyBuilder.builder()
-            .module("user")
             .business("info")
             .id(String.valueOf(id))
             .build();
@@ -205,7 +204,6 @@ public class UserService {
         
         // 删除缓存
         String key = RedisKeyBuilder.builder()
-            .module("user")
             .business("info")
             .id(String.valueOf(userInfo.getId()))
             .build();
@@ -221,7 +219,6 @@ public class UserService {
         
         // 删除缓存
         String key = RedisKeyBuilder.builder()
-            .module("user")
             .business("info")
             .id(String.valueOf(id))
             .build();
@@ -233,7 +230,7 @@ public class UserService {
      */
     public void clearAllUserCache() {
         // 按模式删除所有用户相关的缓存
-        CacheUtil.deletePattern("atlas:user:*");
+        CacheUtil.deletePattern("info:*");
     }
 }
 ```
@@ -263,18 +260,14 @@ spring:
 
 ### Key 前缀配置
 
-Key 前缀配置用于统一管理 Key 命名空间：
+Key 前缀配置用于统一管理 Key 命名空间（固定前缀 + 服务前缀）：
 
 ```yaml
 atlas:
   redis:
-    key-prefix: "atlas"  # Key 前缀，默认值为 "atlas"
+    key-prefix: "atlas"        # 固定前缀，默认 "atlas"
+    service-prefix: "auth"     # 服务前缀，建议按服务配置
 ```
-
-不同环境可以使用不同的前缀，例如：
-- 开发环境：`dev`
-- 测试环境：`test`
-- 生产环境：`prod`
 
 ## 注意事项
 

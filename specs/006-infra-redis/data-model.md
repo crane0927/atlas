@@ -36,26 +36,24 @@
 
 | 字段名 | 类型 | 说明 | 默认值 |
 |--------|------|------|--------|
-| module | String | 模块名 | - |
+| module | String | 模块名（可选） | - |
 | business | String | 业务标识 | - |
 | id | String | 唯一标识 | - |
-| prefix | String | Key 前缀 | 从配置读取 |
 
 **方法定义**:
 
 | 方法名 | 参数 | 返回类型 | 说明 | 必填 |
 |--------|------|----------|------|------|
 | builder | - | RedisKeyBuilder | 创建 Key 构建器 | 是 |
-| module | String module | RedisKeyBuilder | 设置模块名 | 是 |
+| module | String module | RedisKeyBuilder | 设置模块名 | 否 |
 | business | String business | RedisKeyBuilder | 设置业务标识 | 是 |
 | id | String id | RedisKeyBuilder | 设置唯一标识 | 是 |
 | build | - | String | 构建完整的 Key 字符串 | 是 |
 | withTtl | int seconds | RedisKeyBuilder | 设置 Key 过期时间（秒） | 否 |
 
 **约束规则**:
-- Key 格式：`{prefix}:{module}:{business}:{id}`
-- 所有字段不能为 null 或空字符串
-- prefix 从配置文件读取，默认值为 "atlas"
+- Key 格式：`{business}:{id}`（可选 `{module}:{business}:{id}`）
+- business 与 id 不能为空
 
 ### CacheUtil（缓存工具类）
 
@@ -91,7 +89,8 @@
 
 | 字段名 | 类型 | 说明 | 默认值 |
 |--------|------|------|--------|
-| keyPrefix | String | Key 前缀 | "atlas" |
+| keyPrefix | String | 固定前缀 | "atlas" |
+| servicePrefix | String | 服务前缀 | - |
 
 **约束规则**:
 - 使用 `@ConfigurationProperties` 注解绑定配置
@@ -105,7 +104,8 @@
 ```yaml
 atlas:
   redis:
-    key-prefix: "atlas"  # Key 前缀，默认值为 "atlas"
+    key-prefix: "atlas"        # 固定前缀，默认 "atlas"
+    service-prefix: "auth"     # 服务前缀，建议按服务配置
 ```
 
 ## 数据关系
@@ -122,8 +122,8 @@ atlas:
 
 ### RedisProperties 与 RedisKeyBuilder
 
-- `RedisProperties` 提供 Key 前缀配置
-- `RedisKeyBuilder` 使用配置的前缀构建 Key
+- `RedisProperties` 提供固定前缀与服务前缀配置
+- `RedisKeyBuilder` 仅构建业务 Key，Redis 实际 Key 由 `CacheUtil` 自动补齐前缀
 
 ## 使用示例
 
@@ -132,15 +132,13 @@ atlas:
 ```java
 // 构建 Key
 String key = RedisKeyBuilder.builder()
-    .module("user")
     .business("info")
     .id("123")
     .build();
-// 结果: "atlas:user:info:123"
+// 结果: "info:123"（Redis 实际存储为 atlas:{service}:info:123）
 
 // 设置过期时间
 RedisKeyBuilder builder = RedisKeyBuilder.builder()
-    .module("user")
     .business("info")
     .id("123")
     .withTtl(3600);  // 1 小时过期
@@ -150,24 +148,23 @@ RedisKeyBuilder builder = RedisKeyBuilder.builder()
 
 ```java
 // 设置缓存
-CacheUtil.set("atlas:user:info:123", userInfo);
+CacheUtil.set("info:123", userInfo);
 
 // 设置缓存并指定过期时间
-CacheUtil.set("atlas:user:info:123", userInfo, 3600);
+CacheUtil.set("info:123", userInfo, 3600);
 
 // 获取缓存
-UserInfo userInfo = CacheUtil.get("atlas:user:info:123", UserInfo.class);
+UserInfo userInfo = CacheUtil.get("info:123", UserInfo.class);
 
 // 删除缓存
-CacheUtil.delete("atlas:user:info:123");
+CacheUtil.delete("info:123");
 
 // 检查缓存是否存在
-boolean exists = CacheUtil.exists("atlas:user:info:123");
+boolean exists = CacheUtil.exists("info:123");
 
 // 设置过期时间
-CacheUtil.expire("atlas:user:info:123", 3600);
+CacheUtil.expire("info:123", 3600);
 
 // 获取剩余过期时间
-long ttl = CacheUtil.getExpire("atlas:user:info:123");
+long ttl = CacheUtil.getExpire("info:123");
 ```
-

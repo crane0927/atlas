@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
  *
  * <p>实现用户会话和 Token 黑名单的管理功能，使用 Redis 存储。
  *
- * <p>Redis Key 设计（通过 RedisKeyBuilder，带 atlas 前缀）：
+ * <p>Redis Key 设计（通过 RedisKeyBuilder，自动补齐前缀）：
  *
  * <ul>
- *   <li>会话信息：{prefix}:auth:session:{userId} (String, JSON, 带过期时间)
- *   <li>Token 黑名单：{prefix}:auth:blacklist:{tokenId} (String, JSON, 带过期时间)
+ *   <li>会话信息：atlas:{service}:session:{userId} (String, JSON, 带过期时间)
+ *   <li>Token 黑名单：atlas:{service}:blacklist:{tokenId} (String, JSON, 带过期时间)
  * </ul>
  *
  * @author Atlas Team
@@ -31,22 +31,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SessionServiceImpl implements SessionService {
 
-  private static final String MODULE_AUTH = "auth";
   private static final String BUSINESS_SESSION = "session";
   private static final String BUSINESS_BLACKLIST = "blacklist";
 
-  private final ObjectMapper objectMapper;
-
-  public SessionServiceImpl(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper != null ? objectMapper : new ObjectMapper();
-  }
 
   @Override
   public void saveSession(Long userId, TokenInfoDTO tokenInfo, Long expireSeconds) {
     try {
       String key =
           RedisKeyBuilder.builder()
-              .module(MODULE_AUTH)
               .business(BUSINESS_SESSION)
               .id(String.valueOf(userId))
               .build();
@@ -73,7 +66,6 @@ public class SessionServiceImpl implements SessionService {
     try {
       String key =
           RedisKeyBuilder.builder()
-              .module(MODULE_AUTH)
               .business(BUSINESS_SESSION)
               .id(String.valueOf(userId))
               .build();
@@ -94,7 +86,6 @@ public class SessionServiceImpl implements SessionService {
     try {
       String key =
           RedisKeyBuilder.builder()
-              .module(MODULE_AUTH)
               .business(BUSINESS_SESSION)
               .id(String.valueOf(userId))
               .build();
@@ -111,7 +102,6 @@ public class SessionServiceImpl implements SessionService {
     try {
       String key =
           RedisKeyBuilder.builder()
-              .module(MODULE_AUTH)
               .business(BUSINESS_BLACKLIST)
               .id(tokenId)
               .build();
@@ -137,7 +127,6 @@ public class SessionServiceImpl implements SessionService {
     try {
       String key =
           RedisKeyBuilder.builder()
-              .module(MODULE_AUTH)
               .business(BUSINESS_BLACKLIST)
               .id(tokenId)
               .build();

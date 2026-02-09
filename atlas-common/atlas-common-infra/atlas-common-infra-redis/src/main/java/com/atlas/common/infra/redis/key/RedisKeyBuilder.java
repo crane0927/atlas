@@ -1,7 +1,6 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.key;
 
-import com.atlas.common.infra.redis.config.RedisProperties;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -10,22 +9,20 @@ import lombok.NoArgsConstructor;
  *
  * <p>提供统一的 Redis Key 命名规范，使用 Builder 模式支持链式调用。
  *
- * <p>Key 格式：{prefix}:{module}:{business}:{id}
+ * <p>Key 格式：{business}:{id}（可选 module：{module}:{business}:{id}）
  *
  * <p>使用示例：
  *
  * <pre>{@code
  * // 构建 Key
  * String key = RedisKeyBuilder.builder()
- *     .module("user")
  *     .business("info")
  *     .id("123")
  *     .build();
- * // 结果: "atlas:user:info:123"
+ * // 结果: "info:123"
  *
  * // 设置过期时间（仅用于标记，实际过期时间需要在 CacheUtil 中设置）
  * RedisKeyBuilder builder = RedisKeyBuilder.builder()
- *     .module("user")
  *     .business("info")
  *     .id("123")
  *     .withTtl(3600);  // 1 小时过期
@@ -36,9 +33,6 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RedisKeyBuilder {
-
-  /** Key 前缀，默认值为 "atlas" */
-  private static String keyPrefix = "atlas";
 
   private String module;
   private String business;
@@ -55,18 +49,7 @@ public class RedisKeyBuilder {
   }
 
   /**
-   * 初始化 Key 前缀（由 Spring 自动调用）
-   *
-   * @param properties Redis 配置属性
-   */
-  public static void init(RedisProperties properties) {
-    if (properties != null && properties.getKeyPrefix() != null) {
-      keyPrefix = properties.getKeyPrefix();
-    }
-  }
-
-  /**
-   * 设置模块名
+   * 设置模块名（可选）
    *
    * @param module 模块名
    * @return RedisKeyBuilder 实例，支持链式调用
@@ -123,25 +106,25 @@ public class RedisKeyBuilder {
   /**
    * 构建完整的 Key 字符串
    *
-   * <p>Key 格式：{prefix}:{module}:{business}:{id}
+ * <p>Key 格式：{business}:{id}（可选 module：{module}:{business}:{id}）
    *
    * @return 完整的 Key 字符串
-   * @throws IllegalArgumentException 如果 module、business 或 id 为 null 或空字符串
+   * @throws IllegalArgumentException 如果 business 或 id 为 null 或空字符串
    */
   public String build() {
     validate();
-    return String.join(":", keyPrefix, module, business, id);
+    if (module == null || module.trim().isEmpty()) {
+      return String.join(":", business, id);
+    }
+    return String.join(":", module, business, id);
   }
 
   /**
    * 验证必填字段
    *
-   * @throws IllegalArgumentException 如果 module、business 或 id 为 null 或空字符串
+   * @throws IllegalArgumentException 如果 business 或 id 为 null 或空字符串
    */
   private void validate() {
-    if (module == null || module.trim().isEmpty()) {
-      throw new IllegalArgumentException("module 不能为空");
-    }
     if (business == null || business.trim().isEmpty()) {
       throw new IllegalArgumentException("business 不能为空");
     }

@@ -92,7 +92,7 @@
 
 **方法**:
 - `builder()`: 创建 Key 构建器
-- `module(String module)`: 设置模块名
+- `module(String module)`: 设置模块名（可选）
 - `business(String business)`: 设置业务标识
 - `id(String id)`: 设置唯一标识
 - `build()`: 构建完整的 Key 字符串
@@ -124,9 +124,9 @@
 ### Key 命名规范流程
 
 1. 使用 `RedisKeyBuilder` 创建 Key 构建器
-2. 设置模块名、业务标识、唯一标识
-3. 调用 `build()` 方法生成完整的 Key
-4. 可选：设置 Key 过期时间
+2. 设置业务标识、唯一标识（模块名可选）
+3. 调用 `build()` 方法生成业务 Key
+4. 缓存操作时由 `CacheUtil` 自动补齐固定前缀与服务前缀
 
 ### 缓存操作流程
 

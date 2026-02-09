@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 /**
  * 图形验证码服务实现
  *
- * <p>使用 AWT 生成随机字母数字码与图片，答案存 Redis（Key 通过 RedisKeyBuilder 构建，带 atlas 前缀），TTL 由配置决定。
+ * <p>使用 AWT 生成随机字母数字码与图片，答案存 Redis（Key 通过 RedisKeyBuilder 构建并自动补齐前缀），TTL 由配置决定。
  *
  * @author Atlas Team
  * @since 1.0.0
@@ -30,7 +30,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
 
-  private static final String MODULE_AUTH = "auth";
   private static final String BUSINESS_CAPTCHA = "captcha";
   private static final String CHARS = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
   private static final int IMAGE_WIDTH = 120;
@@ -50,11 +49,7 @@ public class CaptchaServiceImpl implements CaptchaService {
     String code = randomCode(length);
     String captchaKey = UUID.randomUUID().toString();
     String redisKey =
-        RedisKeyBuilder.builder()
-            .module(MODULE_AUTH)
-            .business(BUSINESS_CAPTCHA)
-            .id(captchaKey)
-            .build();
+        RedisKeyBuilder.builder().business(BUSINESS_CAPTCHA).id(captchaKey).build();
     CacheUtil.set(redisKey, code, ttlSeconds);
 
     byte[] imageBytes = drawImage(code);
@@ -70,11 +65,7 @@ public class CaptchaServiceImpl implements CaptchaService {
       return false;
     }
     String redisKey =
-        RedisKeyBuilder.builder()
-            .module(MODULE_AUTH)
-            .business(BUSINESS_CAPTCHA)
-            .id(captchaKey.trim())
-            .build();
+        RedisKeyBuilder.builder().business(BUSINESS_CAPTCHA).id(captchaKey.trim()).build();
     String expected = CacheUtil.get(redisKey, String.class);
     if (expected == null) {
       log.debug("验证码不存在或已过期: captchaKey={}", captchaKey);

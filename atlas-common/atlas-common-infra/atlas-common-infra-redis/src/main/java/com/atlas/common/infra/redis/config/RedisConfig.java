@@ -1,7 +1,7 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.redis.config;
 
-import com.atlas.common.infra.redis.key.RedisKeyBuilder;
+import com.atlas.common.infra.redis.util.CacheUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.core.env.Environment;
 
 /**
  * Redis 序列化配置类
@@ -30,9 +31,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
   private final RedisProperties redisProperties;
+  private final Environment environment;
 
-  public RedisConfig(RedisProperties redisProperties) {
+  public RedisConfig(RedisProperties redisProperties, Environment environment) {
     this.redisProperties = redisProperties;
+    this.environment = environment;
   }
 
   /**
@@ -75,12 +78,16 @@ public class RedisConfig {
   }
 
   /**
-   * 初始化 RedisKeyBuilder 的 Key 前缀配置
+   * 初始化 CacheUtil 的 Key 前缀配置
    *
-   * <p>在 Spring 容器初始化完成后，将配置的 Key 前缀设置到 RedisKeyBuilder 中。
+   * <p>在 Spring 容器初始化完成后，将固定前缀与服务前缀设置到 CacheUtil 中。
    */
   @PostConstruct
-  public void initRedisKeyBuilder() {
-    RedisKeyBuilder.init(redisProperties);
+  public void initCacheUtil() {
+    String servicePrefix = redisProperties.getServicePrefix();
+    if (servicePrefix == null || servicePrefix.isBlank()) {
+      servicePrefix = environment.getProperty("spring.application.name");
+    }
+    CacheUtil.initPrefix(redisProperties.getKeyPrefix(), servicePrefix);
   }
 }
