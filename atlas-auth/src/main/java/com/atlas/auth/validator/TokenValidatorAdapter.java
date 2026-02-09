@@ -1,7 +1,7 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.validator;
 
-import com.atlas.auth.model.dto.LoginUserImpl;
+import com.atlas.auth.model.dto.LoginUserDTO;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.service.TokenService;
 import com.atlas.common.feature.security.user.LoginUser;
@@ -32,7 +32,7 @@ public class TokenValidatorAdapter implements TokenValidator {
     if (dto == null) {
       return null;
     }
-    LoginUserImpl user = new LoginUserImpl();
+    LoginUserDTO user = new LoginUserDTO();
     user.setUserId(dto.getUserId());
     user.setUsername(dto.getUsername());
     user.setRoles(dto.getRoles() != null ? dto.getRoles() : Collections.emptyList());

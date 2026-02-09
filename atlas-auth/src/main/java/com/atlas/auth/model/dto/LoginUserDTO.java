@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginUserImpl implements LoginUser {
+public class LoginUserDTO implements LoginUser {
 
   /** 用户ID */
   private Long userId;
