@@ -299,7 +299,7 @@ spring:
 
 ## 注意事项
 
-1. **密码验证**: 当前实现中 `AuthServiceImpl.getStoredPassword()` 方法需要根据实际架构调整。建议在 `atlas-system` 服务中提供密码验证接口。
+1. **密码验证**: 登录时通过 `verifyPasswordWithSystem()` 委托 `atlas-system` 的 `verifyPassword` 接口校验密码，成功即视为有效，不依赖返回的 data 内容。
 
 2. **SecurityContextHolder**: 下游服务需要使用 `AuthSecurityContextHolder.getLoginUser()` 而不是 `SecurityContextHolder.getLoginUser()`，因为 `SecurityContextHolder` 是抽象类，需要具体实现。
 

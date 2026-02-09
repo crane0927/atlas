@@ -70,11 +70,15 @@ atlas:
         - /mock/**
         - /api/v1/auth/login
         - /api/v1/auth/public-key
-    # 可选：配置 atlas.gateway.auth.jwt.public-key（PEM）后启用 JWT 校验，未配置则使用 DefaultGatewayTokenValidator 放行
+    # 校验方式：jwt（本地公钥）或 introspection（调用 Auth 接口）。未配置有效方式时非白名单请求将被拒绝。
     # auth:
+    #   validation-mode: jwt
     #   jwt:
     #     public-key: <PEM 公钥字符串>
     #     algorithm: RS256
+    #   introspect:
+    #     url: http://localhost:8084/api/v1/auth/introspect
+    #     api-key: <与 atlas.auth.introspect.api-key 一致>
     routes:
       - id: health-route
         uri: http://localhost:8080

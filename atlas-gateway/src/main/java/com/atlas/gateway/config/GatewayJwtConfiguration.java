@@ -18,15 +18,17 @@ import org.springframework.context.annotation.Primary;
 /**
  * Gateway JWT 配置
  *
- * <p>当配置了非空的 {@code atlas.gateway.auth.jwt.public-key} 时，解析公钥并注册为 Bean，供 JwtGatewayTokenValidator 使用。
- * 未配置或为空时本配置不加载，使用 DefaultGatewayTokenValidator 放行。
+ * <p>当校验方式为 jwt 且配置了非空的 {@code atlas.gateway.auth.jwt.public-key} 时，解析公钥并注册
+ * JwtGatewayTokenValidator 为 @Primary。校验方式为 introspection 时本配置不加载。
  *
  * @author Atlas Team
  * @since 1.0.0
  */
 @Slf4j
 @Configuration
-@ConditionalOnExpression("!'${atlas.gateway.auth.jwt.public-key:}'.trim().isEmpty()")
+@ConditionalOnExpression(
+    "!'${atlas.gateway.auth.jwt.public-key:}'.trim().isEmpty() "
+        + "and '${atlas.gateway.auth.validation-mode:jwt}' != 'introspection'")
 public class GatewayJwtConfiguration {
 
   @Bean

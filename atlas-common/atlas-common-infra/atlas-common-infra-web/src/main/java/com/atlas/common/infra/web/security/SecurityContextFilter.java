@@ -1,4 +1,6 @@
-/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
+/*
+ * Copyright (c) 2025 Atlas. All rights reserved.
+ */
 package com.atlas.common.infra.web.security;
 
 import com.atlas.common.feature.security.user.LoginUser;
@@ -19,8 +21,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * 安全上下文过滤器
  *
- * <p>优先从 Gateway 下传的请求头（X-User-Id、X-Username、X-User-Roles）构建用户并设置安全上下文；
- * 若无则从 Authorization Bearer Token 委托 {@link TokenValidator} 校验并设置。
+ * <p>优先从 Gateway 下传的请求头（X-User-Id、X-Username、X-User-Roles、X-User-Permissions）构建用户并设置安全上下文；若无则从
+ * Authorization Bearer Token 委托 {@link TokenValidator} 校验并设置。
  *
  * @author Atlas
  * @since 1.0.0
@@ -36,6 +38,9 @@ public class SecurityContextFilter extends OncePerRequestFilter {
 
   /** Gateway 下传的角色列表请求头（逗号分隔） */
   public static final String HEADER_X_USER_ROLES = "X-User-Roles";
+
+  /** Gateway 下传的权限列表请求头（逗号分隔） */
+  public static final String HEADER_X_USER_PERMISSIONS = "X-User-Permissions";
 
   private final TokenValidator tokenValidator;
   private final SecurityContextImpl securityContext;
@@ -60,9 +65,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
       if (loginUser != null) {
         securityContext.setLoginUser(loginUser);
         log.debug(
-            "设置安全上下文: userId={}, username={}",
-            loginUser.getUserId(),
-            loginUser.getUsername());
+            "设置安全上下文: userId={}, username={}", loginUser.getUserId(), loginUser.getUsername());
       } else {
         log.debug("未从请求头或 Token 解析到用户，不设置安全上下文");
       }
@@ -72,9 +75,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     }
   }
 
-  /**
-   * 从 Gateway 下传的请求头构建 LoginUser；若无则返回 null。
-   */
+  /** 从 Gateway 下传的请求头构建 LoginUser；若无则返回 null。 */
   private LoginUser loginUserFromHeaders(HttpServletRequest request) {
     String userIdStr = request.getHeader(HEADER_X_USER_ID);
     if (userIdStr == null || userIdStr.trim().isEmpty()) {
@@ -98,7 +99,15 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toList())
             : Collections.emptyList();
-    return new SimpleLoginUser(userId, username, roles, Collections.emptyList());
+    String permissionsHeader = request.getHeader(HEADER_X_USER_PERMISSIONS);
+    List<String> permissions =
+        permissionsHeader != null && !permissionsHeader.trim().isEmpty()
+            ? Arrays.stream(permissionsHeader.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList())
+            : Collections.emptyList();
+    return new SimpleLoginUser(userId, username, roles, permissions);
   }
 
   private String extractToken(HttpServletRequest request) {

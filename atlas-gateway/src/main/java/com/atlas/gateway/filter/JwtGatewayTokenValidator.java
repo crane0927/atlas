@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 /**
  * 基于 JWT 公钥的网关 Token 校验器
  *
- * <p>从 Authorization: Bearer 提取 Token，使用配置的公钥验签并校验过期；通过后写入 X-User-Id、X-Username、X-User-Roles 到转发请求头。
+ * <p>从 Authorization: Bearer 提取 Token，使用配置的公钥验签并校验过期；通过后写入 X-User-Id、X-Username、X-User-Roles、X-User-Permissions 到转发请求头。
  * 仅当配置了公钥时由 {@link com.atlas.gateway.config.GatewayJwtConfiguration} 注册为 Bean，未配置时不会存在此 Bean，由 DefaultGatewayTokenValidator 兜底。
  *
  * @author Atlas Team
@@ -33,6 +33,9 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
 
   /** 转发请求头：角色列表（逗号分隔） */
   public static final String HEADER_X_USER_ROLES = "X-User-Roles";
+
+  /** 转发请求头：权限列表（逗号分隔） */
+  public static final String HEADER_X_USER_PERMISSIONS = "X-User-Permissions";
 
   private final PublicKey publicKey;
 
@@ -59,6 +62,8 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
       String username = claims.get("username", String.class);
       @SuppressWarnings("unchecked")
       List<String> roles = claims.get("roles", List.class);
+      @SuppressWarnings("unchecked")
+      List<String> permissions = claims.get("permissions", List.class);
 
       ServerHttpRequest requestWithHeaders =
           exchange
@@ -69,6 +74,9 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
               .header(
                   HEADER_X_USER_ROLES,
                   roles != null ? String.join(",", roles) : "")
+              .header(
+                  HEADER_X_USER_PERMISSIONS,
+                  permissions != null ? String.join(",", permissions) : "")
               .build();
 
       return Mono.just(exchange.mutate().request(requestWithHeaders).build());

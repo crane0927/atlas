@@ -10,7 +10,6 @@ import com.atlas.auth.model.vo.UserVO;
 import com.atlas.auth.service.AuthService;
 import com.atlas.auth.service.SessionService;
 import com.atlas.auth.service.TokenService;
-import com.atlas.auth.util.PasswordUtil;
 import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.api.v1.feign.PermissionQueryApi;
@@ -37,7 +36,6 @@ public class AuthServiceImpl implements AuthService {
 
   private final UserQueryApi userQueryApi;
   private final PermissionQueryApi permissionQueryApi;
-  private final PasswordUtil passwordUtil;
   private final TokenService tokenService;
   private final SessionService sessionService;
   private final JwtConfig jwtConfig;
@@ -45,13 +43,11 @@ public class AuthServiceImpl implements AuthService {
   public AuthServiceImpl(
       UserQueryApi userQueryApi,
       PermissionQueryApi permissionQueryApi,
-      PasswordUtil passwordUtil,
       TokenService tokenService,
       SessionService sessionService,
       JwtConfig jwtConfig) {
     this.userQueryApi = userQueryApi;
     this.permissionQueryApi = permissionQueryApi;
-    this.passwordUtil = passwordUtil;
     this.tokenService = tokenService;
     this.sessionService = sessionService;
     this.jwtConfig = jwtConfig;
@@ -102,13 +98,8 @@ public class AuthServiceImpl implements AuthService {
       throw new BusinessException(AuthErrorCode.USER_NOT_ACTIVE, "用户状态异常，请联系管理员");
     }
 
-    // 4. 验证密码
-    // 注意：这里假设 UserDTO 中有 password 字段，实际实现中可能需要通过其他方式获取密码
-    // 或者需要在 atlas-system 服务中提供密码验证接口
-    // TODO: 根据实际实现调整密码验证逻辑
-    String storedPassword = getStoredPassword(userDTO, loginRequest);
-    if (storedPassword == null
-        || !passwordUtil.matches(loginRequest.getPassword(), storedPassword)) {
+    // 4. 验证密码（委托 System 的 verifyPassword：成功即表示密码正确，不依赖返回值内容）
+    if (!verifyPasswordWithSystem(userDTO.getUsername(), loginRequest.getPassword())) {
       log.warn("密码错误: userId={}", userDTO.getUserId());
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_ERROR, "用户名或密码错误");
     }
@@ -202,32 +193,25 @@ public class AuthServiceImpl implements AuthService {
   }
 
   /**
-   * 获取存储的密码
+   * 委托 System 服务校验密码
    *
-   * <p>通过调用 System 服务的密码验证接口获取加密后的密码（避免实例字段并发串号）。
+   * <p>调用 verifyPassword：成功（Result.isSuccess）即表示密码正确，不依赖返回的 data 内容。
+   * 此方法设置为 protected 以便在测试中 mock。
    *
-   * <p>注意：此方法设置为 protected 以便在测试中 mock。
-   *
-   * @param userDTO 用户 DTO
-   * @param loginRequest 当前登录请求（方法参数传递，线程安全）
-   * @return 加密后的密码
+   * @param username 用户名
+   * @param password 明文密码
+   * @return true 表示密码正确，false 表示错误或调用失败
    */
-  protected String getStoredPassword(UserDTO userDTO, LoginRequestVO loginRequest) {
-    try {
-      if (loginRequest == null || loginRequest.getPassword() == null) {
-        log.warn("登录请求或密码为空，无法获取密码");
-        return null;
-      }
-      Result<String> passwordResult =
-          userQueryApi.verifyPassword(userDTO.getUsername(), loginRequest.getPassword());
-      if (passwordResult != null
-          && passwordResult.isSuccess()
-          && passwordResult.getData() != null) {
-        return passwordResult.getData();
-      }
-    } catch (Exception e) {
-      log.warn("获取用户密码失败: username={}, error={}", userDTO.getUsername(), e.getMessage());
+  protected boolean verifyPasswordWithSystem(String username, String password) {
+    if (username == null || password == null) {
+      return false;
     }
-    return null;
+    try {
+      Result<String> result = userQueryApi.verifyPassword(username, password);
+      return result != null && result.isSuccess();
+    } catch (Exception e) {
+      log.warn("密码校验失败: username={}, error={}", username, e.getMessage());
+      return false;
+    }
   }
 }

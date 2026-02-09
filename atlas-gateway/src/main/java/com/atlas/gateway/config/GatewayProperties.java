@@ -118,7 +118,8 @@ public class GatewayProperties {
   /**
    * 鉴权配置类
    *
-   * <p>JWT 公钥等，供 JwtGatewayTokenValidator 本地验签。公钥可从配置或 Auth 服务拉取。
+   * <p>校验方式：jwt（本地公钥验签）或 introspection（调用 Auth Introspection 接口）。
+   * 供 JwtGatewayTokenValidator / IntrospectGatewayTokenValidator 使用。
    *
    * @author Atlas Team
    * @since 1.0.0
@@ -126,7 +127,28 @@ public class GatewayProperties {
   @Data
   public static class AuthConfig {
 
+    /** 校验方式：jwt | introspection，默认 jwt */
+    private String validationMode = "jwt";
+
     private JwtConfig jwt = new JwtConfig();
+
+    private IntrospectConfig introspect = new IntrospectConfig();
+  }
+
+  /**
+   * Introspection 方式配置
+   *
+   * @author Atlas Team
+   * @since 1.0.0
+   */
+  @Data
+  public static class IntrospectConfig {
+
+    /** Auth Introspection 接口地址，如 http://localhost:8084/api/v1/auth/introspect */
+    private String url = "";
+
+    /** 服务间认证 API Key，与 atlas.auth.introspect.api-key 一致，请求头 X-Introspect-Api-Key */
+    private String apiKey = "";
   }
 
   /**
@@ -151,7 +173,8 @@ public class GatewayProperties {
   /**
    * CORS 配置类
    *
-   * <p>定义 Gateway CORS 跨域配置，包括允许的源、方法、请求头等。
+   * <p>定义 Gateway CORS 跨域配置，包括允许的源、方法、请求头等。注意：浏览器不允许
+   * allowedOrigins=* 与 allowCredentials=true 同时使用，若需携带凭证请配置具体 allowedOrigins。
    *
    * @author Atlas Team
    * @since 1.0.0
@@ -168,8 +191,8 @@ public class GatewayProperties {
     /** 允许的请求头（多个用逗号分隔，* 表示所有），默认值为 "*" */
     private String allowedHeaders = "*";
 
-    /** 是否允许携带凭证，默认值为 true */
-    private Boolean allowCredentials = true;
+    /** 是否允许携带凭证；与 allowedOrigins=* 同用时浏览器会忽略，需配置具体源时设为 true */
+    private Boolean allowCredentials = false;
 
     /** 预检请求缓存时间（秒），默认值为 3600 */
     private Integer maxAge = 3600;

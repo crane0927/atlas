@@ -52,6 +52,9 @@ atlas:
       key-id: ${ATLAS_AUTH_JWT_KEY_ID:atlas-key}
       expire: ${ATLAS_AUTH_JWT_EXPIRE:7200}
       algorithm: ${ATLAS_AUTH_JWT_ALGORITHM:RS256}
+    # Introspection 接口服务间认证：非空时调用方需在请求头携带 X-Introspect-Api-Key
+    introspect:
+      api-key: ${ATLAS_AUTH_INTROSPECT_API_KEY:}
 
 logging:
   level:

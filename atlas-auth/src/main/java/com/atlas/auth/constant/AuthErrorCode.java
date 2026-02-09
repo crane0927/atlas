@@ -74,6 +74,9 @@ public class AuthErrorCode {
   /** Token 缺失 */
   public static final String TOKEN_MISSING = "013004";
 
+  /** Introspection 接口服务间认证失败（缺少或错误的 API Key） */
+  public static final String INTROSPECT_UNAUTHORIZED = "013005";
+
   /** 私有构造函数，防止实例化 */
   private AuthErrorCode() {
     throw new UnsupportedOperationException("常量类不允许实例化");

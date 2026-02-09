@@ -40,9 +40,10 @@ Gateway 的所有错误响应使用统一的 `Result` 格式：
 
 Gateway 提供鉴权控制功能，支持白名单配置与 Token 校验（通过/拒绝，通过时传递用户信息头）：
 - **白名单**: 白名单路径无需鉴权；建议只放行具体路径（如 `/api/v1/auth/login`、`/api/v1/auth/public-key`），勿使用 `/api/v1/auth/**` 以免误放行登出等敏感接口
-- **GatewayTokenValidator**: 与 common 的 `TokenValidator`（供 Servlet 设置 SecurityContext）区分；网关侧接口为 `GatewayTokenValidator`，职责为「通过/拒绝」且「校验通过时写入 X-User-Id、X-Username、X-User-Roles 等请求头转发下游」
-- **JwtGatewayTokenValidator**: 配置 `atlas.gateway.auth.jwt.public-key`（PEM）后启用，使用与 atlas-auth 一致的 RS256 公钥本地验签
-- **DefaultGatewayTokenValidator**: 未配置公钥时使用，直接放行且不添加用户信息头（仅适用于开发/测试或明确「仅白名单生效」场景）
+- **GatewayTokenValidator**: 与 common 的 `TokenValidator`（供 Servlet 设置 SecurityContext）区分；网关侧接口为 `GatewayTokenValidator`，职责为「通过/拒绝」且「校验通过时写入 X-User-Id、X-Username、X-User-Roles、X-User-Permissions 等请求头转发下游」
+- **JwtGatewayTokenValidator**: 当 `validation-mode=jwt` 且配置 `atlas.gateway.auth.jwt.public-key`（PEM）后启用，使用与 atlas-auth 一致的 RS256 公钥本地验签
+- **IntrospectGatewayTokenValidator**: 当 `validation-mode=introspection` 且配置 `atlas.gateway.auth.introspect.url` 后启用，调用 Auth 的 Introspection 接口校验 Token
+- **DefaultGatewayTokenValidator**: 未配置有效校验方式（公钥或 Introspection URL）时使用，**拒绝**非白名单请求并返回 401，避免误放行
 - **鉴权失败**: 返回 **HTTP 401** 及统一错误体（错误码 013001、message、traceId）
 - **动态配置**: 白名单支持通过 Nacos Config 动态更新
 
@@ -98,14 +99,18 @@ atlas:
         - /api/v1/auth/login
         - /api/v1/auth/public-key
     auth:
+      validation-mode: jwt   # jwt | introspection
       jwt:
-        public-key: ""   # 配置 PEM 公钥后启用 JWT 校验，否则使用 DefaultGatewayTokenValidator 放行
+        public-key: ""   # 配置 PEM 公钥后启用 JWT 校验；未配置且非 introspection 时非白名单请求返回 401
         algorithm: RS256
+      introspect:
+        url: ""          # validation-mode=introspection 时必填，如 http://localhost:8084/api/v1/auth/introspect
+        api-key: ""      # 与 atlas.auth.introspect.api-key 一致
     cors:
       allowed-origins: "*"
       allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
       allowed-headers: "*"
-      allow-credentials: true
+      allow-credentials: false   # 与 allowedOrigins=* 同用时浏览器会忽略凭证，需带凭证时请配置具体 origins
       max-age: 3600
 ```
 
@@ -211,7 +216,10 @@ curl -H "Authorization: Bearer <token>" http://localhost:8080/gateway/api/user/i
 
 ### 鉴权配置（atlas.gateway.auth）
 
-- `auth.jwt.public-key`: JWT 公钥（PEM 字符串）。配置后启用 `JwtGatewayTokenValidator`，与 atlas-auth 使用相同公钥本地验签；未配置时使用 `DefaultGatewayTokenValidator` 放行。
+- `auth.validation-mode`: 校验方式，`jwt`（默认）或 `introspection`。
+- `auth.jwt.public-key`: JWT 公钥（PEM 字符串）。当 validation-mode=jwt 且配置后启用 `JwtGatewayTokenValidator`；未配置时非白名单请求返回 401。
+- `auth.introspect.url`: Introspection 接口地址。当 validation-mode=introspection 时必填。
+- `auth.introspect.api-key`: 服务间认证 API Key，与 atlas.auth.introspect.api-key 一致。
 - `auth.jwt.algorithm`: 算法，默认 RS256。
 
 **错误码**: 鉴权失败固定返回业务错误码 `013001`（与 Auth 错误码体系统一约定），HTTP 状态码为 401。
@@ -224,7 +232,7 @@ CORS 配置支持通过 Nacos Config 动态更新。
 - `allowed-origins`: 允许的源（多个用逗号分隔，* 表示所有）
 - `allowed-methods`: 允许的 HTTP 方法（多个用逗号分隔）
 - `allowed-headers`: 允许的请求头（多个用逗号分隔，* 表示所有）
-- `allow-credentials`: 是否允许携带凭证
+- `allow-credentials`: 是否允许携带凭证（与 allowedOrigins=* 同用时浏览器会忽略，需带凭证时请配置具体 origins）
 - `max-age`: 预检请求缓存时间（秒）
 
 ## GatewayTokenValidator 与 common TokenValidator 区分
