@@ -36,14 +36,15 @@ Gateway 的所有错误响应使用统一的 `Result` 格式：
 - **完整信息**: 错误响应包含错误码、错误消息、TraceId
 - **错误码规范**: 错误码符合项目的错误码规范（6位数字，01 开头）
 
-### 5. 鉴权控制（白名单 + Token 校验占位）
+### 5. 鉴权控制（白名单 + GatewayTokenValidator）
 
-Gateway 提供鉴权控制功能，支持白名单配置和 Token 校验扩展点：
-- **白名单支持**: 支持白名单路径配置（白名单路径无需鉴权）
-- **路径匹配**: 白名单支持路径匹配（支持通配符或正则表达式）
-- **Token 校验扩展点**: 提供 Token 校验的扩展点（接口或抽象类）
-- **占位实现**: Token 校验占位实现默认放行（便于后续扩展）
-- **动态配置**: 白名单配置支持通过 Nacos Config 配置和动态更新
+Gateway 提供鉴权控制功能，支持白名单配置与 Token 校验（通过/拒绝，通过时传递用户信息头）：
+- **白名单**: 白名单路径无需鉴权；建议只放行具体路径（如 `/api/v1/auth/login`、`/api/v1/auth/public-key`），勿使用 `/api/v1/auth/**` 以免误放行登出等敏感接口
+- **GatewayTokenValidator**: 与 common 的 `TokenValidator`（供 Servlet 设置 SecurityContext）区分；网关侧接口为 `GatewayTokenValidator`，职责为「通过/拒绝」且「校验通过时写入 X-User-Id、X-Username、X-User-Roles 等请求头转发下游」
+- **JwtGatewayTokenValidator**: 配置 `atlas.gateway.auth.jwt.public-key`（PEM）后启用，使用与 atlas-auth 一致的 RS256 公钥本地验签
+- **DefaultGatewayTokenValidator**: 未配置公钥时使用，直接放行且不添加用户信息头（仅适用于开发/测试或明确「仅白名单生效」场景）
+- **鉴权失败**: 返回 **HTTP 401** 及统一错误体（错误码 013001、message、traceId）
+- **动态配置**: 白名单支持通过 Nacos Config 动态更新
 
 ### 6. Nacos Config 配置管理
 
@@ -94,8 +95,12 @@ atlas:
       paths:
         - /health/**
         - /mock/**
-        - /api/public/**
-    
+        - /api/v1/auth/login
+        - /api/v1/auth/public-key
+    auth:
+      jwt:
+        public-key: ""   # 配置 PEM 公钥后启用 JWT 校验，否则使用 DefaultGatewayTokenValidator 放行
+        algorithm: RS256
     cors:
       allowed-origins: "*"
       allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
@@ -179,8 +184,9 @@ Gateway 的所有错误响应使用统一的 `Result` 格式。
 # 白名单路径（无需 Token）
 curl http://localhost:8080/gateway/health
 
-# 非白名单路径（会触发 Token 校验，占位实现默认放行）
+# 非白名单路径（会触发 Token 校验；未配置公钥时默认放行，配置公钥后需携带有效 Bearer Token）
 curl http://localhost:8080/gateway/api/user/info
+curl -H "Authorization: Bearer <token>" http://localhost:8080/gateway/api/user/info
 ```
 
 ## 配置说明
@@ -197,11 +203,18 @@ curl http://localhost:8080/gateway/api/user/info
 
 ### 白名单配置
 
-白名单配置支持通过 Nacos Config 动态更新。
+白名单配置支持通过 Nacos Config 动态更新。建议只放行具体路径，勿使用 `/api/v1/auth/**` 以免误放行登出等接口。
 
 **配置项说明**:
 - `enabled`: 是否启用白名单
-- `paths`: 白名单路径列表（支持通配符）
+- `paths`: 白名单路径列表（支持通配符），如 `/health/**`、`/api/v1/auth/login`、`/api/v1/auth/public-key`
+
+### 鉴权配置（atlas.gateway.auth）
+
+- `auth.jwt.public-key`: JWT 公钥（PEM 字符串）。配置后启用 `JwtGatewayTokenValidator`，与 atlas-auth 使用相同公钥本地验签；未配置时使用 `DefaultGatewayTokenValidator` 放行。
+- `auth.jwt.algorithm`: 算法，默认 RS256。
+
+**错误码**: 鉴权失败固定返回业务错误码 `013001`（与 Auth 错误码体系统一约定），HTTP 状态码为 401。
 
 ### CORS 配置
 
@@ -214,23 +227,12 @@ CORS 配置支持通过 Nacos Config 动态更新。
 - `allow-credentials`: 是否允许携带凭证
 - `max-age`: 预检请求缓存时间（秒）
 
-## 扩展 Token 校验
+## GatewayTokenValidator 与 common TokenValidator 区分
 
-Gateway 提供 Token 校验扩展点，允许后续扩展实现具体的 Token 校验逻辑。
+- **atlas-gateway**：`GatewayTokenValidator`，方法 `Mono<ServerWebExchange> validate(ServerWebExchange exchange)`。用于网关层「通过/拒绝」；校验通过时在转发请求上添加 X-User-Id、X-Username、X-User-Roles 等请求头。
+- **atlas-common-feature-security**：`TokenValidator`，方法 `LoginUser validateToken(String token)`。供后端 Servlet 服务从 Token 解析用户并设置 SecurityContextHolder。
 
-**实现方式**:
-```java
-@Component
-public class CustomTokenValidator implements TokenValidator {
-    @Override
-    public boolean validate(ServerHttpRequest request) {
-        // 实现具体的 Token 校验逻辑
-        String token = request.getHeaders().getFirst("Authorization");
-        // 校验 Token
-        return isValid(token);
-    }
-}
-```
+下游服务可优先从请求头（X-User-*）构建 LoginUser 并设置 SecurityContext（`atlas-common-infra-web` 的 `SecurityContextFilter` 已支持），若无则回退为 Token 解析。
 
 ## 验收测试
 

@@ -67,6 +67,9 @@ public class GatewayProperties {
   /** 白名单配置 */
   private WhitelistConfig whitelist = new WhitelistConfig();
 
+  /** 鉴权配置（JWT 公钥等，供 GatewayTokenValidator 使用） */
+  private AuthConfig auth = new AuthConfig();
+
   /** CORS 配置 */
   private CorsConfig cors = new CorsConfig();
 
@@ -97,7 +100,7 @@ public class GatewayProperties {
   /**
    * 白名单配置类
    *
-   * <p>定义无需鉴权的路径列表，支持通配符匹配。
+   * <p>定义无需鉴权的路径列表，支持通配符匹配。建议只放行具体路径（如 /api/v1/auth/login），勿使用 /api/v1/auth/** 以免误放行 logout。
    *
    * @author Atlas Team
    * @since 1.0.0
@@ -108,8 +111,41 @@ public class GatewayProperties {
     /** 是否启用白名单，默认值为 true */
     private Boolean enabled = true;
 
-    /** 白名单路径列表（支持通配符），如 /health/**、/api/public/** */
+    /** 白名单路径列表（支持通配符），如 /health/**、/api/v1/auth/login */
     private List<String> paths = new ArrayList<>();
+  }
+
+  /**
+   * 鉴权配置类
+   *
+   * <p>JWT 公钥等，供 JwtGatewayTokenValidator 本地验签。公钥可从配置或 Auth 服务拉取。
+   *
+   * @author Atlas Team
+   * @since 1.0.0
+   */
+  @Data
+  public static class AuthConfig {
+
+    private JwtConfig jwt = new JwtConfig();
+  }
+
+  /**
+   * JWT 配置（Gateway 端）
+   *
+   * @author Atlas Team
+   * @since 1.0.0
+   */
+  @Data
+  public static class JwtConfig {
+
+    /** 公钥 PEM 字符串（与 atlas-auth 使用的私钥对应） */
+    private String publicKey = "";
+
+    /** 算法，默认 RS256 */
+    private String algorithm = "RS256";
+
+    /** 密钥 ID（可选） */
+    private String keyId = "";
   }
 
   /**

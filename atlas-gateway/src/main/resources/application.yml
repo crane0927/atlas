@@ -60,8 +60,21 @@ server:
 
 
 # Atlas Gateway 配置
+# 白名单仅放行必要路径，勿使用 /api/v1/auth/** 以免误放行 logout 等敏感接口
 atlas:
   gateway:
+    whitelist:
+      enabled: true
+      paths:
+        - /health/**
+        - /mock/**
+        - /api/v1/auth/login
+        - /api/v1/auth/public-key
+    # 可选：配置 atlas.gateway.auth.jwt.public-key（PEM）后启用 JWT 校验，未配置则使用 DefaultGatewayTokenValidator 放行
+    # auth:
+    #   jwt:
+    #     public-key: <PEM 公钥字符串>
+    #     algorithm: RS256
     routes:
       - id: health-route
         uri: http://localhost:8080

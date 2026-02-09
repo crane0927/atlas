@@ -34,8 +34,7 @@ import reactor.core.publisher.Mono;
  *   <li>白名单路径匹配：使用 Ant 风格路径匹配器匹配白名单路径
  *   <li>白名单放行：白名单路径的请求直接放行，无需 Token 校验
  *   <li>Token 校验：非白名单路径的请求会触发 Token 校验
- *   <li>Token 校验扩展点：通过 {@link TokenValidator} 接口提供扩展点
- *   <li>占位实现：Token 校验占位实现默认放行，便于后续扩展
+ *   <li>Token 校验扩展点：通过 {@link GatewayTokenValidator} 接口（通过/拒绝，通过时传递用户信息头）
  *   <li>动态配置：白名单配置支持通过 Nacos Config 动态更新
  * </ul>
  *
@@ -52,8 +51,8 @@ import reactor.core.publisher.Mono;
  *   <li>检查白名单是否启用
  *   <li>如果启用，检查请求路径是否匹配白名单
  *   <li>如果匹配白名单，直接放行
- *   <li>如果不匹配白名单，调用 {@link TokenValidator#validate(ServerHttpRequest)} 进行 Token 校验
- *   <li>如果 Token 校验失败，返回统一错误格式（错误码：013001）
+ *   <li>如果不匹配白名单，调用 {@link GatewayTokenValidator#validate(ServerWebExchange)} 进行 Token 校验
+ *   <li>如果 Token 校验失败，返回 401 及统一错误格式（错误码：013001）
  * </ol>
  *
  * <p>配置示例：
@@ -83,17 +82,17 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
   private static final String AUTH_ERROR_MESSAGE = "Token 校验失败";
 
   private final GatewayProperties gatewayProperties;
-  private final TokenValidator tokenValidator;
+  private final GatewayTokenValidator gatewayTokenValidator;
   private final AntPathMatcher pathMatcher;
   private final ObjectMapper objectMapper;
 
   @Autowired
   public AuthGatewayFilter(
       GatewayProperties gatewayProperties,
-      TokenValidator tokenValidator,
+      GatewayTokenValidator gatewayTokenValidator,
       ObjectMapper objectMapper) {
     this.gatewayProperties = gatewayProperties;
-    this.tokenValidator = tokenValidator;
+    this.gatewayTokenValidator = gatewayTokenValidator;
     this.pathMatcher = new AntPathMatcher();
     this.objectMapper =
         objectMapper != null ? objectMapper : new com.fasterxml.jackson.databind.ObjectMapper();
@@ -131,16 +130,19 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
       }
     }
 
-    // 非白名单路径，进行 Token 校验
+    // 非白名单路径，进行 Token 校验（通过时 exchange 可能已携带用户信息头）
     log.debug("请求路径不匹配白名单，进行 Token 校验: path={}", path);
-    if (tokenValidator.validate(request)) {
-      log.debug("Token 校验通过，放行请求: path={}", path);
-      return chain.filter(exchange);
-    }
-
-    // Token 校验失败，返回错误
-    log.warn("Token 校验失败，拒绝请求: path={}", path);
-    return handleAuthError(exchange);
+    return gatewayTokenValidator
+        .validate(exchange)
+        .flatMap(validatedExchange -> {
+          log.debug("Token 校验通过，放行请求: path={}", path);
+          return chain.filter(validatedExchange);
+        })
+        .switchIfEmpty(
+            Mono.defer(() -> {
+              log.warn("Token 校验失败，拒绝请求: path={}", path);
+              return handleAuthError(exchange);
+            }));
   }
 
   /**
@@ -186,8 +188,8 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
       result.setTraceId(traceId);
     }
 
-    // 设置响应状态码和 Content-Type
-    response.setStatusCode(HttpStatus.OK);
+    // 鉴权失败返回 401，与通用未认证语义一致
+    response.setStatusCode(HttpStatus.UNAUTHORIZED);
     response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 
     // 将错误响应序列化为 JSON
