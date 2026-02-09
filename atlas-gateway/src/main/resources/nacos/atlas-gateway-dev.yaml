@@ -36,6 +36,8 @@ spring:
                 - StripPrefix=1
 
 atlas:
+  redis:
+    service-prefix: gateway
   gateway:
     whitelist:
       enabled: true

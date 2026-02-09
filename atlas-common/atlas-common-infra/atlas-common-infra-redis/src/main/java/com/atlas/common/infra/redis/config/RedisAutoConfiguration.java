@@ -14,8 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  *
  * <ul>
  *   <li>RedisTemplate Bean 配置（统一的序列化方式）
- *   <li>RedisKeyBuilder 初始化
- *   <li>CacheUtil 组件注册
+ *   <li>CacheUtil 组件注册（含前缀初始化）
  * </ul>
  *
  * <p>当依赖缺失时，自动配置不会生效，服务回退到默认 Redis 配置。

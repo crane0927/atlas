@@ -32,6 +32,10 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
 
+atlas:
+  redis:
+    service-prefix: system
+
 logging:
   level:
     root: INFO
