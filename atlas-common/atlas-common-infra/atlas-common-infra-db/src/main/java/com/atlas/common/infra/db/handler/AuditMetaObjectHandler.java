@@ -78,8 +78,8 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
   /**
    * 更新时填充字段
    *
-   * <p>填充更新时间和更新人字段。使用 setValue 强制覆盖，确保每次更新都写入当前时间和当前用户（strictUpdateFill
-   * 仅在字段为 null 时填充，实体从 DB 加载后已有值则不会覆盖）。
+   * <p>填充更新时间和更新人字段。使用 setValue 强制覆盖，确保每次更新都写入当前时间和当前用户（strictUpdateFill 仅在字段为 null 时填充，实体从 DB
+   * 加载后已有值则不会覆盖）。
    *
    * @param metaObject 元对象
    */

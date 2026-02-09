@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.settings.controller;
 
 import com.atlas.common.feature.core.page.PageResult;
@@ -10,15 +8,15 @@ import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
 import com.atlas.system.settings.service.SystemSettingService;
-import java.util.List;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,7 +64,8 @@ public class SystemSettingController {
   /**
    * 分页查询设置项列表
    *
-   * <p>支持按类型与关键字过滤；支持排序（排序字段：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   * <p>支持按类型与关键字过滤；支持排序（排序字段：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承
+   * PageQueryDTO，含 page、size、sort。
    *
    * @param queryDTO 查询参数（type、keyword、page、size、sort）
    * @return 分页设置项列表

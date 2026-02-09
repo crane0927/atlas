@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.permission.model.dto;
 
 import com.atlas.common.feature.core.page.PageQueryDTO;

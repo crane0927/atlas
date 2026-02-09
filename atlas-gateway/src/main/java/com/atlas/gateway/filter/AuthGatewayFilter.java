@@ -134,15 +134,17 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
     log.debug("请求路径不匹配白名单，进行 Token 校验: path={}", path);
     return gatewayTokenValidator
         .validate(exchange)
-        .flatMap(validatedExchange -> {
-          log.debug("Token 校验通过，放行请求: path={}", path);
-          return chain.filter(validatedExchange);
-        })
+        .flatMap(
+            validatedExchange -> {
+              log.debug("Token 校验通过，放行请求: path={}", path);
+              return chain.filter(validatedExchange);
+            })
         .switchIfEmpty(
-            Mono.defer(() -> {
-              log.warn("Token 校验失败，拒绝请求: path={}", path);
-              return handleAuthError(exchange);
-            }));
+            Mono.defer(
+                () -> {
+                  log.warn("Token 校验失败，拒绝请求: path={}", path);
+                  return handleAuthError(exchange);
+                }));
   }
 
   /**

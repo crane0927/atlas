@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.config;
 
 import com.atlas.gateway.filter.GatewayTokenValidator;
@@ -33,8 +31,7 @@ public class GatewayJwtConfiguration {
 
   @Bean
   public PublicKey gatewayJwtPublicKey(GatewayProperties gatewayProperties) {
-    String publicKeyPem =
-        gatewayProperties.getAuth().getJwt().getPublicKey();
+    String publicKeyPem = gatewayProperties.getAuth().getJwt().getPublicKey();
     if (publicKeyPem == null || publicKeyPem.trim().isEmpty()) {
       throw new IllegalStateException(
           "atlas.gateway.auth.jwt.public-key 已启用但未配置，请在 Nacos 或 application.yml 中配置");

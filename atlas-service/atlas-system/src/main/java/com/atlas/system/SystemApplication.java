@@ -19,8 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
  *   <li>用户管理：支持创建用户、分配角色等管理功能
  * </ul>
  *
- * <p>扫描 com.atlas.auth 以加载 SecurityConfig、SecurityContextFilter 等，使本进程内请求可解析 Token
- * 并设置当前用户，审计字段 createBy/updateBy 能拿到当前用户名。
+ * <p>扫描 com.atlas.auth 以加载 SecurityConfig、SecurityContextFilter 等，使本进程内请求可解析 Token 并设置当前用户，审计字段
+ * createBy/updateBy 能拿到当前用户名。
  *
  * @author Atlas Team
  * @since 1.0.0

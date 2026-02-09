@@ -2,20 +2,20 @@
 package com.atlas.system.permission.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.permission.mapper.PermissionMapper;
-import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
 import com.atlas.system.permission.model.dto.PermissionQueryDTO;
 import com.atlas.system.permission.model.entity.Permission;
 import com.atlas.system.permission.model.vo.PermissionListVO;
 import com.atlas.system.permission.service.PermissionService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -155,19 +155,22 @@ public class PermissionServiceImpl implements PermissionService {
 
     LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(Permission::getStatus, "DELETED");
-    Optional.ofNullable(query).ifPresent(q -> {
-      if (StringUtils.hasText(q.getPermissionCode())) wrapper.like(Permission::getPermissionCode, q.getPermissionCode());
-      if (StringUtils.hasText(q.getPermissionName())) wrapper.like(Permission::getPermissionName, q.getPermissionName());
-      if (StringUtils.hasText(q.getStatus())) wrapper.eq(Permission::getStatus, q.getStatus());
-    });
+    Optional.ofNullable(query)
+        .ifPresent(
+            q -> {
+              if (StringUtils.hasText(q.getPermissionCode()))
+                wrapper.like(Permission::getPermissionCode, q.getPermissionCode());
+              if (StringUtils.hasText(q.getPermissionName()))
+                wrapper.like(Permission::getPermissionName, q.getPermissionName());
+              if (StringUtils.hasText(q.getStatus()))
+                wrapper.eq(Permission::getStatus, q.getStatus());
+            });
     applySort(wrapper, sort);
 
     Page<Permission> pageReq = new Page<>(pageNum, pageSize);
     Page<Permission> resultPage = permissionMapper.selectPage(pageReq, wrapper);
     List<PermissionListVO> list =
-        resultPage.getRecords().stream()
-            .map(this::convertToListVO)
-            .collect(Collectors.toList());
+        resultPage.getRecords().stream().map(this::convertToListVO).collect(Collectors.toList());
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 

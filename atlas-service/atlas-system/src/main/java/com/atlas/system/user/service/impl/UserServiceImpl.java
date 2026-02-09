@@ -203,22 +203,22 @@ public class UserServiceImpl implements UserService {
 
     LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(User::getStatus, "DELETED");
-    Optional.ofNullable(query).ifPresent(q -> {
-      if (StringUtils.hasText(q.getUsername())) {
-        wrapper.like(User::getUsername, q.getUsername());
-      }
-      if (StringUtils.hasText(q.getStatus())) {
-        wrapper.eq(User::getStatus, q.getStatus());
-      }
-    });
+    Optional.ofNullable(query)
+        .ifPresent(
+            q -> {
+              if (StringUtils.hasText(q.getUsername())) {
+                wrapper.like(User::getUsername, q.getUsername());
+              }
+              if (StringUtils.hasText(q.getStatus())) {
+                wrapper.eq(User::getStatus, q.getStatus());
+              }
+            });
     applySort(wrapper, sort);
 
     Page<User> pageReq = new Page<>(pageNum, pageSize);
     Page<User> resultPage = userMapper.selectPage(pageReq, wrapper);
     List<UserListVO> list =
-        resultPage.getRecords().stream()
-            .map(this::convertToListVO)
-            .collect(Collectors.toList());
+        resultPage.getRecords().stream().map(this::convertToListVO).collect(Collectors.toList());
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 

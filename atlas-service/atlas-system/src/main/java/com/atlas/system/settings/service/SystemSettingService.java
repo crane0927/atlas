@@ -1,13 +1,11 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.settings.service;
 
+import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
 import com.atlas.system.settings.model.dto.SystemSettingUpdateDTO;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
-import com.atlas.common.feature.core.page.PageResult;
 import java.util.List;
 
 /**
@@ -33,7 +31,8 @@ public interface SystemSettingService {
   /**
    * 分页查询设置项列表
    *
-   * <p>支持按类型与关键字过滤；支持排序（排序字段白名单：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   * <p>支持按类型与关键字过滤；支持排序（排序字段白名单：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承
+   * PageQueryDTO，含 page、size、sort。
    *
    * @param queryDTO 查询参数（含 page、size、sort）
    * @return 分页结果

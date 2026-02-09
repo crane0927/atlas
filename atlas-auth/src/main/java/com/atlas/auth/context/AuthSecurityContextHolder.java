@@ -36,20 +36,16 @@ import lombok.Setter;
  */
 public class AuthSecurityContextHolder extends SecurityContextHolder {
 
-    /**
-     * -- SETTER --
-     * 设置 SecurityContext 实例（由 atlas-common-infra-web 的 SecurityContextImpl 提供）。
-     */
-    @Setter
-    private static SecurityContext contextInstance;
+  /** -- SETTER -- 设置 SecurityContext 实例（由 atlas-common-infra-web 的 SecurityContextImpl 提供）。 */
+  @Setter private static SecurityContext contextInstance;
 
-    /**
+  /**
    * 获取当前安全上下文
    *
    * <p>返回 `SecurityContextImpl` 实例，供静态方法使用。
    *
-   * <p>注意：此方法隐藏了父类的静态方法，提供具体实现。下游服务应使用
-   * `AuthSecurityContextHolder.getLoginUser()` 或 common 的 `SecurityContextHolder.getLoginUser()`。
+   * <p>注意：此方法隐藏了父类的静态方法，提供具体实现。下游服务应使用 `AuthSecurityContextHolder.getLoginUser()` 或 common 的
+   * `SecurityContextHolder.getLoginUser()`。
    *
    * @return 当前安全上下文，如果未初始化则返回 null
    */

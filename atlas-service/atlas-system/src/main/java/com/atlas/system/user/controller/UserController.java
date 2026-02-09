@@ -41,7 +41,8 @@ public class UserController implements UserQueryApi {
   /**
    * 分页查询用户列表
    *
-   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段：createTime、username）。{@link UserQueryDTO} 继承 {@link com.atlas.common.feature.core.page.PageQueryDTO}，含 page、size、sort。
+   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段：createTime、username）。{@link UserQueryDTO} 继承 {@link
+   * com.atlas.common.feature.core.page.PageQueryDTO}，含 page、size、sort。
    *
    * @param query 查询条件（username、status、page、size、sort）
    * @return 分页结果，使用 {@link Result} 包装

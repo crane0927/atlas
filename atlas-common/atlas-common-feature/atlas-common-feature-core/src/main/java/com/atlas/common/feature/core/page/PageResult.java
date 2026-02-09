@@ -4,7 +4,6 @@ package com.atlas.common.feature.core.page;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

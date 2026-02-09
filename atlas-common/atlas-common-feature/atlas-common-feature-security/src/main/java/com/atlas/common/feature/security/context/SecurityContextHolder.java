@@ -7,8 +7,7 @@ import java.util.function.Supplier;
 /**
  * 安全上下文持有者
  *
- * <p>提供静态方法获取安全上下文，方便开发人员使用。支持可插拔实现：通过 {@link
- * #setContextProvider(Supplier)} 注册具体实现后，{@link
+ * <p>提供静态方法获取安全上下文，方便开发人员使用。支持可插拔实现：通过 {@link #setContextProvider(Supplier)} 注册具体实现后，{@link
  * #getContext()} 将委托给该提供者；未注册时返回 null，不抛异常。
  *
  * <p>使用示例：

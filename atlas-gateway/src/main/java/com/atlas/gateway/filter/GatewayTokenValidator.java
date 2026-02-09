@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import org.springframework.web.server.ServerWebExchange;
@@ -28,8 +26,8 @@ public interface GatewayTokenValidator {
   /**
    * 校验 Token 并可选地写入用户信息到转发请求头
    *
-   * <p>从 exchange 的请求中提取 Token，校验通过时向请求头写入 X-User-Id、X-Username、X-User-Roles 等，
-   * 并返回携带新请求的 {@link ServerWebExchange}；校验失败返回空 Mono。
+   * <p>从 exchange 的请求中提取 Token，校验通过时向请求头写入 X-User-Id、X-Username、X-User-Roles 等， 并返回携带新请求的 {@link
+   * ServerWebExchange}；校验失败返回空 Mono。
    *
    * @param exchange 当前请求的 ServerWebExchange
    * @return 校验通过时返回包含已添加用户信息请求头的 exchange（Mono 非空），失败返回 Mono.empty()

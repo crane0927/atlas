@@ -1,11 +1,9 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.settings.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
-import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.common.feature.core.page.PageResult;
+import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.settings.mapper.SystemSettingMapper;
 import com.atlas.system.settings.model.dto.SystemSettingCreateDTO;
 import com.atlas.system.settings.model.dto.SystemSettingQueryDTO;
@@ -63,7 +61,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
    */
   @Override
   public PageResult<SystemSettingVO> listSettingsPage(SystemSettingQueryDTO queryDTO) {
-    int pageNumber = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getPageSafe).orElse(1);
+    int pageNumber =
+        Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getPageSafe).orElse(1);
     int pageSize = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSizeSafe).orElse(10);
     String sort = Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSort).orElse(null);
     LambdaQueryWrapper<SystemSetting> wrapper = buildQueryWrapper(queryDTO);
@@ -88,7 +87,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   public SystemSettingVO createSetting(SystemSettingCreateDTO createDTO) {
     String key = createDTO.getKey().trim();
     SystemSetting existing =
-        systemSettingMapper.selectOne(new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+        systemSettingMapper.selectOne(
+            new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
     if (existing != null) {
       throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_KEY_ALREADY_EXISTS, "设置项 key 已存在");
     }
@@ -110,7 +110,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   @Override
   public SystemSettingVO updateSettingValue(String key, SystemSettingUpdateDTO updateDTO) {
     SystemSetting setting =
-        systemSettingMapper.selectOne(new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+        systemSettingMapper.selectOne(
+            new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
     if (setting == null) {
       throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_NOT_FOUND, "设置项不存在");
     }
@@ -127,7 +128,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   @Override
   public void deleteCustomSetting(String key) {
     SystemSetting setting =
-        systemSettingMapper.selectOne(new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+        systemSettingMapper.selectOne(
+            new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
     if (setting == null) {
       throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_NOT_FOUND, "设置项不存在");
     }
@@ -140,12 +142,14 @@ public class SystemSettingServiceImpl implements SystemSettingService {
 
   private LambdaQueryWrapper<SystemSetting> buildQueryWrapper(SystemSettingQueryDTO queryDTO) {
     LambdaQueryWrapper<SystemSetting> queryWrapper = new LambdaQueryWrapper<>();
-    Optional.ofNullable(queryDTO).ifPresent(q -> {
-      if (q.getType() != null) queryWrapper.eq(SystemSetting::getType, q.getType());
-      if (q.getKeyword() != null && !q.getKeyword().isBlank()) {
-        queryWrapper.like(SystemSetting::getKey, q.getKeyword().trim());
-      }
-    });
+    Optional.ofNullable(queryDTO)
+        .ifPresent(
+            q -> {
+              if (q.getType() != null) queryWrapper.eq(SystemSetting::getType, q.getType());
+              if (q.getKeyword() != null && !q.getKeyword().isBlank()) {
+                queryWrapper.like(SystemSetting::getKey, q.getKeyword().trim());
+              }
+            });
     return queryWrapper;
   }
 
@@ -174,9 +178,7 @@ public class SystemSettingServiceImpl implements SystemSettingService {
     }
   }
 
-  /**
-   * 将 SystemSetting 实体转换为 SystemSettingVO（原则 20：使用 BeanUtils，Entity 与 VO 字段名一致）
-   */
+  /** 将 SystemSetting 实体转换为 SystemSettingVO（原则 20：使用 BeanUtils，Entity 与 VO 字段名一致） */
   private SystemSettingVO convertToVO(SystemSetting setting) {
     SystemSettingVO vo = new SystemSettingVO();
     BeanUtils.copyProperties(setting, vo);

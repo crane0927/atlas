@@ -133,19 +133,21 @@ public class RoleServiceImpl implements RoleService {
 
     LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
     wrapper.ne(Role::getStatus, "DELETED");
-    Optional.ofNullable(query).ifPresent(q -> {
-      if (StringUtils.hasText(q.getRoleCode())) wrapper.like(Role::getRoleCode, q.getRoleCode());
-      if (StringUtils.hasText(q.getRoleName())) wrapper.like(Role::getRoleName, q.getRoleName());
-      if (StringUtils.hasText(q.getStatus())) wrapper.eq(Role::getStatus, q.getStatus());
-    });
+    Optional.ofNullable(query)
+        .ifPresent(
+            q -> {
+              if (StringUtils.hasText(q.getRoleCode()))
+                wrapper.like(Role::getRoleCode, q.getRoleCode());
+              if (StringUtils.hasText(q.getRoleName()))
+                wrapper.like(Role::getRoleName, q.getRoleName());
+              if (StringUtils.hasText(q.getStatus())) wrapper.eq(Role::getStatus, q.getStatus());
+            });
     applySort(wrapper, sort);
 
     Page<Role> pageReq = new Page<>(pageNum, pageSize);
     Page<Role> resultPage = roleMapper.selectPage(pageReq, wrapper);
     List<RoleListVO> list =
-        resultPage.getRecords().stream()
-            .map(this::convertToListVO)
-            .collect(Collectors.toList());
+        resultPage.getRecords().stream().map(this::convertToListVO).collect(Collectors.toList());
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 

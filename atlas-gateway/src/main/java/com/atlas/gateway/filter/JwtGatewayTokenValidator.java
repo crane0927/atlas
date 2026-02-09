@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.gateway.filter;
 
 import com.atlas.gateway.config.GatewayProperties;
@@ -16,8 +14,10 @@ import reactor.core.publisher.Mono;
 /**
  * 基于 JWT 公钥的网关 Token 校验器
  *
- * <p>从 Authorization: Bearer 提取 Token，使用配置的公钥验签并校验过期；通过后写入 X-User-Id、X-Username、X-User-Roles、X-User-Permissions 到转发请求头。
- * 仅当配置了公钥时由 {@link com.atlas.gateway.config.GatewayJwtConfiguration} 注册为 Bean，未配置时不会存在此 Bean，由 DefaultGatewayTokenValidator 兜底。
+ * <p>从 Authorization: Bearer 提取 Token，使用配置的公钥验签并校验过期；通过后写入
+ * X-User-Id、X-Username、X-User-Roles、X-User-Permissions 到转发请求头。 仅当配置了公钥时由 {@link
+ * com.atlas.gateway.config.GatewayJwtConfiguration} 注册为 Bean，未配置时不会存在此 Bean，由
+ * DefaultGatewayTokenValidator 兜底。
  *
  * @author Atlas Team
  * @since 1.0.0
@@ -52,11 +52,7 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
     }
     try {
       Claims claims =
-          Jwts.parser()
-              .verifyWith(publicKey)
-              .build()
-              .parseSignedClaims(token)
-              .getPayload();
+          Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(token).getPayload();
 
       Long userId = claims.get("userId", Long.class);
       String username = claims.get("username", String.class);
@@ -71,9 +67,7 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
               .mutate()
               .header(HEADER_X_USER_ID, userId != null ? String.valueOf(userId) : "")
               .header(HEADER_X_USERNAME, username != null ? username : "")
-              .header(
-                  HEADER_X_USER_ROLES,
-                  roles != null ? String.join(",", roles) : "")
+              .header(HEADER_X_USER_ROLES, roles != null ? String.join(",", roles) : "")
               .header(
                   HEADER_X_USER_PERMISSIONS,
                   permissions != null ? String.join(",", permissions) : "")

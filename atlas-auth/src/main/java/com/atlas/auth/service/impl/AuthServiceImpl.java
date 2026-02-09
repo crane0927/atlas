@@ -195,8 +195,7 @@ public class AuthServiceImpl implements AuthService {
   /**
    * 委托 System 服务校验密码
    *
-   * <p>调用 verifyPassword：成功（Result.isSuccess）即表示密码正确，不依赖返回的 data 内容。
-   * 此方法设置为 protected 以便在测试中 mock。
+   * <p>调用 verifyPassword：成功（Result.isSuccess）即表示密码正确，不依赖返回的 data 内容。 此方法设置为 protected 以便在测试中 mock。
    *
    * @param username 用户名
    * @param password 明文密码

@@ -118,8 +118,8 @@ public class GatewayProperties {
   /**
    * 鉴权配置类
    *
-   * <p>校验方式：jwt（本地公钥验签）或 introspection（调用 Auth Introspection 接口）。
-   * 供 JwtGatewayTokenValidator / IntrospectGatewayTokenValidator 使用。
+   * <p>校验方式：jwt（本地公钥验签）或 introspection（调用 Auth Introspection 接口）。 供 JwtGatewayTokenValidator /
+   * IntrospectGatewayTokenValidator 使用。
    *
    * @author Atlas Team
    * @since 1.0.0
@@ -173,8 +173,8 @@ public class GatewayProperties {
   /**
    * CORS 配置类
    *
-   * <p>定义 Gateway CORS 跨域配置，包括允许的源、方法、请求头等。注意：浏览器不允许
-   * allowedOrigins=* 与 allowCredentials=true 同时使用，若需携带凭证请配置具体 allowedOrigins。
+   * <p>定义 Gateway CORS 跨域配置，包括允许的源、方法、请求头等。注意：浏览器不允许 allowedOrigins=* 与 allowCredentials=true
+   * 同时使用，若需携带凭证请配置具体 allowedOrigins。
    *
    * @author Atlas Team
    * @since 1.0.0

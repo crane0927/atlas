@@ -97,7 +97,10 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
     if (ex instanceof ResponseStatusException) {
       ResponseStatusException statusException = (ResponseStatusException) ex;
       HttpStatusCode statusCode = statusException.getStatusCode();
-      HttpStatus status = statusCode instanceof HttpStatus ? (HttpStatus) statusCode : HttpStatus.INTERNAL_SERVER_ERROR;
+      HttpStatus status =
+          statusCode instanceof HttpStatus
+              ? (HttpStatus) statusCode
+              : HttpStatus.INTERNAL_SERVER_ERROR;
       if (status == HttpStatus.NOT_FOUND) {
         // 路由不存在
         errorCode = "010404";

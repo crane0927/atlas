@@ -14,8 +14,6 @@ import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -83,9 +81,8 @@ public class GatewayConfig {
    *
    * <p>路由配置支持通过 Nacos Config 动态更新，配置变更后会自动重新加载路由规则。
    *
-   * <p>注意：此 Bean 使用不同的名称，避免与 Spring Cloud Gateway 自动配置的冲突。
-   * 路由配置主要通过 {@code spring.cloud.gateway.routes} 和 {@code atlas.gateway.routes} 配置，
-   * 此方法主要用于动态路由更新场景。
+   * <p>注意：此 Bean 使用不同的名称，避免与 Spring Cloud Gateway 自动配置的冲突。 路由配置主要通过 {@code
+   * spring.cloud.gateway.routes} 和 {@code atlas.gateway.routes} 配置， 此方法主要用于动态路由更新场景。
    *
    * @return 路由定义定位器
    */

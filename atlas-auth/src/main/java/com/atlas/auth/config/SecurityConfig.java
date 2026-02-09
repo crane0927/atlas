@@ -12,7 +12,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 安全配置类
  *
- * <p>功能：将 atlas-common-infra-web 提供的 SecurityContext 注册到 SecurityContextHolder，并注册 CurrentUserProvider。
+ * <p>功能：将 atlas-common-infra-web 提供的 SecurityContext 注册到 SecurityContextHolder，并注册
+ * CurrentUserProvider。
  *
  * @author Atlas Team
  * @since 1.0.0

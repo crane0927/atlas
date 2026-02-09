@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.feature.core.page;
 
 import lombok.AllArgsConstructor;
@@ -33,12 +31,10 @@ import lombok.NoArgsConstructor;
 public class PageQueryDTO {
 
   /** 当前页码，从 1 开始，默认 1 */
-  @Builder.Default
-  private Integer page = 1;
+  @Builder.Default private Integer page = 1;
 
   /** 每页条数，默认 10，建议不超过 100 */
-  @Builder.Default
-  private Integer size = 10;
+  @Builder.Default private Integer size = 10;
 
   /** 排序，格式：字段名,asc 或 字段名,desc，可选 */
   private String sort;

@@ -54,8 +54,8 @@ public class AuthProperties {
   public static class IntrospectConfig {
 
     /**
-     * 服务间认证 API Key。非空时，调用 POST /api/v1/auth/introspect 必须在请求头携带
-     * X-Introspect-Api-Key 且与该值一致，否则返回 401。为空时不校验（仅建议用于开发/内网）。
+     * 服务间认证 API Key。非空时，调用 POST /api/v1/auth/introspect 必须在请求头携带 X-Introspect-Api-Key 且与该值一致，否则返回
+     * 401。为空时不校验（仅建议用于开发/内网）。
      */
     private String apiKey = "";
   }
