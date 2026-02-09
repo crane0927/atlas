@@ -144,9 +144,7 @@ public class UserServiceImpl implements UserService {
     user.setEmail(userCreateDTO.getEmail());
     user.setPhone(userCreateDTO.getPhone());
     user.setStatus("ACTIVE");
-    user.setCreatedAt(LocalDateTime.now());
-    user.setUpdatedAt(LocalDateTime.now());
-    // 保存用户
+    // 保存用户（createTime/updateTime 由 AuditMetaObjectHandler 填充）
     userMapper.insert(user);
     // 返回用户 DTO
     return convertToDTO(user);
@@ -230,7 +228,7 @@ public class UserServiceImpl implements UserService {
    */
   private void applySort(LambdaQueryWrapper<User> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(User::getCreatedAt);
+      wrapper.orderByDesc(User::getCreateTime);
       return;
     }
     String[] parts = sort.split(",");
@@ -239,9 +237,9 @@ public class UserServiceImpl implements UserService {
     if ("username".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, User::getUsername);
     } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, User::getCreatedAt);
+      wrapper.orderBy(true, asc, User::getCreateTime);
     } else {
-      wrapper.orderByDesc(User::getCreatedAt);
+      wrapper.orderByDesc(User::getCreateTime);
     }
   }
 
@@ -254,6 +252,7 @@ public class UserServiceImpl implements UserService {
   private UserListVO convertToListVO(User user) {
     UserListVO vo = new UserListVO();
     BeanUtils.copyProperties(user, vo);
+    vo.setCreatedAt(user.getCreateTime());
     return vo;
   }
 

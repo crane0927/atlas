@@ -75,9 +75,7 @@ public class RoleServiceImpl implements RoleService {
     role.setRoleName(roleCreateDTO.getRoleName());
     role.setDescription(roleCreateDTO.getDescription());
     role.setStatus("ACTIVE");
-    role.setCreatedAt(LocalDateTime.now());
-    role.setUpdatedAt(LocalDateTime.now());
-    // 保存角色
+    // 保存角色（createTime/updateTime 由 AuditMetaObjectHandler 填充）
     roleMapper.insert(role);
     return role.getRoleId();
   }
@@ -159,7 +157,7 @@ public class RoleServiceImpl implements RoleService {
    */
   private void applySort(LambdaQueryWrapper<Role> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(Role::getCreatedAt);
+      wrapper.orderByDesc(Role::getCreateTime);
       return;
     }
     String[] parts = sort.split(",");
@@ -170,9 +168,9 @@ public class RoleServiceImpl implements RoleService {
     } else if ("roleName".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, Role::getRoleName);
     } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Role::getCreatedAt);
+      wrapper.orderBy(true, asc, Role::getCreateTime);
     } else {
-      wrapper.orderByDesc(Role::getCreatedAt);
+      wrapper.orderByDesc(Role::getCreateTime);
     }
   }
 
@@ -185,6 +183,7 @@ public class RoleServiceImpl implements RoleService {
   private RoleListVO convertToListVO(Role role) {
     RoleListVO vo = new RoleListVO();
     BeanUtils.copyProperties(role, vo);
+    vo.setCreatedAt(role.getCreateTime());
     return vo;
   }
 }
