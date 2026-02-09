@@ -3,6 +3,7 @@ package com.atlas.auth.service.impl;
 
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.service.SessionService;
+import com.atlas.common.infra.redis.key.RedisKeyBuilder;
 import com.atlas.common.infra.redis.util.CacheUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
@@ -16,11 +17,11 @@ import org.springframework.stereotype.Service;
  *
  * <p>实现用户会话和 Token 黑名单的管理功能，使用 Redis 存储。
  *
- * <p>Redis Key 设计：
+ * <p>Redis Key 设计（通过 RedisKeyBuilder，带 atlas 前缀）：
  *
  * <ul>
- *   <li>会话信息：`session:{userId}` (String, JSON, 带过期时间)
- *   <li>Token 黑名单：`token:blacklist:{tokenId}` (String, JSON, 带过期时间)
+ *   <li>会话信息：{prefix}:auth:session:{userId} (String, JSON, 带过期时间)
+ *   <li>Token 黑名单：{prefix}:auth:blacklist:{tokenId} (String, JSON, 带过期时间)
  * </ul>
  *
  * @author Atlas Team
@@ -30,8 +31,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SessionServiceImpl implements SessionService {
 
-  private static final String SESSION_KEY_PREFIX = "session:";
-  private static final String BLACKLIST_KEY_PREFIX = "token:blacklist:";
+  private static final String MODULE_AUTH = "auth";
+  private static final String BUSINESS_SESSION = "session";
+  private static final String BUSINESS_BLACKLIST = "blacklist";
 
   private final ObjectMapper objectMapper;
 
@@ -42,7 +44,12 @@ public class SessionServiceImpl implements SessionService {
   @Override
   public void saveSession(Long userId, TokenInfoDTO tokenInfo, Long expireSeconds) {
     try {
-      String key = SESSION_KEY_PREFIX + userId;
+      String key =
+          RedisKeyBuilder.builder()
+              .module(MODULE_AUTH)
+              .business(BUSINESS_SESSION)
+              .id(String.valueOf(userId))
+              .build();
 
       // 构建会话信息 Map
       Map<String, Object> sessionData = new HashMap<>();
@@ -64,7 +71,12 @@ public class SessionServiceImpl implements SessionService {
   @Override
   public Map<String, Object> getSession(Long userId) {
     try {
-      String key = SESSION_KEY_PREFIX + userId;
+      String key =
+          RedisKeyBuilder.builder()
+              .module(MODULE_AUTH)
+              .business(BUSINESS_SESSION)
+              .id(String.valueOf(userId))
+              .build();
       Map<String, Object> sessionData = CacheUtil.get(key, Map.class);
       if (sessionData == null) {
         log.debug("用户会话不存在: userId={}", userId);
@@ -80,7 +92,12 @@ public class SessionServiceImpl implements SessionService {
   @Override
   public void deleteSession(Long userId) {
     try {
-      String key = SESSION_KEY_PREFIX + userId;
+      String key =
+          RedisKeyBuilder.builder()
+              .module(MODULE_AUTH)
+              .business(BUSINESS_SESSION)
+              .id(String.valueOf(userId))
+              .build();
       CacheUtil.delete(key);
       log.debug("删除用户会话成功: userId={}", userId);
     } catch (Exception e) {
@@ -92,7 +109,12 @@ public class SessionServiceImpl implements SessionService {
   @Override
   public void addToBlacklist(String tokenId, Long userId, Long expireSeconds) {
     try {
-      String key = BLACKLIST_KEY_PREFIX + tokenId;
+      String key =
+          RedisKeyBuilder.builder()
+              .module(MODULE_AUTH)
+              .business(BUSINESS_BLACKLIST)
+              .id(tokenId)
+              .build();
 
       // 构建黑名单信息 Map
       Map<String, Object> blacklistData = new HashMap<>();
@@ -113,7 +135,12 @@ public class SessionServiceImpl implements SessionService {
   @Override
   public boolean isBlacklisted(String tokenId) {
     try {
-      String key = BLACKLIST_KEY_PREFIX + tokenId;
+      String key =
+          RedisKeyBuilder.builder()
+              .module(MODULE_AUTH)
+              .business(BUSINESS_BLACKLIST)
+              .id(tokenId)
+              .build();
       boolean exists = CacheUtil.exists(key);
       if (exists) {
         log.debug("Token 在黑名单中: tokenId={}", tokenId);
