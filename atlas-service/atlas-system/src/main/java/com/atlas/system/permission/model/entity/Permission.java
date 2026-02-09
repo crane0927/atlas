@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * <p>字段说明：
  *
  * <ul>
- *   <li>permissionId：权限ID，主键，自增
+ *   <li>permissionId：权限ID，主键，雪花算法生成
  *   <li>permissionCode：权限代码，唯一，非空
  *   <li>permissionName：权限名称，非空
  *   <li>description：权限描述，可空
@@ -35,8 +35,8 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_permission")
 public class Permission extends BaseEntity {
 
-  /** 权限ID，主键，自增 */
-  @TableId(type = IdType.AUTO)
+  /** 权限ID，主键，雪花算法生成 */
+  @TableId(type = IdType.ASSIGN_ID)
   private Long permissionId;
 
   /** 权限代码，唯一，非空 */

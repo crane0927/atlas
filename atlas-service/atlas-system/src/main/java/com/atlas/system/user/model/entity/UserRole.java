@@ -15,7 +15,7 @@ import lombok.Data;
  * <p>字段说明：
  *
  * <ul>
- *   <li>id：关联ID，主键，自增
+ *   <li>id：关联ID，主键，雪花算法生成
  *   <li>userId：用户ID，外键，非空
  *   <li>roleId：角色ID，外键，非空
  *   <li>createdAt：创建时间，非空，默认 CURRENT_TIMESTAMP
@@ -28,8 +28,8 @@ import lombok.Data;
 @TableName("sys_user_role")
 public class UserRole {
 
-  /** 关联ID，主键，自增 */
-  @TableId(type = IdType.AUTO)
+  /** 关联ID，主键，雪花算法生成 */
+  @TableId(type = IdType.ASSIGN_ID)
   private Long id;
 
   /** 用户ID，外键，非空 */

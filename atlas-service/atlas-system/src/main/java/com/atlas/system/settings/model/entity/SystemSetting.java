@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * <p>字段说明：
  *
  * <ul>
- *   <li>settingId：设置项ID，主键，自增
+ *   <li>settingId：设置项ID，主键，雪花算法生成
  *   <li>key：设置项唯一标识
  *   <li>value：设置项值
  *   <li>type：设置项类型（SYSTEM/CUSTOM）
@@ -34,8 +34,8 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_system_setting")
 public class SystemSetting extends BaseEntity {
 
-  /** 设置项ID，主键，自增 */
-  @TableId(type = IdType.AUTO)
+  /** 设置项ID，主键，雪花算法生成 */
+  @TableId(type = IdType.ASSIGN_ID)
   private Long settingId;
 
   /** 设置项唯一标识 */

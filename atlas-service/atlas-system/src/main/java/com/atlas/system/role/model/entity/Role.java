@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * <p>字段说明：
  *
  * <ul>
- *   <li>roleId：角色ID，主键，自增
+ *   <li>roleId：角色ID，主键，雪花算法生成
  *   <li>roleCode：角色代码，唯一，非空
  *   <li>roleName：角色名称，非空
  *   <li>description：角色描述，可空
@@ -35,8 +35,8 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_role")
 public class Role extends BaseEntity {
 
-  /** 角色ID，主键，自增 */
-  @TableId(type = IdType.AUTO)
+  /** 角色ID，主键，雪花算法生成 */
+  @TableId(type = IdType.ASSIGN_ID)
   private Long roleId;
 
   /** 角色代码，唯一，非空 */

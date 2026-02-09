@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * <p>字段说明：
  *
  * <ul>
- *   <li>userId：用户ID，主键，自增
+ *   <li>userId：用户ID，主键，雪花算法生成
  *   <li>username：用户名，唯一，非空
  *   <li>password：密码（加密），非空
  *   <li>nickname：昵称，可空
@@ -38,8 +38,8 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_user")
 public class User extends BaseEntity {
 
-  /** 用户ID，主键，自增 */
-  @TableId(type = IdType.AUTO)
+  /** 用户ID，主键，雪花算法生成 */
+  @TableId(type = IdType.ASSIGN_ID)
   private Long userId;
 
   /** 用户名，唯一，非空 */
