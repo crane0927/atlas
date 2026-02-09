@@ -31,7 +31,7 @@ public interface SystemSettingService {
   /**
    * 分页查询设置项列表
    *
-   * <p>支持按类型与关键字过滤；支持排序（排序字段白名单：key、createTime、updateTime）。{@link SystemSettingQueryDTO} 继承
+   * <p>支持按类型与关键字过滤；支持排序（排序字段白名单：key、createdAt、updatedAt，兼容 createTime/updateTime）。{@link SystemSettingQueryDTO} 继承
    * PageQueryDTO，含 page、size、sort。
    *
    * @param queryDTO 查询参数（含 page、size、sort）

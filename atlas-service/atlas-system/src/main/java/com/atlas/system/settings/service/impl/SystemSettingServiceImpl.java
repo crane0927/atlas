@@ -54,7 +54,7 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   /**
    * 分页查询设置项列表
    *
-   * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createTime、updateTime）。
+   * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createdAt、updatedAt，兼容 createTime/updateTime）。
    *
    * @param queryDTO 查询参数
    * @return 分页结果
@@ -154,14 +154,14 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   }
 
   /**
-   * 应用排序（白名单：key、createTime、updateTime），与 PageQueryDTO 规范一致
+   * 应用排序（白名单：key、createdAt、updatedAt，兼容 createTime/updateTime），与 PageQueryDTO 规范一致
    *
    * @param wrapper 查询包装器
    * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
    */
   private void applySort(LambdaQueryWrapper<SystemSetting> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(SystemSetting::getCreateTime);
+      wrapper.orderByDesc(SystemSetting::getCreatedAt);
       return;
     }
     String[] parts = sort.split(",");
@@ -169,12 +169,12 @@ public class SystemSettingServiceImpl implements SystemSettingService {
     boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
     if ("key".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, SystemSetting::getKey);
-    } else if ("createTime".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, SystemSetting::getCreateTime);
-    } else if ("updateTime".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, SystemSetting::getUpdateTime);
+    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, SystemSetting::getCreatedAt);
+    } else if ("updateTime".equalsIgnoreCase(field) || "updatedAt".equalsIgnoreCase(field)) {
+      wrapper.orderBy(true, asc, SystemSetting::getUpdatedAt);
     } else {
-      wrapper.orderByDesc(SystemSetting::getCreateTime);
+      wrapper.orderByDesc(SystemSetting::getCreatedAt);
     }
   }
 

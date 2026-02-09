@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
     user.setEmail(userCreateDTO.getEmail());
     user.setPhone(userCreateDTO.getPhone());
     user.setStatus("ACTIVE");
-    // 保存用户（createTime/updateTime 由 AuditMetaObjectHandler 填充）
+    // 保存用户（createdAt/updatedAt 由 AuditMetaObjectHandler 填充）
     userMapper.insert(user);
     // 返回用户 DTO
     return convertToDTO(user);
@@ -221,14 +221,14 @@ public class UserServiceImpl implements UserService {
   }
 
   /**
-   * 应用排序（白名单：createTime、username）
+   * 应用排序（白名单：createdAt、username，兼容 createTime/createdAt）
    *
    * @param wrapper 查询包装器
    * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
    */
   private void applySort(LambdaQueryWrapper<User> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(User::getCreateTime);
+      wrapper.orderByDesc(User::getCreatedAt);
       return;
     }
     String[] parts = sort.split(",");
@@ -237,9 +237,9 @@ public class UserServiceImpl implements UserService {
     if ("username".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, User::getUsername);
     } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, User::getCreateTime);
+      wrapper.orderBy(true, asc, User::getCreatedAt);
     } else {
-      wrapper.orderByDesc(User::getCreateTime);
+      wrapper.orderByDesc(User::getCreatedAt);
     }
   }
 
@@ -252,7 +252,7 @@ public class UserServiceImpl implements UserService {
   private UserListVO convertToListVO(User user) {
     UserListVO vo = new UserListVO();
     BeanUtils.copyProperties(user, vo);
-    vo.setCreatedAt(user.getCreateTime());
+    vo.setCreatedAt(user.getCreatedAt());
     return vo;
   }
 

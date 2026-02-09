@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
  * <p>填充的字段包括：
  *
  * <ul>
- *   <li>createTime：创建时间（插入时填充）
- *   <li>updateTime：更新时间（插入和更新时填充）
+ *   <li>createdAt：创建时间（插入时填充）
+ *   <li>updatedAt：更新时间（插入和更新时填充）
  *   <li>createBy：创建人（插入时填充，从安全上下文获取）
  *   <li>updateBy：更新人（更新时填充，从安全上下文获取）
  * </ul>
@@ -66,9 +66,9 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
   public void insertFill(MetaObject metaObject) {
     LocalDateTime now = LocalDateTime.now();
     // 填充创建时间
-    this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, now);
+    this.strictInsertFill(metaObject, "createdAt", LocalDateTime.class, now);
     // 填充更新时间
-    this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, now);
+    this.strictInsertFill(metaObject, "updatedAt", LocalDateTime.class, now);
     // 填充创建人和更新人
     String currentUser = getCurrentUser();
     this.strictInsertFill(metaObject, "createBy", String.class, currentUser);
@@ -87,8 +87,8 @@ public class AuditMetaObjectHandler implements MetaObjectHandler {
   public void updateFill(MetaObject metaObject) {
     LocalDateTime now = LocalDateTime.now();
     String currentUser = getCurrentUser();
-    if (metaObject.hasSetter("updateTime")) {
-      metaObject.setValue("updateTime", now);
+    if (metaObject.hasSetter("updatedAt")) {
+      metaObject.setValue("updatedAt", now);
     }
     if (metaObject.hasSetter("updateBy")) {
       metaObject.setValue("updateBy", currentUser);

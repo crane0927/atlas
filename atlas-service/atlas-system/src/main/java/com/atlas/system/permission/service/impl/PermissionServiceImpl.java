@@ -133,7 +133,7 @@ public class PermissionServiceImpl implements PermissionService {
     permission.setPermissionName(permissionCreateDTO.getPermissionName());
     permission.setDescription(permissionCreateDTO.getDescription());
     permission.setStatus("ACTIVE");
-    // 保存权限（createTime/updateTime 由 AuditMetaObjectHandler 填充）
+    // 保存权限（createdAt/updatedAt 由 AuditMetaObjectHandler 填充）
     permissionMapper.insert(permission);
     return permission.getPermissionId();
   }
@@ -172,14 +172,14 @@ public class PermissionServiceImpl implements PermissionService {
   }
 
   /**
-   * 应用排序（白名单：permissionCode、permissionName、createTime、createdAt）
+   * 应用排序（白名单：permissionCode、permissionName、createdAt，兼容 createTime/createdAt）
    *
    * @param wrapper 查询包装器
    * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
    */
   private void applySort(LambdaQueryWrapper<Permission> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(Permission::getCreateTime);
+      wrapper.orderByDesc(Permission::getCreatedAt);
       return;
     }
     String[] parts = sort.split(",");
@@ -190,9 +190,9 @@ public class PermissionServiceImpl implements PermissionService {
     } else if ("permissionName".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, Permission::getPermissionName);
     } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Permission::getCreateTime);
+      wrapper.orderBy(true, asc, Permission::getCreatedAt);
     } else {
-      wrapper.orderByDesc(Permission::getCreateTime);
+      wrapper.orderByDesc(Permission::getCreatedAt);
     }
   }
 
@@ -205,7 +205,7 @@ public class PermissionServiceImpl implements PermissionService {
   private PermissionListVO convertToListVO(Permission permission) {
     PermissionListVO vo = new PermissionListVO();
     BeanUtils.copyProperties(permission, vo);
-    vo.setCreatedAt(permission.getCreateTime());
+    vo.setCreatedAt(permission.getCreatedAt());
     return vo;
   }
 }

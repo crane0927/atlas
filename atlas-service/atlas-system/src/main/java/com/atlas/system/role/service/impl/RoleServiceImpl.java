@@ -75,7 +75,7 @@ public class RoleServiceImpl implements RoleService {
     role.setRoleName(roleCreateDTO.getRoleName());
     role.setDescription(roleCreateDTO.getDescription());
     role.setStatus("ACTIVE");
-    // 保存角色（createTime/updateTime 由 AuditMetaObjectHandler 填充）
+    // 保存角色（createdAt/updatedAt 由 AuditMetaObjectHandler 填充）
     roleMapper.insert(role);
     return role.getRoleId();
   }
@@ -150,14 +150,14 @@ public class RoleServiceImpl implements RoleService {
   }
 
   /**
-   * 应用排序（白名单：roleCode、roleName、createTime、createdAt）
+   * 应用排序（白名单：roleCode、roleName、createdAt，兼容 createTime/createdAt）
    *
    * @param wrapper 查询包装器
    * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
    */
   private void applySort(LambdaQueryWrapper<Role> wrapper, String sort) {
     if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(Role::getCreateTime);
+      wrapper.orderByDesc(Role::getCreatedAt);
       return;
     }
     String[] parts = sort.split(",");
@@ -168,9 +168,9 @@ public class RoleServiceImpl implements RoleService {
     } else if ("roleName".equalsIgnoreCase(field)) {
       wrapper.orderBy(true, asc, Role::getRoleName);
     } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Role::getCreateTime);
+      wrapper.orderBy(true, asc, Role::getCreatedAt);
     } else {
-      wrapper.orderByDesc(Role::getCreateTime);
+      wrapper.orderByDesc(Role::getCreatedAt);
     }
   }
 
@@ -183,7 +183,7 @@ public class RoleServiceImpl implements RoleService {
   private RoleListVO convertToListVO(Role role) {
     RoleListVO vo = new RoleListVO();
     BeanUtils.copyProperties(role, vo);
-    vo.setCreatedAt(role.getCreateTime());
+    vo.setCreatedAt(role.getCreatedAt());
     return vo;
   }
 }

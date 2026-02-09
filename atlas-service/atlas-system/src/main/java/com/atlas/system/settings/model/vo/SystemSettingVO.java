@@ -16,8 +16,8 @@ import lombok.Data;
  *   <li>key：设置项唯一标识
  *   <li>value：设置项值
  *   <li>type：设置项类型（SYSTEM/CUSTOM）
- *   <li>createTime：创建时间
- *   <li>updateTime：更新时间
+ *   <li>createdAt：创建时间
+ *   <li>updatedAt：更新时间
  *   <li>createBy：创建人
  *   <li>updateBy：更新人
  * </ul>
@@ -38,10 +38,10 @@ public class SystemSettingVO {
   private SystemSettingType type;
 
   /** 创建时间 */
-  private LocalDateTime createTime;
+  private LocalDateTime createdAt;
 
   /** 更新时间 */
-  private LocalDateTime updateTime;
+  private LocalDateTime updatedAt;
 
   /** 创建人 */
   private String createBy;

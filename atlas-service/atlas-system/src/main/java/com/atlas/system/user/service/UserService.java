@@ -83,7 +83,7 @@ public interface UserService {
   /**
    * 分页查询用户列表
    *
-   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段白名单：createTime、username）。{@link UserQueryDTO} 继承 PageQueryDTO，含
+   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段白名单：createdAt、username，兼容 createTime/createdAt）。{@link UserQueryDTO} 继承 PageQueryDTO，含
    * page、size、sort。
    *
    * @param query 查询条件（用户名、状态、page、size、sort）

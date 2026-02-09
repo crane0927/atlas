@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * <ul>
  *   <li>page：当前页码，从 1 开始，默认 1
  *   <li>size：每页条数，默认 10，建议上限 100
- *   <li>sort：排序，格式为「字段名,方向」，如 createTime,desc 或 username,asc
+ *   <li>sort：排序，格式为「字段名,方向」，如 createdAt,desc 或 username,asc
  * </ul>
  *
  * <p>使用方式：Controller 层通过 QueryParam 绑定，或与业务 QueryDTO 组合使用；排序字段由各业务层白名单校验。
