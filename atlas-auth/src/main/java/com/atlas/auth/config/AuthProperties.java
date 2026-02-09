@@ -49,6 +49,23 @@ public class AuthProperties {
   /** Introspection 接口配置（服务间认证） */
   private IntrospectConfig introspect = new IntrospectConfig();
 
+  /** 验证码配置 */
+  private CaptchaConfig captcha = new CaptchaConfig();
+
+  /** 验证码配置内部类 */
+  @Data
+  public static class CaptchaConfig {
+
+    /** 是否启用验证码（默认 true） */
+    private boolean enabled = true;
+
+    /** 验证码 Redis 过期时间（秒，默认 120） */
+    private int ttlSeconds = 120;
+
+    /** 验证码字符长度（默认 4） */
+    private int length = 4;
+  }
+
   /** Introspection 配置内部类 */
   @Data
   public static class IntrospectConfig {

@@ -31,6 +31,11 @@ atlas:
       algorithm: ${ATLAS_AUTH_JWT_ALGORITHM:RS256}
     introspect:
       api-key: ${ATLAS_AUTH_INTROSPECT_API_KEY:}
+    # 验证码：enabled=false 可关闭（如测试环境）
+    captcha:
+      enabled: ${ATLAS_AUTH_CAPTCHA_ENABLED:true}
+      ttl-seconds: ${ATLAS_AUTH_CAPTCHA_TTL_SECONDS:120}
+      length: ${ATLAS_AUTH_CAPTCHA_LENGTH:4}
 
 logging:
   level:

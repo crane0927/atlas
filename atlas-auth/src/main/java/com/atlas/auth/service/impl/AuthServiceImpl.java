@@ -1,6 +1,7 @@
 /*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.auth.service.impl;
 
+import com.atlas.auth.config.AuthProperties;
 import com.atlas.auth.config.JwtConfig;
 import com.atlas.auth.constant.AuthErrorCode;
 import com.atlas.auth.model.dto.TokenInfoDTO;
@@ -8,8 +9,10 @@ import com.atlas.auth.model.vo.LoginRequestVO;
 import com.atlas.auth.model.vo.LoginResponseVO;
 import com.atlas.auth.model.vo.UserVO;
 import com.atlas.auth.service.AuthService;
+import com.atlas.auth.service.CaptchaService;
 import com.atlas.auth.service.SessionService;
 import com.atlas.auth.service.TokenService;
+import com.atlas.auth.util.RsaPasswordDecryptor;
 import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.api.v1.feign.PermissionQueryApi;
@@ -39,18 +42,27 @@ public class AuthServiceImpl implements AuthService {
   private final TokenService tokenService;
   private final SessionService sessionService;
   private final JwtConfig jwtConfig;
+  private final AuthProperties authProperties;
+  private final RsaPasswordDecryptor rsaPasswordDecryptor;
+  private final CaptchaService captchaService;
 
   public AuthServiceImpl(
       UserQueryApi userQueryApi,
       PermissionQueryApi permissionQueryApi,
       TokenService tokenService,
       SessionService sessionService,
-      JwtConfig jwtConfig) {
+      JwtConfig jwtConfig,
+      AuthProperties authProperties,
+      RsaPasswordDecryptor rsaPasswordDecryptor,
+      CaptchaService captchaService) {
     this.userQueryApi = userQueryApi;
     this.permissionQueryApi = permissionQueryApi;
     this.tokenService = tokenService;
     this.sessionService = sessionService;
     this.jwtConfig = jwtConfig;
+    this.authProperties = authProperties;
+    this.rsaPasswordDecryptor = rsaPasswordDecryptor;
+    this.captchaService = captchaService;
   }
 
   @Override
@@ -59,11 +71,32 @@ public class AuthServiceImpl implements AuthService {
     if (loginRequest.getUsername() == null || loginRequest.getUsername().trim().isEmpty()) {
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_EMPTY, "用户名不能为空");
     }
-    if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
+    if (loginRequest.getEncryptedPassword() == null
+        || loginRequest.getEncryptedPassword().trim().isEmpty()) {
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_EMPTY, "密码不能为空");
     }
 
-    // 2. 查询用户信息
+    // 2. 验证码校验（当启用时）
+    if (authProperties.getCaptcha().isEnabled()) {
+      if (loginRequest.getCaptchaKey() == null || loginRequest.getCaptchaKey().trim().isEmpty()
+          || loginRequest.getCaptchaCode() == null) {
+        throw new BusinessException(
+            AuthErrorCode.CAPTCHA_EXPIRED_OR_MISSING, "验证码已过期或未填写，请刷新后重试");
+      }
+      if (!captchaService.validateAndConsume(
+          loginRequest.getCaptchaKey(), loginRequest.getCaptchaCode())) {
+        throw new BusinessException(AuthErrorCode.CAPTCHA_INVALID, "验证码错误");
+      }
+    }
+
+    // 3. 解密密码
+    String plainPassword = rsaPasswordDecryptor.decrypt(loginRequest.getEncryptedPassword());
+    if (plainPassword == null) {
+      log.warn("密码解密失败: username={}", loginRequest.getUsername());
+      throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_ERROR, "用户名或密码错误");
+    }
+
+    // 4. 查询用户信息
     Result<UserDTO> userResult = userQueryApi.getUserByUsername(loginRequest.getUsername());
     if (userResult == null || !userResult.isSuccess() || userResult.getData() == null) {
       log.warn("用户不存在: username={}", loginRequest.getUsername());
@@ -72,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
 
     UserDTO userDTO = userResult.getData();
 
-    // 3. 验证用户状态
+    // 5. 验证用户状态
     if (userDTO.getStatus() == null) {
       log.warn("用户状态为空: userId={}", userDTO.getUserId());
       throw new BusinessException(AuthErrorCode.USER_NOT_FOUND, "用户名或密码错误");
@@ -98,13 +131,13 @@ public class AuthServiceImpl implements AuthService {
       throw new BusinessException(AuthErrorCode.USER_NOT_ACTIVE, "用户状态异常，请联系管理员");
     }
 
-    // 4. 验证密码（委托 System 的 verifyPassword：成功即表示密码正确，不依赖返回值内容）
-    if (!verifyPasswordWithSystem(userDTO.getUsername(), loginRequest.getPassword())) {
+    // 6. 验证密码（委托 System 的 verifyPassword：成功即表示密码正确，不依赖返回值内容）
+    if (!verifyPasswordWithSystem(userDTO.getUsername(), plainPassword)) {
       log.warn("密码错误: userId={}", userDTO.getUserId());
       throw new BusinessException(AuthErrorCode.USERNAME_OR_PASSWORD_ERROR, "用户名或密码错误");
     }
 
-    // 5. 查询用户权限和角色
+    // 7. 查询用户权限和角色
     Result<UserAuthoritiesDTO> authoritiesResult =
         permissionQueryApi.getUserAuthorities(userDTO.getUserId());
     if (authoritiesResult == null
@@ -125,7 +158,7 @@ public class AuthServiceImpl implements AuthService {
             ? authoritiesDTO.getPermissions()
             : new ArrayList<>();
 
-    // 6. 生成 Token
+    // 8. 生成 Token
     TokenInfoDTO tokenInfo = new TokenInfoDTO();
     tokenInfo.setUserId(userDTO.getUserId());
     tokenInfo.setUsername(userDTO.getUsername());
@@ -140,10 +173,10 @@ public class AuthServiceImpl implements AuthService {
     tokenInfo.setIssuedAt(parsedTokenInfo.getIssuedAt());
     tokenInfo.setExpiresAt(parsedTokenInfo.getExpiresAt());
 
-    // 7. 存储会话信息
+    // 9. 存储会话信息
     sessionService.saveSession(userDTO.getUserId(), tokenInfo, jwtConfig.getExpire());
 
-    // 8. 构建响应
+    // 10. 构建响应
     LoginResponseVO response = new LoginResponseVO();
     response.setToken(token);
     response.setTokenType("Bearer");

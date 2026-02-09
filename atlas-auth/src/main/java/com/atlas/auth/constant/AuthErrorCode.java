@@ -40,6 +40,12 @@ public class AuthErrorCode {
   /** 用户名或密码不能为空 */
   public static final String USERNAME_OR_PASSWORD_EMPTY = "011000";
 
+  /** 验证码错误 */
+  public static final String CAPTCHA_INVALID = "011001";
+
+  /** 验证码已过期或缺失 */
+  public static final String CAPTCHA_EXPIRED_OR_MISSING = "011002";
+
   // ========== 业务错误 (20-29) ==========
 
   /** 用户名或密码错误 */

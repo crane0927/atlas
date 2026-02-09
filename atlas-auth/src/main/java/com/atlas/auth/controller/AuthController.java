@@ -5,10 +5,12 @@ import com.atlas.auth.config.JwtConfig;
 import com.atlas.auth.model.dto.TokenInfoDTO;
 import com.atlas.auth.model.vo.IntrospectRequestVO;
 import com.atlas.auth.model.vo.IntrospectResponseVO;
+import com.atlas.auth.model.vo.CaptchaResponseVO;
 import com.atlas.auth.model.vo.LoginRequestVO;
 import com.atlas.auth.model.vo.LoginResponseVO;
 import com.atlas.auth.model.vo.PublicKeyResponseVO;
 import com.atlas.auth.service.AuthService;
+import com.atlas.auth.service.CaptchaService;
 import com.atlas.auth.service.TokenService;
 import com.atlas.common.feature.core.result.Result;
 import jakarta.validation.Valid;
@@ -43,11 +45,17 @@ public class AuthController {
   private final AuthService authService;
   private final JwtConfig jwtConfig;
   private final TokenService tokenService;
+  private final CaptchaService captchaService;
 
-  public AuthController(AuthService authService, JwtConfig jwtConfig, TokenService tokenService) {
+  public AuthController(
+      AuthService authService,
+      JwtConfig jwtConfig,
+      TokenService tokenService,
+      CaptchaService captchaService) {
     this.authService = authService;
     this.jwtConfig = jwtConfig;
     this.tokenService = tokenService;
+    this.captchaService = captchaService;
   }
 
   /**
@@ -63,7 +71,9 @@ public class AuthController {
    *
    * {
    *   "username": "admin",
-   *   "password": "password123"
+   *   "encryptedPassword": "Base64(RSA公钥加密的密码)",
+   *   "captchaKey": "uuid-from-GET-/captcha",
+   *   "captchaCode": "用户输入的验证码"
    * }
    * }</pre>
    *
@@ -176,6 +186,19 @@ public class AuthController {
     response.setAlgorithm(jwtConfig.getAlgorithm());
     response.setPublicKey(jwtConfig.getPublicKeyPem());
     response.setKeyId(jwtConfig.getKeyId());
+    return Result.success(response);
+  }
+
+  /**
+   * 获取图形验证码
+   *
+   * <p>生成验证码图片与 captchaKey，答案存 Redis，登录时需提交 captchaKey 与用户输入的 captchaCode。
+   *
+   * @return captchaKey 与 imageBase64（data URL）
+   */
+  @GetMapping("/captcha")
+  public Result<CaptchaResponseVO> getCaptcha() {
+    CaptchaResponseVO response = captchaService.generate();
     return Result.success(response);
   }
 

@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 /**
  * 登录请求 VO
  *
- * <p>用户登录请求参数，包含用户名和密码。
+ * <p>用户登录请求参数：用户名、RSA 加密密码（Base64）、验证码（当验证码开启时必填）。
  *
  * <p>字段说明：
  *
  * <ul>
- *   <li>username：用户名，必填字段
- *   <li>password：密码，必填字段
+ *   <li>username：用户名，必填
+ *   <li>encryptedPassword：使用 GET /api/v1/auth/public-key 公钥加密后的密码（Base64），必填
+ *   <li>captchaKey：GET /api/v1/auth/captcha 返回的 key，验证码开启时必填
+ *   <li>captchaCode：用户输入的验证码，验证码开启时必填
  * </ul>
  *
  * @author Atlas Team
@@ -30,7 +32,13 @@ public class LoginRequestVO {
   @NotBlank(message = "用户名不能为空")
   private String username;
 
-  /** 密码 */
+  /** RSA 加密后的密码（Base64），前端使用公钥加密 */
   @NotBlank(message = "密码不能为空")
-  private String password;
+  private String encryptedPassword;
+
+  /** 验证码 key（验证码开启时必填） */
+  private String captchaKey;
+
+  /** 用户输入的验证码（验证码开启时必填） */
+  private String captchaCode;
 }
