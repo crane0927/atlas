@@ -46,13 +46,13 @@ atlas:
         - /atlas-auth/api/v1/auth/public-key
 
     auth:
-      validation-mode: jwt
+      validation-mode: introspection # jwt、 introspection
       jwt:
         public-key: ${ATLAS_GATEWAY_JWT_PUBLIC_KEY:}
         algorithm: RS256
 
       introspect:
-        url: http://localhost:8084/api/v1/auth/introspect
+        url: http://localhost:8084/atlas-auth/api/v1/auth/introspect
         api-key: ${ATLAS_GATEWAY_INTROSPECT_API_KEY:}
 
     routes:

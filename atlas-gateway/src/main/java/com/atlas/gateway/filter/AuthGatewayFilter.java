@@ -137,14 +137,17 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
         .flatMap(
             validatedExchange -> {
               log.debug("Token 校验通过，放行请求: path={}", path);
-              return chain.filter(validatedExchange);
+              // chain.filter() 返回 Mono<Void>，完成时只 onComplete 不 onNext，会导致下游 switchIfEmpty 误判为“空”而执行。
+              // 用 .then(Mono.just(...)) 在放行完成后发出一个值，避免 switchIfEmpty 被触发。
+              return chain.filter(validatedExchange).then(Mono.just(true));
             })
         .switchIfEmpty(
             Mono.defer(
                 () -> {
                   log.warn("Token 校验失败，拒绝请求: path={}", path);
-                  return handleAuthError(exchange);
-                }));
+                  return handleAuthError(exchange).then(Mono.just(false));
+                }))
+        .then();
   }
 
   /**
@@ -182,6 +185,9 @@ public class AuthGatewayFilter implements GlobalFilter, Ordered {
    */
   private Mono<Void> handleAuthError(ServerWebExchange exchange) {
     ServerHttpResponse response = exchange.getResponse();
+    if (response.isCommitted()) {
+      return Mono.empty();
+    }
 
     // 构建错误响应
     String traceId = TraceIdUtil.getTraceId();
