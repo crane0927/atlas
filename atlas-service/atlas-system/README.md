@@ -2,7 +2,7 @@
 
 ## 模块简介
 
-`atlas-system` 是 Atlas 项目的系统服务模块，提供用户、角色、权限管理功能。服务实现 `atlas-system-api` 中定义的接口契约，支持 `atlas-auth` 服务的用户认证和权限授权需求。
+`atlas-system` 是 Atlas 项目的系统服务模块，提供用户、角色、权限管理功能。服务实现 `atlas-system-api` 中定义的接口契约，通过 Gateway 与 common 安全能力与 auth 服务协作，不直接依赖 atlas-auth 模块。
 
 ## 主要功能
 

@@ -170,7 +170,7 @@ Content-Type: application/json
 ```java
 package com.atlas.example.controller;
 
-import com.atlas.auth.context.AuthSecurityContextHolder;
+import com.atlas.common.feature.security.context.SecurityContextHolder;
 import com.atlas.common.feature.security.user.LoginUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -182,8 +182,8 @@ public class ExampleController {
 
   @GetMapping("/current-user")
   public String getCurrentUser() {
-    // 获取当前登录用户
-    LoginUser user = AuthSecurityContextHolder.getLoginUser();
+    // 获取当前登录用户（由 atlas-common-infra-web 自动配置 SecurityContextHolder）
+    LoginUser user = SecurityContextHolder.getLoginUser();
     
     if (user != null) {
       return "当前用户: " + user.getUsername() + " (ID: " + user.getUserId() + ")";
@@ -195,8 +195,8 @@ public class ExampleController {
   @GetMapping("/check-auth")
   public String checkAuth() {
     // 判断是否已认证
-    if (AuthSecurityContextHolder.isAuthenticated()) {
-      LoginUser user = AuthSecurityContextHolder.getLoginUser();
+    if (SecurityContextHolder.isAuthenticated()) {
+      LoginUser user = SecurityContextHolder.getLoginUser();
       return "已认证: " + user.getUsername();
     } else {
       return "未认证";
@@ -205,7 +205,7 @@ public class ExampleController {
 
   @GetMapping("/check-role")
   public String checkRole() {
-    LoginUser user = AuthSecurityContextHolder.getLoginUser();
+    LoginUser user = SecurityContextHolder.getLoginUser();
     if (user != null && user.hasRole("admin")) {
       return "用户拥有 admin 角色";
     } else {
@@ -215,7 +215,7 @@ public class ExampleController {
 
   @GetMapping("/check-permission")
   public String checkPermission() {
-    LoginUser user = AuthSecurityContextHolder.getLoginUser();
+    LoginUser user = SecurityContextHolder.getLoginUser();
     if (user != null && user.hasPermission("user:write")) {
       return "用户拥有 user:write 权限";
     } else {
@@ -301,7 +301,7 @@ spring:
 
 1. **密码验证**: 登录时通过 `verifyPasswordWithSystem()` 委托 `atlas-system` 的 `verifyPassword` 接口校验密码，成功即视为有效，不依赖返回的 data 内容。
 
-2. **SecurityContextHolder**: 下游服务需要使用 `AuthSecurityContextHolder.getLoginUser()` 而不是 `SecurityContextHolder.getLoginUser()`，因为 `SecurityContextHolder` 是抽象类，需要具体实现。
+2. **SecurityContextHolder**: 下游服务通过 `SecurityContextHolder.getLoginUser()` 获取当前用户；由 atlas-common-infra-web 自动配置将 SecurityContext 注册到 SecurityContextHolder。
 
 3. **Token 格式**: Token 必须通过 `Authorization: Bearer {token}` 请求头传递。
 
