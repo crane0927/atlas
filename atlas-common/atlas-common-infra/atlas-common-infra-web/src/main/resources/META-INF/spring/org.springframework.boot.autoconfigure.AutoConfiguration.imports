@@ -1,2 +1,3 @@
 com.atlas.common.infra.web.config.WebExceptionAutoConfiguration
+com.atlas.common.infra.web.config.WebConfig
 com.atlas.common.infra.web.security.SecurityContextWebAutoConfiguration

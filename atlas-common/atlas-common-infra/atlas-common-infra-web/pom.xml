@@ -48,12 +48,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- atlas-common-infra-logging（TraceIdUtil 工具类，可选） -->
+        <!-- atlas-common-infra-logging（TraceIdUtil，TraceIdFilter 依赖，非可选） -->
         <dependency>
             <groupId>com.atlas</groupId>
             <artifactId>atlas-common-infra-logging</artifactId>
             <version>${project.version}</version>
-            <optional>true</optional>
         </dependency>
 
         <!-- Lombok（用于简化代码） -->
