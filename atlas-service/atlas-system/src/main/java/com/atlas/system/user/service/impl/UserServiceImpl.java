@@ -19,7 +19,6 @@ import com.atlas.system.user.service.UserService;
 import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,11 +182,10 @@ public class UserServiceImpl implements UserService {
     if (existingUserRole != null) {
       return; // 关联已存在，直接返回
     }
-    // 创建用户角色关联
+    // 创建用户角色关联（createdAt/updatedAt/createdBy/updatedBy 由 AuditMetaObjectHandler 填充）
     UserRole userRole = new UserRole();
     userRole.setUserId(userId);
     userRole.setRoleId(roleId);
-    userRole.setCreatedAt(LocalDateTime.now());
     userRoleMapper.insert(userRole);
   }
 

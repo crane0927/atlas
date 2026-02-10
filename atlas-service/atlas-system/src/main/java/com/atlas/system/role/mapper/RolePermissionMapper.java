@@ -36,7 +36,7 @@ public interface RolePermissionMapper extends BaseMapper<RolePermission> {
   @Select(
       "<script>"
           + "SELECT DISTINCT p.permission_code FROM sys_permission p "
-          + "INNER JOIN sys_role_permission rp ON p.permission_id = rp.permission_id "
+          + "INNER JOIN sys_role_permission rp ON p.permission_id = rp.permission_id AND rp.deleted = 0 "
           + "WHERE rp.role_id IN "
           + "<foreach collection='roleIds' item='roleId' open='(' separator=',' close=')'>"
           + "#{roleId}"

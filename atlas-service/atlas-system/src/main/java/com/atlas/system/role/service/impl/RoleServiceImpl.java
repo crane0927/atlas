@@ -17,7 +17,6 @@ import com.atlas.system.role.service.RoleService;
 import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,11 +112,10 @@ public class RoleServiceImpl implements RoleService {
     if (existingRolePermission != null) {
       return; // 关联已存在，直接返回
     }
-    // 创建角色权限关联
+    // 创建角色权限关联（createdAt/updatedAt/createdBy/updatedBy 由 AuditMetaObjectHandler 填充）
     RolePermission rolePermission = new RolePermission();
     rolePermission.setRoleId(roleId);
     rolePermission.setPermissionId(permissionId);
-    rolePermission.setCreatedAt(LocalDateTime.now());
     rolePermissionMapper.insert(rolePermission);
   }
 
