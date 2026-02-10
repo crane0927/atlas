@@ -31,14 +31,14 @@ public interface RoleService {
    *
    * @param roleCreateDTO 角色创建 DTO
    * @return 角色ID
-   * @throws BusinessException 如果角色代码已存在，错误码：032005
+   * @throws BusinessException 如果角色代码已存在，错误码：032105
    */
   Long createRole(RoleCreateDTO roleCreateDTO);
 
   /**
    * 为角色分配权限
    *
-   * <p>建立角色与权限的关联关系。
+   * <p>建立角色与权限的关联关系。若关联已存在则直接返回（幂等）。
    *
    * @param roleId 角色ID
    * @param permissionId 权限ID

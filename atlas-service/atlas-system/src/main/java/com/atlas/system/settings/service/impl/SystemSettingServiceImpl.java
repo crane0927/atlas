@@ -12,11 +12,15 @@ import com.atlas.system.settings.model.entity.SystemSetting;
 import com.atlas.system.settings.model.enums.SystemSettingType;
 import com.atlas.system.settings.model.vo.SystemSettingVO;
 import com.atlas.system.settings.service.SystemSettingService;
+import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -35,17 +39,26 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 public class SystemSettingServiceImpl implements SystemSettingService {
 
+  /** 列表查询最大条数，防止全表加载与响应过大 */
+  private static final int LIST_SETTINGS_MAX_SIZE = 500;
+
   private final SystemSettingMapper systemSettingMapper;
 
   /**
    * 查询设置项列表
+   *
+   * <p>最多返回 {@value #LIST_SETTINGS_MAX_SIZE} 条，超过时请使用分页接口 listSettingsPage。
    *
    * @param queryDTO 查询参数
    * @return 设置项列表
    */
   @Override
   public List<SystemSettingVO> listSettings(SystemSettingQueryDTO queryDTO) {
-    return systemSettingMapper.selectList(buildQueryWrapper(queryDTO)).stream()
+    LambdaQueryWrapper<SystemSetting> wrapper = buildQueryWrapper(queryDTO);
+    applySort(wrapper, Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSort).orElse(null));
+    Page<SystemSetting> pageRequest = new Page<>(1, LIST_SETTINGS_MAX_SIZE);
+    Page<SystemSetting> resultPage = systemSettingMapper.selectPage(pageRequest, wrapper);
+    return resultPage.getRecords().stream()
         .filter(Objects::nonNull)
         .map(this::convertToVO)
         .collect(Collectors.toList());
@@ -153,29 +166,25 @@ public class SystemSettingServiceImpl implements SystemSettingService {
     return queryWrapper;
   }
 
-  /**
-   * 应用排序（白名单：key、createdAt、updatedAt，兼容 createTime/updateTime），与 PageQueryDTO 规范一致
-   *
-   * @param wrapper 查询包装器
-   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
-   */
+  private static final Map<String, BiConsumer<LambdaQueryWrapper<SystemSetting>, Boolean>>
+      SETTING_SORT_FIELDS = new HashMap<>();
+
+  static {
+    SETTING_SORT_FIELDS.put("key", (w, asc) -> w.orderBy(true, asc, SystemSetting::getKey));
+    SETTING_SORT_FIELDS.put(
+        "createdat", (w, asc) -> w.orderBy(true, asc, SystemSetting::getCreatedAt));
+    SETTING_SORT_FIELDS.put(
+        "createtime", (w, asc) -> w.orderBy(true, asc, SystemSetting::getCreatedAt));
+    SETTING_SORT_FIELDS.put(
+        "updatedat", (w, asc) -> w.orderBy(true, asc, SystemSetting::getUpdatedAt));
+    SETTING_SORT_FIELDS.put(
+        "updatetime", (w, asc) -> w.orderBy(true, asc, SystemSetting::getUpdatedAt));
+  }
+
+  /** 应用排序（白名单：key、createdAt、updatedAt，兼容 createTime/updateTime） */
   private void applySort(LambdaQueryWrapper<SystemSetting> wrapper, String sort) {
-    if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(SystemSetting::getCreatedAt);
-      return;
-    }
-    String[] parts = sort.split(",");
-    String field = parts.length > 0 ? parts[0].trim() : "";
-    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
-    if ("key".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, SystemSetting::getKey);
-    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, SystemSetting::getCreatedAt);
-    } else if ("updateTime".equalsIgnoreCase(field) || "updatedAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, SystemSetting::getUpdatedAt);
-    } else {
-      wrapper.orderByDesc(SystemSetting::getCreatedAt);
-    }
+    SortHelper.applySort(
+        wrapper, sort, w -> w.orderByDesc(SystemSetting::getCreatedAt), SETTING_SORT_FIELDS);
   }
 
   /** 将 SystemSetting 实体转换为 SystemSettingVO（原则 20：使用 BeanUtils，Entity 与 VO 字段名一致） */

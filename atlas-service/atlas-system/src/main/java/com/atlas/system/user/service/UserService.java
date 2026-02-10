@@ -72,7 +72,7 @@ public interface UserService {
   /**
    * 为用户分配角色
    *
-   * <p>建立用户与角色的关联关系。
+   * <p>建立用户与角色的关联关系。若关联已存在则直接返回（幂等）。
    *
    * @param userId 用户ID
    * @param roleId 角色ID

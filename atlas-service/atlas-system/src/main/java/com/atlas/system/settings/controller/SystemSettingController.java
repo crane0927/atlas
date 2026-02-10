@@ -13,11 +13,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
  *   <li>GET /api/v1/system-settings：查询设置项列表
  *   <li>GET /api/v1/system-settings/page：分页查询设置项列表
  *   <li>POST /api/v1/system-settings：新增自定义设置项
- *   <li>PUT /api/v1/system-settings/{key}：修改设置项 value
- *   <li>DELETE /api/v1/system-settings/{key}：删除自定义设置项
+ *   <li>PUT /api/v1/system-settings?key=xxx：修改设置项 value
+ *   <li>DELETE /api/v1/system-settings?key=xxx：删除自定义设置项
  * </ul>
  *
  * <p>返回格式：统一使用 {@link Result} 包装响应数据
@@ -93,11 +93,13 @@ public class SystemSettingController {
   /**
    * 删除自定义设置项
    *
-   * @param key 设置项 key
+   * <p>通过 query 参数 key 指定设置项，避免 key 含特殊字符（如 /）时路径解析问题。
+   *
+   * @param key 设置项 key（必填）
    * @return 删除结果
    */
-  @DeleteMapping("/{key}")
-  public Result<Boolean> deleteSystemSetting(@PathVariable String key) {
+  @DeleteMapping
+  public Result<Boolean> deleteSystemSetting(@RequestParam String key) {
     systemSettingService.deleteCustomSetting(key);
     return Result.success(Boolean.TRUE);
   }
@@ -105,15 +107,15 @@ public class SystemSettingController {
   /**
    * 修改设置项 value
    *
-   * <p>仅允许更新 value 字段，不允许修改 key。
+   * <p>仅允许更新 value 字段，不允许修改 key。通过 query 参数 key 指定设置项，避免 key 含特殊字符时路径解析问题。
    *
-   * @param key 设置项 key
+   * @param key 设置项 key（必填）
    * @param updateDTO 更新请求
    * @return 更新后的设置项
    */
-  @PutMapping("/{key}")
+  @PutMapping
   public Result<SystemSettingVO> updateSystemSetting(
-      @PathVariable String key, @Valid @RequestBody SystemSettingUpdateDTO updateDTO) {
+      @RequestParam String key, @Valid @RequestBody SystemSettingUpdateDTO updateDTO) {
     SystemSettingVO setting = systemSettingService.updateSettingValue(key, updateDTO);
     return Result.success(setting);
   }

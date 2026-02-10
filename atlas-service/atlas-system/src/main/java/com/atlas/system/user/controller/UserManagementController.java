@@ -6,6 +6,7 @@ import com.atlas.system.api.v1.model.dto.UserDTO;
 import com.atlas.system.user.model.dto.UserCreateDTO;
 import com.atlas.system.user.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,21 +55,22 @@ public class UserManagementController {
   /**
    * 为用户分配角色
    *
-   * <p>建立用户与角色的关联关系。
+   * <p>建立用户与角色的关联关系。若该用户已拥有该角色（关联已存在），则视为成功，不报错（幂等）。
    *
    * @param userId 用户ID
-   * @param roleId 角色ID（通过请求体传递）
+   * @param request 请求体，含 roleId
    * @return 操作结果，使用 {@link Result} 包装
    */
   @PostMapping("/users/{userId}/roles")
   public Result<Void> assignRoleToUser(
-      @PathVariable Long userId, @RequestBody AssignRoleRequest request) {
+      @PathVariable Long userId, @Valid @RequestBody AssignRoleRequest request) {
     userService.assignRoleToUser(userId, request.getRoleId());
     return Result.success(null);
   }
 
   /** 分配角色请求对象 */
   public static class AssignRoleRequest {
+    @NotNull(message = "角色ID不能为空")
     private Long roleId;
 
     public Long getRoleId() {

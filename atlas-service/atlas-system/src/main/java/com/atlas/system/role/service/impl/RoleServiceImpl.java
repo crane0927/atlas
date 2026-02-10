@@ -14,11 +14,15 @@ import com.atlas.system.role.model.entity.Role;
 import com.atlas.system.role.model.entity.RolePermission;
 import com.atlas.system.role.model.vo.RoleListVO;
 import com.atlas.system.role.service.RoleService;
+import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -149,29 +153,20 @@ public class RoleServiceImpl implements RoleService {
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 
-  /**
-   * 应用排序（白名单：roleCode、roleName、createdAt，兼容 createTime/createdAt）
-   *
-   * @param wrapper 查询包装器
-   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
-   */
+  private static final Map<String, BiConsumer<LambdaQueryWrapper<Role>, Boolean>> ROLE_SORT_FIELDS =
+      new HashMap<>();
+
+  static {
+    ROLE_SORT_FIELDS.put("rolecode", (w, asc) -> w.orderBy(true, asc, Role::getRoleCode));
+    ROLE_SORT_FIELDS.put("rolename", (w, asc) -> w.orderBy(true, asc, Role::getRoleName));
+    ROLE_SORT_FIELDS.put("createdat", (w, asc) -> w.orderBy(true, asc, Role::getCreatedAt));
+    ROLE_SORT_FIELDS.put("createtime", (w, asc) -> w.orderBy(true, asc, Role::getCreatedAt));
+  }
+
+  /** 应用排序（白名单：roleCode、roleName、createdAt，兼容 createTime/createdAt） */
   private void applySort(LambdaQueryWrapper<Role> wrapper, String sort) {
-    if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(Role::getCreatedAt);
-      return;
-    }
-    String[] parts = sort.split(",");
-    String field = parts.length > 0 ? parts[0].trim() : "";
-    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
-    if ("roleCode".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Role::getRoleCode);
-    } else if ("roleName".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Role::getRoleName);
-    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Role::getCreatedAt);
-    } else {
-      wrapper.orderByDesc(Role::getCreatedAt);
-    }
+    SortHelper.applySort(
+        wrapper, sort, w -> w.orderByDesc(Role::getCreatedAt), ROLE_SORT_FIELDS);
   }
 
   /**

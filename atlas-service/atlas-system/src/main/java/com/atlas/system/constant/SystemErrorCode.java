@@ -6,29 +6,22 @@ package com.atlas.system.constant;
  *
  * <p>定义系统域（atlas-system）的错误码，模块码使用 03。
  *
- * <p>错误码格式：MMTTSS（6位数字）
+ * <p>错误码格式：03XYZZ（6 位数字）
  *
  * <ul>
- *   <li>MM: 模块码（03）
- *   <li>TT: 错误类型码（00-99）
- *   <li>SS: 序号（00-99）
+ *   <li>03: 模块码（atlas-system）
+ *   <li>XY: 类型码（20=用户、21=角色、22=权限、23=系统设置）
+ *   <li>ZZ: 序号（01-99）
  * </ul>
  *
- * <p>错误类型码分配：
- *
- * <ul>
- *   <li>00-09: 用户相关错误
- *   <li>10-19: 角色相关错误
- *   <li>20-29: 权限相关错误
- *   <li>30-39: 系统设置相关错误
- * </ul>
+ * <p>示例：032001 = 用户不存在，032101 = 角色不存在，032201 = 权限不存在，032301 = 设置项不存在。
  *
  * @author Atlas Team
  * @since 1.0.0
  */
 public class SystemErrorCode {
 
-  // ========== 用户相关错误 (00-09) ==========
+  // ========== 用户相关错误 (03 20 xx) ==========
 
   /** 用户不存在 */
   public static final String USER_NOT_FOUND = "032001";
@@ -38,7 +31,7 @@ public class SystemErrorCode {
 
   // 预留错误码：032002-032003, 032005-032099
 
-  // ========== 角色相关错误 (10-19) ==========
+  // ========== 角色相关错误 (03 21 xx) ==========
 
   /** 角色不存在 */
   public static final String ROLE_NOT_FOUND = "032101";
@@ -48,7 +41,7 @@ public class SystemErrorCode {
 
   // 预留错误码：032102-032104, 032106-032199
 
-  // ========== 权限相关错误 (20-29) ==========
+  // ========== 权限相关错误 (03 22 xx) ==========
 
   /** 权限不存在 */
   public static final String PERMISSION_NOT_FOUND = "032201";
@@ -58,7 +51,7 @@ public class SystemErrorCode {
 
   // 预留错误码：032202-032205, 032207-032299
 
-  // ========== 系统设置相关错误 (30-39) ==========
+  // ========== 系统设置相关错误 (03 23 xx) ==========
 
   /** 设置项不存在 */
   public static final String SYSTEM_SETTING_NOT_FOUND = "032301";

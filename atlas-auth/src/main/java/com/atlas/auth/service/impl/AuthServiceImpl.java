@@ -19,6 +19,7 @@ import com.atlas.system.api.v1.feign.PermissionQueryApi;
 import com.atlas.system.api.v1.feign.UserQueryApi;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.api.v1.model.dto.UserDTO;
+import com.atlas.system.api.v1.model.dto.VerifyPasswordRequest;
 import com.atlas.system.api.v1.model.enums.UserStatus;
 import java.util.ArrayList;
 import java.util.List;
@@ -239,7 +240,8 @@ public class AuthServiceImpl implements AuthService {
       return false;
     }
     try {
-      Result<String> result = userQueryApi.verifyPassword(username, password);
+      VerifyPasswordRequest request = new VerifyPasswordRequest(username, password);
+      Result<String> result = userQueryApi.verifyPassword(request);
       return result != null && result.isSuccess();
     } catch (Exception e) {
       log.warn("密码校验失败: username={}, error={}", username, e.getMessage());

@@ -65,7 +65,7 @@ public interface PermissionService {
    *
    * @param permissionCreateDTO 权限创建 DTO
    * @return 权限ID
-   * @throws BusinessException 如果权限代码已存在，错误码：032006
+   * @throws BusinessException 如果权限代码已存在，错误码：032206
    */
   Long createPermission(PermissionCreateDTO permissionCreateDTO);
 

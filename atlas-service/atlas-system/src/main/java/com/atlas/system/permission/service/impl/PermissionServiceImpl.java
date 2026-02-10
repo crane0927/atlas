@@ -14,12 +14,16 @@ import com.atlas.system.permission.service.PermissionService;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
+import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -95,17 +99,29 @@ public class PermissionServiceImpl implements PermissionService {
   /**
    * 查询用户完整权限信息（角色+权限）
    *
+   * <p>仅做一次用户存在性检查，再分别查询角色码与权限码，避免重复 DB 往返。
+   *
    * @param userId 用户ID
    * @return 用户权限信息 DTO
    */
   @Override
   public UserAuthoritiesDTO getAuthoritiesByUserId(Long userId) {
-    List<String> roles = getRolesByUserId(userId);
-    List<String> permissions = getPermissionsByUserId(userId);
     UserAuthoritiesDTO dto = new UserAuthoritiesDTO();
     dto.setUserId(userId);
-    dto.setRoles(Optional.ofNullable(roles).orElse(new ArrayList<>()));
-    dto.setPermissions(Optional.ofNullable(permissions).orElse(new ArrayList<>()));
+    dto.setRoles(new ArrayList<>());
+    dto.setPermissions(new ArrayList<>());
+    if (userMapper.selectById(userId) == null) {
+      return dto;
+    }
+    List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(userId);
+    dto.setRoles(Optional.ofNullable(roleCodes).orElse(Collections.emptyList()));
+    List<Long> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
+    if (roleIds != null && !roleIds.isEmpty()) {
+      List<String> permissionCodes =
+          rolePermissionMapper.selectPermissionCodesByRoleIds(roleIds);
+      dto.setPermissions(
+          Optional.ofNullable(permissionCodes).orElse(Collections.emptyList()));
+    }
     return dto;
   }
 
@@ -114,7 +130,7 @@ public class PermissionServiceImpl implements PermissionService {
    *
    * @param permissionCreateDTO 权限创建 DTO
    * @return 权限ID
-   * @throws BusinessException 如果权限代码已存在，错误码：032006
+   * @throws BusinessException 如果权限代码已存在，错误码：032206
    */
   @Override
   @Transactional
@@ -171,29 +187,24 @@ public class PermissionServiceImpl implements PermissionService {
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 
-  /**
-   * 应用排序（白名单：permissionCode、permissionName、createdAt，兼容 createTime/createdAt）
-   *
-   * @param wrapper 查询包装器
-   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
-   */
+  private static final Map<String, BiConsumer<LambdaQueryWrapper<Permission>, Boolean>>
+      PERMISSION_SORT_FIELDS = new HashMap<>();
+
+  static {
+    PERMISSION_SORT_FIELDS.put(
+        "permissioncode", (w, asc) -> w.orderBy(true, asc, Permission::getPermissionCode));
+    PERMISSION_SORT_FIELDS.put(
+        "permissionname", (w, asc) -> w.orderBy(true, asc, Permission::getPermissionName));
+    PERMISSION_SORT_FIELDS.put(
+        "createdat", (w, asc) -> w.orderBy(true, asc, Permission::getCreatedAt));
+    PERMISSION_SORT_FIELDS.put(
+        "createtime", (w, asc) -> w.orderBy(true, asc, Permission::getCreatedAt));
+  }
+
+  /** 应用排序（白名单：permissionCode、permissionName、createdAt，兼容 createTime/createdAt） */
   private void applySort(LambdaQueryWrapper<Permission> wrapper, String sort) {
-    if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(Permission::getCreatedAt);
-      return;
-    }
-    String[] parts = sort.split(",");
-    String field = parts.length > 0 ? parts[0].trim() : "";
-    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
-    if ("permissionCode".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Permission::getPermissionCode);
-    } else if ("permissionName".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Permission::getPermissionName);
-    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, Permission::getCreatedAt);
-    } else {
-      wrapper.orderByDesc(Permission::getCreatedAt);
-    }
+    SortHelper.applySort(
+        wrapper, sort, w -> w.orderByDesc(Permission::getCreatedAt), PERMISSION_SORT_FIELDS);
   }
 
   /**

@@ -8,6 +8,7 @@ import com.atlas.system.role.model.dto.RoleQueryDTO;
 import com.atlas.system.role.model.vo.RoleListVO;
 import com.atlas.system.role.service.RoleService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,21 +74,22 @@ public class RoleManagementController {
   /**
    * 为角色分配权限
    *
-   * <p>建立角色与权限的关联关系。
+   * <p>建立角色与权限的关联关系。若该角色已拥有该权限（关联已存在），则视为成功，不报错（幂等）。
    *
    * @param roleId 角色ID
-   * @param request 分配权限请求对象
+   * @param request 分配权限请求对象，含 permissionId
    * @return 操作结果，使用 {@link Result} 包装
    */
   @PostMapping("/roles/{roleId}/permissions")
   public Result<Void> assignPermissionToRole(
-      @PathVariable Long roleId, @RequestBody AssignPermissionRequest request) {
+      @PathVariable Long roleId, @Valid @RequestBody AssignPermissionRequest request) {
     roleService.assignPermissionToRole(roleId, request.getPermissionId());
     return Result.success(null);
   }
 
   /** 分配权限请求对象 */
   public static class AssignPermissionRequest {
+    @NotNull(message = "权限ID不能为空")
     private Long permissionId;
 
     public Long getPermissionId() {

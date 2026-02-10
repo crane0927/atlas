@@ -16,11 +16,15 @@ import com.atlas.system.user.model.entity.User;
 import com.atlas.system.user.model.entity.UserRole;
 import com.atlas.system.user.model.vo.UserListVO;
 import com.atlas.system.user.service.UserService;
+import com.atlas.system.util.SortHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -220,27 +224,19 @@ public class UserServiceImpl implements UserService {
     return PageResult.of(list, resultPage.getTotal(), pageNum, pageSize);
   }
 
-  /**
-   * 应用排序（白名单：createdAt、username，兼容 createTime/createdAt）
-   *
-   * @param wrapper 查询包装器
-   * @param sort 排序字符串，格式：字段名,asc 或 字段名,desc
-   */
+  private static final Map<String, BiConsumer<LambdaQueryWrapper<User>, Boolean>> USER_SORT_FIELDS =
+      new HashMap<>();
+
+  static {
+    USER_SORT_FIELDS.put("username", (w, asc) -> w.orderBy(true, asc, User::getUsername));
+    USER_SORT_FIELDS.put("createdat", (w, asc) -> w.orderBy(true, asc, User::getCreatedAt));
+    USER_SORT_FIELDS.put("createtime", (w, asc) -> w.orderBy(true, asc, User::getCreatedAt));
+  }
+
+  /** 应用排序（白名单：createdAt、username，兼容 createTime/createdAt） */
   private void applySort(LambdaQueryWrapper<User> wrapper, String sort) {
-    if (!StringUtils.hasText(sort)) {
-      wrapper.orderByDesc(User::getCreatedAt);
-      return;
-    }
-    String[] parts = sort.split(",");
-    String field = parts.length > 0 ? parts[0].trim() : "";
-    boolean asc = parts.length <= 1 || !"desc".equalsIgnoreCase(parts[1].trim());
-    if ("username".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, User::getUsername);
-    } else if ("createTime".equalsIgnoreCase(field) || "createdAt".equalsIgnoreCase(field)) {
-      wrapper.orderBy(true, asc, User::getCreatedAt);
-    } else {
-      wrapper.orderByDesc(User::getCreatedAt);
-    }
+    SortHelper.applySort(
+        wrapper, sort, w -> w.orderByDesc(User::getCreatedAt), USER_SORT_FIELDS);
   }
 
   /**
