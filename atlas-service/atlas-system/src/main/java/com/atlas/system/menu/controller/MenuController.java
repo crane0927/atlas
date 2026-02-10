@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <ul>
  *   <li>GET /api/v1/menus/tree：查询完整菜单树（管理用）
  *   <li>GET /api/v1/menus/me：查询当前用户菜单树（按权限过滤）
+ *   <li>GET /api/v1/menus/{menuId}：单条菜单详情（编辑回显）
  *   <li>POST /api/v1/menus：创建菜单
  *   <li>PUT /api/v1/menus/{menuId}：更新菜单
  *   <li>DELETE /api/v1/menus/{menuId}：删除菜单（逻辑删除）
@@ -57,6 +58,12 @@ public class MenuController {
   @GetMapping("/menus/me")
   public Result<List<MenuTreeVO>> listMyMenuTree() {
     return Result.success(menuService.listMyMenuTree());
+  }
+
+  /** 单条菜单详情（编辑回显） */
+  @GetMapping("/menus/{menuId}")
+  public Result<MenuTreeVO> getMenuById(@PathVariable String menuId) {
+    return Result.success(menuService.getMenuById(menuId));
   }
 
   /** 创建菜单 */

@@ -24,6 +24,9 @@ public interface MenuService {
   /** 查询当前用户菜单树（按权限过滤） */
   List<MenuTreeVO> listMyMenuTree();
 
+  /** 根据菜单ID查询单条菜单详情（编辑回显），children 为空 */
+  MenuTreeVO getMenuById(String menuId);
+
   /** 创建菜单 */
   String createMenu(MenuCreateDTO dto);
 

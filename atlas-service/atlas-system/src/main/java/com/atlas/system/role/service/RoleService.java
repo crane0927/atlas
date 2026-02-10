@@ -5,6 +5,7 @@ import com.atlas.common.feature.core.exception.BusinessException;
 import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.role.model.dto.RoleCreateDTO;
 import com.atlas.system.role.model.dto.RoleQueryDTO;
+import com.atlas.system.role.model.dto.RoleUpdateDTO;
 import com.atlas.system.role.model.vo.RoleListVO;
 
 /**
@@ -25,6 +26,15 @@ import com.atlas.system.role.model.vo.RoleListVO;
 public interface RoleService {
 
   /**
+   * 根据角色ID查询角色详情
+   *
+   * @param roleId 角色ID
+   * @return 角色列表项 VO（与详情结构一致）
+   * @throws BusinessException 如果角色不存在或已删除，错误码：032101
+   */
+  RoleListVO getRoleById(String roleId);
+
+  /**
    * 创建角色
    *
    * <p>根据角色创建 DTO 创建新角色。
@@ -36,6 +46,27 @@ public interface RoleService {
   String createRole(RoleCreateDTO roleCreateDTO);
 
   /**
+   * 更新角色
+   *
+   * <p>仅更新 roleName、description、status；不修改 roleCode。
+   *
+   * @param roleId 角色ID
+   * @param roleUpdateDTO 更新 DTO
+   * @throws BusinessException 如果角色不存在或已删除，错误码：032101
+   */
+  void updateRole(String roleId, RoleUpdateDTO roleUpdateDTO);
+
+  /**
+   * 逻辑删除角色
+   *
+   * <p>将角色 status 置为 DELETED。
+   *
+   * @param roleId 角色ID
+   * @throws BusinessException 如果角色不存在或已删除，错误码：032101
+   */
+  void deleteRole(String roleId);
+
+  /**
    * 为角色分配权限
    *
    * <p>建立角色与权限的关联关系。若关联已存在则直接返回（幂等）。
@@ -45,6 +76,15 @@ public interface RoleService {
    * @throws BusinessException 如果角色或权限不存在，错误码：032101 或 032201
    */
   void assignPermissionToRole(String roleId, String permissionId);
+
+  /**
+   * 移除角色与权限的关联
+   *
+   * @param roleId 角色ID
+   * @param permissionId 权限ID
+   * @throws BusinessException 如果角色或权限不存在，错误码：032101 或 032201
+   */
+  void removePermissionFromRole(String roleId, String permissionId);
 
   /**
    * 分页查询角色列表

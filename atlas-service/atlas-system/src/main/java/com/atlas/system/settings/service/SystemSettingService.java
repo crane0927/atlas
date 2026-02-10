@@ -19,6 +19,15 @@ import java.util.List;
 public interface SystemSettingService {
 
   /**
+   * 根据 key 查询单条设置项
+   *
+   * @param key 设置项 key
+   * @return 设置项 VO
+   * @throws com.atlas.common.feature.core.exception.BusinessException 设置项不存在时，错误码：032301
+   */
+  SystemSettingVO getSettingByKey(String key);
+
+  /**
    * 查询设置项列表
    *
    * <p>支持按类型与关键字过滤。

@@ -44,6 +44,17 @@ public class SystemSettingServiceImpl implements SystemSettingService {
 
   private final SystemSettingMapper systemSettingMapper;
 
+  @Override
+  public SystemSettingVO getSettingByKey(String key) {
+    SystemSetting setting =
+        systemSettingMapper.selectOne(
+            new LambdaQueryWrapper<SystemSetting>().eq(SystemSetting::getKey, key));
+    if (setting == null) {
+      throw new BusinessException(SystemErrorCode.SYSTEM_SETTING_NOT_FOUND, "设置项不存在");
+    }
+    return convertToVO(setting);
+  }
+
   /**
    * 查询设置项列表
    *

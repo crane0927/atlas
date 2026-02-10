@@ -6,6 +6,7 @@ import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.system.api.v1.model.dto.UserAuthoritiesDTO;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
 import com.atlas.system.permission.model.dto.PermissionQueryDTO;
+import com.atlas.system.permission.model.dto.PermissionUpdateDTO;
 import com.atlas.system.permission.model.vo.PermissionListVO;
 import java.util.List;
 
@@ -59,6 +60,15 @@ public interface PermissionService {
   UserAuthoritiesDTO getAuthoritiesByUserId(String userId);
 
   /**
+   * 根据权限ID查询权限详情
+   *
+   * @param permissionId 权限ID
+   * @return 权限列表项 VO（与详情结构一致）
+   * @throws BusinessException 如果权限不存在或已删除，错误码：032201
+   */
+  PermissionListVO getPermissionById(String permissionId);
+
+  /**
    * 创建权限
    *
    * <p>根据权限创建 DTO 创建新权限。
@@ -68,6 +78,27 @@ public interface PermissionService {
    * @throws BusinessException 如果权限代码已存在，错误码：032206
    */
   String createPermission(PermissionCreateDTO permissionCreateDTO);
+
+  /**
+   * 更新权限
+   *
+   * <p>仅更新 permissionName、description、status；不修改 permissionCode。
+   *
+   * @param permissionId 权限ID
+   * @param permissionUpdateDTO 更新 DTO
+   * @throws BusinessException 如果权限不存在或已删除，错误码：032201
+   */
+  void updatePermission(String permissionId, PermissionUpdateDTO permissionUpdateDTO);
+
+  /**
+   * 逻辑删除权限
+   *
+   * <p>将权限 status 置为 DELETED。
+   *
+   * @param permissionId 权限ID
+   * @throws BusinessException 如果权限不存在或已删除，错误码：032201
+   */
+  void deletePermission(String permissionId);
 
   /**
    * 分页查询权限列表

@@ -8,6 +8,7 @@ import com.atlas.system.constant.SystemErrorCode;
 import com.atlas.system.permission.mapper.PermissionMapper;
 import com.atlas.system.permission.model.dto.PermissionCreateDTO;
 import com.atlas.system.permission.model.dto.PermissionQueryDTO;
+import com.atlas.system.permission.model.dto.PermissionUpdateDTO;
 import com.atlas.system.permission.model.entity.Permission;
 import com.atlas.system.permission.model.vo.PermissionListVO;
 import com.atlas.system.permission.service.PermissionService;
@@ -152,6 +153,45 @@ public class PermissionServiceImpl implements PermissionService {
     // 保存权限（createdAt/updatedAt 由 AuditMetaObjectHandler 填充）
     permissionMapper.insert(permission);
     return permission.getPermissionId();
+  }
+
+  @Override
+  public PermissionListVO getPermissionById(String permissionId) {
+    Permission permission = permissionMapper.selectById(permissionId);
+    if (permission == null || "DELETED".equals(permission.getStatus())) {
+      throw new BusinessException(SystemErrorCode.PERMISSION_NOT_FOUND, "权限不存在");
+    }
+    return convertToListVO(permission);
+  }
+
+  @Override
+  @Transactional
+  public void updatePermission(String permissionId, PermissionUpdateDTO permissionUpdateDTO) {
+    Permission permission = permissionMapper.selectById(permissionId);
+    if (permission == null || "DELETED".equals(permission.getStatus())) {
+      throw new BusinessException(SystemErrorCode.PERMISSION_NOT_FOUND, "权限不存在");
+    }
+    if (permissionUpdateDTO.getPermissionName() != null) {
+      permission.setPermissionName(permissionUpdateDTO.getPermissionName());
+    }
+    if (permissionUpdateDTO.getDescription() != null) {
+      permission.setDescription(permissionUpdateDTO.getDescription());
+    }
+    if (permissionUpdateDTO.getStatus() != null) {
+      permission.setStatus(permissionUpdateDTO.getStatus());
+    }
+    permissionMapper.updateById(permission);
+  }
+
+  @Override
+  @Transactional
+  public void deletePermission(String permissionId) {
+    Permission permission = permissionMapper.selectById(permissionId);
+    if (permission == null || "DELETED".equals(permission.getStatus())) {
+      throw new BusinessException(SystemErrorCode.PERMISSION_NOT_FOUND, "权限不存在");
+    }
+    permission.setStatus("DELETED");
+    permissionMapper.updateById(permission);
   }
 
   /**

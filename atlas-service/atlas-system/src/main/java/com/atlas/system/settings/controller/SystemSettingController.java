@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * <ul>
  *   <li>GET /api/v1/system-settings：查询设置项列表
+ *   <li>GET /api/v1/system-settings/by-key?key=xxx：按 key 查询单条设置项
  *   <li>GET /api/v1/system-settings/page：分页查询设置项列表
  *   <li>POST /api/v1/system-settings：新增自定义设置项
  *   <li>PUT /api/v1/system-settings?key=xxx：修改设置项 value
@@ -59,6 +60,18 @@ public class SystemSettingController {
   public Result<List<SystemSettingVO>> listSystemSettings(SystemSettingQueryDTO queryDTO) {
     List<SystemSettingVO> settings = systemSettingService.listSettings(queryDTO);
     return Result.success(settings);
+  }
+
+  /**
+   * 按 key 查询单条设置项
+   *
+   * @param key 设置项 key（必填）
+   * @return 设置项，使用 {@link Result} 包装
+   */
+  @GetMapping("/by-key")
+  public Result<SystemSettingVO> getSystemSettingByKey(@RequestParam String key) {
+    SystemSettingVO setting = systemSettingService.getSettingByKey(key);
+    return Result.success(setting);
   }
 
   /**

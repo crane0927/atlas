@@ -67,6 +67,18 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
+  public MenuTreeVO getMenuById(String menuId) {
+    Menu menu = menuMapper.selectById(menuId);
+    if (menu == null || "DELETED".equals(menu.getStatus())) {
+      throw new BusinessException(SystemErrorCode.MENU_NOT_FOUND, "菜单不存在");
+    }
+    MenuTreeVO vo = new MenuTreeVO();
+    BeanUtils.copyProperties(menu, vo);
+    vo.setChildren(new ArrayList<>());
+    return vo;
+  }
+
+  @Override
   @Transactional
   public String createMenu(MenuCreateDTO dto) {
     validateMenuType(dto.getType());

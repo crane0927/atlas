@@ -10,6 +10,7 @@ import com.atlas.system.role.mapper.RoleMapper;
 import com.atlas.system.role.mapper.RolePermissionMapper;
 import com.atlas.system.role.model.dto.RoleCreateDTO;
 import com.atlas.system.role.model.dto.RoleQueryDTO;
+import com.atlas.system.role.model.dto.RoleUpdateDTO;
 import com.atlas.system.role.model.entity.Role;
 import com.atlas.system.role.model.entity.RolePermission;
 import com.atlas.system.role.model.vo.RoleListVO;
@@ -53,6 +54,15 @@ public class RoleServiceImpl implements RoleService {
   private final RoleMapper roleMapper;
   private final RolePermissionMapper rolePermissionMapper;
   private final PermissionMapper permissionMapper;
+
+  @Override
+  public RoleListVO getRoleById(String roleId) {
+    Role role = roleMapper.selectById(roleId);
+    if (role == null || "DELETED".equals(role.getStatus())) {
+      throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+    }
+    return convertToListVO(role);
+  }
 
   /**
    * 创建角色
@@ -117,6 +127,53 @@ public class RoleServiceImpl implements RoleService {
     rolePermission.setRoleId(roleId);
     rolePermission.setPermissionId(permissionId);
     rolePermissionMapper.insert(rolePermission);
+  }
+
+  @Override
+  @Transactional
+  public void updateRole(String roleId, RoleUpdateDTO roleUpdateDTO) {
+    Role role = roleMapper.selectById(roleId);
+    if (role == null || "DELETED".equals(role.getStatus())) {
+      throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+    }
+    if (roleUpdateDTO.getRoleName() != null) {
+      role.setRoleName(roleUpdateDTO.getRoleName());
+    }
+    if (roleUpdateDTO.getDescription() != null) {
+      role.setDescription(roleUpdateDTO.getDescription());
+    }
+    if (roleUpdateDTO.getStatus() != null) {
+      role.setStatus(roleUpdateDTO.getStatus());
+    }
+    roleMapper.updateById(role);
+  }
+
+  @Override
+  @Transactional
+  public void deleteRole(String roleId) {
+    Role role = roleMapper.selectById(roleId);
+    if (role == null || "DELETED".equals(role.getStatus())) {
+      throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+    }
+    role.setStatus("DELETED");
+    roleMapper.updateById(role);
+  }
+
+  @Override
+  @Transactional
+  public void removePermissionFromRole(String roleId, String permissionId) {
+    Role role = roleMapper.selectById(roleId);
+    if (role == null || "DELETED".equals(role.getStatus())) {
+      throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+    }
+    Permission permission = permissionMapper.selectById(permissionId);
+    if (permission == null || "DELETED".equals(permission.getStatus())) {
+      throw new BusinessException(SystemErrorCode.PERMISSION_NOT_FOUND, "权限不存在");
+    }
+    rolePermissionMapper.delete(
+        new LambdaQueryWrapper<RolePermission>()
+            .eq(RolePermission::getRoleId, roleId)
+            .eq(RolePermission::getPermissionId, permissionId));
   }
 
   /**

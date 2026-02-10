@@ -14,6 +14,7 @@ import com.atlas.system.user.mapper.UserMapper;
 import com.atlas.system.user.mapper.UserRoleMapper;
 import com.atlas.system.user.model.dto.UserCreateDTO;
 import com.atlas.system.user.model.dto.UserQueryDTO;
+import com.atlas.system.user.model.dto.UserUpdateDTO;
 import com.atlas.system.user.model.entity.User;
 import com.atlas.system.user.model.entity.UserRole;
 import com.atlas.system.user.model.vo.UserListVO;
@@ -163,39 +164,116 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 为用户分配角色
+     * 为用户批量分配角色
      *
      * @param userId 用户ID
-     * @param roleId 角色ID
-     * @throws BusinessException 如果用户或角色不存在，错误码：032001 或 032101
+     * @param roleIds 角色ID列表
      */
     @Override
     @Transactional
-    public void assignRoleToUser(String userId, String roleId) {
-        // 检查用户是否存在
+    public void assignRolesToUser(String userId, List<String> roleIds) {
+        if (roleIds == null || roleIds.isEmpty()) {
+            return;
+        }
         User user = userMapper.selectById(userId);
         if (user == null || "DELETED".equals(user.getStatus())) {
             throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
         }
-        // 检查角色是否存在
-        Role role = roleMapper.selectById(roleId);
-        if (role == null || "DELETED".equals(role.getStatus())) {
-            throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+        for (String roleId : roleIds) {
+            Role role = roleMapper.selectById(roleId);
+            if (role == null || "DELETED".equals(role.getStatus())) {
+                throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+            }
+            UserRole existingUserRole =
+                    userRoleMapper.selectOne(
+                            new LambdaQueryWrapper<UserRole>()
+                                    .eq(UserRole::getUserId, userId)
+                                    .eq(UserRole::getRoleId, roleId));
+            if (existingUserRole != null) {
+                continue;
+            }
+            UserRole userRole = new UserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(roleId);
+            userRoleMapper.insert(userRole);
         }
-        // 检查关联是否已存在
-        UserRole existingUserRole =
-                userRoleMapper.selectOne(
-                        new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<UserRole>()
-                                .eq(UserRole::getUserId, userId)
-                                .eq(UserRole::getRoleId, roleId));
-        if (existingUserRole != null) {
-            return; // 关联已存在，直接返回
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param userId 用户ID
+     * @param userUpdateDTO 更新 DTO
+     * @return 更新后的用户信息 DTO
+     */
+    @Override
+    @Transactional
+    public UserDTO updateUser(String userId, UserUpdateDTO userUpdateDTO) {
+        User user = userMapper.selectById(userId);
+        if (user == null || "DELETED".equals(user.getStatus())) {
+            throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
         }
-        // 创建用户角色关联（createdAt/updatedAt/createdBy/updatedBy 由 AuditMetaObjectHandler 填充）
-        UserRole userRole = new UserRole();
-        userRole.setUserId(userId);
-        userRole.setRoleId(roleId);
-        userRoleMapper.insert(userRole);
+        if (userUpdateDTO.getNickname() != null) {
+            user.setNickname(userUpdateDTO.getNickname());
+        }
+        if (userUpdateDTO.getEmail() != null) {
+            user.setEmail(userUpdateDTO.getEmail());
+        }
+        if (userUpdateDTO.getPhone() != null) {
+            user.setPhone(userUpdateDTO.getPhone());
+        }
+        if (userUpdateDTO.getStatus() != null) {
+            user.setStatus(userUpdateDTO.getStatus());
+        }
+        if (userUpdateDTO.getAvatar() != null) {
+            user.setAvatar(userUpdateDTO.getAvatar());
+        }
+        userMapper.updateById(user);
+        return convertToDTO(user);
+    }
+
+    /**
+     * 逻辑删除用户
+     *
+     * @param userId 用户ID
+     */
+    @Override
+    @Transactional
+    public void deleteUser(String userId) {
+        User user = userMapper.selectById(userId);
+        if (user == null || "DELETED".equals(user.getStatus())) {
+            throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
+        }
+        user.setStatus("DELETED");
+        userMapper.updateById(user);
+    }
+
+    /**
+     * 批量移除用户与角色的关联
+     *
+     * @param userId 用户ID
+     * @param roleIds 角色ID列表
+     */
+    @Override
+    @Transactional
+    public void removeRolesFromUser(String userId, List<String> roleIds) {
+        if (roleIds == null || roleIds.isEmpty()) {
+            return;
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null || "DELETED".equals(user.getStatus())) {
+            throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
+        }
+        for (String roleId : roleIds) {
+            Role role = roleMapper.selectById(roleId);
+            if (role == null || "DELETED".equals(role.getStatus())) {
+                throw new BusinessException(SystemErrorCode.ROLE_NOT_FOUND, "角色不存在");
+            }
+            userRoleMapper.delete(
+                    new LambdaQueryWrapper<UserRole>()
+                            .eq(UserRole::getUserId, userId)
+                            .eq(UserRole::getRoleId, roleId));
+        }
     }
 
     /**
