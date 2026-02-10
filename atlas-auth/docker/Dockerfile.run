@@ -4,9 +4,17 @@
 # 基础镜像: eclipse-temurin:21-jre
 # 服务: atlas-auth (认证授权服务)
 # 端口: 8084
+# 前置: 需先构建 atlas-auth:build，再构建本镜像
+#   1) docker build -f atlas-auth/docker/Dockerfile.build -t atlas-auth:build .
+#   2) docker build -f atlas-auth/docker/Dockerfile.run -t atlas-auth:run .
+# 若拉取 Docker Hub 超时，可配置镜像加速或: --build-arg RUN_BASE_IMAGE=镜像源/eclipse-temurin:21-jre
 # ============================================================
+# 用于 FROM 的 ARG 须在所有 FROM 之前声明
+ARG BUILD_IMAGE=atlas-auth:build
+ARG RUN_BASE_IMAGE=eclipse-temurin:21-jre
 
-FROM eclipse-temurin:21-jre
+FROM ${BUILD_IMAGE} AS builder
+FROM ${RUN_BASE_IMAGE}
 
 # 设置镜像标签
 LABEL maintainer="Atlas Team"
@@ -33,12 +41,18 @@ WORKDIR /app
 
 # ============================================================
 # 复制应用程序 JAR
-# 说明: 从构建阶段或本地 target 目录复制
+# 说明: 从构建阶段镜像复制，路径与 Dockerfile.build 输出一致
 # ============================================================
-COPY target/*.jar app.jar
+COPY --from=builder /build/atlas-auth/target/atlas-auth-*.jar app.jar
 
 # 设置文件权限
 RUN chown -R atlas:atlas /app
+
+# ============================================================
+# Nacos 客户端日志目录（Nacos SDK 默认写入 user.home/logs/nacos）
+# 说明: 用户 atlas 使用 --no-create-home，需预先创建并授权
+# ============================================================
+RUN mkdir -p /home/atlas/logs/nacos && chown -R atlas:atlas /home/atlas
 
 # 切换到非特权用户
 USER atlas
