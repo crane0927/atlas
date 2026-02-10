@@ -166,11 +166,16 @@ public class JwtConfig {
   /**
    * 获取公钥（PEM 格式）
    *
-   * <p>用于 Gateway 获取公钥接口。
+   * <p>用于 Gateway 获取公钥接口及 GET /api/v1/auth/public-key。返回与公钥 Bean 解析时相同的规范化结果（将配置中的 \n 转为换行），
+   * 避免前端拿到的 PEM 与后端实际用于解密的密钥对不一致导致解密 Padding error。
    *
-   * @return 公钥（PEM 格式）
+   * @return 公钥（PEM 格式，已规范化换行）
    */
   public String getPublicKeyPem() {
-    return authProperties.getJwt().getPublicKey();
+    String publicKeyPem = authProperties.getJwt().getPublicKey();
+    if (publicKeyPem == null || publicKeyPem.trim().isEmpty()) {
+      return publicKeyPem;
+    }
+    return publicKeyPem.replace("\\n", "\n").replace("\\M", "\nM");
   }
 }

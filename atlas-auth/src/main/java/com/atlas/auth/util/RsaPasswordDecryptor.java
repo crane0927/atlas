@@ -4,9 +4,17 @@
 package com.atlas.auth.util;
 
 import java.nio.charset.StandardCharsets;
+import java.security.KeyFactory;
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.MGF1ParameterSpec;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import javax.crypto.Cipher;
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.crypto.spec.PSource;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +35,11 @@ public class RsaPasswordDecryptor {
   private static final String TRANSFORMATION = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
 
   private final PrivateKey privateKey;
+  private final PublicKey publicKey;
 
-  public RsaPasswordDecryptor(PrivateKey privateKey) {
+  public RsaPasswordDecryptor(PrivateKey privateKey, PublicKey publicKey) {
     this.privateKey = privateKey;
+    this.publicKey = publicKey;
   }
 
   /**
@@ -45,7 +55,17 @@ public class RsaPasswordDecryptor {
     try {
       byte[] cipherBytes = Base64.getDecoder().decode(base64CipherText.trim());
       Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-      cipher.init(Cipher.DECRYPT_MODE, privateKey);
+//      cipher.init(Cipher.DECRYPT_MODE, privateKey);
+      cipher.init(
+              Cipher.DECRYPT_MODE,
+              privateKey,
+              new OAEPParameterSpec(
+                      "SHA-256",
+                      "MGF1",
+                      MGF1ParameterSpec.SHA256,
+                      PSource.PSpecified.DEFAULT
+              )
+      );
       byte[] plainBytes = cipher.doFinal(cipherBytes);
       return new String(plainBytes, StandardCharsets.UTF_8);
     } catch (Exception e) {
