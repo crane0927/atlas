@@ -79,12 +79,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     if (userIdStr == null || userIdStr.trim().isEmpty()) {
       return null;
     }
-    Object userId;
-    try {
-      userId = Long.parseLong(userIdStr.trim());
-    } catch (NumberFormatException e) {
-      userId = userIdStr.trim();
-    }
+    Object userId = userIdStr.trim();
     String username = request.getHeader(HEADER_X_USERNAME);
     if (username == null) {
       username = "";

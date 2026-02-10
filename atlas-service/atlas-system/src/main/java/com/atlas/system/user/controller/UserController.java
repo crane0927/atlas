@@ -67,7 +67,7 @@ public class UserController implements UserQueryApi {
    */
   @Override
   @GetMapping("/api/v1/users/{userId}")
-  public Result<UserDTO> getUserById(@PathVariable Long userId) {
+  public Result<UserDTO> getUserById(@PathVariable String userId) {
     UserDTO userDTO = userService.getUserById(userId);
     return Result.success(userDTO);
   }

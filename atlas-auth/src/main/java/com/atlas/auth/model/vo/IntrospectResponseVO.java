@@ -34,7 +34,7 @@ public class IntrospectResponseVO {
   private Boolean active;
 
   /** 用户ID（如果 Token 有效） */
-  private Long userId;
+  private String userId;
 
   /** 用户名（如果 Token 有效） */
   private String username;

@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class UserVO {
 
   /** 用户ID */
-  private Long userId;
+  private String userId;
 
   /** 用户名 */
   private String username;

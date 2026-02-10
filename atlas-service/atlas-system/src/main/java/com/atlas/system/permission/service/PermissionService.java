@@ -36,7 +36,7 @@ public interface PermissionService {
    * @param userId 用户ID
    * @return 角色代码列表，如果用户不存在或没有角色则返回空列表
    */
-  List<String> getRolesByUserId(Long userId);
+  List<String> getRolesByUserId(String userId);
 
   /**
    * 查询用户权限列表
@@ -46,7 +46,7 @@ public interface PermissionService {
    * @param userId 用户ID
    * @return 权限代码列表，如果用户不存在或没有权限则返回空列表
    */
-  List<String> getPermissionsByUserId(Long userId);
+  List<String> getPermissionsByUserId(String userId);
 
   /**
    * 查询用户完整权限信息（角色+权限）
@@ -56,7 +56,7 @@ public interface PermissionService {
    * @param userId 用户ID
    * @return 用户权限信息 DTO，如果用户不存在则返回空列表的角色和权限
    */
-  UserAuthoritiesDTO getAuthoritiesByUserId(Long userId);
+  UserAuthoritiesDTO getAuthoritiesByUserId(String userId);
 
   /**
    * 创建权限
@@ -67,7 +67,7 @@ public interface PermissionService {
    * @return 权限ID
    * @throws BusinessException 如果权限代码已存在，错误码：032206
    */
-  Long createPermission(PermissionCreateDTO permissionCreateDTO);
+  String createPermission(PermissionCreateDTO permissionCreateDTO);
 
   /**
    * 分页查询权限列表

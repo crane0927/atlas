@@ -83,7 +83,7 @@ public class IntrospectGatewayTokenValidator implements GatewayTokenValidator {
                       .mutate()
                       .header(
                           JwtGatewayTokenValidator.HEADER_X_USER_ID,
-                          data.getUserId() != null ? String.valueOf(data.getUserId()) : "")
+                          data.getUserId() != null ? data.getUserId() : "")
                       .header(
                           JwtGatewayTokenValidator.HEADER_X_USERNAME,
                           data.getUsername() != null ? data.getUsername() : "")

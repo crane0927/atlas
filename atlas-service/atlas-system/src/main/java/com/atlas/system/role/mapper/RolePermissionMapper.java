@@ -43,5 +43,5 @@ public interface RolePermissionMapper extends BaseMapper<RolePermission> {
           + "</foreach>"
           + " AND p.status = 'ACTIVE'"
           + "</script>")
-  List<String> selectPermissionCodesByRoleIds(@Param("roleIds") List<Long> roleIds);
+  List<String> selectPermissionCodesByRoleIds(@Param("roleIds") List<String> roleIds);
 }

@@ -63,7 +63,7 @@ public class UserManagementController {
    */
   @PostMapping("/users/{userId}/roles")
   public Result<Void> assignRoleToUser(
-      @PathVariable Long userId, @Valid @RequestBody AssignRoleRequest request) {
+      @PathVariable String userId, @Valid @RequestBody AssignRoleRequest request) {
     userService.assignRoleToUser(userId, request.getRoleId());
     return Result.success(null);
   }
@@ -71,13 +71,13 @@ public class UserManagementController {
   /** 分配角色请求对象 */
   public static class AssignRoleRequest {
     @NotNull(message = "角色ID不能为空")
-    private Long roleId;
+    private String roleId;
 
-    public Long getRoleId() {
+    public String getRoleId() {
       return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
       this.roleId = roleId;
     }
   }

@@ -66,8 +66,8 @@ public class RoleManagementController {
    * @return 角色ID，使用 {@link Result} 包装
    */
   @PostMapping("/roles")
-  public Result<Long> createRole(@Valid @RequestBody RoleCreateDTO roleCreateDTO) {
-    Long roleId = roleService.createRole(roleCreateDTO);
+  public Result<String> createRole(@Valid @RequestBody RoleCreateDTO roleCreateDTO) {
+    String roleId = roleService.createRole(roleCreateDTO);
     return Result.success(roleId);
   }
 
@@ -82,7 +82,7 @@ public class RoleManagementController {
    */
   @PostMapping("/roles/{roleId}/permissions")
   public Result<Void> assignPermissionToRole(
-      @PathVariable Long roleId, @Valid @RequestBody AssignPermissionRequest request) {
+      @PathVariable String roleId, @Valid @RequestBody AssignPermissionRequest request) {
     roleService.assignPermissionToRole(roleId, request.getPermissionId());
     return Result.success(null);
   }
@@ -90,13 +90,13 @@ public class RoleManagementController {
   /** 分配权限请求对象 */
   public static class AssignPermissionRequest {
     @NotNull(message = "权限ID不能为空")
-    private Long permissionId;
+    private String permissionId;
 
-    public Long getPermissionId() {
+    public String getPermissionId() {
       return permissionId;
     }
 
-    public void setPermissionId(Long permissionId) {
+    public void setPermissionId(String permissionId) {
       this.permissionId = permissionId;
     }
   }

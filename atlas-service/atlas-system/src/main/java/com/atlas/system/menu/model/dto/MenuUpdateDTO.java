@@ -19,7 +19,7 @@ import lombok.Data;
 public class MenuUpdateDTO {
 
   /** 父菜单ID */
-  private Long parentId;
+  private String parentId;
 
   /** 菜单名称 */
   @NotBlank(message = "菜单名称不能为空")

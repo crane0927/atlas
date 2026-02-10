@@ -34,9 +34,9 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_system_setting")
 public class SystemSetting extends BaseEntity {
 
-  /** 设置项ID，主键，雪花算法生成 */
+  /** 设置项ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long settingId;
+  private String settingId;
 
   /** 设置项唯一标识 */
   @TableField("setting_key")

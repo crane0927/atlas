@@ -46,10 +46,10 @@ public class Menu extends BaseEntity {
 
   /** 菜单ID */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long menuId;
+  private String menuId;
 
   /** 父菜单ID */
-  private Long parentId;
+  private String parentId;
 
   /** 菜单名称 */
   private String name;

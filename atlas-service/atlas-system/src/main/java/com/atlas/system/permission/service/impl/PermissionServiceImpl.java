@@ -64,7 +64,7 @@ public class PermissionServiceImpl implements PermissionService {
    * @return 角色代码列表，如果用户不存在或没有角色则返回空列表
    */
   @Override
-  public List<String> getRolesByUserId(Long userId) {
+  public List<String> getRolesByUserId(String userId) {
     // 检查用户是否存在
     if (userMapper.selectById(userId) == null) {
       return Collections.emptyList();
@@ -81,13 +81,13 @@ public class PermissionServiceImpl implements PermissionService {
    * @return 权限代码列表，如果用户不存在或没有权限则返回空列表
    */
   @Override
-  public List<String> getPermissionsByUserId(Long userId) {
+  public List<String> getPermissionsByUserId(String userId) {
     // 检查用户是否存在
     if (userMapper.selectById(userId) == null) {
       return Collections.emptyList();
     }
     // 查询用户角色ID列表
-    List<Long> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
+    List<String> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
     if (roleIds == null || roleIds.isEmpty()) {
       return Collections.emptyList();
     }
@@ -105,7 +105,7 @@ public class PermissionServiceImpl implements PermissionService {
    * @return 用户权限信息 DTO
    */
   @Override
-  public UserAuthoritiesDTO getAuthoritiesByUserId(Long userId) {
+  public UserAuthoritiesDTO getAuthoritiesByUserId(String userId) {
     UserAuthoritiesDTO dto = new UserAuthoritiesDTO();
     dto.setUserId(userId);
     dto.setRoles(new ArrayList<>());
@@ -115,7 +115,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
     List<String> roleCodes = userRoleMapper.selectRoleCodesByUserId(userId);
     dto.setRoles(Optional.ofNullable(roleCodes).orElse(Collections.emptyList()));
-    List<Long> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
+    List<String> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
     if (roleIds != null && !roleIds.isEmpty()) {
       List<String> permissionCodes =
           rolePermissionMapper.selectPermissionCodesByRoleIds(roleIds);
@@ -134,7 +134,7 @@ public class PermissionServiceImpl implements PermissionService {
    */
   @Override
   @Transactional
-  public Long createPermission(PermissionCreateDTO permissionCreateDTO) {
+  public String createPermission(PermissionCreateDTO permissionCreateDTO) {
     // 检查权限代码是否已存在
     Permission existingPermission =
         permissionMapper.selectOne(

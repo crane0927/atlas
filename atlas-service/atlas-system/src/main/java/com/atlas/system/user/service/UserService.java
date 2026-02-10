@@ -35,7 +35,7 @@ public interface UserService {
    * @param userId 用户ID
    * @return 用户信息 DTO，如果用户不存在则抛出 BusinessException
    */
-  UserDTO getUserById(Long userId);
+  UserDTO getUserById(String userId);
 
   /**
    * 根据用户名查询用户信息
@@ -78,7 +78,7 @@ public interface UserService {
    * @param roleId 角色ID
    * @throws BusinessException 如果用户或角色不存在，错误码：032001 或 032101
    */
-  void assignRoleToUser(Long userId, Long roleId);
+  void assignRoleToUser(String userId, String roleId);
 
   /**
    * 分页查询用户列表

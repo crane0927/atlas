@@ -36,12 +36,12 @@ public class SessionServiceImpl implements SessionService {
 
 
   @Override
-  public void saveSession(Long userId, TokenInfoDTO tokenInfo, Long expireSeconds) {
+  public void saveSession(String userId, TokenInfoDTO tokenInfo, Long expireSeconds) {
     try {
       String key =
           RedisKeyBuilder.builder()
               .business(BUSINESS_SESSION)
-              .id(String.valueOf(userId))
+              .id(userId)
               .build();
 
       // 构建会话信息 Map
@@ -62,12 +62,12 @@ public class SessionServiceImpl implements SessionService {
   }
 
   @Override
-  public Map<String, Object> getSession(Long userId) {
+  public Map<String, Object> getSession(String userId) {
     try {
       String key =
           RedisKeyBuilder.builder()
               .business(BUSINESS_SESSION)
-              .id(String.valueOf(userId))
+              .id(userId)
               .build();
       Map<String, Object> sessionData = CacheUtil.get(key, Map.class);
       if (sessionData == null) {
@@ -82,12 +82,12 @@ public class SessionServiceImpl implements SessionService {
   }
 
   @Override
-  public void deleteSession(Long userId) {
+  public void deleteSession(String userId) {
     try {
       String key =
           RedisKeyBuilder.builder()
               .business(BUSINESS_SESSION)
-              .id(String.valueOf(userId))
+              .id(userId)
               .build();
       CacheUtil.delete(key);
       log.debug("删除用户会话成功: userId={}", userId);
@@ -98,7 +98,7 @@ public class SessionServiceImpl implements SessionService {
   }
 
   @Override
-  public void addToBlacklist(String tokenId, Long userId, Long expireSeconds) {
+  public void addToBlacklist(String tokenId, String userId, Long expireSeconds) {
     try {
       String key =
           RedisKeyBuilder.builder()

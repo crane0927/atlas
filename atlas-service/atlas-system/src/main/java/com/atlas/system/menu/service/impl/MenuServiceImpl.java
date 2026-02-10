@@ -68,12 +68,12 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   @Transactional
-  public Long createMenu(MenuCreateDTO dto) {
+  public String createMenu(MenuCreateDTO dto) {
     validateMenuType(dto.getType());
     validateMenuPath(dto.getType(), dto.getPath(), dto.getComponent());
     validatePermissionCode(dto.getPermissionCode());
 
-    Long parentId = normalizeParentId(dto.getParentId());
+    String parentId = normalizeParentId(dto.getParentId());
     if (parentId != null) {
       Menu parent = menuMapper.selectById(parentId);
       if (parent == null || "DELETED".equals(parent.getStatus())) {
@@ -102,7 +102,7 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   @Transactional
-  public void updateMenu(Long menuId, MenuUpdateDTO dto) {
+  public void updateMenu(String menuId, MenuUpdateDTO dto) {
     Menu existing = menuMapper.selectById(menuId);
     if (existing == null || "DELETED".equals(existing.getStatus())) {
       throw new BusinessException(SystemErrorCode.MENU_NOT_FOUND, "菜单不存在");
@@ -111,7 +111,7 @@ public class MenuServiceImpl implements MenuService {
     validateMenuPath(dto.getType(), dto.getPath(), dto.getComponent());
     validatePermissionCode(dto.getPermissionCode());
 
-    Long parentId = normalizeParentId(dto.getParentId());
+    String parentId = normalizeParentId(dto.getParentId());
     if (parentId != null) {
       if (menuId.equals(parentId)) {
         throw new BusinessException(SystemErrorCode.MENU_PARENT_INVALID, "父菜单不能是自身");
@@ -142,7 +142,7 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   @Transactional
-  public void deleteMenu(Long menuId) {
+  public void deleteMenu(String menuId) {
     Menu existing = menuMapper.selectById(menuId);
     if (existing == null || "DELETED".equals(existing.getStatus())) {
       throw new BusinessException(SystemErrorCode.MENU_NOT_FOUND, "菜单不存在");
@@ -197,15 +197,15 @@ public class MenuServiceImpl implements MenuService {
     }
   }
 
-  private Long normalizeParentId(Long parentId) {
-    if (parentId == null || parentId == 0L) {
+  private String normalizeParentId(String parentId) {
+    if (parentId == null || "0".equals(parentId) || parentId.isEmpty()) {
       return null;
     }
     return parentId;
   }
 
   private List<MenuTreeVO> buildMenuTree(List<Menu> menus) {
-    Map<Long, MenuTreeVO> map = new HashMap<>();
+    Map<String, MenuTreeVO> map = new HashMap<>();
     for (Menu menu : menus) {
       MenuTreeVO vo = new MenuTreeVO();
       BeanUtils.copyProperties(menu, vo);
@@ -215,7 +215,7 @@ public class MenuServiceImpl implements MenuService {
     List<MenuTreeVO> roots = new ArrayList<>();
     for (Menu menu : menus) {
       MenuTreeVO vo = map.get(menu.getMenuId());
-      Long parentId = normalizeParentId(menu.getParentId());
+      String parentId = normalizeParentId(menu.getParentId());
       if (parentId == null || !map.containsKey(parentId)) {
         roots.add(vo);
       } else {
@@ -225,7 +225,7 @@ public class MenuServiceImpl implements MenuService {
 
     Comparator<MenuTreeVO> comparator =
         Comparator.comparing(MenuTreeVO::getSort, Comparator.nullsLast(Integer::compareTo))
-            .thenComparing(MenuTreeVO::getMenuId, Comparator.nullsLast(Long::compareTo));
+            .thenComparing(MenuTreeVO::getMenuId, Comparator.nullsLast(String::compareTo));
     sortTree(roots, comparator);
     return roots;
   }

@@ -35,9 +35,9 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_role")
 public class Role extends BaseEntity {
 
-  /** 角色ID，主键，雪花算法生成 */
+  /** 角色ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long roleId;
+  private String roleId;
 
   /** 角色代码，唯一，非空 */
   private String roleCode;

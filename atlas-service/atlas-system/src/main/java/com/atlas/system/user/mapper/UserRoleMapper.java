@@ -38,7 +38,7 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
       "SELECT r.role_code FROM sys_role r "
           + "INNER JOIN sys_user_role ur ON r.role_id = ur.role_id AND ur.deleted = 0 "
           + "WHERE ur.user_id = #{userId} AND r.status = 'ACTIVE'")
-  List<String> selectRoleCodesByUserId(@Param("userId") Long userId);
+  List<String> selectRoleCodesByUserId(@Param("userId") String userId);
 
   /**
    * 根据用户ID查询角色ID列表
@@ -52,5 +52,5 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
       "SELECT ur.role_id FROM sys_user_role ur "
           + "INNER JOIN sys_role r ON ur.role_id = r.role_id AND ur.deleted = 0 "
           + "WHERE ur.user_id = #{userId} AND r.status = 'ACTIVE'")
-  List<Long> selectRoleIdsByUserId(@Param("userId") Long userId);
+  List<String> selectRoleIdsByUserId(@Param("userId") String userId);
 }

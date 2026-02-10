@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class UserAuthoritiesDTO {
 
   /** 用户ID */
-  private Long userId;
+  private String userId;
 
   /** 角色列表（不能为 null，可以为空列表） */
   private List<String> roles;

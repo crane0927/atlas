@@ -33,13 +33,13 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_role_permission")
 public class RolePermission extends BaseEntity {
 
-  /** 关联ID，主键，雪花算法生成 */
+  /** 关联ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long id;
+  private String id;
 
   /** 角色ID，外键，非空 */
-  private Long roleId;
+  private String roleId;
 
   /** 权限ID，外键，非空 */
-  private Long permissionId;
+  private String permissionId;
 }

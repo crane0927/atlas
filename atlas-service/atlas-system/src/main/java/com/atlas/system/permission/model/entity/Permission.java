@@ -35,9 +35,9 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_permission")
 public class Permission extends BaseEntity {
 
-  /** 权限ID，主键，雪花算法生成 */
+  /** 权限ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long permissionId;
+  private String permissionId;
 
   /** 权限代码，唯一，非空 */
   private String permissionCode;

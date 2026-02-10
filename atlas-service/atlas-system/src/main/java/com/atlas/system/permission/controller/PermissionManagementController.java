@@ -63,9 +63,9 @@ public class PermissionManagementController {
    * @return 权限ID，使用 {@link Result} 包装
    */
   @PostMapping("/permissions")
-  public Result<Long> createPermission(
+  public Result<String> createPermission(
       @Valid @RequestBody PermissionCreateDTO permissionCreateDTO) {
-    Long permissionId = permissionService.createPermission(permissionCreateDTO);
+    String permissionId = permissionService.createPermission(permissionCreateDTO);
     return Result.success(permissionId);
   }
 }

@@ -33,7 +33,7 @@ public interface SessionService {
    * @param tokenInfo Token 信息
    * @param expireSeconds 过期时间（秒）
    */
-  void saveSession(Long userId, TokenInfoDTO tokenInfo, Long expireSeconds);
+  void saveSession(String userId, TokenInfoDTO tokenInfo, Long expireSeconds);
 
   /**
    * 获取用户会话信息
@@ -43,7 +43,7 @@ public interface SessionService {
    * @param userId 用户ID
    * @return 会话信息（Map 格式），如果不存在则返回 null
    */
-  Map<String, Object> getSession(Long userId);
+  Map<String, Object> getSession(String userId);
 
   /**
    * 删除用户会话信息
@@ -52,7 +52,7 @@ public interface SessionService {
    *
    * @param userId 用户ID
    */
-  void deleteSession(Long userId);
+  void deleteSession(String userId);
 
   /**
    * 将 Token 加入黑名单
@@ -63,7 +63,7 @@ public interface SessionService {
    * @param userId 用户ID
    * @param expireSeconds 过期时间（秒）
    */
-  void addToBlacklist(String tokenId, Long userId, Long expireSeconds);
+  void addToBlacklist(String tokenId, String userId, Long expireSeconds);
 
   /**
    * 检查 Token 是否在黑名单中

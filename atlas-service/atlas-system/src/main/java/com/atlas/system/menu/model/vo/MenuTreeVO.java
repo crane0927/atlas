@@ -18,8 +18,8 @@ import lombok.Data;
 @Data
 public class MenuTreeVO {
 
-  private Long menuId;
-  private Long parentId;
+  private String menuId;
+  private String parentId;
   private String name;
   private String path;
   private String component;

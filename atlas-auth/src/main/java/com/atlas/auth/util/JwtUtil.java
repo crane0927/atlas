@@ -101,7 +101,7 @@ public class JwtUtil {
 
       TokenInfoDTO tokenInfo = new TokenInfoDTO();
       tokenInfo.setTokenId(claims.getId());
-      tokenInfo.setUserId(claims.get("userId", Long.class));
+      tokenInfo.setUserId(claimUserIdToString(claims.get("userId")));
       tokenInfo.setUsername(claims.get("username", String.class));
       tokenInfo.setRoles(claims.get("roles", List.class));
       tokenInfo.setPermissions(claims.get("permissions", List.class));
@@ -137,5 +137,21 @@ public class JwtUtil {
       log.debug("Token 验证失败: {}", e.getMessage());
       return false;
     }
+  }
+
+  /**
+   * 将 JWT claims 中的 userId 转为 String（兼容旧 Token 中为 number 的情况）
+   */
+  private static String claimUserIdToString(Object userIdClaim) {
+    if (userIdClaim == null) {
+      return null;
+    }
+    if (userIdClaim instanceof String) {
+      return (String) userIdClaim;
+    }
+    if (userIdClaim instanceof Number) {
+      return String.valueOf(userIdClaim);
+    }
+    return userIdClaim.toString();
   }
 }

@@ -27,7 +27,7 @@ import lombok.Data;
 public class RoleListVO {
 
   /** 角色ID */
-  private Long roleId;
+  private String roleId;
 
   /** 角色代码 */
   private String roleCode;

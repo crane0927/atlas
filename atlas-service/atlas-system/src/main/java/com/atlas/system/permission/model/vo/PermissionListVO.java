@@ -27,7 +27,7 @@ import lombok.Data;
 public class PermissionListVO {
 
   /** 权限ID */
-  private Long permissionId;
+  private String permissionId;
 
   /** 权限代码 */
   private String permissionCode;

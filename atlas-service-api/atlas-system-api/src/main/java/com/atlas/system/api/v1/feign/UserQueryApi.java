@@ -44,7 +44,7 @@ public interface UserQueryApi {
    * @return 用户信息，使用 {@link Result} 包装
    */
   @GetMapping("/users/{userId}")
-  Result<UserDTO> getUserById(@PathVariable Long userId);
+  Result<UserDTO> getUserById(@PathVariable String userId);
 
   /**
    * 根据用户名查询用户信息

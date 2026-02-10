@@ -45,7 +45,7 @@ public class PermissionController implements PermissionQueryApi {
    */
   @Override
   @GetMapping("/api/v1/users/{userId}/roles")
-  public Result<List<String>> getUserRoles(@PathVariable Long userId) {
+  public Result<List<String>> getUserRoles(@PathVariable String userId) {
     List<String> roles = permissionService.getRolesByUserId(userId);
     return Result.success(roles);
   }
@@ -60,7 +60,7 @@ public class PermissionController implements PermissionQueryApi {
    */
   @Override
   @GetMapping("/api/v1/users/{userId}/permissions")
-  public Result<List<String>> getUserPermissions(@PathVariable Long userId) {
+  public Result<List<String>> getUserPermissions(@PathVariable String userId) {
     List<String> permissions = permissionService.getPermissionsByUserId(userId);
     return Result.success(permissions);
   }
@@ -75,7 +75,7 @@ public class PermissionController implements PermissionQueryApi {
    */
   @Override
   @GetMapping("/api/v1/users/{userId}/authorities")
-  public Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable Long userId) {
+  public Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable String userId) {
     UserAuthoritiesDTO authorities = permissionService.getAuthoritiesByUserId(userId);
     return Result.success(authorities);
   }

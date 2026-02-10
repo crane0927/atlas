@@ -61,20 +61,20 @@ public class MenuController {
 
   /** 创建菜单 */
   @PostMapping("/menus")
-  public Result<Long> createMenu(@Valid @RequestBody MenuCreateDTO dto) {
+  public Result<String> createMenu(@Valid @RequestBody MenuCreateDTO dto) {
     return Result.success(menuService.createMenu(dto));
   }
 
   /** 更新菜单 */
   @PutMapping("/menus/{menuId}")
-  public Result<Void> updateMenu(@PathVariable Long menuId, @Valid @RequestBody MenuUpdateDTO dto) {
+  public Result<Void> updateMenu(@PathVariable String menuId, @Valid @RequestBody MenuUpdateDTO dto) {
     menuService.updateMenu(menuId, dto);
     return Result.success(null);
   }
 
   /** 删除菜单 */
   @DeleteMapping("/menus/{menuId}")
-  public Result<Void> deleteMenu(@PathVariable Long menuId) {
+  public Result<Void> deleteMenu(@PathVariable String menuId) {
     menuService.deleteMenu(menuId);
     return Result.success(null);
   }

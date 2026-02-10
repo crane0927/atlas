@@ -33,7 +33,7 @@ public interface RoleService {
    * @return 角色ID
    * @throws BusinessException 如果角色代码已存在，错误码：032105
    */
-  Long createRole(RoleCreateDTO roleCreateDTO);
+  String createRole(RoleCreateDTO roleCreateDTO);
 
   /**
    * 为角色分配权限
@@ -44,7 +44,7 @@ public interface RoleService {
    * @param permissionId 权限ID
    * @throws BusinessException 如果角色或权限不存在，错误码：032101 或 032201
    */
-  void assignPermissionToRole(Long roleId, Long permissionId);
+  void assignPermissionToRole(String roleId, String permissionId);
 
   /**
    * 分页查询角色列表

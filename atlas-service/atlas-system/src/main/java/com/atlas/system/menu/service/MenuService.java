@@ -25,11 +25,11 @@ public interface MenuService {
   List<MenuTreeVO> listMyMenuTree();
 
   /** 创建菜单 */
-  Long createMenu(MenuCreateDTO dto);
+  String createMenu(MenuCreateDTO dto);
 
   /** 更新菜单 */
-  void updateMenu(Long menuId, MenuUpdateDTO dto);
+  void updateMenu(String menuId, MenuUpdateDTO dto);
 
   /** 删除菜单（逻辑删除） */
-  void deleteMenu(Long menuId);
+  void deleteMenu(String menuId);
 }

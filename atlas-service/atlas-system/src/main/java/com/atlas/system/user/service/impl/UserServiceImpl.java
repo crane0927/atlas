@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
    * @throws BusinessException 如果用户不存在，错误码：032001
    */
   @Override
-  public UserDTO getUserById(Long userId) {
+  public UserDTO getUserById(String userId) {
     User user = userMapper.selectById(userId);
     if (user == null || "DELETED".equals(user.getStatus())) {
       throw new BusinessException(SystemErrorCode.USER_NOT_FOUND, "用户不存在");
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   @Transactional
-  public void assignRoleToUser(Long userId, Long roleId) {
+  public void assignRoleToUser(String userId, String roleId) {
     // 检查用户是否存在
     User user = userMapper.selectById(userId);
     if (user == null || "DELETED".equals(user.getStatus())) {

@@ -33,13 +33,13 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_user_role")
 public class UserRole extends BaseEntity {
 
-  /** 关联ID，主键，雪花算法生成 */
+  /** 关联ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long id;
+  private String id;
 
   /** 用户ID，外键，非空 */
-  private Long userId;
+  private String userId;
 
   /** 角色ID，外键，非空 */
-  private Long roleId;
+  private String roleId;
 }

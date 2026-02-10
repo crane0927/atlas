@@ -38,9 +38,9 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_user")
 public class User extends BaseEntity {
 
-  /** 用户ID，主键，雪花算法生成 */
+  /** 用户ID，主键，雪花算法生成（String） */
   @TableId(type = IdType.ASSIGN_ID)
-  private Long userId;
+  private String userId;
 
   /** 用户名，唯一，非空 */
   private String username;

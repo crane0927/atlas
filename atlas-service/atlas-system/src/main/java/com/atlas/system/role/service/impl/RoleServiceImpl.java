@@ -63,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   @Transactional
-  public Long createRole(RoleCreateDTO roleCreateDTO) {
+  public String createRole(RoleCreateDTO roleCreateDTO) {
     // 检查角色代码是否已存在
     Role existingRole =
         roleMapper.selectOne(
@@ -92,7 +92,7 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   @Transactional
-  public void assignPermissionToRole(Long roleId, Long permissionId) {
+  public void assignPermissionToRole(String roleId, String permissionId) {
     // 检查角色是否存在
     Role role = roleMapper.selectById(roleId);
     if (role == null || "DELETED".equals(role.getStatus())) {

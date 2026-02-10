@@ -14,7 +14,7 @@ import lombok.Data;
 public class IntrospectDataDto {
 
   private Boolean active;
-  private Long userId;
+  private String userId;
   private String username;
   private List<String> roles;
   private List<String> permissions;

@@ -42,7 +42,7 @@ public interface PermissionQueryApi {
    * @return 角色列表，使用 {@link Result} 包装
    */
   @GetMapping("/users/{userId}/roles")
-  Result<List<String>> getUserRoles(@PathVariable Long userId);
+  Result<List<String>> getUserRoles(@PathVariable String userId);
 
   /**
    * 查询用户权限列表
@@ -53,7 +53,7 @@ public interface PermissionQueryApi {
    * @return 权限列表，使用 {@link Result} 包装
    */
   @GetMapping("/users/{userId}/permissions")
-  Result<List<String>> getUserPermissions(@PathVariable Long userId);
+  Result<List<String>> getUserPermissions(@PathVariable String userId);
 
   /**
    * 查询用户完整权限信息（角色+权限）
@@ -64,5 +64,5 @@ public interface PermissionQueryApi {
    * @return 用户权限信息，使用 {@link Result} 包装
    */
   @GetMapping("/users/{userId}/authorities")
-  Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable Long userId);
+  Result<UserAuthoritiesDTO> getUserAuthorities(@PathVariable String userId);
 }

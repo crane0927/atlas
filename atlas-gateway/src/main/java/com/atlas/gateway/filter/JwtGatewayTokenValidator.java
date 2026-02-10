@@ -54,7 +54,7 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
       Claims claims =
           Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(token).getPayload();
 
-      Long userId = claims.get("userId", Long.class);
+      String userId = claimUserIdToString(claims.get("userId"));
       String username = claims.get("username", String.class);
       @SuppressWarnings("unchecked")
       List<String> roles = claims.get("roles", List.class);
@@ -65,7 +65,7 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
           exchange
               .getRequest()
               .mutate()
-              .header(HEADER_X_USER_ID, userId != null ? String.valueOf(userId) : "")
+              .header(HEADER_X_USER_ID, userId != null ? userId : "")
               .header(HEADER_X_USERNAME, username != null ? username : "")
               .header(HEADER_X_USER_ROLES, roles != null ? String.join(",", roles) : "")
               .header(
@@ -78,6 +78,20 @@ public class JwtGatewayTokenValidator implements GatewayTokenValidator {
       log.debug("JWT 校验失败: {}", e.getMessage());
       return Mono.empty();
     }
+  }
+
+  /** 将 JWT claims 中的 userId 转为 String（兼容旧 Token 中为 number 的情况） */
+  private static String claimUserIdToString(Object userIdClaim) {
+    if (userIdClaim == null) {
+      return null;
+    }
+    if (userIdClaim instanceof String) {
+      return (String) userIdClaim;
+    }
+    if (userIdClaim instanceof Number) {
+      return String.valueOf(userIdClaim);
+    }
+    return userIdClaim.toString();
   }
 
   private static String extractBearerToken(ServerHttpRequest request) {
