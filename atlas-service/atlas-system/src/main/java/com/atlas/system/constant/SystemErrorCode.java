@@ -67,6 +67,29 @@ public class SystemErrorCode {
 
   // 预留错误码：032305-032399
 
+  // ========== 菜单相关错误 (03 24 xx) ==========
+
+  /** 菜单不存在 */
+  public static final String MENU_NOT_FOUND = "032401";
+
+  /** 父菜单不存在 */
+  public static final String MENU_PARENT_NOT_FOUND = "032402";
+
+  /** 父菜单非法 */
+  public static final String MENU_PARENT_INVALID = "032403";
+
+  /** 菜单类型不合法 */
+  public static final String MENU_TYPE_INVALID = "032404";
+
+  /** 目录/菜单必须填写路由路径 */
+  public static final String MENU_PATH_REQUIRED = "032405";
+
+  /** 菜单必须填写组件标识 */
+  public static final String MENU_COMPONENT_REQUIRED = "032406";
+
+  /** 权限码不存在 */
+  public static final String MENU_PERMISSION_NOT_FOUND = "032407";
+
   /** 私有构造函数，防止实例化 */
   private SystemErrorCode() {
     throw new UnsupportedOperationException("常量类不允许实例化");
