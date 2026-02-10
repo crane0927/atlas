@@ -32,9 +32,9 @@ public class UserCreateDTO {
   private String username;
 
   /** 密码，必填，至少 8 个字符 */
-  @NotBlank(message = "密码不能为空")
+  /*@NotBlank(message = "密码不能为空")
   @Size(min = 8, message = "密码长度至少 8 个字符")
-  private String password;
+  private String password;*/
 
   /** 昵称，可选 */
   private String nickname;
