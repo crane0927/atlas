@@ -49,8 +49,8 @@ public class PermissionManagementController {
   /**
    * 分页查询权限列表
    *
-   * <p>支持按权限代码、权限名称、状态筛选，以及排序（排序字段：permissionCode、permissionName、createdAt，兼容 createTime/createdAt）。{@link
-   * PermissionQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
+   * <p>支持按权限代码、权限名称、状态筛选，以及排序（排序字段：permissionCode、permissionName、createdAt，兼容
+   * createTime/createdAt）。{@link PermissionQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
    *
    * @param query 查询条件（permissionCode、permissionName、status、page、size、sort）
    * @return 分页结果，使用 {@link Result} 包装

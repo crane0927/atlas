@@ -52,8 +52,8 @@ public class RoleManagementController {
   /**
    * 分页查询角色列表
    *
-   * <p>支持按角色代码、角色名称、状态筛选，以及排序（排序字段：roleCode、roleName、createdAt，兼容 createTime/createdAt）。{@link RoleQueryDTO} 继承
-   * PageQueryDTO，含 page、size、sort。
+   * <p>支持按角色代码、角色名称、状态筛选，以及排序（排序字段：roleCode、roleName、createdAt，兼容 createTime/createdAt）。{@link
+   * RoleQueryDTO} 继承 PageQueryDTO，含 page、size、sort。
    *
    * @param query 查询条件（roleCode、roleName、status、page、size、sort）
    * @return 分页结果，使用 {@link Result} 包装

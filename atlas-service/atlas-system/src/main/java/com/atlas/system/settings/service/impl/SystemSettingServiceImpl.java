@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 /**
  * 系统设置服务实现类
@@ -66,7 +65,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   @Override
   public List<SystemSettingVO> listSettings(SystemSettingQueryDTO queryDTO) {
     LambdaQueryWrapper<SystemSetting> wrapper = buildQueryWrapper(queryDTO);
-    applySort(wrapper, Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSort).orElse(null));
+    applySort(
+        wrapper, Optional.ofNullable(queryDTO).map(SystemSettingQueryDTO::getSort).orElse(null));
     Page<SystemSetting> pageRequest = new Page<>(1, LIST_SETTINGS_MAX_SIZE);
     Page<SystemSetting> resultPage = systemSettingMapper.selectPage(pageRequest, wrapper);
     return resultPage.getRecords().stream()
@@ -78,7 +78,8 @@ public class SystemSettingServiceImpl implements SystemSettingService {
   /**
    * 分页查询设置项列表
    *
-   * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createdAt、updatedAt，兼容 createTime/updateTime）。
+   * <p>与 PageQueryDTO 语义一致：page 默认 1，size 默认 10；支持 sort 参数（白名单：key、createdAt、updatedAt，兼容
+   * createTime/updateTime）。
    *
    * @param queryDTO 查询参数
    * @return 分页结果

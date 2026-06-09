@@ -30,7 +30,10 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author Atlas Team
  * @since 1.0.0
  */
-@FeignClient(value = "atlas-system", contextId = "permission-query-api", path = "/atlas-system/api/v1")
+@FeignClient(
+    value = "atlas-system",
+    contextId = "permission-query-api",
+    path = "/atlas-system/api/v1")
 public interface PermissionQueryApi {
 
   /**

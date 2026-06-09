@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.menu.service.impl;
 
 import com.atlas.common.feature.core.exception.BusinessException;
@@ -58,11 +56,13 @@ public class MenuServiceImpl implements MenuService {
     if (loginUser == null) {
       return Collections.emptyList();
     }
-    List<String> permissions = Optional.ofNullable(loginUser.getPermissions())
-        .orElse(Collections.emptyList());
+    List<String> permissions =
+        Optional.ofNullable(loginUser.getPermissions()).orElse(Collections.emptyList());
     List<Menu> menus = listActiveMenus();
     List<Menu> filtered =
-        menus.stream().filter(menu -> isMenuVisible(menu, permissions)).collect(Collectors.toList());
+        menus.stream()
+            .filter(menu -> isMenuVisible(menu, permissions))
+            .collect(Collectors.toList());
     return buildMenuTree(filtered);
   }
 

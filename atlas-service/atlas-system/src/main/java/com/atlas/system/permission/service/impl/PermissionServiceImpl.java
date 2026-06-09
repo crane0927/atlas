@@ -118,10 +118,8 @@ public class PermissionServiceImpl implements PermissionService {
     dto.setRoles(Optional.ofNullable(roleCodes).orElse(Collections.emptyList()));
     List<String> roleIds = userRoleMapper.selectRoleIdsByUserId(userId);
     if (roleIds != null && !roleIds.isEmpty()) {
-      List<String> permissionCodes =
-          rolePermissionMapper.selectPermissionCodesByRoleIds(roleIds);
-      dto.setPermissions(
-          Optional.ofNullable(permissionCodes).orElse(Collections.emptyList()));
+      List<String> permissionCodes = rolePermissionMapper.selectPermissionCodesByRoleIds(roleIds);
+      dto.setPermissions(Optional.ofNullable(permissionCodes).orElse(Collections.emptyList()));
     }
     return dto;
   }

@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.system.menu.controller;
 
 import com.atlas.common.feature.core.result.Result;
@@ -74,7 +72,8 @@ public class MenuController {
 
   /** 更新菜单 */
   @PutMapping("/menus/{menuId}")
-  public Result<Void> updateMenu(@PathVariable String menuId, @Valid @RequestBody MenuUpdateDTO dto) {
+  public Result<Void> updateMenu(
+      @PathVariable String menuId, @Valid @RequestBody MenuUpdateDTO dto) {
     menuService.updateMenu(menuId, dto);
     return Result.success(null);
   }

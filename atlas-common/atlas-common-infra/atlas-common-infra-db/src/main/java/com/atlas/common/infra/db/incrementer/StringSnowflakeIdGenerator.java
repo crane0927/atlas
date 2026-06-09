@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025 Atlas. All rights reserved.
- */
+/*\n * Copyright (c) 2025 Atlas. All rights reserved.\n */
 package com.atlas.common.infra.db.incrementer;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;

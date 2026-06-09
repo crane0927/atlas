@@ -5,11 +5,11 @@ import com.atlas.common.feature.core.page.PageResult;
 import com.atlas.common.feature.core.result.Result;
 import com.atlas.system.api.v1.feign.UserQueryApi;
 import com.atlas.system.api.v1.model.dto.UserDTO;
+import com.atlas.system.api.v1.model.dto.VerifyPasswordRequest;
 import com.atlas.system.user.model.dto.UserQueryDTO;
 import com.atlas.system.user.model.vo.UserListVO;
 import com.atlas.system.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import com.atlas.system.api.v1.model.dto.VerifyPasswordRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,8 +45,8 @@ public class UserController implements UserQueryApi {
   /**
    * 分页查询用户列表
    *
-   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段：createdAt、username，兼容 createTime/createdAt）。{@link UserQueryDTO} 继承 {@link
-   * com.atlas.common.feature.core.page.PageQueryDTO}，含 page、size、sort。
+   * <p>支持按用户名模糊、状态筛选，以及排序（排序字段：createdAt、username，兼容 createTime/createdAt）。{@link UserQueryDTO} 继承
+   * {@link com.atlas.common.feature.core.page.PageQueryDTO}，含 page、size、sort。
    *
    * @param query 查询条件（username、status、page、size、sort）
    * @return 分页结果，使用 {@link Result} 包装

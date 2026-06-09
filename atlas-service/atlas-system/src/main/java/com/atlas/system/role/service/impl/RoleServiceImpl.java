@@ -220,8 +220,7 @@ public class RoleServiceImpl implements RoleService {
 
   /** 应用排序（白名单：roleCode、roleName、createdAt，兼容 createTime/createdAt） */
   private void applySort(LambdaQueryWrapper<Role> wrapper, String sort) {
-    SortHelper.applySort(
-        wrapper, sort, w -> w.orderByDesc(Role::getCreatedAt), ROLE_SORT_FIELDS);
+    SortHelper.applySort(wrapper, sort, w -> w.orderByDesc(Role::getCreatedAt), ROLE_SORT_FIELDS);
   }
 
   /**
