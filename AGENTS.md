@@ -1,22 +1,3 @@
-<!--
-Sync Impact Report:
-Version: 0.7.0 → 1.0.0
-创建日期: 2025-01-27
-最后修订: 2026-02-09
-修改的原则:
-  - 原则 4: 数据库迁移统一为 Flyway（不再保留 Liquibase 选项）
-  - 原则 15（原 SQL 目录管理规范）: 已移除
-  - 原则 16→15、17→16、18→17、19→18、20→19、21→20: 重新编号
-移除章节: 原则 15（SQL 目录管理规范）
-新增章节: 无
-模板更新状态:
-  - .specify/templates/plan-template.md: ✅ 无需修改（未引用原则 15 或 Flyway/Liquibase）
-  - .specify/templates/spec-template.md: ✅ 无需修改
-  - .specify/templates/tasks-template.md: ✅ 无需修改
-  - .specify/templates/commands/constitution.md: ✅ 无需修改
-后续待办: 无
--->
-
 # 项目宪法
 
 **项目名称**: Atlas  
@@ -976,7 +957,7 @@ atlas/
 2. **讨论**: 在团队会议或代码审查中讨论提案，评估对现有代码和流程的影响
 3. **批准**: 需要至少 2 名核心成员批准，重大修订需要团队一致同意
 4. **更新**: 更新宪法文件，更新版本号和最后修订日期
-5. **传播**: 更新相关模板文件（plan-template.md、spec-template.md、tasks-template.md 等），确保一致性
+5. **传播**: 更新相关文档，确保一致性
 6. **通知**: 通知所有团队成员，更新项目文档
 
 ### 合规审查
