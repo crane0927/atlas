@@ -27,6 +27,15 @@ import java.util.Base64;
  *
  * <p>使用示例：
  *
+ * <p>命令行生成密钥对：
+ *
+ * <pre>{@code
+ * mvn -q -pl atlas-auth exec:java -Dexec.mainClass=com.atlas.auth.util.RsaKeyUtil
+ * mvn -q -pl atlas-auth exec:java -Dexec.mainClass=com.atlas.auth.util.RsaKeyUtil -Dexec.args=4096
+ * }</pre>
+ *
+ * <p>代码调用示例：
+ *
  * <pre>{@code
  * RsaKeyUtil.RsaKeyPairPem keyPair = RsaKeyUtil.generateKeyPairPem();
  * String privateKeyPem = keyPair.privateKeyPem();
@@ -190,5 +199,31 @@ public final class RsaKeyUtil {
             .replace(endMarker, "")
             .replaceAll("\\s", "");
     return Base64.getDecoder().decode(content);
+  }
+
+  /**
+   * 命令行入口：生成 RSA 密钥对并输出 PEM，可直接复制到 Nacos 配置。
+   *
+   * <p>可选参数：密钥长度（位），默认 2048。示例：{@code java RsaKeyUtil 4096}
+   *
+   * @param args 命令行参数，第一个参数为密钥长度（可选）
+   */
+  public static void main(String[] args) {
+    int keySize = DEFAULT_KEY_SIZE;
+    if (args.length > 0) {
+      keySize = Integer.parseInt(args[0]);
+    }
+
+    RsaKeyPairPem keyPair = generateKeyPairPem(keySize);
+
+    System.out.println("# RSA 密钥对（" + keySize + " 位），复制到 atlas.auth.jwt 配置");
+    System.out.println("private-key: |");
+    for (String line : keyPair.privateKeyPem().split("\n")) {
+      System.out.println("  " + line);
+    }
+    System.out.println("public-key: |");
+    for (String line : keyPair.publicKeyPem().split("\n")) {
+      System.out.println("  " + line);
+    }
   }
 }
