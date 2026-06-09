@@ -11,7 +11,7 @@ spring:
         password: ${NACOS_PASSWORD:nacos}
         file-extension: yaml
         group: ${NACOS_GROUP:DEFAULT_GROUP}
-        namespace: ${NACOS_NAMESPACE:dev}
+        namespace: ${NACOS_NAMESPACE:atlas-dev}
         data-id: ${spring.application.name}-${spring.profiles.active:dev}.yaml
         refresh-enabled: true
         shared-configs:
@@ -22,7 +22,7 @@ spring:
         server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
         username: ${NACOS_USERNAME:nacos}
         password: ${NACOS_PASSWORD:nacos}
-        namespace: ${NACOS_NAMESPACE:dev}
+        namespace: ${NACOS_NAMESPACE:atlas-dev}
         group: ${NACOS_GROUP:DEFAULT_GROUP}
 
 # Nacos 不可用时兜底，避免启动失败
